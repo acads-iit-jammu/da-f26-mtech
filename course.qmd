@@ -1,0 +1,21 @@
+# Course {.unnumbered}
+
+## Logistics
+
+| Item | Details |
+|---|---|
+| Instructor | [Soma S Dhavala](https://dhavala.github.io/) |
+| Lecture schedule | To be announced |
+| Venue | To be announced |
+| Office hours | To be announced |
+| Prerequisites | To be confirmed with the syllabus |
+
+## Important Dates
+
+Course dates and examination windows will be added when confirmed.
+
+## Assessment
+
+The assessment scheme and grading weights will be announced here.
+
+See [Assignments](assignments.qmd) for coursework and [Curriculum](curriculum.qmd) for the teaching plan.

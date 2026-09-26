@@ -1,0 +1,19 @@
+# Welcome {.unnumbered}
+
+Welcome to **Data Analysis** for M.Tech students at the Indian Institute of Technology Jammu, Monsoon 2026.
+
+## At a Glance
+
+| | |
+|---|---|
+| **Course** | Data Analysis |
+| **Programme** | M.Tech |
+| **Instructor** | [Soma S Dhavala](https://dhavala.github.io/) |
+| **Course code and credits** | To be announced |
+| **Lectures and venue** | To be announced |
+
+## Announcements
+
+The course website is being prepared. The syllabus and teaching schedule will be added shortly.
+
+See [Course](course.qmd) for logistics and [Syllabus](syllabus.qmd) for the course outline.

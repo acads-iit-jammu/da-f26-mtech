@@ -1,0 +1,19 @@
+# Syllabus {.unnumbered}
+
+The official syllabus will be added here when available.
+
+## Course Objectives
+
+To be added from the syllabus.
+
+## Learning Outcomes
+
+To be added from the syllabus.
+
+## Modules and Contact Hours
+
+To be added from the syllabus.
+
+## Required Reading
+
+To be confirmed. Additional readings will appear on the [Resources](resources.qmd) page.

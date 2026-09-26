@@ -1,0 +1,32 @@
+---
+title: "Lecture Title"
+subtitle: "Data Analysis · M.Tech · Monsoon 2026"
+author: "Soma S Dhavala · IIT Jammu"
+---
+
+## Learning Goals
+
+- Add the goals for this lecture.
+
+## Key Idea
+
+::: {.note}
+Add the central idea and a worked example.
+:::
+
+## Two Columns
+
+:::: {.cols}
+::: {.col}
+Explanation.
+:::
+::: {.col}
+Example.
+:::
+::::
+
+## Summary {.accent}
+
+::: {.quote}
+Add the main takeaway.
+:::

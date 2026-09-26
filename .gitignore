@@ -1,0 +1,15 @@
+private/
+.DS_Store
+.quarto/
+/_site/
+*.quarto_ipynb
+.claude/
+*.aux
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+homeworks/*.log
+homeworks/*.out
+
+/.quarto/
+**/*.quarto_ipynb

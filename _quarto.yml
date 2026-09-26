@@ -1,0 +1,41 @@
+project:
+  type: book
+  output-dir: _site
+  resources:
+    - materials/**
+
+book:
+  title: "Data Analysis"
+  subtitle: "M.Tech · Monsoon 2026"
+  author: "Soma S Dhavala · IIT Jammu"
+  reader-mode: true
+  sidebar:
+    collapse-level: 1
+  page-footer:
+    left: "Data Analysis · M.Tech · Monsoon 2026 · IIT Jammu"
+    right: 'Built with <a href="https://quarto.org/">Quarto</a>.'
+  site-url: https://acads-iit-jammu.github.io/da-f26-mtech
+  repo-url: https://github.com/acads-iit-jammu/da-f26-mtech
+  repo-branch: main
+  chapters:
+    - index.qmd
+    - course.qmd
+    - syllabus.qmd
+    - curriculum.qmd
+    - assignments.qmd
+    - part: "Lecture Notes"
+      chapters:
+        - tutorials/index.qmd
+    - decks.qmd
+    - resources.qmd
+
+format:
+  html:
+    theme:
+      - cosmo
+      - iitjammu.scss
+    callout-appearance: simple
+    number-sections: false
+    link-external-newwindow: true
+
+editor: source

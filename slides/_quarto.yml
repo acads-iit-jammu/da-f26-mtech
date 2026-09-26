@@ -1,0 +1,20 @@
+project:
+  type: website
+  output-dir: ../materials
+
+website:
+  title: "Data Analysis · Slide Decks"
+
+format:
+  revealjs:
+    theme: [default, iitjammu-reveal.scss]
+    html-math-method: mathml
+    slide-number: c/t
+    history: false
+    transition: none
+    width: 1280
+    height: 800
+    margin: 0.06
+    center: false
+    menu:
+      numbers: true
