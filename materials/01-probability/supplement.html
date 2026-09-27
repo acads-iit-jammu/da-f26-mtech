@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>1 · Supplement: sets, measurable maps and Bertrand’s paradox</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="notes.css" />
+</head>
+<body class="supplement">
+<header id="title-block-header">
+<h1 class="title">1 · Supplement: sets, measurable maps and Bertrand’s
+paradox</h1>
+</header>
+<p><strong>Data Analytics for AI · Executive M.Tech · IIT
+Jammu</strong></p>
+<p><a href="notes.html">Main lecture notes</a> · <a
+href="../01-probability/mappings.html">Sampling-map
+demonstration</a></p>
+<p>This supplement gives the formal definitions, parametrizations and
+derivations supporting the main lecture. Its details are intended for
+supplementary study alongside the corresponding lecture topics. The
+notation agrees with the lecture notes:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>
+is the fixed circle radius,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
+the normalized midpoint distance, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
+the chord length.</p>
+<p>Reference: Krishna Jagannathan, <em>Probability Foundations for
+Electrical Engineers</em>, 9 July 2025, Chapters 1, 4 and 11,
+particularly Definitions 68–70 for measurable functions, random
+variables and their laws. The calculations of the sampling maps are
+written out below.</p>
+<h2 id="outcomes-events-and-mutual-exclusivity">1. Outcomes, events and
+mutual exclusivity</h2>
+<p>A sample space is required to satisfy two conditions. It must be
+<strong>exhaustive</strong>, so that at least one of its elements occurs
+in any realization of the experiment, and its elements must be
+<strong>mutually exclusive</strong>, so that at most one of them occurs.
+Together these state that exactly one
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ω</mi><mo>∈</mo><mi mathvariant="normal">Ω</mi></mrow><annotation encoding="application/x-tex">\omega\in\Omega</annotation></semantics></math>
+occurs each time the experiment is performed.</p>
+<p>Mutual exclusivity of outcomes is a property of the singleton
+events:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>ω</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">}</mo><mo>∩</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>ω</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">}</mo><mo>=</mo><mi>⌀</mi><mspace width="1.0em"></mspace><mrow><mtext mathvariant="normal">whenever </mtext><mspace width="0.333em"></mspace></mrow><msub><mi>ω</mi><mn>1</mn></msub><mo>≠</mo><msub><mi>ω</mi><mn>2</mn></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\{\omega_1\}\cap\{\omega_2\}=\varnothing\quad\text{whenever }\omega_1\ne\omega_2 .</annotation></semantics></math></p>
+<p>For countable
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>
+the singletons therefore form a countable disjoint partition,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ω</mi><mo>=</mo><msub><mrow><mi mathvariant="normal"></mi><mo>&#8289;</mo></mrow><mrow><mi>ω</mi><mo>∈</mo><mi mathvariant="normal">Ω</mi></mrow></msub><mo stretchy="false" form="prefix">{</mo><mi>ω</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\Omega=\mathop{\dot\bigcup}_{\omega\in\Omega}\{\omega\}</annotation></semantics></math>.</p>
+<p><strong>Outcomes are mutually exclusive; events need not be.</strong>
+For a single roll of a die,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ω</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>4</mn><mo>,</mo><mn>5</mn><mo>,</mo><mn>6</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\Omega=\{1,2,3,4,5,6\}</annotation></semantics></math>,
+and the outcomes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4</mn><annotation encoding="application/x-tex">4</annotation></semantics></math>
+cannot both occur. The events</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>4</mn><mo>,</mo><mn>6</mn><mo stretchy="false" form="postfix">}</mo><mspace width="0.222em"></mspace><mtext mathvariant="normal">(even)</mtext><mo>,</mo><mspace width="2.0em"></mspace><mi>B</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>4</mn><mo>,</mo><mn>5</mn><mo>,</mo><mn>6</mn><mo stretchy="false" form="postfix">}</mo><mspace width="0.222em"></mspace><mtext mathvariant="normal">(greater than 3)</mtext></mrow><annotation encoding="application/x-tex">A=\{2,4,6\}\ \text{(even)},\qquad B=\{4,5,6\}\ \text{(greater than 3)}</annotation></semantics></math></p>
+<p>can both occur, since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>∩</mo><mi>B</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>4</mn><mo>,</mo><mn>6</mn><mo stretchy="false" form="postfix">}</mo><mo>≠</mo><mi>⌀</mi></mrow><annotation encoding="application/x-tex">A\cap B=\{4,6\}\ne\varnothing</annotation></semantics></math>.</p>
+<h3 id="consequences-for-calculation">Consequences for calculation</h3>
+<p>The two cases are handled by different rules, and the distinction
+above is what separates them.</p>
+<p>Because singletons are disjoint, countable additivity applies
+directly to them, and for countable
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>ω</mi><mo>∈</mo><mi>A</mi></mrow></munder><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mi>ω</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">P(A)=\sum_{\omega\in A}P(\{\omega\}).</annotation></semantics></math></p>
+<p>For two events no such rule is available, since additivity requires
+disjointness. The correction term is the shared part:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>∪</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>∩</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">P(A\cup B)=P(A)+P(B)-P(A\cap B).</annotation></semantics></math></p>
+<p>Writing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>∪</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(A\cup B)=P(A)+P(B)</annotation></semantics></math>
+for the die events above would count the outcomes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4</mn><annotation encoding="application/x-tex">4</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>6</mn><annotation encoding="application/x-tex">6</annotation></semantics></math>
+twice.</p>
+<h3 id="two-errors-that-this-distinction-prevents">Two errors that this
+distinction prevents</h3>
+<p><strong>A list of events is not a sample space.</strong> For one roll
+of a die, the pair “even” and “greater than 3” is not a sample space:
+both can occur in a single roll, so the second condition fails. They are
+events in the finer space
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mn>6</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{1,\ldots,6\}</annotation></semantics></math>.</p>
+<p><strong>A valid sample space need not have equally likely
+elements.</strong> In the two-toss example of Section 5.1 of the main
+notes, the list “a head at once”, “a tail then a head”, “two tails” is
+exhaustive and mutually exclusive, so it is a legitimate sample space.
+Its members carry probabilities
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math>.
+Mutual exclusivity is a requirement on the sample space; it says nothing
+about the probabilities assigned to its elements, and counting the
+members is valid only when they happen to be equally probable.</p>
+<h3 id="the-same-reading-in-the-bertrand-construction">The same reading
+in the Bertrand construction</h3>
+<p>Each performance of any of the three sampling procedures produces
+exactly one chord. The chords are therefore the elementary outcomes,
+they are mutually exclusive, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">𝒞</mi><mo>*</mo></msub><annotation encoding="application/x-tex">\mathcal C_*</annotation></semantics></math>
+is the sample space. The three models agree on this sample space and
+differ only in the measure placed on it.</p>
+<p>The event
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>c</mi><mo>:</mo><mi>X</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><msqrt><mn>3</mn></msqrt><mi>R</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">E=\{c:X(c)&gt;\sqrt3R\}</annotation></semantics></math>
+is not an outcome. It is a set containing uncountably many chords, and
+it is assigned a probability as a set.</p>
+<p>This last point also marks the limit of the summation rule above. In
+a continuous model each individual outcome has probability zero, so</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>c</mi><mo>∈</mo><mi>E</mi></mrow></munder><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mi>c</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn><mo>≠</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\sum_{c\in E}P(\{c\})=0\ne P(E),</annotation></semantics></math></p>
+<p>and the probability of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
+cannot be recovered by adding the probabilities of the outcomes it
+contains. Countable additivity is additivity over countably many
+disjoint events, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
+is not a countable union of its singletons. The rule
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>ω</mi><mo>∈</mo><mi>A</mi></mrow></msub><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mi>ω</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(A)=\sum_{\omega\in A}P(\{\omega\})</annotation></semantics></math>
+is confined to countable sample spaces for this reason.</p>
+<h2 id="random-variables-inverse-images-and-probability-laws">2. Random
+variables, inverse images and probability laws</h2>
+<p>On a probability space
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Ω</mi><mo>,</mo><mi mathvariant="script">ℱ</mi><mo>,</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(\Omega,\mathcal F,P)</annotation></semantics></math>,
+a real-valued <strong>random variable</strong> is a measurable
+function</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>:</mo><mi mathvariant="normal">Ω</mi><mo>→</mo><mi mathvariant="double-struck">ℝ</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">X:\Omega\longrightarrow\mathbb R.</annotation></semantics></math></p>
+<p>Measurability means that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>X</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mi mathvariant="script">ℱ</mi></mrow><annotation encoding="application/x-tex">X^{-1}(B)\in\mathcal F</annotation></semantics></math>
+for every Borel set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>∈</mo><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="double-struck">ℝ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B\in\mathcal B(\mathbb R)</annotation></semantics></math>.
+The Borel σ-algebra is generated by open intervals and includes the
+intervals, singleton sets and their countable combinations used here.
+For a real-valued function, it is sufficient to check
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mi>ω</mi><mo>:</mo><mi>X</mi><mo stretchy="false" form="prefix">(</mo><mi>ω</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>x</mi><mo stretchy="false" form="postfix">}</mo><mo>∈</mo><mi mathvariant="script">ℱ</mi></mrow><annotation encoding="application/x-tex">\{\omega:X(\omega)\le x\}\in\mathcal F</annotation></semantics></math>
+for every real
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>.</p>
+<h3
+id="the-distinction-between-a-random-variable-and-a-set-function">The
+distinction between a random variable and a set function</h3>
+<p>A random variable is a function <strong>on outcomes</strong>, not a
+real-valued set function on events. It induces the following map between
+collections of sets:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>X</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo>:</mo><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="double-struck">ℝ</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mi mathvariant="script">ℱ</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>B</mi><mo>↦</mo><mo stretchy="false" form="prefix">{</mo><mi>ω</mi><mo>:</mo><mi>X</mi><mo stretchy="false" form="prefix">(</mo><mi>ω</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mi>B</mi><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">X^{-1}:\mathcal B(\mathbb R)\longrightarrow\mathcal F,\qquad
+B\longmapsto\{\omega:X(\omega)\in B\}.</annotation></semantics></math></p>
+<p>The probability measure and the distribution of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
+are real-valued <strong>set functions</strong>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>:</mo><mi mathvariant="script">ℱ</mi><mo>→</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>P</mi><mi>X</mi></msub><mo>:</mo><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="double-struck">ℝ</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">P:\mathcal F\to[0,1],\qquad P_X:\mathcal B(\mathbb R)\to[0,1],</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><menclose notation="box"><mrow><msub><mi>P</mi><mi>X</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msup><mi>X</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo>∈</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow></menclose><annotation encoding="application/x-tex">\boxed{P_X(B)=P\bigl(X^{-1}(B)\bigr)=P(X\in B).}</annotation></semantics></math></p>
+<p>Thus a numerical question about
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
+is first converted to a set of outcomes, and that event is assigned a
+probability. This is the set-based construction used in the Bertrand
+calculation below. It follows the distinction in Jagannathan, Chapter
+11, Definitions 68–70.</p>
+<h3 id="worked-example-the-head-count">Worked example: the head
+count</h3>
+<p>For two independent fair tosses, each outcome in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ω</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>H</mi><mi>H</mi><mo>,</mo><mi>H</mi><mi>T</mi><mo>,</mo><mi>T</mi><mi>H</mi><mo>,</mo><mi>T</mi><mi>T</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\Omega=\{HH,HT,TH,TT\}</annotation></semantics></math>
+has probability
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℱ</mi><mo>=</mo><msup><mn>2</mn><mi mathvariant="normal">Ω</mi></msup></mrow><annotation encoding="application/x-tex">\mathcal F=2^\Omega</annotation></semantics></math>.
+Define
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">X(HH)=2</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mi>T</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>X</mi><mo stretchy="false" form="prefix">(</mo><mi>T</mi><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">X(HT)=X(TH)=1</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo stretchy="false" form="prefix">(</mo><mi>T</mi><mi>T</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">X(TT)=0</annotation></semantics></math>.
+Then</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>X</mi></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mi>H</mi><mi>T</mi><mo>,</mo><mi>T</mi><mi>H</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">P_X(\{1\})=P(\{HT,TH\})=1/2,</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>X</mi></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">[</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">]</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mi>H</mi><mi>H</mi><mo>,</mo><mi>H</mi><mi>T</mi><mo>,</mo><mi>T</mi><mi>H</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn><mi>/</mi><mn>4</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">P_X([1,2])=P(\{HH,HT,TH\})=3/4.</annotation></semantics></math></p>
+<p>The distribution assigns probabilities
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>4</mn><mo>,</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo>,</mo><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4,1/2,1/4</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">0,1,2</annotation></semantics></math>.
+It is obtained through inverse images, not by assuming that the three
+numerical values are equally likely.</p>
+<h3 id="worked-example-an-indicator">Worked example: an indicator</h3>
+<p>For an event
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>∈</mo><mi mathvariant="script">ℱ</mi></mrow><annotation encoding="application/x-tex">A\in\mathcal F</annotation></semantics></math>,
+its indicator is the random variable</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mn mathvariant="bold">𝟏</mn><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>ω</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>1</mn><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mi>ω</mi><mo>∈</mo><mi>A</mi><mo>,</mo></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mi>ω</mi><mo>∉</mo><mi>A</mi><mi>.</mi></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">\mathbf1_A(\omega)=\begin{cases}1,&amp;\omega\in A,\\0,&amp;\omega\notin A.\end{cases}</annotation></semantics></math></p>
+<p>Its inverse images satisfy
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mn mathvariant="bold">𝟏</mn><mi>A</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">\mathbf1_A^{-1}(\{1\})=A</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mn mathvariant="bold">𝟏</mn><mi>A</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>A</mi><mi>c</mi></msup></mrow><annotation encoding="application/x-tex">\mathbf1_A^{-1}(\{0\})=A^c</annotation></semantics></math>.
+Consequently,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mn mathvariant="bold">𝟏</mn><mi>A</mi></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(\mathbf1_A=1)=P(A)</annotation></semantics></math>.</p>
+<p>In the parity model of Section 4 of the main notes, the indicator of
+an even face is measurable. The numerical face-value function is not
+measurable relative to that σ-algebra, since the inverse image of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>6</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{6\}</annotation></semantics></math>
+is the unavailable subset
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>6</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{6\}</annotation></semantics></math>.</p>
+<h2 id="bertrands-paradox-sampling-maps-and-induced-distributions">3.
+Bertrand’s paradox: sampling maps and induced distributions</h2>
+<h3 id="the-event-and-a-common-chord-space">The event and a common chord
+space</h3>
+<p>Fix a circle of radius
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">R&gt;0</annotation></semantics></math>.
+The side of an inscribed equilateral triangle has length
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>3</mn></msqrt><mi>R</mi></mrow><annotation encoding="application/x-tex">\sqrt3R</annotation></semantics></math>.
+For a chord
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>,
+define the real-valued random variables</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mtext mathvariant="normal">distance from the centre to </mtext><mspace width="0.333em"></mspace></mrow><mi>c</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>R</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>X</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mtext mathvariant="normal">length of </mtext><mspace width="0.333em"></mspace></mrow><mi>c</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">D(c)=\text{distance from the centre to }c,\qquad T(c)=D(c)/R,\qquad X(c)=\text{length of }c.</annotation></semantics></math></p>
+<p>The geometry gives</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>R</mi><msqrt><mrow><mn>1</mn><mo>−</mo><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow></msqrt><mo>,</mo><mspace width="2.0em"></mspace><mi>E</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>c</mi><mo>:</mo><mi>X</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><msqrt><mn>3</mn></msqrt><mi>R</mi><mo stretchy="false" form="postfix">}</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>c</mi><mo>:</mo><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">X(c)=2R\sqrt{1-T(c)^2},\qquad E=\{c:X(c)&gt;\sqrt3R\}=\{c:T(c)&lt;1/2\}.</annotation></semantics></math></p>
+<p>We compare the probability of this <strong>same event</strong> under
+three probability measures on a common chord space.</p>
+<p>For a one-to-one parametrization, let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">𝒞</mi><mo>*</mo></msub><annotation encoding="application/x-tex">\mathcal C_*</annotation></semantics></math>
+be the set of unordered, nondegenerate chords that are not diameters.
+Coincident-endpoint chords and diameters have probability zero under all
+three rules below. Excluding them makes the inverse formulas unambiguous
+without changing any calculated probability. They may instead be
+retained in an enlarged space with total probability zero.</p>
+<h3 id="a-chord-parametrization-and-its-inverse">A chord parametrization
+and its inverse</h3>
+<p>Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>t</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;t&lt;1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>ϕ</mi><mo>&lt;</mo><mn>2</mn><mi>π</mi></mrow><annotation encoding="application/x-tex">0\le\phi&lt;2\pi</annotation></semantics></math>.
+Write</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">cos</mi><mo>&#8289;</mo></mrow><mi>ϕ</mi><mo>,</mo><mrow><mi mathvariant="normal">sin</mi><mo>&#8289;</mo></mrow><mi>ϕ</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>n</mi><mo>⟂</mo></msub><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mrow><mi mathvariant="normal">sin</mi><mo>&#8289;</mo></mrow><mi>ϕ</mi><mo>,</mo><mrow><mi mathvariant="normal">cos</mi><mo>&#8289;</mo></mrow><mi>ϕ</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">n(\phi)=(\cos\phi,\sin\phi),\qquad n_\perp(\phi)=(-\sin\phi,\cos\phi).</annotation></semantics></math></p>
+<p>Define
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C(\phi,t)</annotation></semantics></math>
+to be the chord with unordered endpoints</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><menclose notation="box"><mrow><msub><mi>z</mi><mo>±</mo></msub><mo>=</mo><mi>R</mi><mi>t</mi><mspace width="0.167em"></mspace><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>±</mo><mspace width="0.222em"></mspace><mi>R</mi><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>t</mi><mn>2</mn></msup></mrow></msqrt><mspace width="0.167em"></mspace><msub><mi>n</mi><mo>⟂</mo></msub><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow></menclose><annotation encoding="application/x-tex">\boxed{z_\pm=Rt\,n(\phi)\ \pm\ R\sqrt{1-t^2}\,n_\perp(\phi).}</annotation></semantics></math></p>
+<p>Its midpoint is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mi>R</mi><mi>t</mi><mspace width="0.167em"></mspace><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">m=Rt\,n(\phi)</annotation></semantics></math>,
+so the inverse is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><menclose notation="box"><mrow><msup><mi>C</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi mathvariant="normal">Arg</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mfrac><mrow><mo stretchy="false" form="postfix">∥</mo><mi>m</mi><mo stretchy="false" form="postfix">∥</mo></mrow><mi>R</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mi>m</mi><mo>=</mo><mfrac><mrow><msub><mi>z</mi><mo>+</mo></msub><mo>+</mo><msub><mi>z</mi><mo>−</mo></msub></mrow><mn>2</mn></mfrac><mi>.</mi></mrow></menclose><annotation encoding="application/x-tex">\boxed{C^{-1}(c)=\left(\operatorname{Arg}(m),\frac{\|m\|}{R}\right),\qquad m=\frac{z_++z_-}{2}.}</annotation></semantics></math></p>
+<p>Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Arg</mi><annotation encoding="application/x-tex">\operatorname{Arg}</annotation></semantics></math>
+is chosen in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,2\pi)</annotation></semantics></math>.
+The midpoint is nonzero because diameters were excluded. Hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>:</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>→</mo><msub><mi mathvariant="script">𝒞</mi><mo>*</mo></msub></mrow><annotation encoding="application/x-tex">C:[0,2\pi)\times(0,1)\to\mathcal C_*</annotation></semantics></math>
+is a bijection. Give
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">𝒞</mi><mo>*</mo></msub><annotation encoding="application/x-tex">\mathcal C_*</annotation></semantics></math>
+the σ-algebra transported from the Borel sets of this parameter domain;
+this makes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>
+and its inverse measurable.</p>
+<p>The length function
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
+is <strong>not</strong> a bijection on chords: all orientations with the
+same
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
+have the same length. The inverse image
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>X</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X^{-1}(B)</annotation></semantics></math>
+is still defined for every Borel set of lengths
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>.</p>
+<h3 id="a-common-source-of-uniform-samples">A common source of uniform
+samples</h3>
+<p>Use the probability space</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Ω</mi><mn>0</mn></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi mathvariant="script">ℱ</mi><mn>0</mn></msub><mo>=</mo><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi mathvariant="normal">Ω</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>Q</mi><mo>=</mo><mrow><mtext mathvariant="normal">uniform area measure on </mtext><mspace width="0.333em"></mspace></mrow><msub><mi mathvariant="normal">Ω</mi><mn>0</mn></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\Omega_0=(0,1)\times[0,1),\qquad\mathcal F_0=\mathcal B(\Omega_0),\qquad Q=\text{uniform area measure on }\Omega_0.</annotation></semantics></math></p>
+<p>The coordinate random variables
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>u</mi></mrow><annotation encoding="application/x-tex">U(u,v)=u</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">V(u,v)=v</annotation></semantics></math>
+are independent uniform variables. Endpoints of these intervals have
+measure zero. For each mechanism
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo>,</mo><mi>C</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">j\in\{A,B,C\}</annotation></semantics></math>,
+define a sampling map</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Ψ</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>C</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mn>2</mn><mi>π</mi><mi>v</mi><mo>,</mo><msub><mi>q</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\Psi_j(u,v)=C\bigl(2\pi v,q_j(u)\bigr).</annotation></semantics></math></p>
+<p>The induced probability measure on chord events is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>Q</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msubsup><mi mathvariant="normal">Ψ</mi><mi>j</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>F</mi><mo>∈</mo><msub><mi mathvariant="script">ℱ</mi><msub><mi mathvariant="script">𝒞</mi><mo>*</mo></msub></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">P_j(F)=Q\bigl(\Psi_j^{-1}(F)\bigr),\qquad F\in\mathcal F_{\mathcal C_*}.</annotation></semantics></math></p>
+<p>The chord-length random variable on the uniform source space is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>j</mi></msub><mo>=</mo><mi>X</mi><mo>∘</mo><msub><mi mathvariant="normal">Ψ</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">X_j=X\circ\Psi_j</annotation></semantics></math>.
+We now specify each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>q</mi><mi>j</mi></msub><annotation encoding="application/x-tex">q_j</annotation></semantics></math>,
+its inverse and the distribution it produces.</p>
+<h3 id="a.-two-independent-uniform-endpoints">A. Two independent uniform
+endpoints</h3>
+<p>The original procedure selects independent angles
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub><mo>,</mo><msub><mi>A</mi><mn>2</mn></msub><mo>∼</mo><mrow><mi mathvariant="normal">Unif</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">A_1,A_2\sim\operatorname{Unif}[0,2\pi)</annotation></semantics></math>
+and joins the points
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">cos</mi><mo>&#8289;</mo></mrow><msub><mi>A</mi><mi>i</mi></msub><mo>,</mo><mrow><mi mathvariant="normal">sin</mi><mo>&#8289;</mo></mrow><msub><mi>A</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">R(\cos A_i,\sin A_i)</annotation></semantics></math>.
+The joint angle density is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">1/(2\pi)^2</annotation></semantics></math>.</p>
+<p>Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mi>π</mi><mo>,</mo><mi>π</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\delta\in(-\pi,\pi]</annotation></semantics></math>
+be the signed principal difference
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>2</mn></msub><mo>−</mo><msub><mi>A</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">A_2-A_1</annotation></semantics></math>
+modulo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi></mrow><annotation encoding="application/x-tex">2\pi</annotation></semantics></math>,
+and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>=</mo><mo stretchy="false" form="prefix">|</mo><mi>δ</mi><mo stretchy="false" form="prefix">|</mo><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">H=|\delta|/2</annotation></semantics></math>.
+The endpoint case
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>δ</mi><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mi>π</mi></mrow><annotation encoding="application/x-tex">|\delta|=\pi</annotation></semantics></math>
+has probability zero. The map
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><msub><mi>a</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>↦</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><mi>δ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(a_1,a_2)\mapsto(a_1,\delta)</annotation></semantics></math>
+is a bijection apart from this null boundary and the angular wrap. For
+each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mn>1</mn></msub><annotation encoding="application/x-tex">a_1</annotation></semantics></math>,
+the second coordinate is a translation modulo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi></mrow><annotation encoding="application/x-tex">2\pi</annotation></semantics></math>,
+so the map preserves area. Hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>A</mi><mn>1</mn></msub><mo>,</mo><mi>δ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(A_1,\delta)</annotation></semantics></math>
+has constant density
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>4</mn><msup><mi>π</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(4\pi^2)</annotation></semantics></math>
+on the rectangle.</p>
+<p>Now define
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Φ</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>A</mi><mn>1</mn></msub><mo>+</mo><mi>δ</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mrow><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mn>2</mn></mrow><mi>π</mi></mrow><annotation encoding="application/x-tex">\Phi=(A_1+\delta/2)\bmod 2\pi</annotation></semantics></math>.
+The map
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><mi>δ</mi><mo stretchy="false" form="postfix">)</mo><mo>↦</mo><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Φ</mi><mo>,</mo><mi>δ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(a_1,\delta)\mapsto(\Phi,\delta)</annotation></semantics></math>
+is also one-to-one on the chosen half-open angular ranges and preserves
+area: for fixed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>
+it is a translation in the first coordinate. Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Φ</mi><mo>,</mo><mi>δ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(\Phi,\delta)</annotation></semantics></math>
+has the same constant density, which factors into uniform marginal
+densities. Applying
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>=</mo><mo stretchy="false" form="prefix">|</mo><mi>δ</mi><mo stretchy="false" form="prefix">|</mo><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">H=|\delta|/2</annotation></semantics></math>
+gives the joint density</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi mathvariant="normal">Φ</mi><mo>,</mo><mi>H</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo>,</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><mspace width="0.167em"></mspace><mfrac><mn>2</mn><mi>π</mi></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mn>0</mn><mo>≤</mo><mi>ϕ</mi><mo>&lt;</mo><mn>2</mn><mi>π</mi><mo>,</mo><mspace width="1.0em"></mspace><mn>0</mn><mo>&lt;</mo><mi>h</mi><mo>&lt;</mo><mi>π</mi><mi>/</mi><mn>2</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">f_{\Phi,H}(\phi,h)=\frac1{2\pi}\,\frac2\pi,\qquad 0\le\phi&lt;2\pi,\quad 0&lt;h&lt;\pi/2.</annotation></semantics></math></p>
+<p>Therefore
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Φ</mi><annotation encoding="application/x-tex">\Phi</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>
+are independent,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Φ</mi><annotation encoding="application/x-tex">\Phi</annotation></semantics></math>
+is uniform, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>∼</mo><mrow><mi mathvariant="normal">Unif</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>π</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H\sim\operatorname{Unif}(0,\pi/2)</annotation></semantics></math>.
+The midpoint is in direction
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Φ</mi><annotation encoding="application/x-tex">\Phi</annotation></semantics></math>,
+since the midpoint vector is proportional to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">cos</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Φ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\cos(H)\,n(\Phi)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">cos</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\cos(H)&gt;0</annotation></semantics></math>
+almost surely.</p>
+<p>The ordered-endpoint map is two-to-one because interchanging
+endpoints leaves the chord unchanged. Its inverse therefore recovers an
+<strong>unordered pair</strong>, not a unique ordered pair. From
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(\phi,t)</annotation></semantics></math>,
+put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><mrow><mi mathvariant="normal">arccos</mi><mo>&#8289;</mo></mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">h=\arccos t</annotation></semantics></math>;
+the unordered endpoint angles are</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo>−</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mrow><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mn>2</mn></mrow><mi>π</mi><mo>,</mo><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mrow><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mn>2</mn></mrow><mi>π</mi><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\{(\phi-h)\bmod 2\pi,\ (\phi+h)\bmod 2\pi\}.</annotation></semantics></math></p>
+<p>Thus an equivalent, bijective sampling parametrization of the
+unordered chords uses
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>=</mo><mn>2</mn><mi>H</mi><mi>/</mi><mi>π</mi></mrow><annotation encoding="application/x-tex">U=2H/\pi</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mi mathvariant="normal">Φ</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V=\Phi/(2\pi)</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">cos</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mi>u</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msubsup><mi mathvariant="normal">Ψ</mi><mi>A</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mn>2</mn><mi>π</mi></mfrac><mi mathvariant="normal">arccos</mi><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mfrac><mrow><mrow><mi mathvariant="normal">Arg</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">q_A(u)=\cos(\pi u/2),\qquad\Psi_A^{-1}(c)=\left(\frac2\pi\arccos T(c),\frac{\operatorname{Arg}(m)}{2\pi}\right).</annotation></semantics></math></p>
+<p>The length random variable and the inverse image of the event are</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>R</mi><mrow><mi mathvariant="normal">sin</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mi>u</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msubsup><mi mathvariant="normal">Ψ</mi><mi>A</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mi>u</mi><mo>&gt;</mo><mn>2</mn><mi>/</mi><mn>3</mn><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">X_A(u,v)=2R\sin(\pi u/2),\qquad\Psi_A^{-1}(E)=\{(u,v):u&gt;2/3\}.</annotation></semantics></math></p>
+<p>Consequently,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mi>U</mi><mo>&gt;</mo><mn>2</mn><mi>/</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>3</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">P_A(E)=Q(U&gt;2/3)=1/3.</annotation></semantics></math></p>
+<p>For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>t</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;t&lt;1</annotation></semantics></math>,
+the induced distribution of normalized midpoint distance is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mrow><mi>T</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mfrac><mn>2</mn><mi>π</mi></mfrac><mrow><mi mathvariant="normal">arccos</mi><mo>&#8289;</mo></mrow><mi>t</mi><mo>=</mo><mfrac><mn>2</mn><mi>π</mi></mfrac><mrow><mi mathvariant="normal">arcsin</mi><mo>&#8289;</mo></mrow><mi>t</mi><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>f</mi><mrow><mi>T</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>2</mn><mrow><mi>π</mi><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>t</mi><mn>2</mn></msup></mrow></msqrt></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">F_{T,A}(t)=1-\frac2\pi\arccos t=\frac2\pi\arcsin t,\qquad f_{T,A}(t)=\frac{2}{\pi\sqrt{1-t^2}}.</annotation></semantics></math></p>
+<p>It is not uniform in radial distance.</p>
+<h3 id="b.-uniform-radial-distance">B. Uniform radial distance</h3>
+<p>Choose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>∼</mo><mrow><mi mathvariant="normal">Unif</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">D\sim\operatorname{Unif}(0,R)</annotation></semantics></math>
+and an independent direction
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Φ</mi><mo>∼</mo><mrow><mi mathvariant="normal">Unif</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Phi\sim\operatorname{Unif}[0,2\pi)</annotation></semantics></math>.
+Construct the perpendicular chord through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mspace width="0.167em"></mspace><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Φ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">D\,n(\Phi)</annotation></semantics></math>.
+Equivalently,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>u</mi><mo>,</mo><mspace width="2.0em"></mspace><msubsup><mi mathvariant="normal">Ψ</mi><mi>B</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mfrac><mrow><mrow><mi mathvariant="normal">Arg</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">q_B(u)=u,\qquad\Psi_B^{-1}(c)=\left(T(c),\frac{\operatorname{Arg}(m)}{2\pi}\right).</annotation></semantics></math></p>
+<p>The original
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>,</mo><mi mathvariant="normal">Φ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(D,\Phi)</annotation></semantics></math>
+joint density is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mi>R</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(2\pi R)</annotation></semantics></math>
+on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,R)\times[0,2\pi)</annotation></semantics></math>.
+In normalized coordinates,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
+has density
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>T</mi><mo>,</mo><mi>B</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">f_{T,B}(t)=1</annotation></semantics></math>
+on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,1)</annotation></semantics></math>.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>R</mi><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>u</mi><mn>2</mn></msup></mrow></msqrt><mo>,</mo><mspace width="2.0em"></mspace><msubsup><mi mathvariant="normal">Ψ</mi><mi>B</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mi>u</mi><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">X_B(u,v)=2R\sqrt{1-u^2},\qquad\Psi_B^{-1}(E)=\{(u,v):u&lt;1/2\}.</annotation></semantics></math></p>
+<p>Therefore</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mi>U</mi><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">P_B(E)=Q(U&lt;1/2)=1/2.</annotation></semantics></math></p>
+<h3 id="c.-uniform-midpoint-in-disk-area">C. Uniform midpoint in disk
+area</h3>
+<p>Choose a midpoint
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>M</mi><mn>1</mn></msub><mo>,</mo><msub><mi>M</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M=(M_1,M_2)</annotation></semantics></math>
+with Cartesian density
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(\pi R^2)</annotation></semantics></math>
+inside the disk. In polar coordinates
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mi>R</mi><mi>t</mi><mspace width="0.167em"></mspace><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M=Rt\,n(\phi)</annotation></semantics></math>,
+the area element is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>R</mi><mn>2</mn></msup><mi>t</mi><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mspace width="0.167em"></mspace><mi>d</mi><mi>ϕ</mi></mrow><annotation encoding="application/x-tex">R^2t\,dt\,d\phi</annotation></semantics></math>.
+Hence</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>T</mi><mo>,</mo><mi mathvariant="normal">Φ</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>,</mo><mi>ϕ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mi>t</mi><mi>π</mi></mfrac><mo>=</mo><mn>2</mn><mi>t</mi><mo>⋅</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mn>0</mn><mo>&lt;</mo><mi>t</mi><mo>&lt;</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">f_{T,\Phi}(t,\phi)=\frac{t}{\pi}=2t\cdot\frac1{2\pi},\qquad 0&lt;t&lt;1.</annotation></semantics></math></p>
+<p>Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Φ</mi><annotation encoding="application/x-tex">\Phi</annotation></semantics></math>
+are independent,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Φ</mi><annotation encoding="application/x-tex">\Phi</annotation></semantics></math>
+is uniform, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
+has density
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>t</mi></mrow><annotation encoding="application/x-tex">2t</annotation></semantics></math>
+and distribution function
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>t</mi><mn>2</mn></msup><annotation encoding="application/x-tex">t^2</annotation></semantics></math>.
+A uniform draw
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>
+is transformed by</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mi>C</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msqrt><mi>u</mi></msqrt><mo>,</mo><mspace width="2.0em"></mspace><msubsup><mi mathvariant="normal">Ψ</mi><mi>C</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>,</mo><mfrac><mrow><mrow><mi mathvariant="normal">Arg</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">q_C(u)=\sqrt u,\qquad\Psi_C^{-1}(c)=\left(T(c)^2,\frac{\operatorname{Arg}(m)}{2\pi}\right).</annotation></semantics></math></p>
+<p>The length random variable and event preimage are</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>C</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>R</mi><msqrt><mrow><mn>1</mn><mo>−</mo><mi>u</mi></mrow></msqrt><mo>,</mo><mspace width="2.0em"></mspace><msubsup><mi mathvariant="normal">Ψ</mi><mi>C</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mi>u</mi><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>4</mn><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">X_C(u,v)=2R\sqrt{1-u},\qquad\Psi_C^{-1}(E)=\{(u,v):u&lt;1/4\}.</annotation></semantics></math></p>
+<p>Therefore</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>C</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mi>U</mi><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>4</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">P_C(E)=Q(U&lt;1/4)=1/4.</annotation></semantics></math></p>
+<p>The area ratio
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><mo stretchy="false" form="prefix">(</mo><mi>R</mi><mi>/</mi><mn>2</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\pi(R/2)^2/(\pi R^2)</annotation></semantics></math>
+gives the same result.</p>
+<h3 id="explicit-comparison-on-the-same-coordinates">Explicit comparison
+on the same coordinates</h3>
+<p>In every model,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Φ</mi><annotation encoding="application/x-tex">\Phi</annotation></semantics></math>
+is independent of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
+and uniform on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,2\pi)</annotation></semantics></math>.
+The density with respect to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>ϕ</mi><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">d\phi\,dt</annotation></semantics></math>
+is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>T</mi><mo>,</mo><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f_{T,j}(t)/(2\pi)</annotation></semantics></math>.</p>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Model</th>
+<th><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><msub><mi>q</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>U</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">T=q_j(U)</annotation></semantics></math></th>
+<th>Inverse
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>=</mo><msubsup><mi>q</mi><mi>j</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mi>T</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">U=q_j^{-1}(T)</annotation></semantics></math></th>
+<th>Density
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>T</mi><mo>,</mo><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f_{T,j}(t)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>t</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;t&lt;1</annotation></semantics></math></th>
+<th
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P_j(E)</annotation></semantics></math></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Uniform endpoints</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">cos</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mi>U</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\cos(\pi U/2)</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>/</mi><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">arccos</mi><mo>&#8289;</mo></mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">(2/\pi)\arccos T</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>π</mi><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>t</mi><mn>2</mn></msup></mrow></msqrt><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">2/(\pi\sqrt{1-t^2})</annotation></semantics></math></td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">1/3</annotation></semantics></math></td>
+</tr>
+<tr>
+<td>Uniform radial distance</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math></td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math></td>
+</tr>
+<tr>
+<td>Uniform midpoint area</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mi>U</mi></msqrt><annotation encoding="application/x-tex">\sqrt U</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>T</mi><mn>2</mn></msup><annotation encoding="application/x-tex">T^2</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>t</mi></mrow><annotation encoding="application/x-tex">2t</annotation></semantics></math></td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math></td>
+</tr>
+</tbody>
+</table>
+<p>For each row,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow></msubsup><msub><mi>f</mi><mrow><mi>T</mi><mo>,</mo><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mo>=</mo><mi>Q</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msubsup><mi mathvariant="normal">Ψ</mi><mi>j</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">P_j(E)=\int_0^{1/2}f_{T,j}(t)\,dt=Q\bigl(\Psi_j^{-1}(E)\bigr).</annotation></semantics></math></p>
+<p>There is no equality between
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P_A(E)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P_B(E)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>C</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P_C(E)</annotation></semantics></math>
+to be contradicted: the measures are different. On the common uniform
+source space, the event preimages
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi mathvariant="normal">Ψ</mi><mi>j</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><msub><mi>X</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><msqrt><mn>3</mn></msqrt><mi>R</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\Psi_j^{-1}(E)=\{(u,v):X_j(u,v)&gt;\sqrt3R\}</annotation></semantics></math>
+are different sets, with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>-measures
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">1/3</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math>.
+Within a fixed model, a correct reparametrization preserves event
+probability.</p>
+<h3 id="a-reparametrization-within-one-fixed-model">A reparametrization
+within one fixed model</h3>
+<p>Retain Model B and set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>W</mi><mo>=</mo><msup><mi>T</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">W=T^2</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
+is uniform on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,1)</annotation></semantics></math>,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>W</mi><mo>≤</mo><mi>w</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>P</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>T</mi><mo>≤</mo><msqrt><mi>w</mi></msqrt><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msqrt><mi>w</mi></msqrt><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>f</mi><mrow><mi>W</mi><mo>,</mo><mi>B</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>w</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><msqrt><mi>w</mi></msqrt></mrow></mfrac><mo>,</mo><mspace width="1.0em"></mspace><mn>0</mn><mo>&lt;</mo><mi>w</mi><mo>&lt;</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">P_B(W\le w)=P_B(T\le\sqrt w)=\sqrt w,\qquad f_{W,B}(w)=\frac1{2\sqrt w},\quad0&lt;w&lt;1.</annotation></semantics></math></p>
+<p>The inverse transformation is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><msqrt><mi>W</mi></msqrt></mrow><annotation encoding="application/x-tex">T=\sqrt W</annotation></semantics></math>.
+The same event is now
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>W</mi><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">W&lt;1/4</annotation></semantics></math>,
+and</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow></msubsup><mfrac><mrow><mi>d</mi><mi>w</mi></mrow><mrow><mn>2</mn><msqrt><mi>w</mi></msqrt></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P_B(E)=\int_0^{1/4}\frac{dw}{2\sqrt w}=\frac12.</annotation></semantics></math></p>
+<p>If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math>
+were instead declared uniform, its density would be changed to 1. That
+would give Model C and probability
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math>.
+This would be a change of probability model, not merely a change of
+coordinates.</p>
+<h3 id="the-distribution-of-chord-length-additional-calculation">The
+distribution of chord length (additional calculation)</h3>
+<p>For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>x</mi><mo>≤</mo><mn>2</mn><mi>R</mi></mrow><annotation encoding="application/x-tex">0\le x\le2R</annotation></semantics></math>,
+put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mi>x</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>R</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">z=x/(2R)</annotation></semantics></math>.
+Because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>=</mo><mn>2</mn><mi>R</mi><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>T</mi><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">X=2R\sqrt{1-T^2}</annotation></semantics></math>
+is decreasing in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo>≤</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>P</mi><mi>j</mi></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mi>T</mi><mo>≥</mo><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>z</mi><mn>2</mn></msup></mrow></msqrt><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">P_j(X\le x)=P_j\bigl(T\ge\sqrt{1-z^2}\bigr).</annotation></semantics></math></p>
+<p>The three chord-length distribution functions are</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mrow><mi>X</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>2</mn><mi>π</mi></mfrac><mrow><mi mathvariant="normal">arcsin</mi><mo>&#8289;</mo></mrow><mi>z</mi><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>F</mi><mrow><mi>X</mi><mo>,</mo><mi>B</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>z</mi><mn>2</mn></msup></mrow></msqrt><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>F</mi><mrow><mi>X</mi><mo>,</mo><mi>C</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>z</mi><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">F_{X,A}(x)=\frac2\pi\arcsin z,\qquad F_{X,B}(x)=1-\sqrt{1-z^2},\qquad F_{X,C}(x)=z^2.</annotation></semantics></math></p>
+<p>They are 0 for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x&lt;0</annotation></semantics></math>
+and 1 for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&gt;</mo><mn>2</mn><mi>R</mi></mrow><annotation encoding="application/x-tex">x&gt;2R</annotation></semantics></math>.
+Substituting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><msqrt><mn>3</mn></msqrt><mi>R</mi></mrow><annotation encoding="application/x-tex">x=\sqrt3R</annotation></semantics></math>
+and taking
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msub><mi>F</mi><mrow><mi>X</mi><mo>,</mo><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1-F_{X,j}(x)</annotation></semantics></math>
+gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>3</mn><mo>,</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo>,</mo><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/3,1/2,1/4</annotation></semantics></math>.
+These continuous laws assign zero probability to the equality at the
+threshold.</p>
+<p>The set-based definitions follow Jagannathan, Chapters 1, 4 and 11.
+The comparison in common distance and angular coordinates is also
+developed in <a
+href="https://web.mit.edu/urban_or_book/www/book/chapter3/3.3.2a.html"><em>Urban
+Operations Research</em>, §3.3.2</a>. The explicit sampling maps and
+inverse calculations above are provided here in full.</p>
+<h2 id="the-induced-law-is-a-probability-measure">4. The induced law is
+a probability measure</h2>
+<p>Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>:</mo><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Ω</mi><mo>,</mo><mi mathvariant="script">ℱ</mi><mo>,</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mo stretchy="false" form="prefix">(</mo><mi mathvariant="double-struck">ℝ</mi><mo>,</mo><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="double-struck">ℝ</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X:(\Omega,\mathcal F,P)\to(\mathbb R,\mathcal B(\mathbb R))</annotation></semantics></math>
+be measurable and define
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>X</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>X</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P_X(B)=P(X^{-1}(B))</annotation></semantics></math>.
+Nonnegativity follows from that of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>,
+and</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>X</mi></msub><mo stretchy="false" form="prefix">(</mo><mi mathvariant="double-struck">ℝ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>X</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi mathvariant="double-struck">ℝ</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Ω</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">P_X(\mathbb R)=P(X^{-1}(\mathbb R))=P(\Omega)=1.</annotation></semantics></math></p>
+<p>If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mn>1</mn></msub><mo>,</mo><msub><mi>B</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">B_1,B_2,\ldots</annotation></semantics></math>
+are pairwise disjoint Borel sets, their inverse images are pairwise
+disjoint events, and inverse images preserve their union. Therefore</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>X</mi></msub><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><munderover><mo>⋃</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mo accent="false">∞</mo></munderover><msub><mi>B</mi><mi>n</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>P</mi><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><munderover><mo>⋃</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mo accent="false">∞</mo></munderover><msup><mi>X</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><msub><mi>B</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mo accent="false">∞</mo></munderover><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>X</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><msub><mi>B</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mo accent="false">∞</mo></munderover><msub><mi>P</mi><mi>X</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>B</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">P_X\!\left(\bigcup_{n=1}^{\infty}B_n\right)
+=P\!\left(\bigcup_{n=1}^{\infty}X^{-1}(B_n)\right)
+=\sum_{n=1}^{\infty}P(X^{-1}(B_n))
+=\sum_{n=1}^{\infty}P_X(B_n).</annotation></semantics></math></p>
+<p>This proves that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mi>X</mi></msub><annotation encoding="application/x-tex">P_X</annotation></semantics></math>
+is a probability measure. The same proof applies to the sampling maps
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Ψ</mi><mi>j</mi></msub><annotation encoding="application/x-tex">\Psi_j</annotation></semantics></math>
+and the induced measures
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mi>j</mi></msub><annotation encoding="application/x-tex">P_j</annotation></semantics></math>
+on the chord space. Injectivity is unnecessary for this construction:
+inverse images exist for all functions.</p>
+<h3 id="distinct-meanings-of-the-notation-f-1">Distinct meanings of the
+notation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>f</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">f^{-1}</annotation></semantics></math></h3>
+<p>When
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>:</mo><mi>S</mi><mo>→</mo><mi>T</mi></mrow><annotation encoding="application/x-tex">f:S\to T</annotation></semantics></math>
+is a bijection,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f^{-1}(t)</annotation></semantics></math>
+denotes an element of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>,
+the value of the inverse function at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>.
+For any subset
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>⊆</mo><mi>T</mi></mrow><annotation encoding="application/x-tex">B\subseteq T</annotation></semantics></math>,
+the notation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f^{-1}(B)</annotation></semantics></math>
+denotes a subset of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>,
+the inverse image. The latter is defined even when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
+is not one-to-one. In the Bertrand construction,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>
+and each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Ψ</mi><mi>j</mi></msub><annotation encoding="application/x-tex">\Psi_j</annotation></semantics></math>
+are bijections on the stated restricted domains, whereas the
+chord-length function
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
+is not one-to-one.</p>
+<h2
+id="a-subset-of-the-interval-to-which-no-probability-can-be-assigned">5.
+A subset of the interval to which no probability can be assigned</h2>
+<p>Section 4 of the main notes states that the event collection for the
+uniform model on an interval cannot be the set of all subsets. The
+construction is given here.</p>
+<h3 id="the-setting">The setting</h3>
+<p>Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ω</mi><mo>=</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Omega=[0,1)</annotation></semantics></math>
+and define addition modulo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>⊕</mo><mi>y</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mi>x</mi><mo>+</mo><mi>y</mi><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mi>x</mi><mo>+</mo><mi>y</mi><mo>&lt;</mo><mn>1</mn><mo>,</mo></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mi>x</mi><mo>+</mo><mi>y</mi><mo>−</mo><mn>1</mn><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mi>x</mi><mo>+</mo><mi>y</mi><mo>≥</mo><mn>1</mn><mo>,</mo></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">x\oplus y=\begin{cases}x+y,&amp;x+y&lt;1,\\x+y-1,&amp;x+y\ge1,\end{cases}</annotation></semantics></math></p>
+<p>with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>⊖</mi><annotation encoding="application/x-tex">\ominus</annotation></semantics></math>
+the corresponding subtraction. Under
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>⊕</mi><annotation encoding="application/x-tex">\oplus</annotation></semantics></math>
+the set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,1)</annotation></semantics></math>
+is an abelian group; identifying
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+makes it a circle, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>↦</mo><mi>x</mi><mo>⊕</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">x\mapsto x\oplus t</annotation></semantics></math>
+is a rotation. For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">A\subseteq[0,1)</annotation></semantics></math>
+write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊕</mo><mi>t</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo>⊕</mo><mi>t</mi><mo>:</mo><mi>a</mi><mo>∈</mo><mi>A</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">A\oplus t=\{a\oplus t:a\in A\}</annotation></semantics></math>.</p>
+<p>Suppose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+is defined on <strong>every</strong> subset of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,1)</annotation></semantics></math>
+and satisfies</p>
+<ol type="1">
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">P([0,1))=1</annotation></semantics></math>;</li>
+<li>countable additivity;</li>
+<li>rotation invariance:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>⊕</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(A\oplus t)=P(A)</annotation></semantics></math>
+for all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+and all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t\in[0,1)</annotation></semantics></math>.</li>
+</ol>
+<h3 id="the-construction">The construction</h3>
+<p>Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="double-struck">ℚ</mi><mn>0</mn></msub><mo>=</mo><mi mathvariant="double-struck">ℚ</mi><mo>∩</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathbb Q_0=\mathbb Q\cap[0,1)</annotation></semantics></math>,
+a countable subgroup of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>⊕</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">([0,1),\oplus)</annotation></semantics></math>.
+Define
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>∼</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x\sim y</annotation></semantics></math>
+when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>⊖</mo><mi>y</mi><mo>∈</mo><msub><mi mathvariant="double-struck">ℚ</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">x\ominus y\in\mathbb Q_0</annotation></semantics></math>.
+This is an equivalence relation, and its classes are the cosets
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>⊕</mo><msub><mi mathvariant="double-struck">ℚ</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">x\oplus\mathbb Q_0</annotation></semantics></math>.</p>
+<p>By the axiom of choice, let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>⊆</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V\subseteq[0,1)</annotation></semantics></math>
+contain exactly one element of each class.</p>
+<p><strong>Claim 1: the sets
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>⊕</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">V\oplus q</annotation></semantics></math>,
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∈</mo><msub><mi mathvariant="double-struck">ℚ</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">q\in\mathbb Q_0</annotation></semantics></math>,
+are pairwise disjoint.</strong> Suppose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>1</mn></msub><mo>⊕</mo><msub><mi>q</mi><mn>1</mn></msub><mo>=</mo><msub><mi>v</mi><mn>2</mn></msub><mo>⊕</mo><msub><mi>q</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">v_1\oplus q_1=v_2\oplus q_2</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>1</mn></msub><mo>,</mo><msub><mi>v</mi><mn>2</mn></msub><mo>∈</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">v_1,v_2\in V</annotation></semantics></math>.
+Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>1</mn></msub><mo>⊖</mo><msub><mi>v</mi><mn>2</mn></msub><mo>=</mo><msub><mi>q</mi><mn>2</mn></msub><mo>⊖</mo><msub><mi>q</mi><mn>1</mn></msub><mo>∈</mo><msub><mi mathvariant="double-struck">ℚ</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">v_1\ominus v_2=q_2\ominus q_1\in\mathbb Q_0</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>1</mn></msub><mo>∼</mo><msub><mi>v</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">v_1\sim v_2</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
+has one element per class,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>1</mn></msub><mo>=</mo><msub><mi>v</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">v_1=v_2</annotation></semantics></math>,
+and therefore
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mn>1</mn></msub><mo>=</mo><msub><mi>q</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">q_1=q_2</annotation></semantics></math>.</p>
+<p><strong>Claim 2: these sets cover
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,1)</annotation></semantics></math>.</strong>
+Given
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">x\in[0,1)</annotation></semantics></math>,
+let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>∈</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">v\in V</annotation></semantics></math>
+be the representative of the class of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>.
+Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mi>x</mi><mo>⊖</mo><mi>v</mi><mo>∈</mo><msub><mi mathvariant="double-struck">ℚ</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">q=x\ominus v\in\mathbb Q_0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>v</mi><mo>⊕</mo><mi>q</mi><mo>∈</mo><mi>V</mi><mo>⊕</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">x=v\oplus q\in V\oplus q</annotation></semantics></math>.</p>
+<p>So
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,1)</annotation></semantics></math>
+is the union of countably many pairwise disjoint sets, each a rotation
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>.</p>
+<h3 id="the-contradiction">The contradiction</h3>
+<p>Write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>V</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">c=P(V)</annotation></semantics></math>.
+Rotation invariance gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>V</mi><mo>⊕</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">P(V\oplus q)=c</annotation></semantics></math>
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>,
+and countable additivity applied to the countable disjoint family of
+Claim 1, whose union is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,1)</annotation></semantics></math>
+by Claim 2, gives</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>q</mi><mo>∈</mo><msub><mi mathvariant="double-struck">ℚ</mi><mn>0</mn></msub></mrow></munder><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>V</mi><mo>⊕</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>q</mi><mo>∈</mo><msub><mi mathvariant="double-struck">ℚ</mi><mn>0</mn></msub></mrow></munder><mi>c</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">1=P([0,1))=\sum_{q\in\mathbb Q_0}P(V\oplus q)=\sum_{q\in\mathbb Q_0}c .</annotation></semantics></math></p>
+<p>If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">c=0</annotation></semantics></math>
+the right-hand side is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>;
+if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">c&gt;0</annotation></semantics></math>
+it is unbounded. Neither equals
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>,
+so no such
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+exists, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
+is not Lebesgue measurable. This is Vitali’s theorem (1905).</p>
+<h3 id="which-assumption-fails">Which assumption fails</h3>
+<p>The argument uses all three conditions, and it is instructive to see
+which one cannot be weakened.</p>
+<p>Countable additivity is the operative assumption in dimension one.
+Banach (1923) showed that a <strong>finitely additive</strong>
+rotation-invariant extension of Lebesgue measure to all subsets of the
+circle does exist. Restricting to finite additivity therefore removes
+the obstruction here, at the cost of the limit theorems described in
+Section 5.5 of the main notes; this is the price of de Finetti’s
+position, noted in Section 5.3 there.</p>
+<p>Invariance cannot be dropped without changing the model, since it is
+what makes the measure uniform. Non-uniform measures on all subsets are
+unproblematic: a measure concentrated on countably many points is
+defined on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">2^{[0,1)}</annotation></semantics></math>
+and is countably additive.</p>
+<p>Dimension matters. In
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="double-struck">ℝ</mi><mn>3</mn></msup><annotation encoding="application/x-tex">\mathbb R^3</annotation></semantics></math>
+even finite additivity is insufficient: the Banach–Tarski theorem (1924)
+shows that no finitely additive isometry-invariant measure defined on
+all subsets can assign the unit ball a positive finite value.</p>
+<h3 id="why-this-does-not-affect-the-models-used-in-the-course">Why this
+does not affect the models used in the course</h3>
+<p>The selection of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
+uses the axiom of choice and gives no rule for deciding membership.
+Solovay (1970) showed it is consistent with Zermelo–Fraenkel set theory
+together with dependent choice that every set of reals is Lebesgue
+measurable, so no explicit description of such a set is possible. Every
+event arising in this lecture — intervals, disks, angular sectors, the
+preimages
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi mathvariant="normal">Ψ</mi><mi>j</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Psi_j^{-1}(E)</annotation></semantics></math>
+of Section 3, and countable combinations of these — is a Borel set, and
+the uniform model is defined on the Borel σ-algebra without
+difficulty.</p>
+<h2 id="exercises-on-the-supplement">6. Exercises on the supplement</h2>
+<ol type="1">
+<li>Verify both
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>C</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C^{-1}(C(\phi,t))=(\phi,t)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>C</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">C(C^{-1}(c))=c</annotation></semantics></math>
+on the stated domains. Explain why the restriction on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
+is needed.</li>
+<li>Verify both inverse identities for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">cos</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mi>u</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">q_A(u)=\cos(\pi u/2)</annotation></semantics></math>
+on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,1)</annotation></semantics></math>.
+Repeat for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mi>C</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msqrt><mi>u</mi></msqrt></mrow><annotation encoding="application/x-tex">q_C(u)=\sqrt u</annotation></semantics></math>.</li>
+<li>Integrate each density in the comparison table over
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,1)</annotation></semantics></math>
+and over
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,1/2)</annotation></semantics></math>.</li>
+<li>Derive the three chord-length distribution functions from the
+distance distribution functions.</li>
+<li>Prove that the inverse image of a union is the union of the inverse
+images. Use this to explain why the induced law is countably
+additive.</li>
+<li>For one roll of a die, decide whether each of the following is a
+sample space, giving a reason: (a)
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mn>6</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{1,\ldots,6\}</annotation></semantics></math>;
+(b)
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mtext mathvariant="normal">even</mtext><mo>,</mo><mtext mathvariant="normal">odd</mtext><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{\text{even},\text{odd}\}</annotation></semantics></math>;
+(c)
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mtext mathvariant="normal">even</mtext><mo>,</mo><mrow><mtext mathvariant="normal">greater than </mtext><mspace width="0.333em"></mspace></mrow><mn>3</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{\text{even},\text{greater than }3\}</annotation></semantics></math>;
+(d)
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mrow><mtext mathvariant="normal">less than </mtext><mspace width="0.333em"></mspace></mrow><mn>3</mn><mo>,</mo><mrow><mtext mathvariant="normal">equal to </mtext><mspace width="0.333em"></mspace></mrow><mn>3</mn><mo>,</mo><mrow><mtext mathvariant="normal">greater than </mtext><mspace width="0.333em"></mspace></mrow><mn>3</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{\text{less than }3,\text{equal to }3,\text{greater than }3\}</annotation></semantics></math>.</li>
+<li>In the Vitali construction, identify the step that fails if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="double-struck">ℚ</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\mathbb Q_0</annotation></semantics></math>
+is replaced by a finite subgroup of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>⊕</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">([0,1),\oplus)</annotation></semantics></math>,
+and state what the argument then yields.</li>
+</ol>
+<h3 id="solutions">Solutions</h3>
+<ol type="1">
+<li>If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">c=C(\phi,t)</annotation></semantics></math>,
+its midpoint is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mi>t</mi><mspace width="0.167em"></mspace><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Rt\,n(\phi)</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>C</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C^{-1}(c)=(\phi,t)</annotation></semantics></math>.
+Conversely, for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>∈</mo><msub><mi mathvariant="script">𝒞</mi><mo>*</mo></msub></mrow><annotation encoding="application/x-tex">c\in\mathcal C_*</annotation></semantics></math>,
+the perpendicular from the circle centre meets the chord at its midpoint
+and the two endpoints lie a distance
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>t</mi><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">R\sqrt{1-t^2}</annotation></semantics></math>
+on either side. These are exactly the endpoints in the definition of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C(\phi,t)</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>C</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">C(C^{-1}(c))=c</annotation></semantics></math>.
+At
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t=0</annotation></semantics></math>,
+the midpoint is zero and its argument is undefined; at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t=1</annotation></semantics></math>,
+the endpoints coincide. Both cases were excluded and have probability
+zero under the three laws.</li>
+<li>On the stated domains,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>q</mi><mi>A</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>/</mi><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">arccos</mi><mo>&#8289;</mo></mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">q_A^{-1}(t)=(2/\pi)\arccos t</annotation></semantics></math>.
+Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>q</mi><mi>A</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><msub><mi>q</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>u</mi></mrow><annotation encoding="application/x-tex">q_A^{-1}(q_A(u))=u</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><msubsup><mi>q</mi><mi>A</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">q_A(q_A^{-1}(t))=t</annotation></semantics></math>.
+For Model C,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>q</mi><mi>C</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>t</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">q_C^{-1}(t)=t^2</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msqrt><mi>u</mi></msqrt><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>=</mo><mi>u</mi></mrow><annotation encoding="application/x-tex">(\sqrt u)^2=u</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><msup><mi>t</mi><mn>2</mn></msup></msqrt><mo>=</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">\sqrt{t^2}=t</annotation></semantics></math>
+because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t&gt;0</annotation></semantics></math>.</li>
+<li>For A, an antiderivative is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>/</mi><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">arcsin</mi><mo>&#8289;</mo></mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">(2/\pi)\arcsin t</annotation></semantics></math>,
+giving total mass 1 and mass
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">1/3</annotation></semantics></math>
+below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>.
+For B, the corresponding values are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>t</mi><msubsup><mo stretchy="false" form="postfix">]</mo><mn>0</mn><mn>1</mn></msubsup><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">[t]_0^1=1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>t</mi><msubsup><mo stretchy="false" form="postfix">]</mo><mn>0</mn><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow></msubsup><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">[t]_0^{1/2}=1/2</annotation></semantics></math>.
+For C, they are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><msup><mi>t</mi><mn>2</mn></msup><msubsup><mo stretchy="false" form="postfix">]</mo><mn>0</mn><mn>1</mn></msubsup><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">[t^2]_0^1=1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><msup><mi>t</mi><mn>2</mn></msup><msubsup><mo stretchy="false" form="postfix">]</mo><mn>0</mn><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow></msubsup><mo>=</mo><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">[t^2]_0^{1/2}=1/4</annotation></semantics></math>.</li>
+<li>Substitute
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><msqrt><mrow><mn>1</mn><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>R</mi><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">a=\sqrt{1-(x/(2R))^2}</annotation></semantics></math>
+into
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msub><mi>F</mi><mrow><mi>T</mi><mo>,</mo><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1-F_{T,j}(a)</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>x</mi><mo>≤</mo><mn>2</mn><mi>R</mi></mrow><annotation encoding="application/x-tex">0\le x\le2R</annotation></semantics></math>.
+Use
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">arccos</mi><mo>&#8289;</mo></mrow><mi>a</mi><mo>=</mo><mrow><mi mathvariant="normal">arcsin</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\arccos a=\arcsin(x/(2R))</annotation></semantics></math>
+in Model A. The variables have continuous laws, so the endpoint
+inequalities do not change the probabilities.</li>
+<li>An outcome belongs to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><msub><mo>⋃</mo><mi>n</mi></msub><msub><mi>B</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f^{-1}(\bigcup_n B_n)</annotation></semantics></math>
+exactly when its image belongs to at least one
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>B</mi><mi>n</mi></msub><annotation encoding="application/x-tex">B_n</annotation></semantics></math>,
+equivalently when it belongs to at least one
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><msub><mi>B</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f^{-1}(B_n)</annotation></semantics></math>.
+The proof in Section 4 then applies.</li>
+<li><ol type="a">
+<li>Yes: exactly one face shows. (b) Yes: the two are exhaustive and
+cannot both occur. (c) No: both occur when the face is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4</mn><annotation encoding="application/x-tex">4</annotation></semantics></math>
+or
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>6</mn><annotation encoding="application/x-tex">6</annotation></semantics></math>,
+so the elements are not mutually exclusive. (d) Yes: the three are
+exhaustive and pairwise disjoint. For a fair die the two elements of (b)
+have probability
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
+each, whereas those of (d) have probabilities
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">2/6</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">1/6</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">3/6</annotation></semantics></math>.
+Both are sample spaces; equal probabilities are not part of the
+requirement.</li>
+</ol></li>
+<li>Claim 1 and Claim 2 still hold, so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,1)</annotation></semantics></math>
+is a finite disjoint union of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+rotations of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>=</mo><mi>n</mi><mi>c</mi></mrow><annotation encoding="application/x-tex">1=nc</annotation></semantics></math>,
+giving
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mn>1</mn><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">c=1/n</annotation></semantics></math>.
+No contradiction arises: a finite subgroup produces a partition into
+finitely many sets of equal measure, which is consistent. The
+contradiction depends on the index set being countably infinite, which
+is where countable additivity enters.</li>
+</ol>
+</body>
+</html>

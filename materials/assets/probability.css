@@ -1,0 +1,18 @@
+.reveal .question {font-size:.86em; color:#334d66; margin-bottom:.65em; line-height:1.35;}
+.reveal .question p {margin:0 0 .4em;}
+.reveal .writing-space {height:440px; border-top:1px solid #d5dfeb; background-image:radial-gradient(#cad5e2 1px,transparent 1px);background-size:28px 28px; opacity:.52;}
+.reveal .slides section p {margin-top:.4em;margin-bottom:.5em;}
+.reveal .slides section img {margin:0 auto;display:block;max-height:310px;}
+.reveal .slides section h2 {font-size:1.4em;}
+.reveal table {font-size:.76em;}
+.ink-tools {position:fixed;left:12px;bottom:9px;z-index:40;display:flex;gap:5px;align-items:center;flex-wrap:wrap;background:#fff;padding:6px;border:1px solid #b3c8df;font:14px system-ui;color:#173b62;max-width:85vw;}
+.ink-tools button,.ink-tools select {font:inherit;padding:5px 9px;color:#173b62;background:#fff;border:1px solid #a8bdd2;border-radius:3px;cursor:pointer;}
+.ink-tools button[aria-pressed=true] {background:#003f87;color:white;}
+.ink-layer {position:absolute;inset:0;z-index:12;pointer-events:none;touch-action:none;}
+.ink-status {font-size:12px;}
+@media print {.ink-tools {display:none!important;} .writing-space {opacity:.35;}}
+.reveal #title-slide.quarto-title-block {box-sizing:border-box; min-height:760px; padding:200px 6% 0;}
+.reveal #title-slide .quarto-title-authors {font-size:24px;}
+.reveal #title-slide .quarto-title-author, .reveal #title-slide .quarto-title-author-name {font-size:inherit;}
+@media print {.ink-layer {display:none!important;}}
+@media print {.reveal #title-slide.quarto-title-block {padding:190px 80px 0!important;min-height:760px!important;} .reveal #title-slide .quarto-title-authors {font-size:24px!important;} .reveal #title-slide .quarto-title-author,.reveal #title-slide .quarto-title-author-name {font-size:inherit!important;}}

@@ -1,0 +1,1010 @@
+[
+  {
+    "objectID": "w01-probability-worked.html#s01",
+    "href": "w01-probability-worked.html#s01",
+    "title": "Introduction to probability",
+    "section": "Errors in a test sample",
+    "text": "Errors in a test sample\n\nSuppose a fixed classifier makes 8 errors on 100 tested items. What has been measured?\n\nThe observed error fraction is\n8100=0.08.\\frac{8}{100}=0.08.\nThis describes these 100 items. It does not determine the error fraction in the next sample.\nVariation in the sampled items can change the measured performance.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s02",
+    "href": "w01-probability-worked.html#s02",
+    "title": "Introduction to probability",
+    "section": "A probability question about the same sample",
+    "text": "A probability question about the same sample\n\nA test sample has 100 items, 8 in error. If one item is selected uniformly, what is the probability it is an error?\n\nEach item has probability 1/1001/100 of selection.\nEight items are errors, so\nP(selected item is an error)=8×1100=0.08.P(\\text{selected item is an error})=8\\times\\frac1{100}=0.08.\nHere the probability follows from the stated sampling rule.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s03",
+    "href": "w01-probability-worked.html#s03",
+    "title": "Introduction to probability",
+    "section": "A statistical question about future items",
+    "text": "A statistical question about future items\n\nDo the 8 errors in the specified sample of 100 establish a future-item error probability of 0.08? State the inference assumption needed.\n\nThey provide an estimate, rather than an exact probability for future items.\nUsing that estimate requires assumptions about how the test sample relates to future items.\nProbability starts with a model and calculates consequences. Statistical inference uses observations to learn about a model.\n\nAsk students to identify what changes between selecting from a fixed test set and sampling a future deployment item. Do not introduce an independence formula yet.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s04",
+    "href": "w01-probability-worked.html#s04",
+    "title": "Introduction to probability",
+    "section": "Random selection of a chord",
+    "text": "Random selection of a chord\n\nA chord is selected in a circle. What must be specified before its length can be assigned a probability?\n\n\nWe need a rule for selecting the chord. Later we will calculate the answer for three different rules.\n\nIntroduce the geometric question only. Return to it after finite examples, random variables and interval probabilities.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s05",
+    "href": "w01-probability-worked.html#s05",
+    "title": "Introduction to probability",
+    "section": "An inspection experiment",
+    "text": "An inspection experiment\n\nInspect two components in order. Record P for pass and F for fail. List the possible records.\n\nΩ={PP,PF,FP,FF}.\\Omega=\\{PP,PF,FP,FF\\}.\nPFPF means that the first component passes and the second fails.\nPFPF and FPFP are different outcomes because the order is recorded.\nThis list does not yet assign probabilities.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s06",
+    "href": "w01-probability-worked.html#s06",
+    "title": "Introduction to probability",
+    "section": "An event as a set of outcomes",
+    "text": "An event as a set of outcomes\n\nFor the ordered inspection outcomes PP, PF, FP, FF, list the event A: at least one component fails.\n\nA={PF,FP,FF}.A=\\{PF,FP,FF\\}.\nThe event occurs if the observed outcome belongs to this set.\nFor example, PF∈APF\\in A, whereas PP∉APP\\notin A.\nAn event is specified by collecting all outcomes that satisfy the condition.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s07",
+    "href": "w01-probability-worked.html#s07",
+    "title": "Introduction to probability",
+    "section": "Exactly one failure",
+    "text": "Exactly one failure\n\nFor outcomes PP, PF, FP, FF, let A be at least one failure. Find the event B of exactly one failure and compare it with A.\n\nB={PF,FP},A={PF,FP,FF}.B=\\{PF,FP\\},\\qquad A=\\{PF,FP,FF\\}.\nEvery outcome in BB is also in AA, so B⊆AB\\subseteq A.\nFFFF belongs to AA but not to BB.\n“At least one” includes two; “exactly one” does not.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s08",
+    "href": "w01-probability-worked.html#s08",
+    "title": "Introduction to probability",
+    "section": "Intersection: both conditions",
+    "text": "Intersection: both conditions\n\nFor ordered outcomes PP, PF, FP, FF, let C be first-component failure and D be second-component failure. Find C∩D.\n\nC={FP,FF},D={PF,FF}.C=\\{FP,FF\\},\\qquad D=\\{PF,FF\\}.\nThe intersection contains the outcomes appearing in both sets:\nC∩D={FF}.C\\cap D=\\{FF\\}.\nIt describes two failures.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s09",
+    "href": "w01-probability-worked.html#s09",
+    "title": "Introduction to probability",
+    "section": "Union: at least one condition",
+    "text": "Union: at least one condition\n\nFor ordered outcomes PP, PF, FP, FF, let C be first-component failure and D be second-component failure. Find C∪D.\n\nCollect the outcomes appearing in either set, without repetition:\nC∪D={FP,PF,FF}.C\\cup D=\\{FP,PF,FF\\}.\nThe union describes at least one failure.\nThe outcome FFFF is included once.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s10",
+    "href": "w01-probability-worked.html#s10",
+    "title": "Introduction to probability",
+    "section": "Complement: the remaining outcomes",
+    "text": "Complement: the remaining outcomes\n\nFor Ω={PP,PF,FP,FF}, let A={PF,FP,FF} be at least one failure. Find Aᶜ.\n\nΩ={PP,PF,FP,FF},A={PF,FP,FF}.\\Omega=\\{PP,PF,FP,FF\\},\\qquad A=\\{PF,FP,FF\\}.\nThe complement consists of outcomes in Ω\\Omega that are not in AA:\nAc={PP}.A^c=\\{PP\\}.\n“No failures” is the complement of “at least one failure.”\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s11",
+    "href": "w01-probability-worked.html#s11",
+    "title": "Introduction to probability",
+    "section": "Disjoint events",
+    "text": "Disjoint events\n\nFor the ordered inspection outcomes, let B={PF,FP} be exactly one failure and E={FF} be two failures. Determine whether they are disjoint.\n\nB={PF,FP},E={FF}.B=\\{PF,FP\\},\\qquad E=\\{FF\\}.\nThey have no common outcome:\nB∩E=⌀.B\\cap E=\\varnothing.\nSuch events are called disjoint, or mutually exclusive.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s12",
+    "href": "w01-probability-worked.html#s12",
+    "title": "Introduction to probability",
+    "section": "Practice: two alarm indicators",
+    "text": "Practice: two alarm indicators\n\nRecord 1 when an alarm is active, 0 otherwise, and use order for two indicators. List the outcomes in “at least one active,” “exactly one active,” and “neither.”\n\nΩ={00,01,10,11}.\\Omega=\\{00,01,10,11\\}.\nAt least one active: {01,10,11}\\{01,10,11\\}.\nExactly one active: {01,10}\\{01,10\\}.\nNeither active: {00}\\{00\\}.\nThese descriptions use only sets; they do not require an independence assumption.\n\nStopping point: ask students to list all three events without referring to the inspection example. Resume only after at least one and exactly one are distinguished.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s13",
+    "href": "w01-probability-worked.html#s13",
+    "title": "Introduction to probability",
+    "section": "Assigning probabilities to outcomes",
+    "text": "Assigning probabilities to outcomes\n\nSuppose the ordered inspection outcomes PP, PF, FP, FF have probabilities 0.72, 0.08, 0.18, 0.02. Check that these are valid outcome probabilities.\n\nEvery probability is nonnegative, and\n0.72+0.08+0.18+0.02=1.0.72+0.08+0.18+0.02=1.\nThe values are stipulated model probabilities.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s14",
+    "href": "w01-probability-worked.html#s14",
+    "title": "Introduction to probability",
+    "section": "Adding the probabilities in an event",
+    "text": "Adding the probabilities in an event\n\nThe ordered outcomes PP, PF, FP, FF have probabilities 0.72, 0.08, 0.18, 0.02. Calculate the probability of exactly one failure.\n\nExactly one failure is B={PF,FP}B=\\{PF,FP\\}.\nP(B)=P({PF})+P({FP})=0.08+0.18=0.26.P(B)=P(\\{PF\\})+P(\\{FP\\})=0.08+0.18=0.26.\nThere are two favourable outcomes out of four, but the answer is not 2/42/4.\nThe four outcomes are not equally likely.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s15",
+    "href": "w01-probability-worked.html#s15",
+    "title": "Introduction to probability",
+    "section": "Using the complement",
+    "text": "Using the complement\n\nIn the model P(PP)=0.72, P(PF)=0.08, P(FP)=0.18 and P(FF)=0.02. Calculate the probability of at least one failure directly and by the complement.\n\nDirect addition:\nP({PF,FP,FF})=0.08+0.18+0.02=0.28.P(\\{PF,FP,FF\\})=0.08+0.18+0.02=0.28.\nComplement:\n1−P({PP})=1−0.72=0.28.1-P(\\{PP\\})=1-0.72=0.28.\nBoth calculations refer to the same event.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s16",
+    "href": "w01-probability-worked.html#s16",
+    "title": "Introduction to probability",
+    "section": "Deriving the complement rule",
+    "text": "Deriving the complement rule\n\nExplain why P(Aᶜ) = 1 − P(A).\n\nAA and AcA^c are disjoint and together contain every outcome.\nP(A)+P(Ac)=P(Ω)=1.P(A)+P(A^c)=P(\\Omega)=1.\nRearranging gives\nP(Ac)=1−P(A).P(A^c)=1-P(A).\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s17",
+    "href": "w01-probability-worked.html#s17",
+    "title": "Introduction to probability",
+    "section": "Overlapping events in the inspection model",
+    "text": "Overlapping events in the inspection model\n\nIn the model P(PP)=0.72, P(PF)=0.08, P(FP)=0.18 and P(FF)=0.02. Let C be first-component failure and D second-component failure. Find P(C), P(D) and P(C∩D).\n\nC={FP,FF},P(C)=0.18+0.02=0.20.C=\\{FP,FF\\},\\qquad P(C)=0.18+0.02=0.20.\nD={PF,FF},P(D)=0.08+0.02=0.10.D=\\{PF,FF\\},\\qquad P(D)=0.08+0.02=0.10.\nC∩D={FF},P(C∩D)=0.02.C\\cap D=\\{FF\\},\\qquad P(C\\cap D)=0.02.\nAdding P(C)+P(D)P(C)+P(D) includes the FFFF probability twice.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s18",
+    "href": "w01-probability-worked.html#s18",
+    "title": "Introduction to probability",
+    "section": "Deriving the addition rule",
+    "text": "Deriving the addition rule\n\nIn the component-inspection model, C is first-component failure and D second-component failure. Use P(C)=0.20, P(D)=0.10 and P(C∩D)=0.02 to find P(C∪D).\n\nSubtract the overlap once:\nP(C∪D)=P(C)+P(D)−P(C∩D).P(C\\cup D)=P(C)+P(D)-P(C\\cap D).\nFor the inspection model,\nP(C∪D)=0.20+0.10−0.02=0.28.P(C\\cup D)=0.20+0.10-0.02=0.28.\nThis agrees with the direct calculation of at least one failure.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s19",
+    "href": "w01-probability-worked.html#s19",
+    "title": "Introduction to probability",
+    "section": "Practice: overlapping system alerts",
+    "text": "Practice: overlapping system alerts\n\nAssume P(A) = 0.20, P(B) = 0.15 and P(A ∩ B) = 0.08 for two system alerts. Find the probability of any alert.\n\nP(A∪B)=0.20+0.15−0.08=0.27.P(A\\cup B)=0.20+0.15-0.08=0.27.\nThe overlap is already included in each marginal probability.\nThe probability of no alert is\n1−0.27=0.73.1-0.27=0.73.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s20",
+    "href": "w01-probability-worked.html#s20",
+    "title": "Introduction to probability",
+    "section": "Practice: exactly one system alert",
+    "text": "Practice: exactly one system alert\n\nAssume P(A)=0.20, P(B)=0.15 and P(A∩B)=0.08 for two system alerts. Calculate the probability of exactly one alert.\n\nOnly AA:\nP(A\\B)=0.20−0.08=0.12.P(A\\setminus B)=0.20-0.08=0.12.\nOnly BB:\nP(B\\A)=0.15−0.08=0.07.P(B\\setminus A)=0.15-0.08=0.07.\nThese cases are disjoint, so the required probability is 0.12+0.07=0.190.12+0.07=0.19.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s21",
+    "href": "w01-probability-worked.html#s21",
+    "title": "Introduction to probability",
+    "section": "Equally likely outcomes",
+    "text": "Equally likely outcomes\n\nA batch contains 20 items, of which 3 are defective. Select one item uniformly. Find the defect probability.\n\nThere are 20 distinct item identifiers, each with probability 1/201/20.\nThe defective-item event contains three identifiers:\nP(defective)=3×120=320.P(\\text{defective})=3\\times\\frac1{20}=\\frac3{20}.\nCounting favourable outcomes works here because uniform selection makes the item identifiers equally likely.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s22",
+    "href": "w01-probability-worked.html#s22",
+    "title": "Introduction to probability",
+    "section": "A die with unequal probabilities",
+    "text": "A die with unequal probabilities\n\nSuppose a die has P({k}) = k/21 for k = 1, …, 6. Find the probability of an even face.\n\nThe weights are valid because 1+2+3+4+5+6=211+2+3+4+5+6=21.\nThe even-face event is {2,4,6}\\{2,4,6\\}, so\nP(even)=221+421+621=47.P(\\text{even})=\\frac2{21}+\\frac4{21}+\\frac6{21}=\\frac47.\nThree of the six faces are even, but their total probability is not 1/21/2.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s23",
+    "href": "w01-probability-worked.html#s23",
+    "title": "Introduction to probability",
+    "section": "Practice: checking a proposed model",
+    "text": "Practice: checking a proposed model\n\nThree mutually exclusive outcomes exhaust an experiment. Proposed probabilities are 0.2, 0.3 and 0.6. Is the model valid?\n\nThe sum is 0.2+0.3+0.6=1.10.2+0.3+0.6=1.1, so the model is invalid.\nIf the first two probabilities are fixed, the third must be\n1−0.2−0.3=0.5.1-0.2-0.3=0.5.\nNormalization is a requirement, not an approximation.\n\nStopping point: students should now identify an event, choose addition or complement, and check whether counting is justified.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s24",
+    "href": "w01-probability-worked.html#s24",
+    "title": "Introduction to probability",
+    "section": "The sample space in a complete model",
+    "text": "The sample space in a complete model\n\nFor one inspection, record 0 for pass and 1 for failure. Specify the possible outcomes.\n\nΩ={0,1}.\\Omega=\\{0,1\\}.\nThis set lists the possible outcomes. Outcome 11 means failure; outcome 00 means pass.\nThe sample space does not by itself specify how likely the two outcomes are.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s25",
+    "href": "w01-probability-worked.html#s25",
+    "title": "Introduction to probability",
+    "section": "The collection of events",
+    "text": "The collection of events\n\nFor the inspection recorded as 0 = pass and 1 = failure, list every subset of Ω = {0, 1}.\n\nℱ={⌀,{0},{1},Ω}=2Ω.\\mathcal F=\\{\\varnothing,\\{0\\},\\{1\\},\\Omega\\}=2^\\Omega.\nThese are the impossible event, pass, failure, and the certain event.\nHere 1∈Ω1\\in\\Omega, while {1}∈ℱ\\{1\\}\\in\\mathcal F: an outcome and an event are different objects.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s26",
+    "href": "w01-probability-worked.html#s26",
+    "title": "Introduction to probability",
+    "section": "The probability assignment",
+    "text": "The probability assignment\n\nSuppose a pass/fail inspection has failure probability 0.10. Using 0 = pass and 1 = failure, assign a probability to every event.\n\n\n\n\nEvent\nProbability\n\n\n\n\n⌀\\varnothing\n0\n\n\n{0}\\{0\\}\n0.90\n\n\n{1}\\{1\\}\n0.10\n\n\nΩ\\Omega\n1\n\n\n\nThe probability measure PP assigns probabilities to events.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s27",
+    "href": "w01-probability-worked.html#s27",
+    "title": "Introduction to probability",
+    "section": "The probability triplet",
+    "text": "The probability triplet\n\nThe example has outcomes 0 = pass and 1 = failure, all four events, and failure probability 0.10. Write the probability-space triplet.\n\n(Ω,ℱ,P)\\boxed{(\\Omega,\\mathcal F,P)}\nΩ={0,1}\\Omega=\\{0,1\\} lists the possible outcomes.\nℱ=2Ω\\mathcal F=2^\\Omega lists the events.\nPP assigns a probability to each event.\nThese three objects form a probability space.\n\nAfter the example is clear, introduce (Ω,ℱ,P)(\\Omega,\\mathcal F,P) and identify each symbol with the pass/fail sample space, its events, and the probabilities just assigned. This example-first order is intentional.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s28",
+    "href": "w01-probability-worked.html#s28",
+    "title": "Introduction to probability",
+    "section": "Why the event collection must be closed",
+    "text": "Why the event collection must be closed\n\nIf we can ask whether A occurs, what related questions should the model also describe?\n\nWhether AA does not occur: the complement AcA^c.\nWhether at least one of A1,A2,…A_1,A_2,\\ldots occurs: the union ⋃nAn\\bigcup_n A_n.\nAn event collection containing Ω\\Omega and closed under complements and countable unions is a σ-algebra.\nFor a finite model we ordinarily use all subsets; this collection satisfies these requirements.\n\nUse the complement and “at least one of” examples for intuition. Then state the closure conditions. The exact sigma-algebra definition and the finite/cofinite counterexample are in the main notes, §4. The probability axioms are in main notes §5. Do not derive measure-theoretic constructions here.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s29",
+    "href": "w01-probability-worked.html#s29",
+    "title": "Introduction to probability",
+    "section": "The probability rules",
+    "text": "The probability rules\n\nComplements let us ask what cannot occur; countable unions let us ask whether at least one of a list of events occurs. Once these questions are events, what rules should their probabilities obey?\n\nKolmogorov’s axioms constrain PP on the event collection ℱ\\mathcal F:\n\nNonnegativity: P(A)≥0P(A)\\ge0 for every A∈ℱA\\in\\mathcal F.\nNormalization: P(Ω)=1P(\\Omega)=1; an experiment produces an outcome in Ω\\Omega.\nCountable additivity: if A1,A2,…∈ℱA_1,A_2,\\ldots\\in\\mathcal F are pairwise disjoint, then\n\nP(⋃n=1∞An)=∑n=1∞P(An).P\\!\\left(\\bigcup_{n=1}^{\\infty}A_n\\right)=\\sum_{n=1}^{\\infty}P(A_n).\nThe union is “at least one”; disjointness prevents double counting. Complements and countable unions define the event collection; these three axioms govern its probabilities.\n\nKeep the distinction explicit: complement and countable-union closure belong to the σ\\sigma-algebra; these three conditions are the probability axioms. The complement rule P(Ac)=1−P(A)P(A^c)=1-P(A) follows because AA and AcA^c partition Ω\\Omega.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s30",
+    "href": "w01-probability-worked.html#s30",
+    "title": "Introduction to probability",
+    "section": "Running frequency in a model",
+    "text": "Running frequency in a model\n\nIn the independent fair-coin model, the lab plots the running fraction of heads beside the model probability p. What can a finite run illustrate? What does it establish about a limit?\n\nIn this stipulated model, each toss is independent, and a head has probability p=1/2p=1/2.\nThe plot shows the realized proportion after each finite number of tosses beside the model probability.\nA finite simulation illustrates sample variation. By itself, it does not prove a limiting theorem.\n\nOpen the running-frequency experiment. Explain that it displays one simulated sequence under the stated fair-coin model. Distinguish simulation from a proof of convergence.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s31",
+    "href": "w01-probability-worked.html#s31",
+    "title": "Introduction to probability",
+    "section": "Practice: a batch inspection triplet",
+    "text": "Practice: a batch inspection triplet\n\nTen labelled items contain two defective items, numbered 3 and 8. Select one item uniformly. Specify the triplet and the defect event.\n\nΩ={1,2,…,10},ℱ=2Ω.\\Omega=\\{1,2,\\ldots,10\\},\\qquad \\mathcal F=2^\\Omega.\nFor each event AA, P(A)=|A|/10P(A)=|A|/10.\nThe defect event is D={3,8}D=\\{3,8\\}, hence P(D)=2/10P(D)=2/10.\nA different selection rule would require a different probability assignment.\n\nStopping point: students should specify the experiment, its outcomes, an event collection and the probability assignment in their own words.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s32",
+    "href": "w01-probability-worked.html#s32",
+    "title": "Introduction to probability",
+    "section": "Recording a numerical result",
+    "text": "Recording a numerical result\n\nFor the inspection model, the probabilities of PP, PF, FP and FF are 0.72, 0.08, 0.18 and 0.02. Let X count failed components. Assign X to each outcome.\n\n\n\n\nOutcome ω\\omega\nPPPP\nPFPF\nFPFP\nFFFF\n\n\n\n\nX(ω)X(\\omega)\n0\n1\n1\n2\n\n\n\nXX is a function: it assigns one number to each outcome.\nSeveral outcomes may have the same numerical value.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s33",
+    "href": "w01-probability-worked.html#s33",
+    "title": "Introduction to probability",
+    "section": "The event X = 1",
+    "text": "The event X = 1\n\nFor the ordered inspection, X counts failures and P(PP)=0.72, P(PF)=0.08, P(FP)=0.18, P(FF)=0.02. Find P(X=1).\n\n{X=1}={PF,FP}.\\{X=1\\}=\\{PF,FP\\}.\nUnder the stated model,\nP(X=1)=0.08+0.18=0.26.P(X=1)=0.08+0.18=0.26.\nFirst identify the outcomes; then add their probabilities.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s34",
+    "href": "w01-probability-worked.html#s34",
+    "title": "Introduction to probability",
+    "section": "The distribution of the failure count",
+    "text": "The distribution of the failure count\n\nFor the ordered inspection, X counts failures and P(PP)=0.72, P(PF)=0.08, P(FP)=0.18, P(FF)=0.02. Find its probability distribution.\n\n\n\n\nxx\nOutcomes producing xx\nP(X=x)P(X=x)\n\n\n\n\n0\nPPPP\n0.72\n\n\n1\nPF,FPPF,FP\n0.26\n\n\n2\nFFFF\n0.02\n\n\n\nCheck: 0.72+0.26+0.02=10.72+0.26+0.02=1.\nThe three count values are not equally likely.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s35",
+    "href": "w01-probability-worked.html#s35",
+    "title": "Introduction to probability",
+    "section": "A numerical set and its inverse image",
+    "text": "A numerical set and its inverse image\n\nFor PP, PF, FP, FF with probabilities 0.72, 0.08, 0.18, 0.02, let X count failures. For B={1,2}, find X⁻¹(B) and P(X∈B).\n\nX−1(B)={ω:X(ω)∈B}={PF,FP,FF}.X^{-1}(B)=\\{\\omega:X(\\omega)\\in B\\}=\\{PF,FP,FF\\}.\nThis is the inverse image of BB.\nP(X∈B)=0.08+0.18+0.02=0.28.P(X\\in B)=0.08+0.18+0.02=0.28.\nAn inverse image converts a numerical condition to an event in the original experiment.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s36",
+    "href": "w01-probability-worked.html#s36",
+    "title": "Introduction to probability",
+    "section": "An inverse image need not be an inverse function",
+    "text": "An inverse image need not be an inverse function\n\nOn Ω={PP,PF,FP,FF}, X counts failures. Find X⁻¹({1}) and explain whether an outcome can be recovered uniquely from X=1.\n\nNo: either PFPF or FPFP could have occurred.\nXX has no inverse function on these outcomes.\nNevertheless, the inverse image is well defined:\nX−1({1})={PF,FP}.X^{-1}(\\{1\\})=\\{PF,FP\\}.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s37",
+    "href": "w01-probability-worked.html#s37",
+    "title": "Introduction to probability",
+    "section": "A random variable and a probability measure",
+    "text": "A random variable and a probability measure\n\nFor outcomes PP, PF, FP, FF with probabilities 0.72, 0.08, 0.18, 0.02, let X count failures. Find X(PF) and P({PF,FP}). What does each map take as input?\n\nDespite its name, XX is not itself a random rule. Once the experiment and recording rule are fixed, XX is a fixed function on the set of outcomes. The random outcome supplied to it gives its value a distribution. It maps each outcome to a real number:\nX:Ω→ℝ,ω↦X(ω).X:\\Omega\\to\\mathbb R,\\qquad \\omega\\mapsto X(\\omega).\nPrecisely, XX is measurable when, for every Borel set B⊆ℝB\\subseteq\\mathbb R, the inverse image\nX−1(B)={ω∈Ω:X(ω)∈B}X^{-1}(B)=\\{\\omega\\in\\Omega:X(\\omega)\\in B\\}\nbelongs to ℱ\\mathcal F. Here X(PF)=1X(PF)=1.\nProbability is the set function P:ℱ→[0,1]P:\\mathcal F\\to[0,1]: it maps an event to a number in the unit interval. Thus P({PF,FP})=0.08+0.18=0.26P(\\{PF,FP\\})=0.08+0.18=0.26. More generally, PX(B)=P(X−1(B))P_X(B)=P(X^{-1}(B)). In this finite model, ℱ=2Ω\\mathcal F=2^\\Omega, so every real-valued function on Ω\\Omega is measurable.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s38",
+    "href": "w01-probability-worked.html#s38",
+    "title": "Introduction to probability",
+    "section": "Practice: a repair-cost random variable",
+    "text": "Practice: a repair-cost random variable\n\nFor the model P(PP)=0.72, P(PF)=0.08, P(FP)=0.18, P(FF)=0.02, let X count failures and Y=500X rupees. Find P(Y&gt;500).\n\nThe possible costs are ₹0, ₹500 and ₹1000.\n{Y&gt;500}={X=2}={FF}.\\{Y&gt;500\\}=\\{X=2\\}=\\{FF\\}.\nTherefore P(Y&gt;500)=0.02P(Y&gt;500)=0.02.\nFor comparison, P(Y≥500)=P(X≥1)=0.28P(Y\\ge500)=P(X\\ge1)=0.28. The strict inequality matters.\n\nStopping point: ask for the outcome set before allowing a numerical probability. Include the units of Y.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s39",
+    "href": "w01-probability-worked.html#s39",
+    "title": "Introduction to probability",
+    "section": "A uniform measurement model",
+    "text": "A uniform measurement model\n\nLet E be a uniform measurement error on [−2,2] mm. State how to calculate the probability of an interval [a,b] contained in this range.\n\nIntervals of the same length have the same probability.\nFor an interval contained in [−2,2][-2,2],\nP(a≤E≤b)=b−a4.P(a\\le E\\le b)=\\frac{b-a}{4}.\nThe model assigns probability by interval length.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s40",
+    "href": "w01-probability-worked.html#s40",
+    "title": "Introduction to probability",
+    "section": "Meeting a tolerance",
+    "text": "Meeting a tolerance\n\nAssume measurement error E is uniform on [−2,2] mm. Find the probability that the absolute error is at most 0.5 mm.\n\n|E|≤0.5⇔−0.5≤E≤0.5.|E|\\le0.5\\iff -0.5\\le E\\le0.5.\nThe acceptable interval has length 11 mm; the full interval has length 44 mm.\nP(|E|≤0.5)=14.P(|E|\\le0.5)=\\frac14.\nFor this continuous model, including or excluding either endpoint does not change the probability.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s41",
+    "href": "w01-probability-worked.html#s41",
+    "title": "Introduction to probability",
+    "section": "A uniform source variable",
+    "text": "A uniform source variable\n\nLet U be uniform on (0,1). Find P(U&lt;0.25) and P(U&gt;2/3).\n\nP(U&lt;0.25)=0.25.P(U&lt;0.25)=0.25.\nP(U&gt;2/3)=1−2/3=1/3.P(U&gt;2/3)=1-2/3=1/3.\nWe will generate chord measurements from UU and translate their events back to intervals of UU.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s42",
+    "href": "w01-probability-worked.html#s42",
+    "title": "Introduction to probability",
+    "section": "Transforming a uniform variable",
+    "text": "Transforming a uniform variable\n\nLet U be uniform on (0,1) and D=10U cm. Find P(D&lt;3 cm).\n\nD&lt;3⇔10U&lt;3⇔U&lt;0.3.D&lt;3\\iff 10U&lt;3\\iff U&lt;0.3.\nThus P(D&lt;3)=0.3P(D&lt;3)=0.3.\nThe inverse transformation is U=D/10U=D/10.\nThis change of scale gives a uniform distance on (0,10)(0,10) cm.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s43",
+    "href": "w01-probability-worked.html#s43",
+    "title": "Introduction to probability",
+    "section": "A nonlinear transformation",
+    "text": "A nonlinear transformation\n\nLet U be uniform on (0,1) and D=10√U cm. Find P(D&lt;3 cm).\n\nD&lt;3⇔U&lt;0.3⇔U&lt;0.09.D&lt;3\\iff\\sqrt U&lt;0.3\\iff U&lt;0.09.\nThus P(D&lt;3)=0.09P(D&lt;3)=0.09.\nThe inverse transformation is U=(D/10)2U=(D/10)^2.\nThe possible distances are the same as before, but their probabilities differ.\n\nStopping point: have students repeat both transformations for a distance threshold of 5 cm. Answers: 1/2 and 1/4.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s44",
+    "href": "w01-probability-worked.html#s44",
+    "title": "Introduction to probability",
+    "section": "The chord-length question",
+    "text": "The chord-length question\n\nFor a circle of radius R, find the probability that a sampled chord has length L&gt;√3R. What sampling rule is missing from the question?\n\nThe reference length is 3R\\sqrt3R.\nWe will calculate the probability under three specified sampling rules.\nIn each case the required event is the same geometric condition:\nL&gt;3R.L&gt;\\sqrt3R.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s45",
+    "href": "w01-probability-worked.html#s45",
+    "title": "Introduction to probability",
+    "section": "Chord length from the midpoint distance",
+    "text": "Chord length from the midpoint distance\n\nLet D be the distance from the centre to the chord. Express its length L in terms of D.\n\n\nThe right triangle gives (L/2)2+D2=R2(L/2)^2+D^2=R^2.\nTherefore L=2R2−D2L=2\\sqrt{R^2-D^2}.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s46",
+    "href": "w01-probability-worked.html#s46",
+    "title": "Introduction to probability",
+    "section": "Converting the long-chord condition",
+    "text": "Converting the long-chord condition\n\nUsing L=2√(R²−D²), express the strict condition L&gt;√3R as an inequality for D.\n\nThe perpendicular from the centre bisects the chord, giving\n(L/2)2+D2=R2,L=2R2−D2.(L/2)^2+D^2=R^2,\\qquad L=2\\sqrt{R^2-D^2}.\nNow apply the strict threshold:\n2R2−D2&gt;3R.2\\sqrt{R^2-D^2}&gt;\\sqrt3R.\nBoth sides are nonnegative, so squaring is valid:\n4(R2−D2)&gt;3R2⇔D2&lt;R2/4.4(R^2-D^2)&gt;3R^2\\iff D^2&lt;R^2/4.\nSince D≥0D\\ge0, the event is D&lt;R/2D&lt;R/2.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s47",
+    "href": "w01-probability-worked.html#s47",
+    "title": "Introduction to probability",
+    "section": "A numerical geometry check",
+    "text": "A numerical geometry check\n\nFor a circle of radius R=10 cm and L=2√(R²−D²), calculate L when D=3 cm and when D=6 cm. Compare both lengths with √3R.\n\nAt D=3D=3 cm: L=2100−9=291≈19.08L=2\\sqrt{100-9}=2\\sqrt{91}\\approx19.08 cm.\nAt D=6D=6 cm: L=2100−36=16L=2\\sqrt{100-36}=16 cm.\nThe threshold is 103≈17.3210\\sqrt3\\approx17.32 cm.\nThe first chord is longer than the threshold; the second is shorter. This agrees with the test D&lt;5D&lt;5 cm.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s48",
+    "href": "w01-probability-worked.html#s48",
+    "title": "Introduction to probability",
+    "section": "Coordinates that specify a chord",
+    "text": "Coordinates that specify a chord\n\nFor a circle with radius R, let t=D/R∈(0,1) and φ∈[0,2π) be the direction of the chord midpoint. Let C(φ,t) denote the chord through the point R t(cosφ,sinφ), perpendicular to that radius.\n\nLet t=D/Rt=D/R and let ϕ\\phi be the direction of the midpoint from the centre.\nPlace the midpoint at distance RtRt in direction ϕ\\phi, then draw the perpendicular chord.\nCall this construction C(ϕ,t)C(\\phi,t).\nWe use 0&lt;t&lt;10&lt;t&lt;1 and 0≤ϕ&lt;2π0\\le\\phi&lt;2\\pi. Diameters and zero-length chords have probability zero under the three models.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s49",
+    "href": "w01-probability-worked.html#s49",
+    "title": "Introduction to probability",
+    "section": "Recovering the chord coordinates",
+    "text": "Recovering the chord coordinates\n\nFor a chord with midpoint m in a circle of radius R, define t=||m||/R and φ=Arg(m) in [0,2π). Recover (φ,t) from the chord.\n\nMeasure its normalized midpoint distance and direction:\nt=∥m∥R,ϕ=Arg⁡(m)∈[0,2π).t=\\frac{\\|m\\|}{R},\\qquad \\phi=\\operatorname{Arg}(m)\\in[0,2\\pi).\nThus\nC−1(c)=(ϕ,t).C^{-1}(c)=(\\phi,t).\nThis is an inverse function on the stated chord space. The supplement gives the endpoint formula and verifies both inverse identities.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s50",
+    "href": "w01-probability-worked.html#s50",
+    "title": "Introduction to probability",
+    "section": "Model B: uniform radial distance",
+    "text": "Model B: uniform radial distance\n\nSample D uniformly on (0,R) and an independent uniform direction φ. For L=2√(R²−D²), find the probability of L&gt;√3R.\n\nThe event is D&lt;R/2D&lt;R/2.\nThe favourable radial interval has length R/2R/2, out of total length RR:\nPB(L&gt;3R)=R/2R=12.P_B(L&gt;\\sqrt3R)=\\frac{R/2}{R}=\\frac12.\nThis model is uniform in radial distance.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s51",
+    "href": "w01-probability-worked.html#s51",
+    "title": "Introduction to probability",
+    "section": "Model B: sampling map and inverse",
+    "text": "Model B: sampling map and inverse\n\nLet U,V be independent uniform variables on (0,1) and [0,1), and set t=U, φ=2πV. Using C(φ,t), write the chord, recover (U,V), and express its length.\n\nt=U,ϕ=2πV,c=C(2πV,U).t=U,\\qquad \\phi=2\\pi V,\\qquad c=C(2\\pi V,U).\nFrom the sampled chord, recover\nU=t,V=ϕ/(2π).U=t,\\qquad V=\\phi/(2\\pi).\nThe length is LB=2R1−U2L_B=2R\\sqrt{1-U^2}, and the long-chord event is U&lt;1/2U&lt;1/2.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s52",
+    "href": "w01-probability-worked.html#s52",
+    "title": "Introduction to probability",
+    "section": "Model C: a midpoint uniform in disk area",
+    "text": "Model C: a midpoint uniform in disk area\n\nChoose the chord midpoint uniformly by area in a disk of radius R. The long-chord event is D&lt;R/2. Find the probability.\n\nLong chords have midpoints within radius R/2R/2.\nUniform area sampling gives\nPC(L&gt;3R)=π(R/2)2πR2=14.P_C(L&gt;\\sqrt3R)=\\frac{\\pi(R/2)^2}{\\pi R^2}=\\frac14.\nThe smaller disk occupies a quarter of the total area.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s53",
+    "href": "w01-probability-worked.html#s53",
+    "title": "Introduction to probability",
+    "section": "Why uniform area uses a square root",
+    "text": "Why uniform area uses a square root\n\nFor a midpoint sampled uniformly by area in a radius-R disk and U uniform on (0,1), derive P(D&lt;r) and the corresponding transformation of U.\n\nP(D&lt;r)=πr2πR2=(rR)2.P(D&lt;r)=\\frac{\\pi r^2}{\\pi R^2}=\\left(\\frac rR\\right)^2.\nThe transformation D=RUD=R\\sqrt U has exactly this property:\nP(RU&lt;r)=P(U&lt;(r/R)2)=(r/R)2.P(R\\sqrt U&lt;r)=P\\!\\left(U&lt;(r/R)^2\\right)=(r/R)^2.\nUsing D=RUD=RU instead would give uniform radial distance.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s54",
+    "href": "w01-probability-worked.html#s54",
+    "title": "Introduction to probability",
+    "section": "Model C: sampling map and inverse",
+    "text": "Model C: sampling map and inverse\n\nFor uniform disk area, let t=√U and φ=2πV, where U,V are independent uniform variables on (0,1) and [0,1). Using C(φ,t), write the chord, its inverse and its length.\n\nt=U,ϕ=2πV,c=C(2πV,U).t=\\sqrt U,\\qquad \\phi=2\\pi V,\\qquad c=C(2\\pi V,\\sqrt U).\nInverse: U=t2U=t^2, V=ϕ/(2π)V=\\phi/(2\\pi).\nThe length is LC=2R1−UL_C=2R\\sqrt{1-U}.\nThe long-chord event is U&lt;1/4U&lt;1/4, which has probability 1/41/4.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s55",
+    "href": "w01-probability-worked.html#s55",
+    "title": "Introduction to probability",
+    "section": "Practice: a smaller midpoint region",
+    "text": "Practice: a smaller midpoint region\n\nFor the same disk of radius R, find P(D&lt;R/3) under (i) a uniform radial distance and (ii) a midpoint chosen uniformly by disk area.\n\nModel B, uniform radial distance:\nPB(D&lt;R/3)=R/3R=13.P_B(D&lt;R/3)=\\frac{R/3}{R}=\\frac13.\nModel C, uniform area:\nPC(D&lt;R/3)=π(R/3)2πR2=19.P_C(D&lt;R/3)=\\frac{\\pi(R/3)^2}{\\pi R^2}=\\frac19.\nThe region is identical. The two sampling distributions assign it different probabilities.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s56",
+    "href": "w01-probability-worked.html#s56",
+    "title": "Introduction to probability",
+    "section": "Model A: two uniform endpoints",
+    "text": "Model A: two uniform endpoints\n\nChoose independent uniform endpoint angles A₁,A₂ on [0,2π), and let Θ=(A₂−A₁) mod 2π. Express the chord length using Θ.\n\nAfter the first angle is chosen, rotational symmetry leaves Θ\\Theta uniform on [0,2π)[0,2\\pi).\nBisect the isosceles triangle formed by the centre and the two endpoints. Then\nL/2=Rsin⁡(Θ/2),L=2Rsin⁡(Θ/2).L/2=R\\sin(\\Theta/2),\\qquad L=2R\\sin(\\Theta/2).\nFor Θ=π\\Theta=\\pi, the endpoints are opposite and L=2RL=2R.\n\nDraw the central isosceles triangle and bisect it before introducing the formula. Explain that the relative angle is uniform because the endpoints are independent and uniform.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s57",
+    "href": "w01-probability-worked.html#s57",
+    "title": "Introduction to probability",
+    "section": "Model A: the favourable angular interval",
+    "text": "Model A: the favourable angular interval\n\nLet Θ=(A₂−A₁) mod 2π be uniform on [0,2π) and L=2R sin(Θ/2). Solve the strict inequality L&gt;√3R for Θ.\n\nsin⁡(Θ/2)&gt;3/2.\\sin(\\Theta/2)&gt;\\sqrt3/2.\nSince 0≤Θ/2&lt;π0\\le\\Theta/2&lt;\\pi,\nπ/3&lt;Θ/2&lt;2π/3.\\pi/3&lt;\\Theta/2&lt;2\\pi/3.\nTherefore 2π/3&lt;Θ&lt;4π/32\\pi/3&lt;\\Theta&lt;4\\pi/3, and\nPA(long)=4π/3−2π/32π=13.P_A(\\text{long})=\\frac{4\\pi/3-2\\pi/3}{2\\pi}=\\frac13.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s58",
+    "href": "w01-probability-worked.html#s58",
+    "title": "Introduction to probability",
+    "section": "Model A in midpoint coordinates",
+    "text": "Model A in midpoint coordinates\n\nFor a uniform relative angle Θ on [0,2π), define α=min(Θ,2π−Θ). Find the distribution of α and the chord midpoint distance t=D/R.\n\nα=min⁡(Θ,2π−Θ),0≤α≤π.\\alpha=\\min(\\Theta,2\\pi-\\Theta),\\qquad 0\\le\\alpha\\le\\pi.\nThe right triangle gives t=D/R=cos⁡(α/2)t=D/R=\\cos(\\alpha/2).\nFor 0≤a≤π0\\le a\\le\\pi, the angular intervals producing α≤a\\alpha\\le a have total length 2a2a:\nP(α≤a)=2a2π=aπ.P(\\alpha\\le a)=\\frac{2a}{2\\pi}=\\frac a\\pi.\nThus α\\alpha is uniform on [0,π][0,\\pi].\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s59",
+    "href": "w01-probability-worked.html#s59",
+    "title": "Introduction to probability",
+    "section": "Model A: sampling map and inverse",
+    "text": "Model A: sampling map and inverse\n\nFor independent uniform endpoint angles, put U=α/π, where α=min(Θ,2π−Θ), and let V=φ/(2π) be the normalized midpoint direction. With t=cos(α/2), find the chord map and its inverse.\n\nt=cos⁡(πU/2),c=C(2πV,cos⁡(πU/2)).t=\\cos(\\pi U/2),\\qquad c=C(2\\pi V,\\cos(\\pi U/2)).\nInverse:\nU=2πarccos⁡t,V=ϕ/(2π).U=\\frac2\\pi\\arccos t,\\qquad V=\\phi/(2\\pi).\nThis generates the same distribution of unordered chords as independent uniform endpoints. The supplement proves the independence of the midpoint direction and the smaller separation.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s60",
+    "href": "w01-probability-worked.html#s60",
+    "title": "Introduction to probability",
+    "section": "Model A: the length random variable",
+    "text": "Model A: the length random variable\n\nUnder independent uniform endpoint angles, Θ is uniform on [0,2π), α=min(Θ,2π−Θ), U=α/π and t=cos(α/2). Express L=2R√(1−t²) in terms of U; find the condition for L&gt;√3R.\n\nLA=2R1−cos⁡2(πU/2)=2Rsin⁡(πU/2).L_A=2R\\sqrt{1-\\cos^2(\\pi U/2)}=2R\\sin(\\pi U/2).\nThe sine is increasing for 0&lt;U&lt;10&lt;U&lt;1, so\nLA&gt;3R⇔U&gt;2/3.L_A&gt;\\sqrt3R\\iff U&gt;2/3.\nTherefore PA(long)=1−2/3=1/3P_A(\\text{long})=1-2/3=1/3.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s61",
+    "href": "w01-probability-worked.html#s61",
+    "title": "Introduction to probability",
+    "section": "Practice: recovering the source coordinates",
+    "text": "Practice: recovering the source coordinates\n\nFor t=1/2 and midpoint angle φ=π, recover v=φ/(2π) and u under Model A, t=U; Model B, t=U; and Model C, t=√U. Is the chord longer than √3R?\n\nIn every model, v=ϕ/(2π)=1/2v=\\phi/(2\\pi)=1/2.\nModel A: u=(2/π)arccos⁡(1/2)=2/3u=(2/\\pi)\\arccos(1/2)=2/3.\nModel B: u=t=1/2u=t=1/2.\nModel C: u=t2=1/4u=t^2=1/4.\nThe chord length equals 3R\\sqrt3R, so it is outside the strict long-chord event in all three models.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s62",
+    "href": "w01-probability-worked.html#s62",
+    "title": "Introduction to probability",
+    "section": "Comparing the three sampling distributions",
+    "text": "Comparing the three sampling distributions\n\nSummarize the event calculations using the same uniform source U.\n\n\n\n\n\n\n\n\n\n\nSampling rule\nNormalized distance tt\nLong-chord condition\nProbability\n\n\n\n\nA: uniform endpoints\ncos⁡(πU/2)\\cos(\\pi U/2)\nU&gt;2/3U&gt;2/3\n1/31/3\n\n\nB: uniform radial distance\nUU\nU&lt;1/2U&lt;1/2\n1/21/2\n\n\nC: uniform midpoint area\nU\\sqrt U\nU&lt;1/4U&lt;1/4\n1/41/4\n\n\n\nEach result uses a specified random variable and a specified sampling distribution.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s63",
+    "href": "w01-probability-worked.html#s63",
+    "title": "Introduction to probability",
+    "section": "Resolution of Bertrand’s paradox",
+    "text": "Resolution of Bertrand’s paradox\n\nWhy are the three probabilities compatible?\n\nThe geometric event is the same: all chords whose midpoint distance is less than R/2R/2.\nThe sampling rules assign different probabilities to regions of the chord space.\n“Random chord” does not select one of these probability distributions.\nCompare the sampling experiments · Inspect the maps and inverses\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s64",
+    "href": "w01-probability-worked.html#s64",
+    "title": "Introduction to probability",
+    "section": "Changing coordinates in one fixed model",
+    "text": "Changing coordinates in one fixed model\n\nKeep Model B, where T = D/R is uniform on (0, 1). Write W = T². What is P(W &lt; 1/4)?\n\nW&lt;1/4⇔T2&lt;1/4⇔T&lt;1/2.W&lt;1/4\\iff T^2&lt;1/4\\iff T&lt;1/2.\nHence PB(W&lt;1/4)=1/2P_B(W&lt;1/4)=1/2.\nWW is not uniform: in general, PB(W&lt;w)=wP_B(W&lt;w)=\\sqrt w for 0&lt;w&lt;10&lt;w&lt;1.\nDeclaring WW uniform would change the sampling model to Model C.\n\nStopping point: students should explain both why the three sampling models differ and why a coordinate change within a fixed model preserves probability.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s65",
+    "href": "w01-probability-worked.html#s65",
+    "title": "Introduction to probability",
+    "section": "Sampling records from two sites",
+    "text": "Sampling records from two sites\n\nA hypothetical dataset has 80 records from site A and 20 from site B. Select one of the 100 records uniformly. Find the probability that it came from each site.\n\nEach of the 100 records has probability 1/1001/100.\nP(site A)=80/100=0.8.P(\\text{site A})=80/100=0.8.\nP(site B)=20/100=0.2.P(\\text{site B})=20/100=0.2.\nThe site labels themselves are not equally likely.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s66",
+    "href": "w01-probability-worked.html#s66",
+    "title": "Introduction to probability",
+    "section": "Selecting a site before selecting a record",
+    "text": "Selecting a site before selecting a record\n\nA hypothetical dataset has 80 records from site A and 20 from site B. Select A or B with probability 1/2 each, then uniformly within the selected site. Find the selection probability of one specified record from each site.\n\nA particular record from A:\n12×180=1160.\\frac12\\times\\frac1{80}=\\frac1{160}.\nA particular record from B:\n12×120=140.\\frac12\\times\\frac1{20}=\\frac1{40}.\nEach B record is four times as likely as each A record. The factors describe the two stages of the stated sampling procedure.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s67",
+    "href": "w01-probability-worked.html#s67",
+    "title": "Introduction to probability",
+    "section": "Accuracy and class proportions",
+    "text": "Accuracy and class proportions\n\nA hypothetical test set contains 9,900 nondefective and 100 defective items. A system always predicts “nondefective.” Calculate its accuracy and defect detection fraction.\n\nAccuracy:\n990010000=0.99.\\frac{9900}{10000}=0.99.\nFraction of defective items detected:\n0100=0.\\frac0{100}=0.\nThe overall proportion correct does not specify performance within the defective class.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s68",
+    "href": "w01-probability-worked.html#s68",
+    "title": "Introduction to probability",
+    "section": "Practice: two fair dice",
+    "text": "Practice: two fair dice\n\nAssume two independent fair dice. List the 36 equally likely ordered outcomes and find the probability that the sum is 7.\n\nThere are 36 ordered pairs, each with probability 1/361/36 under the stated assumptions.\nThe favourable pairs are\n(1,6),(2,5),(3,4),(4,3),(5,2),(6,1).(1,6),(2,5),(3,4),(4,3),(5,2),(6,1).\nThus P(sum 7)=6/36=1/6P(\\text{sum }7)=6/36=1/6.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s69",
+    "href": "w01-probability-worked.html#s69",
+    "title": "Introduction to probability",
+    "section": "Practice: at least one six",
+    "text": "Practice: at least one six\n\nAssume two independent fair dice. Using the complement, find the probability of at least one six.\n\nThe complement is “neither die shows six.”\nThere are 5×5=255\\times5=25 such ordered pairs.\nP(at least one six)=1−2536=1136.P(\\text{at least one six})=1-\\frac{25}{36}=\\frac{11}{36}.\nThe favourable outcomes are not just (6,6)(6,6).\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s70",
+    "href": "w01-probability-worked.html#s70",
+    "title": "Introduction to probability",
+    "section": "Review: describing a probability calculation",
+    "text": "Review: describing a probability calculation\n\nA hypothetical log has 50 requests, 7 above 200 ms. Select one request uniformly. Define the outcome, the latency random variable, and the event of latency above 200 ms; calculate its probability.\n\nOutcome: a request identifier in Ω={1,…,50}\\Omega=\\{1,\\ldots,50\\}.\nRandom variable: X(i)X(i) is the recorded latency of request ii, in milliseconds.\nEvent: A={i:X(i)&gt;200}A=\\{i:X(i)&gt;200\\}, containing seven identifiers.\nWith all subsets as events and uniform selection,\nP(A)=7/50=0.14.P(A)=7/50=0.14.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s71",
+    "href": "w01-probability-worked.html#s71",
+    "title": "Introduction to probability",
+    "section": "Review: assumptions behind the answer",
+    "text": "Review: assumptions behind the answer\n\nFor a probability calculation based on data or a transformed random variable, what must be specified about the experiment, event and distribution?\n\nSpecify the experiment and the sampling rule.\nWrite the event as a set or an equivalent numerical condition.\nUse probabilities consistent with the sampling rule. Counting requires equally likely outcomes.\nFor a transformation, carry the distribution with it and check the inverse image of the event.\n\nAsk students to apply these steps to one inspection problem and one chord model, rather than recite the list.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s72",
+    "href": "w01-probability-worked.html#s72",
+    "title": "Introduction to probability",
+    "section": "Further reading",
+    "text": "Further reading\n\nUse the main notes for additional worked problems and the supplement for the formal development.\n\nJay L. Devore, Probability and Statistics for Engineering and the Sciences, 9th edition, Chapters 2–4: sample spaces and events, probability, random variables and their distributions. The publisher’s table of contents is provided for reference.\nKrishna Jagannathan, Probability Foundations for Electrical Engineers, Chapters 1, 4, and 11. The examples here are stipulated for this course.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-live.html#s01",
+    "href": "w01-probability-live.html#s01",
+    "title": "Introduction to probability",
+    "section": "Errors in a test sample",
+    "text": "Errors in a test sample\n\nSuppose a fixed classifier makes 8 errors on 100 tested items. What has been measured?\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nThe observed error fraction is\n8100=0.08.\\frac{8}{100}=0.08.\nThis describes these 100 items. It does not determine the error fraction in the next sample.\nVariation in the sampled items can change the measured performance."
+  },
+  {
+    "objectID": "w01-probability-live.html#s02",
+    "href": "w01-probability-live.html#s02",
+    "title": "Introduction to probability",
+    "section": "A probability question about the same sample",
+    "text": "A probability question about the same sample\n\nA test sample has 100 items, 8 in error. If one item is selected uniformly, what is the probability it is an error?\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nEach item has probability 1/1001/100 of selection.\nEight items are errors, so\nP(selected item is an error)=8×1100=0.08.P(\\text{selected item is an error})=8\\times\\frac1{100}=0.08.\nHere the probability follows from the stated sampling rule."
+  },
+  {
+    "objectID": "w01-probability-live.html#s03",
+    "href": "w01-probability-live.html#s03",
+    "title": "Introduction to probability",
+    "section": "A statistical question about future items",
+    "text": "A statistical question about future items\n\nDo the 8 errors in the specified sample of 100 establish a future-item error probability of 0.08? State the inference assumption needed.\n\n\n\n\n\nAsk students to identify what changes between selecting from a fixed test set and sampling a future deployment item. Do not introduce an independence formula yet.\nSuggested working:\nThey provide an estimate, rather than an exact probability for future items.\nUsing that estimate requires assumptions about how the test sample relates to future items.\nProbability starts with a model and calculates consequences. Statistical inference uses observations to learn about a model."
+  },
+  {
+    "objectID": "w01-probability-live.html#s04",
+    "href": "w01-probability-live.html#s04",
+    "title": "Introduction to probability",
+    "section": "Random selection of a chord",
+    "text": "Random selection of a chord\n\nA chord is selected in a circle. What must be specified before its length can be assigned a probability?\n\n\n\n\n\nIntroduce the geometric question only. Return to it after finite examples, random variables and interval probabilities.\nSuggested working:\n\nWe need a rule for selecting the chord. Later we will calculate the answer for three different rules."
+  },
+  {
+    "objectID": "w01-probability-live.html#s05",
+    "href": "w01-probability-live.html#s05",
+    "title": "Introduction to probability",
+    "section": "An inspection experiment",
+    "text": "An inspection experiment\n\nInspect two components in order. Record P for pass and F for fail. List the possible records.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nΩ={PP,PF,FP,FF}.\\Omega=\\{PP,PF,FP,FF\\}.\nPFPF means that the first component passes and the second fails.\nPFPF and FPFP are different outcomes because the order is recorded.\nThis list does not yet assign probabilities."
+  },
+  {
+    "objectID": "w01-probability-live.html#s06",
+    "href": "w01-probability-live.html#s06",
+    "title": "Introduction to probability",
+    "section": "An event as a set of outcomes",
+    "text": "An event as a set of outcomes\n\nFor the ordered inspection outcomes PP, PF, FP, FF, list the event A: at least one component fails.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nA={PF,FP,FF}.A=\\{PF,FP,FF\\}.\nThe event occurs if the observed outcome belongs to this set.\nFor example, PF∈APF\\in A, whereas PP∉APP\\notin A.\nAn event is specified by collecting all outcomes that satisfy the condition."
+  },
+  {
+    "objectID": "w01-probability-live.html#s07",
+    "href": "w01-probability-live.html#s07",
+    "title": "Introduction to probability",
+    "section": "Exactly one failure",
+    "text": "Exactly one failure\n\nFor outcomes PP, PF, FP, FF, let A be at least one failure. Find the event B of exactly one failure and compare it with A.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nB={PF,FP},A={PF,FP,FF}.B=\\{PF,FP\\},\\qquad A=\\{PF,FP,FF\\}.\nEvery outcome in BB is also in AA, so B⊆AB\\subseteq A.\nFFFF belongs to AA but not to BB.\n“At least one” includes two; “exactly one” does not."
+  },
+  {
+    "objectID": "w01-probability-live.html#s08",
+    "href": "w01-probability-live.html#s08",
+    "title": "Introduction to probability",
+    "section": "Intersection: both conditions",
+    "text": "Intersection: both conditions\n\nFor ordered outcomes PP, PF, FP, FF, let C be first-component failure and D be second-component failure. Find C∩D.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nC={FP,FF},D={PF,FF}.C=\\{FP,FF\\},\\qquad D=\\{PF,FF\\}.\nThe intersection contains the outcomes appearing in both sets:\nC∩D={FF}.C\\cap D=\\{FF\\}.\nIt describes two failures."
+  },
+  {
+    "objectID": "w01-probability-live.html#s09",
+    "href": "w01-probability-live.html#s09",
+    "title": "Introduction to probability",
+    "section": "Union: at least one condition",
+    "text": "Union: at least one condition\n\nFor ordered outcomes PP, PF, FP, FF, let C be first-component failure and D be second-component failure. Find C∪D.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nCollect the outcomes appearing in either set, without repetition:\nC∪D={FP,PF,FF}.C\\cup D=\\{FP,PF,FF\\}.\nThe union describes at least one failure.\nThe outcome FFFF is included once."
+  },
+  {
+    "objectID": "w01-probability-live.html#s10",
+    "href": "w01-probability-live.html#s10",
+    "title": "Introduction to probability",
+    "section": "Complement: the remaining outcomes",
+    "text": "Complement: the remaining outcomes\n\nFor Ω={PP,PF,FP,FF}, let A={PF,FP,FF} be at least one failure. Find Aᶜ.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nΩ={PP,PF,FP,FF},A={PF,FP,FF}.\\Omega=\\{PP,PF,FP,FF\\},\\qquad A=\\{PF,FP,FF\\}.\nThe complement consists of outcomes in Ω\\Omega that are not in AA:\nAc={PP}.A^c=\\{PP\\}.\n“No failures” is the complement of “at least one failure.”"
+  },
+  {
+    "objectID": "w01-probability-live.html#s11",
+    "href": "w01-probability-live.html#s11",
+    "title": "Introduction to probability",
+    "section": "Disjoint events",
+    "text": "Disjoint events\n\nFor the ordered inspection outcomes, let B={PF,FP} be exactly one failure and E={FF} be two failures. Determine whether they are disjoint.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nB={PF,FP},E={FF}.B=\\{PF,FP\\},\\qquad E=\\{FF\\}.\nThey have no common outcome:\nB∩E=⌀.B\\cap E=\\varnothing.\nSuch events are called disjoint, or mutually exclusive."
+  },
+  {
+    "objectID": "w01-probability-live.html#s12",
+    "href": "w01-probability-live.html#s12",
+    "title": "Introduction to probability",
+    "section": "Practice: two alarm indicators",
+    "text": "Practice: two alarm indicators\n\nRecord 1 when an alarm is active, 0 otherwise, and use order for two indicators. List the outcomes in “at least one active,” “exactly one active,” and “neither.”\n\n\n\n\n\nStopping point: ask students to list all three events without referring to the inspection example. Resume only after at least one and exactly one are distinguished.\nSuggested working:\nΩ={00,01,10,11}.\\Omega=\\{00,01,10,11\\}.\nAt least one active: {01,10,11}\\{01,10,11\\}.\nExactly one active: {01,10}\\{01,10\\}.\nNeither active: {00}\\{00\\}.\nThese descriptions use only sets; they do not require an independence assumption."
+  },
+  {
+    "objectID": "w01-probability-live.html#s13",
+    "href": "w01-probability-live.html#s13",
+    "title": "Introduction to probability",
+    "section": "Assigning probabilities to outcomes",
+    "text": "Assigning probabilities to outcomes\n\nSuppose the ordered inspection outcomes PP, PF, FP, FF have probabilities 0.72, 0.08, 0.18, 0.02. Check that these are valid outcome probabilities.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nEvery probability is nonnegative, and\n0.72+0.08+0.18+0.02=1.0.72+0.08+0.18+0.02=1.\nThe values are stipulated model probabilities."
+  },
+  {
+    "objectID": "w01-probability-live.html#s14",
+    "href": "w01-probability-live.html#s14",
+    "title": "Introduction to probability",
+    "section": "Adding the probabilities in an event",
+    "text": "Adding the probabilities in an event\n\nThe ordered outcomes PP, PF, FP, FF have probabilities 0.72, 0.08, 0.18, 0.02. Calculate the probability of exactly one failure.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nExactly one failure is B={PF,FP}B=\\{PF,FP\\}.\nP(B)=P({PF})+P({FP})=0.08+0.18=0.26.P(B)=P(\\{PF\\})+P(\\{FP\\})=0.08+0.18=0.26.\nThere are two favourable outcomes out of four, but the answer is not 2/42/4.\nThe four outcomes are not equally likely."
+  },
+  {
+    "objectID": "w01-probability-live.html#s15",
+    "href": "w01-probability-live.html#s15",
+    "title": "Introduction to probability",
+    "section": "Using the complement",
+    "text": "Using the complement\n\nIn the model P(PP)=0.72, P(PF)=0.08, P(FP)=0.18 and P(FF)=0.02. Calculate the probability of at least one failure directly and by the complement.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nDirect addition:\nP({PF,FP,FF})=0.08+0.18+0.02=0.28.P(\\{PF,FP,FF\\})=0.08+0.18+0.02=0.28.\nComplement:\n1−P({PP})=1−0.72=0.28.1-P(\\{PP\\})=1-0.72=0.28.\nBoth calculations refer to the same event."
+  },
+  {
+    "objectID": "w01-probability-live.html#s16",
+    "href": "w01-probability-live.html#s16",
+    "title": "Introduction to probability",
+    "section": "Deriving the complement rule",
+    "text": "Deriving the complement rule\n\nExplain why P(Aᶜ) = 1 − P(A).\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nAA and AcA^c are disjoint and together contain every outcome.\nP(A)+P(Ac)=P(Ω)=1.P(A)+P(A^c)=P(\\Omega)=1.\nRearranging gives\nP(Ac)=1−P(A).P(A^c)=1-P(A)."
+  },
+  {
+    "objectID": "w01-probability-live.html#s17",
+    "href": "w01-probability-live.html#s17",
+    "title": "Introduction to probability",
+    "section": "Overlapping events in the inspection model",
+    "text": "Overlapping events in the inspection model\n\nIn the model P(PP)=0.72, P(PF)=0.08, P(FP)=0.18 and P(FF)=0.02. Let C be first-component failure and D second-component failure. Find P(C), P(D) and P(C∩D).\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nC={FP,FF},P(C)=0.18+0.02=0.20.C=\\{FP,FF\\},\\qquad P(C)=0.18+0.02=0.20.\nD={PF,FF},P(D)=0.08+0.02=0.10.D=\\{PF,FF\\},\\qquad P(D)=0.08+0.02=0.10.\nC∩D={FF},P(C∩D)=0.02.C\\cap D=\\{FF\\},\\qquad P(C\\cap D)=0.02.\nAdding P(C)+P(D)P(C)+P(D) includes the FFFF probability twice."
+  },
+  {
+    "objectID": "w01-probability-live.html#s18",
+    "href": "w01-probability-live.html#s18",
+    "title": "Introduction to probability",
+    "section": "Deriving the addition rule",
+    "text": "Deriving the addition rule\n\nIn the component-inspection model, C is first-component failure and D second-component failure. Use P(C)=0.20, P(D)=0.10 and P(C∩D)=0.02 to find P(C∪D).\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nSubtract the overlap once:\nP(C∪D)=P(C)+P(D)−P(C∩D).P(C\\cup D)=P(C)+P(D)-P(C\\cap D).\nFor the inspection model,\nP(C∪D)=0.20+0.10−0.02=0.28.P(C\\cup D)=0.20+0.10-0.02=0.28.\nThis agrees with the direct calculation of at least one failure."
+  },
+  {
+    "objectID": "w01-probability-live.html#s19",
+    "href": "w01-probability-live.html#s19",
+    "title": "Introduction to probability",
+    "section": "Practice: overlapping system alerts",
+    "text": "Practice: overlapping system alerts\n\nAssume P(A) = 0.20, P(B) = 0.15 and P(A ∩ B) = 0.08 for two system alerts. Find the probability of any alert.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nP(A∪B)=0.20+0.15−0.08=0.27.P(A\\cup B)=0.20+0.15-0.08=0.27.\nThe overlap is already included in each marginal probability.\nThe probability of no alert is\n1−0.27=0.73.1-0.27=0.73."
+  },
+  {
+    "objectID": "w01-probability-live.html#s20",
+    "href": "w01-probability-live.html#s20",
+    "title": "Introduction to probability",
+    "section": "Practice: exactly one system alert",
+    "text": "Practice: exactly one system alert\n\nAssume P(A)=0.20, P(B)=0.15 and P(A∩B)=0.08 for two system alerts. Calculate the probability of exactly one alert.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nOnly AA:\nP(A\\B)=0.20−0.08=0.12.P(A\\setminus B)=0.20-0.08=0.12.\nOnly BB:\nP(B\\A)=0.15−0.08=0.07.P(B\\setminus A)=0.15-0.08=0.07.\nThese cases are disjoint, so the required probability is 0.12+0.07=0.190.12+0.07=0.19."
+  },
+  {
+    "objectID": "w01-probability-live.html#s21",
+    "href": "w01-probability-live.html#s21",
+    "title": "Introduction to probability",
+    "section": "Equally likely outcomes",
+    "text": "Equally likely outcomes\n\nA batch contains 20 items, of which 3 are defective. Select one item uniformly. Find the defect probability.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nThere are 20 distinct item identifiers, each with probability 1/201/20.\nThe defective-item event contains three identifiers:\nP(defective)=3×120=320.P(\\text{defective})=3\\times\\frac1{20}=\\frac3{20}.\nCounting favourable outcomes works here because uniform selection makes the item identifiers equally likely."
+  },
+  {
+    "objectID": "w01-probability-live.html#s22",
+    "href": "w01-probability-live.html#s22",
+    "title": "Introduction to probability",
+    "section": "A die with unequal probabilities",
+    "text": "A die with unequal probabilities\n\nSuppose a die has P({k}) = k/21 for k = 1, …, 6. Find the probability of an even face.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nThe weights are valid because 1+2+3+4+5+6=211+2+3+4+5+6=21.\nThe even-face event is {2,4,6}\\{2,4,6\\}, so\nP(even)=221+421+621=47.P(\\text{even})=\\frac2{21}+\\frac4{21}+\\frac6{21}=\\frac47.\nThree of the six faces are even, but their total probability is not 1/21/2."
+  },
+  {
+    "objectID": "w01-probability-live.html#s23",
+    "href": "w01-probability-live.html#s23",
+    "title": "Introduction to probability",
+    "section": "Practice: checking a proposed model",
+    "text": "Practice: checking a proposed model\n\nThree mutually exclusive outcomes exhaust an experiment. Proposed probabilities are 0.2, 0.3 and 0.6. Is the model valid?\n\n\n\n\n\nStopping point: students should now identify an event, choose addition or complement, and check whether counting is justified.\nSuggested working:\nThe sum is 0.2+0.3+0.6=1.10.2+0.3+0.6=1.1, so the model is invalid.\nIf the first two probabilities are fixed, the third must be\n1−0.2−0.3=0.5.1-0.2-0.3=0.5.\nNormalization is a requirement, not an approximation."
+  },
+  {
+    "objectID": "w01-probability-live.html#s24",
+    "href": "w01-probability-live.html#s24",
+    "title": "Introduction to probability",
+    "section": "The sample space in a complete model",
+    "text": "The sample space in a complete model\n\nFor one inspection, record 0 for pass and 1 for failure. Specify the possible outcomes.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nΩ={0,1}.\\Omega=\\{0,1\\}.\nThis set lists the possible outcomes. Outcome 11 means failure; outcome 00 means pass.\nThe sample space does not by itself specify how likely the two outcomes are."
+  },
+  {
+    "objectID": "w01-probability-live.html#s25",
+    "href": "w01-probability-live.html#s25",
+    "title": "Introduction to probability",
+    "section": "The collection of events",
+    "text": "The collection of events\n\nFor the inspection recorded as 0 = pass and 1 = failure, list every subset of Ω = {0, 1}.\n\nOpen the interactive experiment\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nℱ={⌀,{0},{1},Ω}=2Ω.\\mathcal F=\\{\\varnothing,\\{0\\},\\{1\\},\\Omega\\}=2^\\Omega.\nThese are the impossible event, pass, failure, and the certain event.\nHere 1∈Ω1\\in\\Omega, while {1}∈ℱ\\{1\\}\\in\\mathcal F: an outcome and an event are different objects."
+  },
+  {
+    "objectID": "w01-probability-live.html#s26",
+    "href": "w01-probability-live.html#s26",
+    "title": "Introduction to probability",
+    "section": "The probability assignment",
+    "text": "The probability assignment\n\nSuppose a pass/fail inspection has failure probability 0.10. Using 0 = pass and 1 = failure, assign a probability to every event.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\n\n\n\nEvent\nProbability\n\n\n\n\n⌀\\varnothing\n0\n\n\n{0}\\{0\\}\n0.90\n\n\n{1}\\{1\\}\n0.10\n\n\nΩ\\Omega\n1\n\n\n\nThe probability measure PP assigns probabilities to events."
+  },
+  {
+    "objectID": "w01-probability-live.html#s27",
+    "href": "w01-probability-live.html#s27",
+    "title": "Introduction to probability",
+    "section": "The probability triplet",
+    "text": "The probability triplet\n\nThe example has outcomes 0 = pass and 1 = failure, all four events, and failure probability 0.10. Write the probability-space triplet.\n\n\n\n\n\nAfter the example is clear, introduce (Ω,ℱ,P)(\\Omega,\\mathcal F,P) and identify each symbol with the pass/fail sample space, its events, and the probabilities just assigned. This example-first order is intentional.\nSuggested working:\n(Ω,ℱ,P)\\boxed{(\\Omega,\\mathcal F,P)}\nΩ={0,1}\\Omega=\\{0,1\\} lists the possible outcomes.\nℱ=2Ω\\mathcal F=2^\\Omega lists the events.\nPP assigns a probability to each event.\nThese three objects form a probability space."
+  },
+  {
+    "objectID": "w01-probability-live.html#s28",
+    "href": "w01-probability-live.html#s28",
+    "title": "Introduction to probability",
+    "section": "Why the event collection must be closed",
+    "text": "Why the event collection must be closed\n\nIf we can ask whether A occurs, what related questions should the model also describe?\n\n\n\n\n\nUse the complement and “at least one of” examples for intuition. Then state the closure conditions. The exact sigma-algebra definition and the finite/cofinite counterexample are in the main notes, §4. The probability axioms are in main notes §5. Do not derive measure-theoretic constructions here.\nSuggested working:\nWhether AA does not occur: the complement AcA^c.\nWhether at least one of A1,A2,…A_1,A_2,\\ldots occurs: the union ⋃nAn\\bigcup_n A_n.\nAn event collection containing Ω\\Omega and closed under complements and countable unions is a σ-algebra.\nFor a finite model we ordinarily use all subsets; this collection satisfies these requirements."
+  },
+  {
+    "objectID": "w01-probability-live.html#s29",
+    "href": "w01-probability-live.html#s29",
+    "title": "Introduction to probability",
+    "section": "The probability rules",
+    "text": "The probability rules\n\nComplements let us ask what cannot occur; countable unions let us ask whether at least one of a list of events occurs. Once these questions are events, what rules should their probabilities obey?\n\n\n\n\n\nKeep the distinction explicit: complement and countable-union closure belong to the σ\\sigma-algebra; these three conditions are the probability axioms. The complement rule P(Ac)=1−P(A)P(A^c)=1-P(A) follows because AA and AcA^c partition Ω\\Omega.\nSuggested working:\nKolmogorov’s axioms constrain PP on the event collection ℱ\\mathcal F:\n\nNonnegativity: P(A)≥0P(A)\\ge0 for every A∈ℱA\\in\\mathcal F.\nNormalization: P(Ω)=1P(\\Omega)=1; an experiment produces an outcome in Ω\\Omega.\nCountable additivity: if A1,A2,…∈ℱA_1,A_2,\\ldots\\in\\mathcal F are pairwise disjoint, then\n\nP(⋃n=1∞An)=∑n=1∞P(An).P\\!\\left(\\bigcup_{n=1}^{\\infty}A_n\\right)=\\sum_{n=1}^{\\infty}P(A_n).\nThe union is “at least one”; disjointness prevents double counting. Complements and countable unions define the event collection; these three axioms govern its probabilities."
+  },
+  {
+    "objectID": "w01-probability-live.html#s30",
+    "href": "w01-probability-live.html#s30",
+    "title": "Introduction to probability",
+    "section": "Running frequency in a model",
+    "text": "Running frequency in a model\n\nIn the independent fair-coin model, the lab plots the running fraction of heads beside the model probability p. What can a finite run illustrate? What does it establish about a limit?\n\nOpen the interactive experiment\n\n\n\n\nOpen the running-frequency experiment. Explain that it displays one simulated sequence under the stated fair-coin model. Distinguish simulation from a proof of convergence.\nSuggested working:\nIn this stipulated model, each toss is independent, and a head has probability p=1/2p=1/2.\nThe plot shows the realized proportion after each finite number of tosses beside the model probability.\nA finite simulation illustrates sample variation. By itself, it does not prove a limiting theorem."
+  },
+  {
+    "objectID": "w01-probability-live.html#s31",
+    "href": "w01-probability-live.html#s31",
+    "title": "Introduction to probability",
+    "section": "Practice: a batch inspection triplet",
+    "text": "Practice: a batch inspection triplet\n\nTen labelled items contain two defective items, numbered 3 and 8. Select one item uniformly. Specify the triplet and the defect event.\n\n\n\n\n\nStopping point: students should specify the experiment, its outcomes, an event collection and the probability assignment in their own words.\nSuggested working:\nΩ={1,2,…,10},ℱ=2Ω.\\Omega=\\{1,2,\\ldots,10\\},\\qquad \\mathcal F=2^\\Omega.\nFor each event AA, P(A)=|A|/10P(A)=|A|/10.\nThe defect event is D={3,8}D=\\{3,8\\}, hence P(D)=2/10P(D)=2/10.\nA different selection rule would require a different probability assignment."
+  },
+  {
+    "objectID": "w01-probability-live.html#s32",
+    "href": "w01-probability-live.html#s32",
+    "title": "Introduction to probability",
+    "section": "Recording a numerical result",
+    "text": "Recording a numerical result\n\nFor the inspection model, the probabilities of PP, PF, FP and FF are 0.72, 0.08, 0.18 and 0.02. Let X count failed components. Assign X to each outcome.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\n\n\n\nOutcome ω\\omega\nPPPP\nPFPF\nFPFP\nFFFF\n\n\n\n\nX(ω)X(\\omega)\n0\n1\n1\n2\n\n\n\nXX is a function: it assigns one number to each outcome.\nSeveral outcomes may have the same numerical value."
+  },
+  {
+    "objectID": "w01-probability-live.html#s33",
+    "href": "w01-probability-live.html#s33",
+    "title": "Introduction to probability",
+    "section": "The event X = 1",
+    "text": "The event X = 1\n\nFor the ordered inspection, X counts failures and P(PP)=0.72, P(PF)=0.08, P(FP)=0.18, P(FF)=0.02. Find P(X=1).\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\n{X=1}={PF,FP}.\\{X=1\\}=\\{PF,FP\\}.\nUnder the stated model,\nP(X=1)=0.08+0.18=0.26.P(X=1)=0.08+0.18=0.26.\nFirst identify the outcomes; then add their probabilities."
+  },
+  {
+    "objectID": "w01-probability-live.html#s34",
+    "href": "w01-probability-live.html#s34",
+    "title": "Introduction to probability",
+    "section": "The distribution of the failure count",
+    "text": "The distribution of the failure count\n\nFor the ordered inspection, X counts failures and P(PP)=0.72, P(PF)=0.08, P(FP)=0.18, P(FF)=0.02. Find its probability distribution.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\n\n\n\nxx\nOutcomes producing xx\nP(X=x)P(X=x)\n\n\n\n\n0\nPPPP\n0.72\n\n\n1\nPF,FPPF,FP\n0.26\n\n\n2\nFFFF\n0.02\n\n\n\nCheck: 0.72+0.26+0.02=10.72+0.26+0.02=1.\nThe three count values are not equally likely."
+  },
+  {
+    "objectID": "w01-probability-live.html#s35",
+    "href": "w01-probability-live.html#s35",
+    "title": "Introduction to probability",
+    "section": "A numerical set and its inverse image",
+    "text": "A numerical set and its inverse image\n\nFor PP, PF, FP, FF with probabilities 0.72, 0.08, 0.18, 0.02, let X count failures. For B={1,2}, find X⁻¹(B) and P(X∈B).\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nX−1(B)={ω:X(ω)∈B}={PF,FP,FF}.X^{-1}(B)=\\{\\omega:X(\\omega)\\in B\\}=\\{PF,FP,FF\\}.\nThis is the inverse image of BB.\nP(X∈B)=0.08+0.18+0.02=0.28.P(X\\in B)=0.08+0.18+0.02=0.28.\nAn inverse image converts a numerical condition to an event in the original experiment."
+  },
+  {
+    "objectID": "w01-probability-live.html#s36",
+    "href": "w01-probability-live.html#s36",
+    "title": "Introduction to probability",
+    "section": "An inverse image need not be an inverse function",
+    "text": "An inverse image need not be an inverse function\n\nOn Ω={PP,PF,FP,FF}, X counts failures. Find X⁻¹({1}) and explain whether an outcome can be recovered uniquely from X=1.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nNo: either PFPF or FPFP could have occurred.\nXX has no inverse function on these outcomes.\nNevertheless, the inverse image is well defined:\nX−1({1})={PF,FP}.X^{-1}(\\{1\\})=\\{PF,FP\\}."
+  },
+  {
+    "objectID": "w01-probability-live.html#s37",
+    "href": "w01-probability-live.html#s37",
+    "title": "Introduction to probability",
+    "section": "A random variable and a probability measure",
+    "text": "A random variable and a probability measure\n\nFor outcomes PP, PF, FP, FF with probabilities 0.72, 0.08, 0.18, 0.02, let X count failures. Find X(PF) and P({PF,FP}). What does each map take as input?\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nDespite its name, XX is not itself a random rule. Once the experiment and recording rule are fixed, XX is a fixed function on the set of outcomes. The random outcome supplied to it gives its value a distribution. It maps each outcome to a real number:\nX:Ω→ℝ,ω↦X(ω).X:\\Omega\\to\\mathbb R,\\qquad \\omega\\mapsto X(\\omega).\nPrecisely, XX is measurable when, for every Borel set B⊆ℝB\\subseteq\\mathbb R, the inverse image\nX−1(B)={ω∈Ω:X(ω)∈B}X^{-1}(B)=\\{\\omega\\in\\Omega:X(\\omega)\\in B\\}\nbelongs to ℱ\\mathcal F. Here X(PF)=1X(PF)=1.\nProbability is the set function P:ℱ→[0,1]P:\\mathcal F\\to[0,1]: it maps an event to a number in the unit interval. Thus P({PF,FP})=0.08+0.18=0.26P(\\{PF,FP\\})=0.08+0.18=0.26. More generally, PX(B)=P(X−1(B))P_X(B)=P(X^{-1}(B)). In this finite model, ℱ=2Ω\\mathcal F=2^\\Omega, so every real-valued function on Ω\\Omega is measurable."
+  },
+  {
+    "objectID": "w01-probability-live.html#s38",
+    "href": "w01-probability-live.html#s38",
+    "title": "Introduction to probability",
+    "section": "Practice: a repair-cost random variable",
+    "text": "Practice: a repair-cost random variable\n\nFor the model P(PP)=0.72, P(PF)=0.08, P(FP)=0.18, P(FF)=0.02, let X count failures and Y=500X rupees. Find P(Y&gt;500).\n\n\n\n\n\nStopping point: ask for the outcome set before allowing a numerical probability. Include the units of Y.\nSuggested working:\nThe possible costs are ₹0, ₹500 and ₹1000.\n{Y&gt;500}={X=2}={FF}.\\{Y&gt;500\\}=\\{X=2\\}=\\{FF\\}.\nTherefore P(Y&gt;500)=0.02P(Y&gt;500)=0.02.\nFor comparison, P(Y≥500)=P(X≥1)=0.28P(Y\\ge500)=P(X\\ge1)=0.28. The strict inequality matters."
+  },
+  {
+    "objectID": "w01-probability-live.html#s39",
+    "href": "w01-probability-live.html#s39",
+    "title": "Introduction to probability",
+    "section": "A uniform measurement model",
+    "text": "A uniform measurement model\n\nLet E be a uniform measurement error on [−2,2] mm. State how to calculate the probability of an interval [a,b] contained in this range.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nIntervals of the same length have the same probability.\nFor an interval contained in [−2,2][-2,2],\nP(a≤E≤b)=b−a4.P(a\\le E\\le b)=\\frac{b-a}{4}.\nThe model assigns probability by interval length."
+  },
+  {
+    "objectID": "w01-probability-live.html#s40",
+    "href": "w01-probability-live.html#s40",
+    "title": "Introduction to probability",
+    "section": "Meeting a tolerance",
+    "text": "Meeting a tolerance\n\nAssume measurement error E is uniform on [−2,2] mm. Find the probability that the absolute error is at most 0.5 mm.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\n|E|≤0.5⇔−0.5≤E≤0.5.|E|\\le0.5\\iff -0.5\\le E\\le0.5.\nThe acceptable interval has length 11 mm; the full interval has length 44 mm.\nP(|E|≤0.5)=14.P(|E|\\le0.5)=\\frac14.\nFor this continuous model, including or excluding either endpoint does not change the probability."
+  },
+  {
+    "objectID": "w01-probability-live.html#s41",
+    "href": "w01-probability-live.html#s41",
+    "title": "Introduction to probability",
+    "section": "A uniform source variable",
+    "text": "A uniform source variable\n\nLet U be uniform on (0,1). Find P(U&lt;0.25) and P(U&gt;2/3).\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nP(U&lt;0.25)=0.25.P(U&lt;0.25)=0.25.\nP(U&gt;2/3)=1−2/3=1/3.P(U&gt;2/3)=1-2/3=1/3.\nWe will generate chord measurements from UU and translate their events back to intervals of UU."
+  },
+  {
+    "objectID": "w01-probability-live.html#s42",
+    "href": "w01-probability-live.html#s42",
+    "title": "Introduction to probability",
+    "section": "Transforming a uniform variable",
+    "text": "Transforming a uniform variable\n\nLet U be uniform on (0,1) and D=10U cm. Find P(D&lt;3 cm).\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nD&lt;3⇔10U&lt;3⇔U&lt;0.3.D&lt;3\\iff 10U&lt;3\\iff U&lt;0.3.\nThus P(D&lt;3)=0.3P(D&lt;3)=0.3.\nThe inverse transformation is U=D/10U=D/10.\nThis change of scale gives a uniform distance on (0,10)(0,10) cm."
+  },
+  {
+    "objectID": "w01-probability-live.html#s43",
+    "href": "w01-probability-live.html#s43",
+    "title": "Introduction to probability",
+    "section": "A nonlinear transformation",
+    "text": "A nonlinear transformation\n\nLet U be uniform on (0,1) and D=10√U cm. Find P(D&lt;3 cm).\n\n\n\n\n\nStopping point: have students repeat both transformations for a distance threshold of 5 cm. Answers: 1/2 and 1/4.\nSuggested working:\nD&lt;3⇔U&lt;0.3⇔U&lt;0.09.D&lt;3\\iff\\sqrt U&lt;0.3\\iff U&lt;0.09.\nThus P(D&lt;3)=0.09P(D&lt;3)=0.09.\nThe inverse transformation is U=(D/10)2U=(D/10)^2.\nThe possible distances are the same as before, but their probabilities differ."
+  },
+  {
+    "objectID": "w01-probability-live.html#s44",
+    "href": "w01-probability-live.html#s44",
+    "title": "Introduction to probability",
+    "section": "The chord-length question",
+    "text": "The chord-length question\n\nFor a circle of radius R, find the probability that a sampled chord has length L&gt;√3R. What sampling rule is missing from the question?\n\nOpen the interactive experiment\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nThe reference length is 3R\\sqrt3R.\nWe will calculate the probability under three specified sampling rules.\nIn each case the required event is the same geometric condition:\nL&gt;3R.L&gt;\\sqrt3R."
+  },
+  {
+    "objectID": "w01-probability-live.html#s45",
+    "href": "w01-probability-live.html#s45",
+    "title": "Introduction to probability",
+    "section": "Chord length from the midpoint distance",
+    "text": "Chord length from the midpoint distance\n\nLet D be the distance from the centre to the chord. Express its length L in terms of D.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\n\nThe right triangle gives (L/2)2+D2=R2(L/2)^2+D^2=R^2.\nTherefore L=2R2−D2L=2\\sqrt{R^2-D^2}."
+  },
+  {
+    "objectID": "w01-probability-live.html#s46",
+    "href": "w01-probability-live.html#s46",
+    "title": "Introduction to probability",
+    "section": "Converting the long-chord condition",
+    "text": "Converting the long-chord condition\n\nUsing L=2√(R²−D²), express the strict condition L&gt;√3R as an inequality for D.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nThe perpendicular from the centre bisects the chord, giving\n(L/2)2+D2=R2,L=2R2−D2.(L/2)^2+D^2=R^2,\\qquad L=2\\sqrt{R^2-D^2}.\nNow apply the strict threshold:\n2R2−D2&gt;3R.2\\sqrt{R^2-D^2}&gt;\\sqrt3R.\nBoth sides are nonnegative, so squaring is valid:\n4(R2−D2)&gt;3R2⇔D2&lt;R2/4.4(R^2-D^2)&gt;3R^2\\iff D^2&lt;R^2/4.\nSince D≥0D\\ge0, the event is D&lt;R/2D&lt;R/2."
+  },
+  {
+    "objectID": "w01-probability-live.html#s47",
+    "href": "w01-probability-live.html#s47",
+    "title": "Introduction to probability",
+    "section": "A numerical geometry check",
+    "text": "A numerical geometry check\n\nFor a circle of radius R=10 cm and L=2√(R²−D²), calculate L when D=3 cm and when D=6 cm. Compare both lengths with √3R.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nAt D=3D=3 cm: L=2100−9=291≈19.08L=2\\sqrt{100-9}=2\\sqrt{91}\\approx19.08 cm.\nAt D=6D=6 cm: L=2100−36=16L=2\\sqrt{100-36}=16 cm.\nThe threshold is 103≈17.3210\\sqrt3\\approx17.32 cm.\nThe first chord is longer than the threshold; the second is shorter. This agrees with the test D&lt;5D&lt;5 cm."
+  },
+  {
+    "objectID": "w01-probability-live.html#s48",
+    "href": "w01-probability-live.html#s48",
+    "title": "Introduction to probability",
+    "section": "Coordinates that specify a chord",
+    "text": "Coordinates that specify a chord\n\nFor a circle with radius R, let t=D/R∈(0,1) and φ∈[0,2π) be the direction of the chord midpoint. Let C(φ,t) denote the chord through the point R t(cosφ,sinφ), perpendicular to that radius.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nLet t=D/Rt=D/R and let ϕ\\phi be the direction of the midpoint from the centre.\nPlace the midpoint at distance RtRt in direction ϕ\\phi, then draw the perpendicular chord.\nCall this construction C(ϕ,t)C(\\phi,t).\nWe use 0&lt;t&lt;10&lt;t&lt;1 and 0≤ϕ&lt;2π0\\le\\phi&lt;2\\pi. Diameters and zero-length chords have probability zero under the three models."
+  },
+  {
+    "objectID": "w01-probability-live.html#s49",
+    "href": "w01-probability-live.html#s49",
+    "title": "Introduction to probability",
+    "section": "Recovering the chord coordinates",
+    "text": "Recovering the chord coordinates\n\nFor a chord with midpoint m in a circle of radius R, define t=||m||/R and φ=Arg(m) in [0,2π). Recover (φ,t) from the chord.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nMeasure its normalized midpoint distance and direction:\nt=∥m∥R,ϕ=Arg⁡(m)∈[0,2π).t=\\frac{\\|m\\|}{R},\\qquad \\phi=\\operatorname{Arg}(m)\\in[0,2\\pi).\nThus\nC−1(c)=(ϕ,t).C^{-1}(c)=(\\phi,t).\nThis is an inverse function on the stated chord space. The supplement gives the endpoint formula and verifies both inverse identities."
+  },
+  {
+    "objectID": "w01-probability-live.html#s50",
+    "href": "w01-probability-live.html#s50",
+    "title": "Introduction to probability",
+    "section": "Model B: uniform radial distance",
+    "text": "Model B: uniform radial distance\n\nSample D uniformly on (0,R) and an independent uniform direction φ. For L=2√(R²−D²), find the probability of L&gt;√3R.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nThe event is D&lt;R/2D&lt;R/2.\nThe favourable radial interval has length R/2R/2, out of total length RR:\nPB(L&gt;3R)=R/2R=12.P_B(L&gt;\\sqrt3R)=\\frac{R/2}{R}=\\frac12.\nThis model is uniform in radial distance."
+  },
+  {
+    "objectID": "w01-probability-live.html#s51",
+    "href": "w01-probability-live.html#s51",
+    "title": "Introduction to probability",
+    "section": "Model B: sampling map and inverse",
+    "text": "Model B: sampling map and inverse\n\nLet U,V be independent uniform variables on (0,1) and [0,1), and set t=U, φ=2πV. Using C(φ,t), write the chord, recover (U,V), and express its length.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nt=U,ϕ=2πV,c=C(2πV,U).t=U,\\qquad \\phi=2\\pi V,\\qquad c=C(2\\pi V,U).\nFrom the sampled chord, recover\nU=t,V=ϕ/(2π).U=t,\\qquad V=\\phi/(2\\pi).\nThe length is LB=2R1−U2L_B=2R\\sqrt{1-U^2}, and the long-chord event is U&lt;1/2U&lt;1/2."
+  },
+  {
+    "objectID": "w01-probability-live.html#s52",
+    "href": "w01-probability-live.html#s52",
+    "title": "Introduction to probability",
+    "section": "Model C: a midpoint uniform in disk area",
+    "text": "Model C: a midpoint uniform in disk area\n\nChoose the chord midpoint uniformly by area in a disk of radius R. The long-chord event is D&lt;R/2. Find the probability.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nLong chords have midpoints within radius R/2R/2.\nUniform area sampling gives\nPC(L&gt;3R)=π(R/2)2πR2=14.P_C(L&gt;\\sqrt3R)=\\frac{\\pi(R/2)^2}{\\pi R^2}=\\frac14.\nThe smaller disk occupies a quarter of the total area."
+  },
+  {
+    "objectID": "w01-probability-live.html#s53",
+    "href": "w01-probability-live.html#s53",
+    "title": "Introduction to probability",
+    "section": "Why uniform area uses a square root",
+    "text": "Why uniform area uses a square root\n\nFor a midpoint sampled uniformly by area in a radius-R disk and U uniform on (0,1), derive P(D&lt;r) and the corresponding transformation of U.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nP(D&lt;r)=πr2πR2=(rR)2.P(D&lt;r)=\\frac{\\pi r^2}{\\pi R^2}=\\left(\\frac rR\\right)^2.\nThe transformation D=RUD=R\\sqrt U has exactly this property:\nP(RU&lt;r)=P(U&lt;(r/R)2)=(r/R)2.P(R\\sqrt U&lt;r)=P\\!\\left(U&lt;(r/R)^2\\right)=(r/R)^2.\nUsing D=RUD=RU instead would give uniform radial distance."
+  },
+  {
+    "objectID": "w01-probability-live.html#s54",
+    "href": "w01-probability-live.html#s54",
+    "title": "Introduction to probability",
+    "section": "Model C: sampling map and inverse",
+    "text": "Model C: sampling map and inverse\n\nFor uniform disk area, let t=√U and φ=2πV, where U,V are independent uniform variables on (0,1) and [0,1). Using C(φ,t), write the chord, its inverse and its length.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nt=U,ϕ=2πV,c=C(2πV,U).t=\\sqrt U,\\qquad \\phi=2\\pi V,\\qquad c=C(2\\pi V,\\sqrt U).\nInverse: U=t2U=t^2, V=ϕ/(2π)V=\\phi/(2\\pi).\nThe length is LC=2R1−UL_C=2R\\sqrt{1-U}.\nThe long-chord event is U&lt;1/4U&lt;1/4, which has probability 1/41/4."
+  },
+  {
+    "objectID": "w01-probability-live.html#s55",
+    "href": "w01-probability-live.html#s55",
+    "title": "Introduction to probability",
+    "section": "Practice: a smaller midpoint region",
+    "text": "Practice: a smaller midpoint region\n\nFor the same disk of radius R, find P(D&lt;R/3) under (i) a uniform radial distance and (ii) a midpoint chosen uniformly by disk area.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nModel B, uniform radial distance:\nPB(D&lt;R/3)=R/3R=13.P_B(D&lt;R/3)=\\frac{R/3}{R}=\\frac13.\nModel C, uniform area:\nPC(D&lt;R/3)=π(R/3)2πR2=19.P_C(D&lt;R/3)=\\frac{\\pi(R/3)^2}{\\pi R^2}=\\frac19.\nThe region is identical. The two sampling distributions assign it different probabilities."
+  },
+  {
+    "objectID": "w01-probability-live.html#s56",
+    "href": "w01-probability-live.html#s56",
+    "title": "Introduction to probability",
+    "section": "Model A: two uniform endpoints",
+    "text": "Model A: two uniform endpoints\n\nChoose independent uniform endpoint angles A₁,A₂ on [0,2π), and let Θ=(A₂−A₁) mod 2π. Express the chord length using Θ.\n\n\n\n\n\nDraw the central isosceles triangle and bisect it before introducing the formula. Explain that the relative angle is uniform because the endpoints are independent and uniform.\nSuggested working:\nAfter the first angle is chosen, rotational symmetry leaves Θ\\Theta uniform on [0,2π)[0,2\\pi).\nBisect the isosceles triangle formed by the centre and the two endpoints. Then\nL/2=Rsin⁡(Θ/2),L=2Rsin⁡(Θ/2).L/2=R\\sin(\\Theta/2),\\qquad L=2R\\sin(\\Theta/2).\nFor Θ=π\\Theta=\\pi, the endpoints are opposite and L=2RL=2R."
+  },
+  {
+    "objectID": "w01-probability-live.html#s57",
+    "href": "w01-probability-live.html#s57",
+    "title": "Introduction to probability",
+    "section": "Model A: the favourable angular interval",
+    "text": "Model A: the favourable angular interval\n\nLet Θ=(A₂−A₁) mod 2π be uniform on [0,2π) and L=2R sin(Θ/2). Solve the strict inequality L&gt;√3R for Θ.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nsin⁡(Θ/2)&gt;3/2.\\sin(\\Theta/2)&gt;\\sqrt3/2.\nSince 0≤Θ/2&lt;π0\\le\\Theta/2&lt;\\pi,\nπ/3&lt;Θ/2&lt;2π/3.\\pi/3&lt;\\Theta/2&lt;2\\pi/3.\nTherefore 2π/3&lt;Θ&lt;4π/32\\pi/3&lt;\\Theta&lt;4\\pi/3, and\nPA(long)=4π/3−2π/32π=13.P_A(\\text{long})=\\frac{4\\pi/3-2\\pi/3}{2\\pi}=\\frac13."
+  },
+  {
+    "objectID": "w01-probability-live.html#s58",
+    "href": "w01-probability-live.html#s58",
+    "title": "Introduction to probability",
+    "section": "Model A in midpoint coordinates",
+    "text": "Model A in midpoint coordinates\n\nFor a uniform relative angle Θ on [0,2π), define α=min(Θ,2π−Θ). Find the distribution of α and the chord midpoint distance t=D/R.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nα=min⁡(Θ,2π−Θ),0≤α≤π.\\alpha=\\min(\\Theta,2\\pi-\\Theta),\\qquad 0\\le\\alpha\\le\\pi.\nThe right triangle gives t=D/R=cos⁡(α/2)t=D/R=\\cos(\\alpha/2).\nFor 0≤a≤π0\\le a\\le\\pi, the angular intervals producing α≤a\\alpha\\le a have total length 2a2a:\nP(α≤a)=2a2π=aπ.P(\\alpha\\le a)=\\frac{2a}{2\\pi}=\\frac a\\pi.\nThus α\\alpha is uniform on [0,π][0,\\pi]."
+  },
+  {
+    "objectID": "w01-probability-live.html#s59",
+    "href": "w01-probability-live.html#s59",
+    "title": "Introduction to probability",
+    "section": "Model A: sampling map and inverse",
+    "text": "Model A: sampling map and inverse\n\nFor independent uniform endpoint angles, put U=α/π, where α=min(Θ,2π−Θ), and let V=φ/(2π) be the normalized midpoint direction. With t=cos(α/2), find the chord map and its inverse.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nt=cos⁡(πU/2),c=C(2πV,cos⁡(πU/2)).t=\\cos(\\pi U/2),\\qquad c=C(2\\pi V,\\cos(\\pi U/2)).\nInverse:\nU=2πarccos⁡t,V=ϕ/(2π).U=\\frac2\\pi\\arccos t,\\qquad V=\\phi/(2\\pi).\nThis generates the same distribution of unordered chords as independent uniform endpoints. The supplement proves the independence of the midpoint direction and the smaller separation."
+  },
+  {
+    "objectID": "w01-probability-live.html#s60",
+    "href": "w01-probability-live.html#s60",
+    "title": "Introduction to probability",
+    "section": "Model A: the length random variable",
+    "text": "Model A: the length random variable\n\nUnder independent uniform endpoint angles, Θ is uniform on [0,2π), α=min(Θ,2π−Θ), U=α/π and t=cos(α/2). Express L=2R√(1−t²) in terms of U; find the condition for L&gt;√3R.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nLA=2R1−cos⁡2(πU/2)=2Rsin⁡(πU/2).L_A=2R\\sqrt{1-\\cos^2(\\pi U/2)}=2R\\sin(\\pi U/2).\nThe sine is increasing for 0&lt;U&lt;10&lt;U&lt;1, so\nLA&gt;3R⇔U&gt;2/3.L_A&gt;\\sqrt3R\\iff U&gt;2/3.\nTherefore PA(long)=1−2/3=1/3P_A(\\text{long})=1-2/3=1/3."
+  },
+  {
+    "objectID": "w01-probability-live.html#s61",
+    "href": "w01-probability-live.html#s61",
+    "title": "Introduction to probability",
+    "section": "Practice: recovering the source coordinates",
+    "text": "Practice: recovering the source coordinates\n\nFor t=1/2 and midpoint angle φ=π, recover v=φ/(2π) and u under Model A, t=U; Model B, t=U; and Model C, t=√U. Is the chord longer than √3R?\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nIn every model, v=ϕ/(2π)=1/2v=\\phi/(2\\pi)=1/2.\nModel A: u=(2/π)arccos⁡(1/2)=2/3u=(2/\\pi)\\arccos(1/2)=2/3.\nModel B: u=t=1/2u=t=1/2.\nModel C: u=t2=1/4u=t^2=1/4.\nThe chord length equals 3R\\sqrt3R, so it is outside the strict long-chord event in all three models."
+  },
+  {
+    "objectID": "w01-probability-live.html#s62",
+    "href": "w01-probability-live.html#s62",
+    "title": "Introduction to probability",
+    "section": "Comparing the three sampling distributions",
+    "text": "Comparing the three sampling distributions\n\nSummarize the event calculations using the same uniform source U.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\n\n\n\n\n\n\n\n\n\nSampling rule\nNormalized distance tt\nLong-chord condition\nProbability\n\n\n\n\nA: uniform endpoints\ncos⁡(πU/2)\\cos(\\pi U/2)\nU&gt;2/3U&gt;2/3\n1/31/3\n\n\nB: uniform radial distance\nUU\nU&lt;1/2U&lt;1/2\n1/21/2\n\n\nC: uniform midpoint area\nU\\sqrt U\nU&lt;1/4U&lt;1/4\n1/41/4\n\n\n\nEach result uses a specified random variable and a specified sampling distribution."
+  },
+  {
+    "objectID": "w01-probability-live.html#s63",
+    "href": "w01-probability-live.html#s63",
+    "title": "Introduction to probability",
+    "section": "Resolution of Bertrand’s paradox",
+    "text": "Resolution of Bertrand’s paradox\n\nWhy are the three probabilities compatible?\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nThe geometric event is the same: all chords whose midpoint distance is less than R/2R/2.\nThe sampling rules assign different probabilities to regions of the chord space.\n“Random chord” does not select one of these probability distributions.\nCompare the sampling experiments · Inspect the maps and inverses"
+  },
+  {
+    "objectID": "w01-probability-live.html#s64",
+    "href": "w01-probability-live.html#s64",
+    "title": "Introduction to probability",
+    "section": "Changing coordinates in one fixed model",
+    "text": "Changing coordinates in one fixed model\n\nKeep Model B, where T = D/R is uniform on (0, 1). Write W = T². What is P(W &lt; 1/4)?\n\n\n\n\n\nStopping point: students should explain both why the three sampling models differ and why a coordinate change within a fixed model preserves probability.\nSuggested working:\nW&lt;1/4⇔T2&lt;1/4⇔T&lt;1/2.W&lt;1/4\\iff T^2&lt;1/4\\iff T&lt;1/2.\nHence PB(W&lt;1/4)=1/2P_B(W&lt;1/4)=1/2.\nWW is not uniform: in general, PB(W&lt;w)=wP_B(W&lt;w)=\\sqrt w for 0&lt;w&lt;10&lt;w&lt;1.\nDeclaring WW uniform would change the sampling model to Model C."
+  },
+  {
+    "objectID": "w01-probability-live.html#s65",
+    "href": "w01-probability-live.html#s65",
+    "title": "Introduction to probability",
+    "section": "Sampling records from two sites",
+    "text": "Sampling records from two sites\n\nA hypothetical dataset has 80 records from site A and 20 from site B. Select one of the 100 records uniformly. Find the probability that it came from each site.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nEach of the 100 records has probability 1/1001/100.\nP(site A)=80/100=0.8.P(\\text{site A})=80/100=0.8.\nP(site B)=20/100=0.2.P(\\text{site B})=20/100=0.2.\nThe site labels themselves are not equally likely."
+  },
+  {
+    "objectID": "w01-probability-live.html#s66",
+    "href": "w01-probability-live.html#s66",
+    "title": "Introduction to probability",
+    "section": "Selecting a site before selecting a record",
+    "text": "Selecting a site before selecting a record\n\nA hypothetical dataset has 80 records from site A and 20 from site B. Select A or B with probability 1/2 each, then uniformly within the selected site. Find the selection probability of one specified record from each site.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nA particular record from A:\n12×180=1160.\\frac12\\times\\frac1{80}=\\frac1{160}.\nA particular record from B:\n12×120=140.\\frac12\\times\\frac1{20}=\\frac1{40}.\nEach B record is four times as likely as each A record. The factors describe the two stages of the stated sampling procedure."
+  },
+  {
+    "objectID": "w01-probability-live.html#s67",
+    "href": "w01-probability-live.html#s67",
+    "title": "Introduction to probability",
+    "section": "Accuracy and class proportions",
+    "text": "Accuracy and class proportions\n\nA hypothetical test set contains 9,900 nondefective and 100 defective items. A system always predicts “nondefective.” Calculate its accuracy and defect detection fraction.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nAccuracy:\n990010000=0.99.\\frac{9900}{10000}=0.99.\nFraction of defective items detected:\n0100=0.\\frac0{100}=0.\nThe overall proportion correct does not specify performance within the defective class."
+  },
+  {
+    "objectID": "w01-probability-live.html#s68",
+    "href": "w01-probability-live.html#s68",
+    "title": "Introduction to probability",
+    "section": "Practice: two fair dice",
+    "text": "Practice: two fair dice\n\nAssume two independent fair dice. List the 36 equally likely ordered outcomes and find the probability that the sum is 7.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nThere are 36 ordered pairs, each with probability 1/361/36 under the stated assumptions.\nThe favourable pairs are\n(1,6),(2,5),(3,4),(4,3),(5,2),(6,1).(1,6),(2,5),(3,4),(4,3),(5,2),(6,1).\nThus P(sum 7)=6/36=1/6P(\\text{sum }7)=6/36=1/6."
+  },
+  {
+    "objectID": "w01-probability-live.html#s69",
+    "href": "w01-probability-live.html#s69",
+    "title": "Introduction to probability",
+    "section": "Practice: at least one six",
+    "text": "Practice: at least one six\n\nAssume two independent fair dice. Using the complement, find the probability of at least one six.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nThe complement is “neither die shows six.”\nThere are 5×5=255\\times5=25 such ordered pairs.\nP(at least one six)=1−2536=1136.P(\\text{at least one six})=1-\\frac{25}{36}=\\frac{11}{36}.\nThe favourable outcomes are not just (6,6)(6,6)."
+  },
+  {
+    "objectID": "w01-probability-live.html#s70",
+    "href": "w01-probability-live.html#s70",
+    "title": "Introduction to probability",
+    "section": "Review: describing a probability calculation",
+    "text": "Review: describing a probability calculation\n\nA hypothetical log has 50 requests, 7 above 200 ms. Select one request uniformly. Define the outcome, the latency random variable, and the event of latency above 200 ms; calculate its probability.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nOutcome: a request identifier in Ω={1,…,50}\\Omega=\\{1,\\ldots,50\\}.\nRandom variable: X(i)X(i) is the recorded latency of request ii, in milliseconds.\nEvent: A={i:X(i)&gt;200}A=\\{i:X(i)&gt;200\\}, containing seven identifiers.\nWith all subsets as events and uniform selection,\nP(A)=7/50=0.14.P(A)=7/50=0.14."
+  },
+  {
+    "objectID": "w01-probability-live.html#s71",
+    "href": "w01-probability-live.html#s71",
+    "title": "Introduction to probability",
+    "section": "Review: assumptions behind the answer",
+    "text": "Review: assumptions behind the answer\n\nFor a probability calculation based on data or a transformed random variable, what must be specified about the experiment, event and distribution?\n\n\n\n\n\nAsk students to apply these steps to one inspection problem and one chord model, rather than recite the list.\nSuggested working:\nSpecify the experiment and the sampling rule.\nWrite the event as a set or an equivalent numerical condition.\nUse probabilities consistent with the sampling rule. Counting requires equally likely outcomes.\nFor a transformation, carry the distribution with it and check the inverse image of the event."
+  },
+  {
+    "objectID": "w01-probability-live.html#s72",
+    "href": "w01-probability-live.html#s72",
+    "title": "Introduction to probability",
+    "section": "Further reading",
+    "text": "Further reading\n\nUse the main notes for additional worked problems and the supplement for the formal development.\n\n\n\n\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nSuggested working:\nJay L. Devore, Probability and Statistics for Engineering and the Sciences, 9th edition, Chapters 2–4: sample spaces and events, probability, random variables and their distributions. The publisher’s table of contents is provided for reference.\nKrishna Jagannathan, Probability Foundations for Electrical Engineers, Chapters 1, 4, and 11. The examples here are stipulated for this course."
+  }
+]
