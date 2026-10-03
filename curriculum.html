@@ -168,7 +168,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tutorials/01-probability-foundations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1 · Introduction to probability and probability spaces</span></a>
+  <a href="./tutorials/01-probability-foundations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1 · Probability through an AI-assisted ticket-triage problem</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -200,7 +200,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#opening-session-27-september-2026" id="toc-opening-session-27-september-2026" class="nav-link active" data-scroll-target="#opening-session-27-september-2026">Opening session · 27 September 2026</a></li>
+  <li><a href="#teaching-approach-and-application-contexts" id="toc-teaching-approach-and-application-contexts" class="nav-link active" data-scroll-target="#teaching-approach-and-application-contexts">Teaching approach and application contexts</a></li>
+  <li><a href="#first-formal-lecture-4-october-2026" id="toc-first-formal-lecture-4-october-2026" class="nav-link" data-scroll-target="#first-formal-lecture-4-october-2026">First formal lecture · 4 October 2026</a></li>
   </ul>
 </nav>
     </div>
@@ -228,9 +229,49 @@ ul.task-list li input[type="checkbox"] {
 
 <p>The <a href="./syllabus.html">Syllabus</a> lists the five modules and their official lecture-hour allocations. The week-by-week teaching plan will be added here.</p>
 <p>Lecture topics, readings, class activities, and assignment deadlines will be linked here as they are released.</p>
-<section id="opening-session-27-september-2026" class="level2">
-<h2 class="anchored" data-anchor-id="opening-session-27-september-2026">Opening session · 27 September 2026</h2>
-<p><strong>Introduction to probability</strong> Motivation for probability and statistics in AI; the interpretations of probability that preceded the axioms; the probability triplet; event σ-algebras and sets to which no probability can be assigned; Kolmogorov’s axioms; finite and continuous examples. Bertrand’s paradox and sampling mechanisms are supplementary.</p>
+<section id="teaching-approach-and-application-contexts" class="level2">
+<h2 class="anchored" data-anchor-id="teaching-approach-and-application-contexts">Teaching approach and application contexts</h2>
+<p>The course is for experienced professionals learning to use probability, statistics and data analysis in AI and data-science work, including agentic AI. Each major topic begins with a practical question, uses a worked example to surface assumptions or gaps, then introduces the formal definition and applies it again. Examples are selected for the mathematics and drawn across AI evaluation and agent workflows, engineering reliability, IT operations, finance, and training or assessment. Numerical scenarios are hypothetical unless a data source is identified.</p>
+<p>Illustrative application links across the official modules:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module</th>
+<th>Example questions used to motivate the mathematics</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fundamentals of probability</td>
+<td>How do sets describe agreement and routing errors in a hypothetical LLM service-desk review? What sampling rule makes an audit fraction a probability, and how do outcome, event, measure and random variable differ?</td>
+</tr>
+<tr class="even">
+<td>Random processes and convergence</td>
+<td>How do service latency or model-evaluation results vary across requests and repeated runs?</td>
+</tr>
+<tr class="odd">
+<td>Markov chains and applications</td>
+<td>How can tool-use steps, user states or operational states be represented as transitions?</td>
+</tr>
+<tr class="even">
+<td>Frequentist statistics and regression</td>
+<td>How should a team estimate performance from a changing task population or fit a trend to operational data?</td>
+</tr>
+<tr class="odd">
+<td>Bayesian statistics and hypothesis testing</td>
+<td>How should evidence update a fraud or anomaly assessment, or support a controlled comparison of two model versions?</td>
+</tr>
+</tbody>
+</table>
+<p>These questions provide teaching contexts; they do not add topics to or alter the supplied syllabus.</p>
+</section>
+<section id="first-formal-lecture-4-october-2026" class="level2">
+<h2 class="anchored" data-anchor-id="first-formal-lecture-4-october-2026">First formal lecture · 4 October 2026</h2>
+<p>The introductory session on 27 September did not use the lecture deck. The first formal lecture is <strong>Probability through ticket triage</strong>, on Sunday, 4 October, 6:00–7:40 p.m. IST. It opens with a six-ticket LLM routing audit and uses the observed agreement result to compare probability interpretations. Bertrand’s random-chord question motivates the need to specify a sampling rule; its resolution is in the rigorous supplement. The lecture then develops the probability triplet through the ticket IDs, defines events as sets, states the sigma-algebra requirements and Kolmogorov axioms, and defines a random variable through its values, image and inverse image. A Gamma model for ticket closure time illustrates the move from counting to integration. The sequence is deliberately gradual and may continue in later meetings.</p>
 <p><a href="./tutorials/01-probability-foundations.html">Notes</a> · <a href="./decks.html">Decks</a> · <a href="materials/01-probability/lab.html">Interactive lab</a></p>
 
 

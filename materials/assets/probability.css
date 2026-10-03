@@ -1,6 +1,7 @@
 .reveal .question {font-size:.86em; color:#334d66; margin-bottom:.65em; line-height:1.35;}
 .reveal .question p {margin:0 0 .4em;}
 .reveal .writing-space {height:440px; border-top:1px solid #d5dfeb; background-image:radial-gradient(#cad5e2 1px,transparent 1px);background-size:28px 28px; opacity:.52;}
+.reveal .slides section.compact .writing-space {height:175px;}
 .reveal .slides section p {margin-top:.4em;margin-bottom:.5em;}
 .reveal .slides section img {margin:0 auto;display:block;max-height:310px;}
 .reveal .slides section h2 {font-size:1.4em;}
