@@ -11,7 +11,7 @@
 
   <meta name="author" content="Soma S Dhavala · IIT Jammu">
   <meta name="dcterms.date" content="2026-10-03">
-  <title>Data Analytics for AI · Slide Decks – Introduction to probability</title>
+  <title>Data Analytics for AI · Slide Decks – Bertrand’s paradox</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -135,7 +135,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Introduction to probability</h1>
+  <h1 class="title">Bertrand’s paradox</h1>
   <p class="subtitle">Supplementary · Bertrand’s paradox and sampling rules</p>
 
 <div class="quarto-title-authors">
@@ -151,13 +151,13 @@ Soma S Dhavala · IIT Jammu
 <section id="s01" class="slide level2">
 <h2>Random selection of a chord</h2>
 <div class="question">
-<p>A chord is selected in a circle. What must be specified before its length can be assigned a probability?</p>
+<p>A chord is selected at random in a circle. What is the probability that it is longer than the side of an inscribed equilateral triangle?</p>
 </div>
 
-<img data-src="01-probability/bertrand-question.svg" style="width:65.0%" class="r-stretch"><p>We need a rule for selecting the chord. Later we will calculate the answer for three different rules.</p>
+<img data-src="01-probability/bertrand-question.svg" style="width:65.0%" class="r-stretch"><p>We will calculate three answers to this same question, then make the probability models precise.</p>
 <aside class="notes">
-<p>Introduce the geometric question only. Return to it after finite examples, random variables and interval probabilities.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
+<p>Pose the question before specifying a probability triplet. Let the three calculations motivate the formal models.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -173,7 +173,7 @@ Soma S Dhavala · IIT Jammu
 <section id="s02" class="slide level2">
 <h2>The chord-length question</h2>
 <div class="question">
-<p>For a circle of radius R, find the probability that a sampled chord has length L&gt;√3R. What sampling rule is missing from the question?</p>
+<p>For a circle of radius <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>, find the probability that a sampled chord has length <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>&gt;</mo><msqrt><mn>3</mn></msqrt><mi>R</mi></mrow><annotation encoding="application/x-tex">L&gt;\sqrt3R</annotation></semantics></math>. What probability would you assign?</p>
 </div>
 <p>The reference length is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>3</mn></msqrt><mi>R</mi></mrow><annotation encoding="application/x-tex">\sqrt3R</annotation></semantics></math>.</p>
 <p>We will calculate the probability under three specified sampling rules.</p>
@@ -181,7 +181,7 @@ Soma S Dhavala · IIT Jammu
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>&gt;</mo><msqrt><mn>3</mn></msqrt><mi>R</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">L&gt;\sqrt3R.</annotation></semantics></math></p>
 <aside class="notes">
 <p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -204,7 +204,7 @@ Soma S Dhavala · IIT Jammu
 <p>Therefore <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mn>2</mn><msqrt><mrow><msup><mi>R</mi><mn>2</mn></msup><mo>−</mo><msup><mi>D</mi><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">L=2\sqrt{R^2-D^2}</annotation></semantics></math>.</p>
 <aside class="notes">
 <p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -220,7 +220,7 @@ Soma S Dhavala · IIT Jammu
 <section id="s04" class="slide level2">
 <h2>Converting the long-chord condition</h2>
 <div class="question">
-<p>Using L=2√(R²−D²), express the strict condition L&gt;√3R as an inequality for D.</p>
+<p>Using <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mn>2</mn><msqrt><mrow><msup><mi>R</mi><mn>2</mn></msup><mo>−</mo><msup><mi>D</mi><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">L=2\sqrt{R^2-D^2}</annotation></semantics></math>, express the strict condition <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>&gt;</mo><msqrt><mn>3</mn></msqrt><mi>R</mi></mrow><annotation encoding="application/x-tex">L&gt;\sqrt3R</annotation></semantics></math> as an inequality for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>.</p>
 </div>
 <p>The perpendicular from the centre bisects the chord, giving</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mi>/</mi><mn>2</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>+</mo><msup><mi>D</mi><mn>2</mn></msup><mo>=</mo><msup><mi>R</mi><mn>2</mn></msup><mo>,</mo><mspace width="2.0em"></mspace><mi>L</mi><mo>=</mo><mn>2</mn><msqrt><mrow><msup><mi>R</mi><mn>2</mn></msup><mo>−</mo><msup><mi>D</mi><mn>2</mn></msup></mrow></msqrt><mi>.</mi></mrow><annotation encoding="application/x-tex">(L/2)^2+D^2=R^2,\qquad L=2\sqrt{R^2-D^2}.</annotation></semantics></math></p>
@@ -231,7 +231,7 @@ Soma S Dhavala · IIT Jammu
 <p>Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">D\ge0</annotation></semantics></math>, the event is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>&lt;</mo><mi>R</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">D&lt;R/2</annotation></semantics></math>.</p>
 <aside class="notes">
 <p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -247,7 +247,7 @@ Soma S Dhavala · IIT Jammu
 <section id="s05" class="slide level2">
 <h2>A numerical geometry check</h2>
 <div class="question">
-<p>For a circle of radius R=10 cm and L=2√(R²−D²), calculate L when D=3 cm and when D=6 cm. Compare both lengths with √3R.</p>
+<p>For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">R=10</annotation></semantics></math> cm and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mn>2</mn><msqrt><mrow><msup><mi>R</mi><mn>2</mn></msup><mo>−</mo><msup><mi>D</mi><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">L=2\sqrt{R^2-D^2}</annotation></semantics></math>, calculate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math> when <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">D=3</annotation></semantics></math> cm and when <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">D=6</annotation></semantics></math> cm. Compare both lengths with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>3</mn></msqrt><mi>R</mi></mrow><annotation encoding="application/x-tex">\sqrt3R</annotation></semantics></math>.</p>
 </div>
 <p>At <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">D=3</annotation></semantics></math> cm: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mn>2</mn><msqrt><mrow><mn>100</mn><mo>−</mo><mn>9</mn></mrow></msqrt><mo>=</mo><mn>2</mn><msqrt><mn>91</mn></msqrt><mo>≈</mo><mn>19.08</mn></mrow><annotation encoding="application/x-tex">L=2\sqrt{100-9}=2\sqrt{91}\approx19.08</annotation></semantics></math> cm.</p>
 <p>At <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">D=6</annotation></semantics></math> cm: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mn>2</mn><msqrt><mrow><mn>100</mn><mo>−</mo><mn>36</mn></mrow></msqrt><mo>=</mo><mn>16</mn></mrow><annotation encoding="application/x-tex">L=2\sqrt{100-36}=16</annotation></semantics></math> cm.</p>
@@ -255,7 +255,7 @@ Soma S Dhavala · IIT Jammu
 <p>The first chord is longer than the threshold; the second is shorter. This agrees with the test <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>&lt;</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">D&lt;5</annotation></semantics></math> cm.</p>
 <aside class="notes">
 <p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -269,9 +269,105 @@ Soma S Dhavala · IIT Jammu
       }</style></aside>
 </section>
 <section id="s06" class="slide level2">
+<h2>Experiment I: a uniform angle at a fixed endpoint</h2>
+<div class="question">
+<p>Use a unit circle and fix <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a=(1,0)</annotation></semantics></math>. Choose <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math> uniformly in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,\pi)</annotation></semantics></math>, measured from the upward tangent towards the disk. Find the long-chord probability.</p>
+</div>
+<p>The resulting chord has length <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mn>2</mn><mrow><mi mathvariant="normal">sin</mi><mo>⁡</mo></mrow><mspace width="0.167em"></mspace><mi>θ</mi></mrow><annotation encoding="application/x-tex">L=2\sin\,\theta</annotation></semantics></math>.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>&gt;</mo><msqrt><mn>3</mn></msqrt><mo>⇔</mo><mi>π</mi><mi>/</mi><mn>3</mn><mo>&lt;</mo><mi>θ</mi><mo>&lt;</mo><mn>2</mn><mi>π</mi><mi>/</mi><mn>3</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">L&gt;\sqrt3\iff\pi/3&lt;\theta&lt;2\pi/3.</annotation></semantics></math></p>
+<p>The favorable interval occupies one third of the angular range:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>2</mn><mi>π</mi><mi>/</mi><mn>3</mn><mo>−</mo><mi>π</mi><mi>/</mi><mn>3</mn></mrow><mi>π</mi></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>3</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{2\pi/3-\pi/3}{\pi}=\frac13.</annotation></semantics></math></p>
+</section>
+<section id="s07" class="slide level2">
+<h2>Experiment II: a uniform distance</h2>
+<div class="question">
+<p>Choose <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math> uniformly in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,1)</annotation></semantics></math>. Set the midpoint to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r,0)</annotation></semantics></math> and draw the vertical chord through it. Find the long-chord probability.</p>
+</div>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mn>2</mn><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>r</mi><mn>2</mn></msup></mrow></msqrt><mo>,</mo><mspace width="2.0em"></mspace><mi>L</mi><mo>&gt;</mo><msqrt><mn>3</mn></msqrt><mo>⇔</mo><mi>r</mi><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>2</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">L=2\sqrt{1-r^2},\qquad L&gt;\sqrt3\iff r&lt;1/2.</annotation></semantics></math></p>
+<p>Half the available distance interval is favorable:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><mn>1</mn></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{1/2}{1}=\frac12.</annotation></semantics></math></p>
+<p>Fixing the midpoint direction specifies which chord is drawn.</p>
+</section>
+<section id="s08" class="slide level2">
+<h2>Experiment III: a uniform midpoint</h2>
+<div class="question">
+<p>Choose a midpoint uniformly by area in the unit disk. Draw the chord perpendicular to the radius through that point. Find the long-chord probability.</p>
+</div>
+<p>The midpoint must lie inside the concentric disk of radius <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>π</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mn>2</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><mi>π</mi></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>4</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{\pi(1/2)^2}{\pi}=\frac14.</annotation></semantics></math></p>
+<p>The centre and boundary have area zero; omit them to make the construction unique and nondegenerate.</p>
+</section>
+<section id="s09" class="slide level2">
+<h2>The same English question gives three answers</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Meaning of “random chord”</th>
+<th style="text-align: right;">Probability of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>&gt;</mo><msqrt><mn>3</mn></msqrt></mrow><annotation encoding="application/x-tex">L&gt;\sqrt3</annotation></semantics></math></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Uniform angle at a fixed endpoint</td>
+<td style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">1/3</annotation></semantics></math></td>
+</tr>
+<tr class="even">
+<td>Uniform distance with a fixed direction</td>
+<td style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math></td>
+</tr>
+<tr class="odd">
+<td>Uniform midpoint area</td>
+<td style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math></td>
+</tr>
+</tbody>
+</table>
+<p>Each calculation follows its stated sampling rule.</p>
+<p>We now make the outcomes, events and measures precise with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Ω</mi><mo>,</mo><mi mathvariant="script">ℱ</mi><mo>,</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(\Omega,\mathcal F,P)</annotation></semantics></math>.</p>
+</section>
+<section id="s10" class="slide level2">
+<h2>The angle experiment as a triplet</h2>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Ω</mi><mn>1</mn></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi mathvariant="script">ℱ</mi><mn>1</mn></msub><mo>=</mo><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\Omega_1=(0,\pi),\qquad\mathcal F_1=\mathcal B((0,\pi)).</annotation></semantics></math></p>
+<p>For a Borel event <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>, define</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>1</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mi>π</mi></mfrac><msub><mo>∫</mo><mi>B</mi></msub><mi>d</mi><mi>θ</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">P_1(B)=\frac1\pi\int_B d\theta.</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>1</mn></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mi>/</mi><mn>3</mn><mo>,</mo><mn>2</mn><mi>π</mi><mi>/</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>P</mi><mn>1</mn></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>E</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mn>3</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">E_1=(\pi/3,2\pi/3),\qquad P_1(E_1)=\frac13.</annotation></semantics></math></p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℬ</mi><annotation encoding="application/x-tex">\mathcal B</annotation></semantics></math> denotes the Borel σ-algebra generated by the open sets.</p>
+</section>
+<section id="s11" class="slide level2">
+<h2>The distance experiment as a triplet</h2>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Ω</mi><mn>2</mn></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi mathvariant="script">ℱ</mi><mn>2</mn></msub><mo>=</mo><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\Omega_2=(0,1),\qquad\mathcal F_2=\mathcal B((0,1)).</annotation></semantics></math></p>
+<p>For a Borel event <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>, define</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∫</mo><mi>B</mi></msub><mi>d</mi><mi>r</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">P_2(B)=\int_B dr.</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>2</mn></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>P</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>E</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">E_2=(0,1/2),\qquad P_2(E_2)=\frac12.</annotation></semantics></math></p>
+<p>The fixed midpoint direction is part of the construction.</p>
+</section>
+<section id="s12" class="slide level2">
+<h2>The midpoint experiment as a triplet</h2>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>D</mi><mo>*</mo></msup><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mn>0</mn><mo>&lt;</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">D^*=\{(x,y):0&lt;x^2+y^2&lt;1\}.</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Ω</mi><mn>3</mn></msub><mo>=</mo><msup><mi>D</mi><mo>*</mo></msup><mo>,</mo><mspace width="2.0em"></mspace><msub><mi mathvariant="script">ℱ</mi><mn>3</mn></msub><mo>=</mo><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>D</mi><mo>*</mo></msup><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\Omega_3=D^*,\qquad\mathcal F_3=\mathcal B(D^*).</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>3</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mi>π</mi></mfrac><msub><mo>∬</mo><mi>B</mi></msub><mi>d</mi><mi>x</mi><mspace width="0.167em"></mspace><mi>d</mi><mi>y</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">P_3(B)=\frac1\pi\iint_B dx\,dy.</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>3</mn></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mn>0</mn><mo>&lt;</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>4</mn><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>P</mi><mn>3</mn></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>E</mi><mn>3</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mn>4</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">E_3=\{(x,y):0&lt;x^2+y^2&lt;1/4\},\qquad P_3(E_3)=\frac14.</annotation></semantics></math></p>
+<p>The omitted centre and boundary have area zero.</p>
+</section>
+<section id="s13" class="slide level2">
+<h2>The probability triplets resolve the contradiction</h2>
+<p>With the probability triplets specified, the apparent contradiction is resolved: the three answers belong to three different probability models.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>1</mn></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>E</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mn>3</mn></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>P</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>E</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>P</mi><mn>3</mn></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>E</mi><mn>3</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mn>4</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P_1(E_1)=\frac13,\qquad P_2(E_2)=\frac12,\qquad P_3(E_3)=\frac14.</annotation></semantics></math></p>
+<p><strong>Stopping point.</strong> The resolution is complete. The remaining slides study sampling maps and induced measures on a common chord space.</p>
+</section>
+<section id="s14" class="slide level2">
+<h2>Exercise: connect the constructions</h2>
+<ol type="1">
+<li>Randomize the first endpoint in Experiment I uniformly, independently of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>. Show that this gives two independent uniform endpoints.</li>
+<li>Give Experiment II an independent uniform midpoint direction. Does its length distribution change?</li>
+<li>Explain why an equal length distribution need not mean an equal measure on chords.</li>
+</ol>
+<p>The supplement’s Exercise 8 includes a worked solution.</p>
+<p>In the advanced section, Model A uses independent uniform endpoints; B uses independent uniform distance and direction; C uses uniform midpoint area.</p>
+</section>
+<section id="s15" class="slide level2">
 <h2>Coordinates that specify a chord</h2>
 <div class="question">
-<p>For a circle with radius R, let t=D/R∈(0,1) and φ∈[0,2π) be the direction of the chord midpoint. Let C(φ,t) denote the chord through the point R t(cosφ,sinφ), perpendicular to that radius.</p>
+<p>For radius <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>, let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mi>D</mi><mi>/</mi><mi>R</mi><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t=D/R\in(0,1)</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϕ</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\phi\in[0,2\pi)</annotation></semantics></math> describe the midpoint. Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C(\phi,t)</annotation></semantics></math> be the chord through <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mi>t</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><mspace width="0.167em"></mspace><mi>ϕ</mi><mo>,</mo><mrow><mi mathvariant="normal">sin</mi><mo>⁡</mo></mrow><mspace width="0.167em"></mspace><mi>ϕ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Rt(\cos\,\phi,\sin\,\phi)</annotation></semantics></math>, perpendicular to that radius.</p>
 </div>
 <p>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mi>D</mi><mi>/</mi><mi>R</mi></mrow><annotation encoding="application/x-tex">t=D/R</annotation></semantics></math> and let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math> be the direction of the midpoint from the centre.</p>
 <p>Place the midpoint at distance <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">Rt</annotation></semantics></math> in direction <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>, then draw the perpendicular chord.</p>
@@ -279,226 +375,7 @@ Soma S Dhavala · IIT Jammu
 <p>We use <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>t</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;t&lt;1</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>ϕ</mi><mo>&lt;</mo><mn>2</mn><mi>π</mi></mrow><annotation encoding="application/x-tex">0\le\phi&lt;2\pi</annotation></semantics></math>. Diameters and zero-length chords have probability zero under the three models.</p>
 <aside class="notes">
 <p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="s07" class="slide level2">
-<h2>Recovering the chord coordinates</h2>
-<div class="question">
-<p>For a chord with midpoint m in a circle of radius R, define t=||m||/R and φ=Arg(m) in [0,2π). Recover (φ,t) from the chord.</p>
-</div>
-<p>Measure its normalized midpoint distance and direction:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mfrac><mrow><mo stretchy="false" form="postfix">∥</mo><mi>m</mi><mo stretchy="false" form="postfix">∥</mo></mrow><mi>R</mi></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>ϕ</mi><mo>=</mo><mrow><mi mathvariant="normal">Arg</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">t=\frac{\|m\|}{R},\qquad \phi=\operatorname{Arg}(m)\in[0,2\pi).</annotation></semantics></math></p>
-<p>Thus</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>C</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">C^{-1}(c)=(\phi,t).</annotation></semantics></math></p>
-<p>This is an inverse function on the stated chord space. The supplement gives the endpoint formula and verifies both inverse identities.</p>
-<aside class="notes">
-<p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="s08" class="slide level2">
-<h2>Model B: uniform radial distance</h2>
-<div class="question">
-<p>Sample D uniformly on (0,R) and an independent uniform direction φ. For L=2√(R²−D²), find the probability of L&gt;√3R.</p>
-</div>
-<p>The event is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>&lt;</mo><mi>R</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">D&lt;R/2</annotation></semantics></math>.</p>
-<p>The favourable radial interval has length <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">R/2</annotation></semantics></math>, out of total length <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo>&gt;</mo><msqrt><mn>3</mn></msqrt><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mi>R</mi><mi>/</mi><mn>2</mn></mrow><mi>R</mi></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P_B(L&gt;\sqrt3R)=\frac{R/2}{R}=\frac12.</annotation></semantics></math></p>
-<p>This model is uniform in radial distance.</p>
-<aside class="notes">
-<p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="s09" class="slide level2">
-<h2>Model B: sampling map and inverse</h2>
-<div class="question">
-<p>Let U,V be independent uniform variables on (0,1) and [0,1), and set t=U, φ=2πV. Using C(φ,t), write the chord, recover (U,V), and express its length.</p>
-</div>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mi>U</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>ϕ</mi><mo>=</mo><mn>2</mn><mi>π</mi><mi>V</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>c</mi><mo>=</mo><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mi>V</mi><mo>,</mo><mi>U</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">t=U,\qquad \phi=2\pi V,\qquad c=C(2\pi V,U).</annotation></semantics></math></p>
-<p>From the sampled chord, recover</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>=</mo><mi>t</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>V</mi><mo>=</mo><mi>ϕ</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">U=t,\qquad V=\phi/(2\pi).</annotation></semantics></math></p>
-<p>The length is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>B</mi></msub><mo>=</mo><mn>2</mn><mi>R</mi><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>U</mi><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">L_B=2R\sqrt{1-U^2}</annotation></semantics></math>, and the long-chord event is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">U&lt;1/2</annotation></semantics></math>.</p>
-<aside class="notes">
-<p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="s10" class="slide level2">
-<h2>Model C: a midpoint uniform in disk area</h2>
-<div class="question">
-<p>Choose the chord midpoint uniformly by area in a disk of radius R. The long-chord event is D&lt;R/2. Find the probability.</p>
-</div>
-<p>Long chords have midpoints within radius <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">R/2</annotation></semantics></math>.</p>
-<p>Uniform area sampling gives</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>C</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo>&gt;</mo><msqrt><mn>3</mn></msqrt><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mi>π</mi><mo stretchy="false" form="prefix">(</mo><mi>R</mi><mi>/</mi><mn>2</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><mrow><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>4</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P_C(L&gt;\sqrt3R)=\frac{\pi(R/2)^2}{\pi R^2}=\frac14.</annotation></semantics></math></p>
-<p>The smaller disk occupies a quarter of the total area.</p>
-<aside class="notes">
-<p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="s11" class="slide level2">
-<h2>Why uniform area uses a square root</h2>
-<div class="question">
-<p>For a midpoint sampled uniformly by area in a radius-R disk and U uniform on (0,1), derive P(D&lt;r) and the corresponding transformation of U.</p>
-</div>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>&lt;</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup></mrow><mrow><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup></mrow></mfrac><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mi>r</mi><mi>R</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">P(D&lt;r)=\frac{\pi r^2}{\pi R^2}=\left(\frac rR\right)^2.</annotation></semantics></math></p>
-<p>The transformation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mi>R</mi><msqrt><mi>U</mi></msqrt></mrow><annotation encoding="application/x-tex">D=R\sqrt U</annotation></semantics></math> has exactly this property:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>R</mi><msqrt><mi>U</mi></msqrt><mo>&lt;</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mi>U</mi><mo>&lt;</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mi>/</mi><mi>R</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mi>/</mi><mi>R</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">P(R\sqrt U&lt;r)=P\!\left(U&lt;(r/R)^2\right)=(r/R)^2.</annotation></semantics></math></p>
-<p>Using <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mi>R</mi><mi>U</mi></mrow><annotation encoding="application/x-tex">D=RU</annotation></semantics></math> instead would give uniform radial distance.</p>
-<aside class="notes">
-<p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="s12" class="slide level2">
-<h2>Model C: sampling map and inverse</h2>
-<div class="question">
-<p>For uniform disk area, let t=√U and φ=2πV, where U,V are independent uniform variables on (0,1) and [0,1). Using C(φ,t), write the chord, its inverse and its length.</p>
-</div>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><msqrt><mi>U</mi></msqrt><mo>,</mo><mspace width="2.0em"></mspace><mi>ϕ</mi><mo>=</mo><mn>2</mn><mi>π</mi><mi>V</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>c</mi><mo>=</mo><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mi>V</mi><mo>,</mo><msqrt><mi>U</mi></msqrt><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">t=\sqrt U,\qquad \phi=2\pi V,\qquad c=C(2\pi V,\sqrt U).</annotation></semantics></math></p>
-<p>Inverse: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>=</mo><msup><mi>t</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">U=t^2</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mi>ϕ</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V=\phi/(2\pi)</annotation></semantics></math>.</p>
-<p>The length is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>C</mi></msub><mo>=</mo><mn>2</mn><mi>R</mi><msqrt><mrow><mn>1</mn><mo>−</mo><mi>U</mi></mrow></msqrt></mrow><annotation encoding="application/x-tex">L_C=2R\sqrt{1-U}</annotation></semantics></math>.</p>
-<p>The long-chord event is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">U&lt;1/4</annotation></semantics></math>, which has probability <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math>.</p>
-<aside class="notes">
-<p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="s13" class="slide level2">
-<h2>Practice: a smaller midpoint region</h2>
-<div class="question">
-<p>For the same disk of radius R, find P(D&lt;R/3) under (i) a uniform radial distance and (ii) a midpoint chosen uniformly by disk area.</p>
-</div>
-<p>Model B, uniform radial distance:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>&lt;</mo><mi>R</mi><mi>/</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mi>R</mi><mi>/</mi><mn>3</mn></mrow><mi>R</mi></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>3</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P_B(D&lt;R/3)=\frac{R/3}{R}=\frac13.</annotation></semantics></math></p>
-<p>Model C, uniform area:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>C</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>&lt;</mo><mi>R</mi><mi>/</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mi>π</mi><mo stretchy="false" form="prefix">(</mo><mi>R</mi><mi>/</mi><mn>3</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><mrow><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>9</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P_C(D&lt;R/3)=\frac{\pi(R/3)^2}{\pi R^2}=\frac19.</annotation></semantics></math></p>
-<p>The region is identical. The two sampling distributions assign it different probabilities.</p>
-<aside class="notes">
-<p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="s14" class="slide level2">
-<h2>Model A: two uniform endpoints</h2>
-<div class="question">
-<p>Choose independent uniform endpoint angles A₁,A₂ on [0,2π), and let Θ=(A₂−A₁) mod 2π. Express the chord length using Θ.</p>
-</div>
-<p>After the first angle is chosen, rotational symmetry leaves <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Θ</mi><annotation encoding="application/x-tex">\Theta</annotation></semantics></math> uniform on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,2\pi)</annotation></semantics></math>.</p>
-<p>Bisect the isosceles triangle formed by the centre and the two endpoints. Then</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>/</mi><mn>2</mn><mo>=</mo><mi>R</mi><mrow><mi mathvariant="normal">sin</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Θ</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>L</mi><mo>=</mo><mn>2</mn><mi>R</mi><mrow><mi mathvariant="normal">sin</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Θ</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">L/2=R\sin(\Theta/2),\qquad L=2R\sin(\Theta/2).</annotation></semantics></math></p>
-<p>For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Θ</mi><mo>=</mo><mi>π</mi></mrow><annotation encoding="application/x-tex">\Theta=\pi</annotation></semantics></math>, the endpoints are opposite and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mn>2</mn><mi>R</mi></mrow><annotation encoding="application/x-tex">L=2R</annotation></semantics></math>.</p>
-<aside class="notes">
-<p>Draw the central isosceles triangle and bisect it before introducing the formula. Explain that the relative angle is uniform because the endpoints are independent and uniform.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="s15" class="slide level2">
-<h2>Model A: the favourable angular interval</h2>
-<div class="question">
-<p>Let Θ=(A₂−A₁) mod 2π be uniform on [0,2π) and L=2R sin(Θ/2). Solve the strict inequality L&gt;√3R for Θ.</p>
-</div>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">sin</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Θ</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><msqrt><mn>3</mn></msqrt><mi>/</mi><mn>2</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\sin(\Theta/2)&gt;\sqrt3/2.</annotation></semantics></math></p>
-<p>Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi mathvariant="normal">Θ</mi><mi>/</mi><mn>2</mn><mo>&lt;</mo><mi>π</mi></mrow><annotation encoding="application/x-tex">0\le\Theta/2&lt;\pi</annotation></semantics></math>,</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><mi>/</mi><mn>3</mn><mo>&lt;</mo><mi mathvariant="normal">Θ</mi><mi>/</mi><mn>2</mn><mo>&lt;</mo><mn>2</mn><mi>π</mi><mi>/</mi><mn>3</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\pi/3&lt;\Theta/2&lt;2\pi/3.</annotation></semantics></math></p>
-<p>Therefore <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi><mi>/</mi><mn>3</mn><mo>&lt;</mo><mi mathvariant="normal">Θ</mi><mo>&lt;</mo><mn>4</mn><mi>π</mi><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">2\pi/3&lt;\Theta&lt;4\pi/3</annotation></semantics></math>, and</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">long</mtext><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mn>4</mn><mi>π</mi><mi>/</mi><mn>3</mn><mo>−</mo><mn>2</mn><mi>π</mi><mi>/</mi><mn>3</mn></mrow><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>3</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P_A(\text{long})=\frac{4\pi/3-2\pi/3}{2\pi}=\frac13.</annotation></semantics></math></p>
-<aside class="notes">
-<p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -512,18 +389,18 @@ Soma S Dhavala · IIT Jammu
       }</style></aside>
 </section>
 <section id="s16" class="slide level2">
-<h2>Model A in midpoint coordinates</h2>
+<h2>Recovering the chord coordinates</h2>
 <div class="question">
-<p>For a uniform relative angle Θ on [0,2π), define α=min(Θ,2π−Θ). Find the distribution of α and the chord midpoint distance t=D/R.</p>
+<p>For midpoint <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math> and radius <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>, define <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mo stretchy="false" form="postfix">∥</mo><mi>m</mi><mo stretchy="false" form="postfix">∥</mo><mi>/</mi><mi>R</mi></mrow><annotation encoding="application/x-tex">t=\|m\|/R</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϕ</mi><mo>=</mo><mrow><mi mathvariant="normal">Arg</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\phi=\operatorname{Arg}(m)\in[0,2\pi)</annotation></semantics></math>. Recover <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(\phi,t)</annotation></semantics></math> from the chord.</p>
 </div>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mrow><mi mathvariant="normal">min</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Θ</mi><mo>,</mo><mn>2</mn><mi>π</mi><mo>−</mo><mi mathvariant="normal">Θ</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mn>0</mn><mo>≤</mo><mi>α</mi><mo>≤</mo><mi>π</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\alpha=\min(\Theta,2\pi-\Theta),\qquad 0\le\alpha\le\pi.</annotation></semantics></math></p>
-<p>The right triangle gives <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mi>D</mi><mi>/</mi><mi>R</mi><mo>=</mo><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t=D/R=\cos(\alpha/2)</annotation></semantics></math>.</p>
-<p>For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>a</mi><mo>≤</mo><mi>π</mi></mrow><annotation encoding="application/x-tex">0\le a\le\pi</annotation></semantics></math>, the angular intervals producing <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>≤</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">\alpha\le a</annotation></semantics></math> have total length <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>a</mi></mrow><annotation encoding="application/x-tex">2a</annotation></semantics></math>:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mo>≤</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mn>2</mn><mi>a</mi></mrow><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><mo>=</mo><mfrac><mi>a</mi><mi>π</mi></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P(\alpha\le a)=\frac{2a}{2\pi}=\frac a\pi.</annotation></semantics></math></p>
-<p>Thus <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> is uniform on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mi>π</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0,\pi]</annotation></semantics></math>.</p>
+<p>Measure its normalized midpoint distance and direction:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mfrac><mrow><mo stretchy="false" form="postfix">∥</mo><mi>m</mi><mo stretchy="false" form="postfix">∥</mo></mrow><mi>R</mi></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>ϕ</mi><mo>=</mo><mrow><mi mathvariant="normal">Arg</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">t=\frac{\|m\|}{R},\qquad \phi=\operatorname{Arg}(m)\in[0,2\pi).</annotation></semantics></math></p>
+<p>Thus</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>C</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">C^{-1}(c)=(\phi,t).</annotation></semantics></math></p>
+<p>This is an inverse function on the stated chord space. The supplement gives the endpoint formula and verifies both inverse identities.</p>
 <aside class="notes">
 <p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -537,17 +414,17 @@ Soma S Dhavala · IIT Jammu
       }</style></aside>
 </section>
 <section id="s17" class="slide level2">
-<h2>Model A: sampling map and inverse</h2>
+<h2>Model B: uniform radial distance</h2>
 <div class="question">
-<p>For independent uniform endpoint angles, put U=α/π, where α=min(Θ,2π−Θ), and let V=φ/(2π) be the normalized midpoint direction. With t=cos(α/2), find the chord map and its inverse.</p>
+<p>Sample <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math> uniformly on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,R)</annotation></semantics></math> and independently <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math> uniformly on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,2\pi)</annotation></semantics></math>. For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mn>2</mn><msqrt><mrow><msup><mi>R</mi><mn>2</mn></msup><mo>−</mo><msup><mi>D</mi><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">L=2\sqrt{R^2-D^2}</annotation></semantics></math>, find the probability of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>&gt;</mo><msqrt><mn>3</mn></msqrt><mi>R</mi></mrow><annotation encoding="application/x-tex">L&gt;\sqrt3R</annotation></semantics></math>.</p>
 </div>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mi>U</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>c</mi><mo>=</mo><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mi>V</mi><mo>,</mo><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mi>U</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">t=\cos(\pi U/2),\qquad c=C(2\pi V,\cos(\pi U/2)).</annotation></semantics></math></p>
-<p>Inverse:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>=</mo><mfrac><mn>2</mn><mi>π</mi></mfrac><mrow><mi mathvariant="normal">arccos</mi><mo>⁡</mo></mrow><mi>t</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>V</mi><mo>=</mo><mi>ϕ</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">U=\frac2\pi\arccos t,\qquad V=\phi/(2\pi).</annotation></semantics></math></p>
-<p>This generates the same distribution of unordered chords as independent uniform endpoints. The supplement proves the independence of the midpoint direction and the smaller separation.</p>
+<p>The event is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>&lt;</mo><mi>R</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">D&lt;R/2</annotation></semantics></math>.</p>
+<p>The favourable radial interval has length <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">R/2</annotation></semantics></math>, out of total length <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo>&gt;</mo><msqrt><mn>3</mn></msqrt><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mi>R</mi><mi>/</mi><mn>2</mn></mrow><mi>R</mi></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P_B(L&gt;\sqrt3R)=\frac{R/2}{R}=\frac12.</annotation></semantics></math></p>
+<p>This model is uniform in radial distance.</p>
 <aside class="notes">
 <p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -561,17 +438,17 @@ Soma S Dhavala · IIT Jammu
       }</style></aside>
 </section>
 <section id="s18" class="slide level2">
-<h2>Model A: the length random variable</h2>
+<h2>Model B: sampling map and inverse</h2>
 <div class="question">
-<p>Under independent uniform endpoint angles, Θ is uniform on [0,2π), α=min(Θ,2π−Θ), U=α/π and t=cos(α/2). Express L=2R√(1−t²) in terms of U; find the condition for L&gt;√3R.</p>
+<p>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>,</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">U,V</annotation></semantics></math> be independent uniforms on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,1)</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,1)</annotation></semantics></math>, and set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mi>U</mi></mrow><annotation encoding="application/x-tex">t=U</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϕ</mi><mo>=</mo><mn>2</mn><mi>π</mi><mi>V</mi></mrow><annotation encoding="application/x-tex">\phi=2\pi V</annotation></semantics></math>. Using <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C(\phi,t)</annotation></semantics></math>, write the chord, recover <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>U</mi><mo>,</mo><mi>V</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(U,V)</annotation></semantics></math>, and express its length.</p>
 </div>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>A</mi></msub><mo>=</mo><mn>2</mn><mi>R</mi><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mi>U</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow></msqrt><mo>=</mo><mn>2</mn><mi>R</mi><mrow><mi mathvariant="normal">sin</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mi>U</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">L_A=2R\sqrt{1-\cos^2(\pi U/2)}=2R\sin(\pi U/2).</annotation></semantics></math></p>
-<p>The sine is increasing for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>U</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;U&lt;1</annotation></semantics></math>, so</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>A</mi></msub><mo>&gt;</mo><msqrt><mn>3</mn></msqrt><mi>R</mi><mo>⇔</mo><mi>U</mi><mo>&gt;</mo><mn>2</mn><mi>/</mi><mn>3</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">L_A&gt;\sqrt3R\iff U&gt;2/3.</annotation></semantics></math></p>
-<p>Therefore <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">long</mtext><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mn>2</mn><mi>/</mi><mn>3</mn><mo>=</mo><mn>1</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">P_A(\text{long})=1-2/3=1/3</annotation></semantics></math>.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mi>U</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>ϕ</mi><mo>=</mo><mn>2</mn><mi>π</mi><mi>V</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>c</mi><mo>=</mo><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mi>V</mi><mo>,</mo><mi>U</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">t=U,\qquad \phi=2\pi V,\qquad c=C(2\pi V,U).</annotation></semantics></math></p>
+<p>From the sampled chord, recover</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>=</mo><mi>t</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>V</mi><mo>=</mo><mi>ϕ</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">U=t,\qquad V=\phi/(2\pi).</annotation></semantics></math></p>
+<p>The length is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>B</mi></msub><mo>=</mo><mn>2</mn><mi>R</mi><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>U</mi><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">L_B=2R\sqrt{1-U^2}</annotation></semantics></math>, and the long-chord event is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">U&lt;1/2</annotation></semantics></math>.</p>
 <aside class="notes">
 <p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -585,18 +462,17 @@ Soma S Dhavala · IIT Jammu
       }</style></aside>
 </section>
 <section id="s19" class="slide level2">
-<h2>Practice: recovering the source coordinates</h2>
+<h2>Model C: a midpoint uniform in disk area</h2>
 <div class="question">
-<p>For t=1/2 and midpoint angle φ=π, recover v=φ/(2π) and u under Model A, t=U; Model B, t=U; and Model C, t=√U. Is the chord longer than √3R?</p>
+<p>Choose the chord midpoint uniformly by area in a disk of radius R. The long-chord event is D&lt;R/2. Find the probability.</p>
 </div>
-<p>In every model, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>=</mo><mi>ϕ</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">v=\phi/(2\pi)=1/2</annotation></semantics></math>.</p>
-<p>Model A: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>/</mi><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">arccos</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">u=(2/\pi)\arccos(1/2)=2/3</annotation></semantics></math>.</p>
-<p>Model B: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>=</mo><mi>t</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">u=t=1/2</annotation></semantics></math>.</p>
-<p>Model C: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>=</mo><msup><mi>t</mi><mn>2</mn></msup><mo>=</mo><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">u=t^2=1/4</annotation></semantics></math>.</p>
-<p>The chord length equals <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>3</mn></msqrt><mi>R</mi></mrow><annotation encoding="application/x-tex">\sqrt3R</annotation></semantics></math>, so it is outside the strict long-chord event in all three models.</p>
+<p>Long chords have midpoints within radius <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">R/2</annotation></semantics></math>.</p>
+<p>Uniform area sampling gives</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>C</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo>&gt;</mo><msqrt><mn>3</mn></msqrt><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mi>π</mi><mo stretchy="false" form="prefix">(</mo><mi>R</mi><mi>/</mi><mn>2</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><mrow><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>4</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P_C(L&gt;\sqrt3R)=\frac{\pi(R/2)^2}{\pi R^2}=\frac14.</annotation></semantics></math></p>
+<p>The smaller disk occupies a quarter of the total area.</p>
 <aside class="notes">
 <p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -610,6 +486,226 @@ Soma S Dhavala · IIT Jammu
       }</style></aside>
 </section>
 <section id="s20" class="slide level2">
+<h2>Why uniform area uses a square root</h2>
+<div class="question">
+<p>For a midpoint sampled uniformly by area in a radius-R disk and U uniform on (0,1), derive P(D&lt;r) and the corresponding transformation of U.</p>
+</div>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>&lt;</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup></mrow><mrow><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup></mrow></mfrac><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mi>r</mi><mi>R</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">P(D&lt;r)=\frac{\pi r^2}{\pi R^2}=\left(\frac rR\right)^2.</annotation></semantics></math></p>
+<p>The transformation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mi>R</mi><msqrt><mi>U</mi></msqrt></mrow><annotation encoding="application/x-tex">D=R\sqrt U</annotation></semantics></math> has exactly this property:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>R</mi><msqrt><mi>U</mi></msqrt><mo>&lt;</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mi>U</mi><mo>&lt;</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mi>/</mi><mi>R</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mi>/</mi><mi>R</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">P(R\sqrt U&lt;r)=P\!\left(U&lt;(r/R)^2\right)=(r/R)^2.</annotation></semantics></math></p>
+<p>Using <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mi>R</mi><mi>U</mi></mrow><annotation encoding="application/x-tex">D=RU</annotation></semantics></math> instead would give uniform radial distance.</p>
+<aside class="notes">
+<p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="s21" class="slide level2">
+<h2>Model C: sampling map and inverse</h2>
+<div class="question">
+<p>For uniform disk area, set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><msqrt><mi>U</mi></msqrt></mrow><annotation encoding="application/x-tex">t=\sqrt U</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϕ</mi><mo>=</mo><mn>2</mn><mi>π</mi><mi>V</mi></mrow><annotation encoding="application/x-tex">\phi=2\pi V</annotation></semantics></math>, with independent uniforms <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>,</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">U,V</annotation></semantics></math> on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,1)</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,1)</annotation></semantics></math>. Using <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mi>ϕ</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C(\phi,t)</annotation></semantics></math>, write the chord, its inverse and its length.</p>
+</div>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><msqrt><mi>U</mi></msqrt><mo>,</mo><mspace width="2.0em"></mspace><mi>ϕ</mi><mo>=</mo><mn>2</mn><mi>π</mi><mi>V</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>c</mi><mo>=</mo><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mi>V</mi><mo>,</mo><msqrt><mi>U</mi></msqrt><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">t=\sqrt U,\qquad \phi=2\pi V,\qquad c=C(2\pi V,\sqrt U).</annotation></semantics></math></p>
+<p>Inverse: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>=</mo><msup><mi>t</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">U=t^2</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mi>ϕ</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V=\phi/(2\pi)</annotation></semantics></math>.</p>
+<p>The length is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>C</mi></msub><mo>=</mo><mn>2</mn><mi>R</mi><msqrt><mrow><mn>1</mn><mo>−</mo><mi>U</mi></mrow></msqrt></mrow><annotation encoding="application/x-tex">L_C=2R\sqrt{1-U}</annotation></semantics></math>.</p>
+<p>The long-chord event is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">U&lt;1/4</annotation></semantics></math>, which has probability <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math>.</p>
+<aside class="notes">
+<p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="s22" class="slide level2">
+<h2>Practice: a smaller midpoint region</h2>
+<div class="question">
+<p>For the same disk of radius R, find P(D&lt;R/3) under (i) a uniform radial distance and (ii) a midpoint chosen uniformly by disk area.</p>
+</div>
+<p>Model B, uniform radial distance:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>&lt;</mo><mi>R</mi><mi>/</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mi>R</mi><mi>/</mi><mn>3</mn></mrow><mi>R</mi></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>3</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P_B(D&lt;R/3)=\frac{R/3}{R}=\frac13.</annotation></semantics></math></p>
+<p>Model C, uniform area:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>C</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>&lt;</mo><mi>R</mi><mi>/</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mi>π</mi><mo stretchy="false" form="prefix">(</mo><mi>R</mi><mi>/</mi><mn>3</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><mrow><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>9</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P_C(D&lt;R/3)=\frac{\pi(R/3)^2}{\pi R^2}=\frac19.</annotation></semantics></math></p>
+<p>The region is identical. The two sampling distributions assign it different probabilities.</p>
+<aside class="notes">
+<p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="s23" class="slide level2">
+<h2>Model A: two uniform endpoints</h2>
+<div class="question">
+<p>Choose independent uniform angles <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub><mo>,</mo><msub><mi>A</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">A_1,A_2</annotation></semantics></math> on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,2\pi)</annotation></semantics></math>, and set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Θ</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>A</mi><mn>2</mn></msub><mo>−</mo><msub><mi>A</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mrow><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">mod</mi><mo>⁡</mo></mrow><mspace width="0.222em"></mspace><mn>2</mn></mrow><mi>π</mi></mrow><annotation encoding="application/x-tex">\Theta=(A_2-A_1)\bmod 2\pi</annotation></semantics></math>. Express the chord length using <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Θ</mi><annotation encoding="application/x-tex">\Theta</annotation></semantics></math>.</p>
+</div>
+<p>After the first angle is chosen, rotational symmetry leaves <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Θ</mi><annotation encoding="application/x-tex">\Theta</annotation></semantics></math> uniform on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,2\pi)</annotation></semantics></math>.</p>
+<p>Bisect the isosceles triangle formed by the centre and the two endpoints. Then</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>/</mi><mn>2</mn><mo>=</mo><mi>R</mi><mrow><mi mathvariant="normal">sin</mi><mo>⁡</mo></mrow><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Θ</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>L</mi><mo>=</mo><mn>2</mn><mi>R</mi><mrow><mi mathvariant="normal">sin</mi><mo>⁡</mo></mrow><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Θ</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">L/2=R\sin\,(\Theta/2),\qquad L=2R\sin\,(\Theta/2).</annotation></semantics></math></p>
+<p>For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Θ</mi><mo>=</mo><mi>π</mi></mrow><annotation encoding="application/x-tex">\Theta=\pi</annotation></semantics></math>, the endpoints are opposite and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mn>2</mn><mi>R</mi></mrow><annotation encoding="application/x-tex">L=2R</annotation></semantics></math>.</p>
+<aside class="notes">
+<p>Draw the central isosceles triangle and bisect it before introducing the formula. Explain that the relative angle is uniform because the endpoints are independent and uniform.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="s24" class="slide level2">
+<h2>Model A: the favourable angular interval</h2>
+<div class="question">
+<p>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Θ</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>A</mi><mn>2</mn></msub><mo>−</mo><msub><mi>A</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mrow><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">mod</mi><mo>⁡</mo></mrow><mspace width="0.222em"></mspace><mn>2</mn></mrow><mi>π</mi></mrow><annotation encoding="application/x-tex">\Theta=(A_2-A_1)\bmod2\pi</annotation></semantics></math> be uniform on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,2\pi)</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mn>2</mn><mi>R</mi><mrow><mi mathvariant="normal">sin</mi><mo>⁡</mo></mrow><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Θ</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">L=2R\sin\,(\Theta/2)</annotation></semantics></math>. Solve <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>&gt;</mo><msqrt><mn>3</mn></msqrt><mi>R</mi></mrow><annotation encoding="application/x-tex">L&gt;\sqrt3R</annotation></semantics></math> for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Θ</mi><annotation encoding="application/x-tex">\Theta</annotation></semantics></math>.</p>
+</div>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">sin</mi><mo>⁡</mo></mrow><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Θ</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><msqrt><mn>3</mn></msqrt><mi>/</mi><mn>2</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\sin\,(\Theta/2)&gt;\sqrt3/2.</annotation></semantics></math></p>
+<p>Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi mathvariant="normal">Θ</mi><mi>/</mi><mn>2</mn><mo>&lt;</mo><mi>π</mi></mrow><annotation encoding="application/x-tex">0\le\Theta/2&lt;\pi</annotation></semantics></math>,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><mi>/</mi><mn>3</mn><mo>&lt;</mo><mi mathvariant="normal">Θ</mi><mi>/</mi><mn>2</mn><mo>&lt;</mo><mn>2</mn><mi>π</mi><mi>/</mi><mn>3</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\pi/3&lt;\Theta/2&lt;2\pi/3.</annotation></semantics></math></p>
+<p>Therefore <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi><mi>/</mi><mn>3</mn><mo>&lt;</mo><mi mathvariant="normal">Θ</mi><mo>&lt;</mo><mn>4</mn><mi>π</mi><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">2\pi/3&lt;\Theta&lt;4\pi/3</annotation></semantics></math>, and</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">long</mtext><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mn>4</mn><mi>π</mi><mi>/</mi><mn>3</mn><mo>−</mo><mn>2</mn><mi>π</mi><mi>/</mi><mn>3</mn></mrow><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>3</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P_A(\text{long})=\frac{4\pi/3-2\pi/3}{2\pi}=\frac13.</annotation></semantics></math></p>
+<aside class="notes">
+<p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="s25" class="slide level2">
+<h2>Model A in midpoint coordinates</h2>
+<div class="question">
+<p>For uniform <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Θ</mi><annotation encoding="application/x-tex">\Theta</annotation></semantics></math> on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,2\pi)</annotation></semantics></math>, define <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mrow><mi mathvariant="normal">min</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Θ</mi><mo>,</mo><mn>2</mn><mi>π</mi><mo>−</mo><mi mathvariant="normal">Θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\alpha=\min(\Theta,2\pi-\Theta)</annotation></semantics></math>. Find its distribution and the midpoint distance <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mi>D</mi><mi>/</mi><mi>R</mi></mrow><annotation encoding="application/x-tex">t=D/R</annotation></semantics></math>.</p>
+</div>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mrow><mi mathvariant="normal">min</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Θ</mi><mo>,</mo><mn>2</mn><mi>π</mi><mo>−</mo><mi mathvariant="normal">Θ</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mn>0</mn><mo>≤</mo><mi>α</mi><mo>≤</mo><mi>π</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\alpha=\min(\Theta,2\pi-\Theta),\qquad 0\le\alpha\le\pi.</annotation></semantics></math></p>
+<p>The right triangle gives <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mi>D</mi><mi>/</mi><mi>R</mi><mo>=</mo><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t=D/R=\cos\,(\alpha/2)</annotation></semantics></math>.</p>
+<p>For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>a</mi><mo>≤</mo><mi>π</mi></mrow><annotation encoding="application/x-tex">0\le a\le\pi</annotation></semantics></math>, the angular intervals producing <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>≤</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">\alpha\le a</annotation></semantics></math> have total length <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>a</mi></mrow><annotation encoding="application/x-tex">2a</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mo>≤</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mn>2</mn><mi>a</mi></mrow><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><mo>=</mo><mfrac><mi>a</mi><mi>π</mi></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P(\alpha\le a)=\frac{2a}{2\pi}=\frac a\pi.</annotation></semantics></math></p>
+<p>Thus <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> is uniform on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mi>π</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0,\pi]</annotation></semantics></math>.</p>
+<aside class="notes">
+<p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="s26" class="slide level2">
+<h2>Model A: sampling map and inverse</h2>
+<div class="question">
+<p>For independent uniform endpoint angles, set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>=</mo><mi>α</mi><mi>/</mi><mi>π</mi></mrow><annotation encoding="application/x-tex">U=\alpha/\pi</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mrow><mi mathvariant="normal">min</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Θ</mi><mo>,</mo><mn>2</mn><mi>π</mi><mo>−</mo><mi mathvariant="normal">Θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\alpha=\min(\Theta,2\pi-\Theta)</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mi>ϕ</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V=\phi/(2\pi)</annotation></semantics></math>. With <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t=\cos\,(\alpha/2)</annotation></semantics></math>, find the chord map and its inverse.</p>
+</div>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mi>U</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>c</mi><mo>=</mo><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mi>V</mi><mo>,</mo><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mi>U</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">t=\cos\,(\pi U/2),\qquad c=C(2\pi V,\cos\,(\pi U/2)).</annotation></semantics></math></p>
+<p>Inverse:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>=</mo><mfrac><mn>2</mn><mi>π</mi></mfrac><mrow><mi mathvariant="normal">arccos</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>V</mi><mo>=</mo><mi>ϕ</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">U=\frac2\pi\arccos(t),\qquad V=\phi/(2\pi).</annotation></semantics></math></p>
+<p>This generates the same distribution of unordered chords as independent uniform endpoints. The supplement proves the independence of the midpoint direction and the smaller separation.</p>
+<aside class="notes">
+<p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="s27" class="slide level2">
+<h2>Model A: the length random variable</h2>
+<div class="question">
+<p>For independent uniform endpoint angles, use <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>=</mo><mi>α</mi><mi>/</mi><mi>π</mi></mrow><annotation encoding="application/x-tex">U=\alpha/\pi</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t=\cos\,(\alpha/2)</annotation></semantics></math>. Express <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mn>2</mn><mi>R</mi><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>t</mi><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">L=2R\sqrt{1-t^2}</annotation></semantics></math> in terms of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math> and find the condition for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>&gt;</mo><msqrt><mn>3</mn></msqrt><mi>R</mi></mrow><annotation encoding="application/x-tex">L&gt;\sqrt3R</annotation></semantics></math>.</p>
+</div>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>A</mi></msub><mo>=</mo><mn>2</mn><mi>R</mi><msqrt><mrow><mn>1</mn><mo>−</mo><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><msup><mspace width="0.167em"></mspace><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mi>U</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow></msqrt><mo>=</mo><mn>2</mn><mi>R</mi><mrow><mi mathvariant="normal">sin</mi><mo>⁡</mo></mrow><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mi>U</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">L_A=2R\sqrt{1-\cos\,^2(\pi U/2)}=2R\sin\,(\pi U/2).</annotation></semantics></math></p>
+<p>The sine is increasing for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>U</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;U&lt;1</annotation></semantics></math>, so</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>A</mi></msub><mo>&gt;</mo><msqrt><mn>3</mn></msqrt><mi>R</mi><mo>⇔</mo><mi>U</mi><mo>&gt;</mo><mn>2</mn><mi>/</mi><mn>3</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">L_A&gt;\sqrt3R\iff U&gt;2/3.</annotation></semantics></math></p>
+<p>Therefore <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">long</mtext><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mn>2</mn><mi>/</mi><mn>3</mn><mo>=</mo><mn>1</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">P_A(\text{long})=1-2/3=1/3</annotation></semantics></math>.</p>
+<aside class="notes">
+<p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="s28" class="slide level2">
+<h2>Practice: recovering the source coordinates</h2>
+<div class="question">
+<p>For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">t=1/2</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϕ</mi><mo>=</mo><mi>π</mi></mrow><annotation encoding="application/x-tex">\phi=\pi</annotation></semantics></math>, recover <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>=</mo><mi>ϕ</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">v=\phi/(2\pi)</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math> under Model A, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mi>U</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t=\cos\,(\pi U/2)</annotation></semantics></math>; Model B, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mi>U</mi></mrow><annotation encoding="application/x-tex">t=U</annotation></semantics></math>; and Model C, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><msqrt><mi>U</mi></msqrt></mrow><annotation encoding="application/x-tex">t=\sqrt U</annotation></semantics></math>. Is the chord longer than <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>3</mn></msqrt><mi>R</mi></mrow><annotation encoding="application/x-tex">\sqrt3R</annotation></semantics></math>?</p>
+</div>
+<p>In every model, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>=</mo><mi>ϕ</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">v=\phi/(2\pi)=1/2</annotation></semantics></math>.</p>
+<p>Model A: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>/</mi><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">arccos</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">u=(2/\pi)\arccos(1/2)=2/3</annotation></semantics></math>.</p>
+<p>Model B: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>=</mo><mi>t</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">u=t=1/2</annotation></semantics></math>.</p>
+<p>Model C: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>=</mo><msup><mi>t</mi><mn>2</mn></msup><mo>=</mo><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">u=t^2=1/4</annotation></semantics></math>.</p>
+<p>The chord length equals <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>3</mn></msqrt><mi>R</mi></mrow><annotation encoding="application/x-tex">\sqrt3R</annotation></semantics></math>, so it is outside the strict long-chord event in all three models.</p>
+<aside class="notes">
+<p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="s29" class="slide level2">
 <h2>Comparing the three sampling distributions</h2>
 <div class="question">
 <p>Summarize the event calculations using the same uniform source U.</p>
@@ -632,7 +728,7 @@ Soma S Dhavala · IIT Jammu
 <tbody>
 <tr class="odd">
 <td>A: uniform endpoints</td>
-<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mi>U</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\cos(\pi U/2)</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mi>U</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\cos\,(\pi U/2)</annotation></semantics></math></td>
 <td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>&gt;</mo><mn>2</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">U&gt;2/3</annotation></semantics></math></td>
 <td style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">1/3</annotation></semantics></math></td>
 </tr>
@@ -653,7 +749,7 @@ Soma S Dhavala · IIT Jammu
 <p>Each result uses a specified random variable and a specified sampling distribution.</p>
 <aside class="notes">
 <p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -666,18 +762,20 @@ Soma S Dhavala · IIT Jammu
           display:block!important;
       }</style></aside>
 </section>
-<section id="s21" class="slide level2">
-<h2>Resolution of Bertrand’s paradox</h2>
+<section id="s30" class="slide level2">
+<h2>Three measures on a common chord space</h2>
 <div class="question">
-<p>Why are the three probabilities compatible?</p>
+<p>How can the rotationally invariant models use the same chord space?</p>
 </div>
-<p>The geometric event is the same: all chords whose midpoint distance is less than <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">R/2</annotation></semantics></math>.</p>
+<p>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">𝒞</mi><mo>*</mo></msub><annotation encoding="application/x-tex">\mathcal C_*</annotation></semantics></math> be the nondegenerate, nondiameter chords and let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">ℱ</mi><msub><mi mathvariant="script">𝒞</mi><mo>*</mo></msub></msub><annotation encoding="application/x-tex">\mathcal F_{\mathcal C_*}</annotation></semantics></math> be the event collection defined in the supplement.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi mathvariant="script">𝒞</mi><mo>*</mo></msub><mo>,</mo><msub><mi mathvariant="script">ℱ</mi><msub><mi mathvariant="script">𝒞</mi><mo>*</mo></msub></msub><mo>,</mo><msub><mi>P</mi><mi>A</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">(</mo><msub><mi mathvariant="script">𝒞</mi><mo>*</mo></msub><mo>,</mo><msub><mi mathvariant="script">ℱ</mi><msub><mi mathvariant="script">𝒞</mi><mo>*</mo></msub></msub><mo>,</mo><msub><mi>P</mi><mi>B</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">(</mo><msub><mi mathvariant="script">𝒞</mi><mo>*</mo></msub><mo>,</mo><msub><mi mathvariant="script">ℱ</mi><msub><mi mathvariant="script">𝒞</mi><mo>*</mo></msub></msub><mo>,</mo><msub><mi>P</mi><mi>C</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">(\mathcal C_*,\mathcal F_{\mathcal C_*},P_A),\quad(\mathcal C_*,\mathcal F_{\mathcal C_*},P_B),\quad(\mathcal C_*,\mathcal F_{\mathcal C_*},P_C).</annotation></semantics></math></p>
+<p>The event is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>c</mi><mo>:</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>R</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">E=\{c:D(c)&lt;R/2\}</annotation></semantics></math> in all three models.</p>
 <p>The sampling rules assign different probabilities to regions of the chord space.</p>
 <p>“Random chord” does not select one of these probability distributions.</p>
 <p><a href="01-probability/lab.html#bertrand">Compare the sampling experiments</a> · <a href="01-probability/mappings.html">Inspect the maps and inverses</a></p>
 <aside class="notes">
 <p>Allow students to work before showing the completed calculation. Discuss the interpretation before advancing.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -690,10 +788,10 @@ Soma S Dhavala · IIT Jammu
           display:block!important;
       }</style></aside>
 </section>
-<section id="s22" class="slide level2">
+<section id="s31" class="slide level2">
 <h2>Changing coordinates in one fixed model</h2>
 <div class="question">
-<p>Keep Model B, where T = D/R is uniform on (0, 1). Write W = T². What is P(W &lt; 1/4)?</p>
+<p>Keep Model B, where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mi>D</mi><mi>/</mi><mi>R</mi></mrow><annotation encoding="application/x-tex">T=D/R</annotation></semantics></math> is uniform on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,1)</annotation></semantics></math>. Put <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>W</mi><mo>=</mo><msup><mi>T</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">W=T^2</annotation></semantics></math>. What is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>W</mi><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>4</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(W&lt;1/4)</annotation></semantics></math>?</p>
 </div>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>W</mi><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>4</mn><mo>⇔</mo><msup><mi>T</mi><mn>2</mn></msup><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>4</mn><mo>⇔</mo><mi>T</mi><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>2</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">W&lt;1/4\iff T^2&lt;1/4\iff T&lt;1/2.</annotation></semantics></math></p>
 <p>Hence <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>W</mi><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">P_B(W&lt;1/4)=1/2</annotation></semantics></math>.</p>
@@ -701,7 +799,7 @@ Soma S Dhavala · IIT Jammu
 <p>Declaring <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math> uniform would change the sampling model to Model C.</p>
 <aside class="notes">
 <p>Stopping point: students should explain both why the three sampling models differ and why a coordinate change within a fixed model preserves probability.</p>
-<p>Reference: Jagannathan, Chapter 4; course lesson notes for the original worked examples.</p>
+<p>Reference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;

@@ -15,7 +15,7 @@ function update(){
  const ru=model==='A'?2/Math.PI*Math.acos(rt):model==='B'?rt:rt*rt;
  el('uo').textContent=f(u);el('vo').textContent=f(v);
  el('formula').textContent={A:'t = cos(πu/2); u = (2/π) arccos(t)',B:'t = u; u = t',C:'t = √u; u = t²'}[model]+'; φ = 2πv; v = φ/(2π)';
- el('length').textContent='Length X = '+f(2*h);el('distance').textContent='t = D/R = '+f(t);el('event').textContent=t<.5?'X > √3: event holds':'X ≤ √3: event does not hold';
+ el('length').textContent='Length L = '+f(2*h);el('distance').textContent='t = D/R = '+f(t);el('event').textContent=t<.5?'L > √3: event holds':'L ≤ √3: event does not hold';
  el('forward').textContent='(φ, t) = ('+f(phi)+', '+f(t)+')';el('inverse').textContent='(u, v) = ('+f(ru)+', '+f(angle/(2*Math.PI))+')';
  const threshold={A:2/3,B:1/2,C:1/4}[model];el('interval').setAttribute('x1',20+560*(model==='A'?threshold:0));el('interval').setAttribute('x2',20+560*(model==='A'?1:threshold));el('source').setAttribute('cx',20+560*u);
  el('preimage').textContent={A:'Ψ_A⁻¹(E) = {(u,v): u > 2/3}. Probability = 1/3.',B:'Ψ_B⁻¹(E) = {(u,v): u < 1/2}. Probability = 1/2.',C:'Ψ_C⁻¹(E) = {(u,v): u < 1/4}. Probability = 1/4.'}[model];
