@@ -24,7 +24,7 @@
     "href": "index.html#announcements",
     "title": "Data Analytics for AI",
     "section": "Announcements",
-    "text": "Announcements\nThe introductory session took place on Sunday, 27 September 2026, 6:00–7:40 p.m. IST; it was not a formal lecture, and the lecture deck was not used. The first formal lecture is Sunday, 4 October 2026, 6:00–7:40 p.m. IST. Regular Saturday classes meet from 10:30 a.m. to 12:10 p.m. IST.\nSee Course for logistics and Syllabus for the course outline.\n\nHow the course is taught\nThe lessons begin with practical questions from AI evaluation, agent workflows, engineering, IT, finance and training. Students reason through a concrete case before formal definitions are introduced, then apply the definitions to a new problem. Examples are selected to fit the mathematics, with assumptions made explicit and hypothetical values labeled.",
+    "text": "Announcements\nLecture 00 was an introductory session on Sunday, 27 September 2026, 6:00–7:40 p.m. IST. It covered material from “Maths, Systems and Research in the Age of AI”, including problem framing, research inquiry, systems boundaries and mathematical structure. Lecture 01, the first formal lecture, is scheduled for Saturday, 3 October 2026, 10:30 a.m.–12:10 p.m. IST. Regular classes meet on Saturdays at that time.\nSee Course for logistics and Syllabus for the course outline.\n\nHow the course is taught\nThe lessons begin with practical questions from AI evaluation, agent workflows, engineering, IT, finance and training. Students reason through a concrete case before formal definitions are introduced, then apply the definitions to a new problem. Examples are selected to fit the mathematics, with assumptions made explicit and hypothetical values labeled.",
     "crumbs": [
       "Welcome"
     ]
@@ -44,7 +44,7 @@
     "href": "course.html#logistics",
     "title": "Course",
     "section": "",
-    "text": "Item\nDetails\n\n\n\n\nInstructor\nSoma S Dhavala\n\n\nCourse\nData Analytics for AI\n\n\nProgramme\nExecutive M.Tech in GenAI and Data Science, Semester 1\n\n\nCredits and L-D-P structure\n3 credits; 3-0-0\n\n\nLecture schedule\nSaturdays, 10:30 a.m.–12:10 p.m. IST\n\n\nIntroductory session (completed)\nSunday, 27 September 2026, 6:00–7:40 p.m. IST\n\n\nFirst formal lecture\nSunday, 4 October 2026, 6:00–7:40 p.m. IST\n\n\nVenue\nTo be announced\n\n\nOffice hours\nTo be announced\n\n\nPrerequisites\nNot specified in the supplied syllabus",
+    "text": "Item\nDetails\n\n\n\n\nInstructor\nSoma S Dhavala\n\n\nCourse\nData Analytics for AI\n\n\nProgramme\nExecutive M.Tech in GenAI and Data Science, Semester 1\n\n\nCredits and L-D-P structure\n3 credits; 3-0-0\n\n\nLecture schedule\nSaturdays, 10:30 a.m.–12:10 p.m. IST\n\n\nLecture 00 · Introduction (completed)\nSunday, 27 September 2026, 6:00–7:40 p.m. IST\n\n\nLecture 01 · First formal lecture\nSaturday, 3 October 2026, 10:30 a.m.–12:10 p.m. IST\n\n\nVenue\nTo be announced\n\n\nOffice hours\nTo be announced\n\n\nPrerequisites\nNot specified in the supplied syllabus",
     "crumbs": [
       "Course"
     ]
@@ -54,7 +54,7 @@
     "href": "course.html#important-dates",
     "title": "Course",
     "section": "Important Dates",
-    "text": "Important Dates\n\nIntroductory session: Sunday, 27 September 2026, 6:00–7:40 p.m. IST. The lecture deck was not used.\nFirst formal lecture: Sunday, 4 October 2026, 6:00–7:40 p.m. IST. Regular Saturday meetings follow at 10:30 a.m.–12:10 p.m. IST.\n\nExamination windows and any timetable exceptions will be added when confirmed.",
+    "text": "Important Dates\n\nLecture 00 · Introduction: Sunday, 27 September 2026, 6:00–7:40 p.m. IST. The session covered material from the instructor’s essay on maths, systems and research in the age of AI.\nLecture 01 · Probability through ticket triage: Saturday, 3 October 2026, 10:30 a.m.–12:10 p.m. IST. Regular meetings continue on Saturdays at this time.\n\nExamination windows and any timetable exceptions will be added when confirmed.",
     "crumbs": [
       "Course"
     ]
@@ -140,11 +140,21 @@
     ]
   },
   {
-    "objectID": "curriculum.html#first-formal-lecture-4-october-2026",
-    "href": "curriculum.html#first-formal-lecture-4-october-2026",
+    "objectID": "curriculum.html#lecture-00-introduction-27-september-2026",
+    "href": "curriculum.html#lecture-00-introduction-27-september-2026",
     "title": "Curriculum",
-    "section": "First formal lecture · 4 October 2026",
-    "text": "First formal lecture · 4 October 2026\nThe introductory session on 27 September did not use the lecture deck. The first formal lecture is Probability through ticket triage, on Sunday, 4 October, 6:00–7:40 p.m. IST. It opens with a six-ticket LLM routing audit and uses the observed agreement result to compare probability interpretations. Bertrand’s random-chord question motivates the need to specify a sampling rule; its resolution is in the rigorous supplement. The lecture then develops the probability triplet through the ticket IDs, defines events as sets, states the sigma-algebra requirements and Kolmogorov axioms, and defines a random variable through its values, image and inverse image. A Gamma model for ticket closure time illustrates the move from counting to integration. The sequence is deliberately gradual and may continue in later meetings.\nNotes · Decks · Interactive lab",
+    "section": "Lecture 00 · Introduction · 27 September 2026",
+    "text": "Lecture 00 · Introduction · 27 September 2026\nThe introductory session covered material from “Maths, Systems and Research in the Age of AI”. The essay motivates problem framing with a cooling-cup example, then discusses research inquiry, systems boundaries, and mathematical structures that recur across applications.",
+    "crumbs": [
+      "Curriculum"
+    ]
+  },
+  {
+    "objectID": "curriculum.html#lecture-01-probability-through-ticket-triage-3-october-2026",
+    "href": "curriculum.html#lecture-01-probability-through-ticket-triage-3-october-2026",
+    "title": "Curriculum",
+    "section": "Lecture 01 · Probability through ticket triage · 3 October 2026",
+    "text": "Lecture 01 · Probability through ticket triage · 3 October 2026\nThe first formal lecture opens with a six-ticket LLM routing audit and uses the observed agreement result to compare probability interpretations. Bertrand’s random-chord question motivates the need to specify a sampling rule; its resolution is in the rigorous supplement. The lecture then develops the probability triplet through the ticket IDs, defines events as sets, states the sigma-algebra requirements and Kolmogorov axioms, and defines a random variable through its values, image and inverse image. A Gamma model for ticket closure time illustrates the move from counting to integration. The sequence is deliberately gradual and may continue in later meetings.\nNotes · Decks · Interactive lab",
     "crumbs": [
       "Curriculum"
     ]
@@ -174,7 +184,7 @@
     "href": "tutorials/index.html",
     "title": "Lecture Notes",
     "section": "",
-    "text": "Lecture 1 · Probability foundations\nIntroduction to probability and probability spaces\nBegins with a six-ticket LLM routing audit and asks what the observed agreement fraction means under different probability interpretations. Bertrand’s random-chord question motivates the need to specify a sampling rule. The notes then define the ticket-selection experiment and develop sets, events, the probability triplet, sigma-algebra requirements, Kolmogorov’s axioms, and a random variable through its image and inverse image. A continuous Gamma model for ticket closure time illustrates integration as probability calculation. The sequence is deliberately gradual and may continue across meetings.\nMathematical supplement: outcomes and events, measurable functions, inverse images, the whole of Bertrand’s paradox with its three sampling maps and induced measures, the Vitali non-measurable set, density derivations, proofs and further exercises with solutions.\nEach week’s lecture notes will have a linked mathematical supplement. The main notes cover the classroom explanations and worked examples; the supplement provides the formal development and technical details.",
+    "text": "Lecture 01 · Probability foundations\nIntroduction to probability and probability spaces\nBegins with a six-ticket LLM routing audit and asks what the observed agreement fraction means under different probability interpretations. Bertrand’s random-chord question motivates the need to specify a sampling rule. The notes then define the ticket-selection experiment and develop sets, events, the probability triplet, sigma-algebra requirements, Kolmogorov’s axioms, and a random variable through its image and inverse image. A continuous Gamma model for ticket closure time illustrates integration as probability calculation. The sequence is deliberately gradual and may continue across meetings.\nMathematical supplement: outcomes and events, measurable functions, inverse images, the whole of Bertrand’s paradox with its three sampling maps and induced measures, the Vitali non-measurable set, density derivations, proofs and further exercises with solutions.\nEach week’s lecture notes will have a linked mathematical supplement. The main notes cover the classroom explanations and worked examples; the supplement provides the formal development and technical details.",
     "crumbs": [
       "Lecture Notes",
       "Lecture Notes"
@@ -185,7 +195,7 @@
     "href": "tutorials/01-probability-foundations.html",
     "title": "1 · Probability through an AI-assisted ticket-triage problem",
     "section": "",
-    "text": "Purpose and pace\nData Analytics for AI · Executive M.Tech · IIT Jammu\nLecture 1 · Sunday, 4 October 2026 · 6:00–7:40 p.m. IST\nRigorous supplement\nWe begin with a six-ticket routing audit and use it to motivate the mathematical objects needed to describe events and assign probabilities. The sequence is:\nThe same six ticket IDs are used throughout. The meeting duration does not set a required pace; stop at a checkpoint and continue at the next meeting when needed.",
+    "text": "Purpose and pace\nData Analytics for AI · Executive M.Tech · IIT Jammu\nLecture 01 · Saturday, 3 October 2026 · 10:30 a.m.–12:10 p.m. IST\nRigorous supplement\nWe begin with a six-ticket routing audit and use it to motivate the mathematical objects needed to describe events and assign probabilities. The sequence is:\nThe same six ticket IDs are used throughout. The meeting duration does not set a required pace; stop at a checkpoint and continue at the next meeting when needed.",
     "crumbs": [
       "Lecture Notes",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>1 · Probability through an AI-assisted ticket-triage problem</span>"
@@ -394,14 +404,14 @@
     "href": "decks.html",
     "title": "Slide Decks",
     "section": "",
-    "text": "First formal lecture · Probability through ticket triage\nOpen the complete lesson kit · Download the offline bundle\nSunday, 4 October 2026 · 6:00–7:40 p.m. IST. The introductory session on Sunday, 27 September did not use the lecture deck.\nThe main decks share a 36-content-slide sequence built around the six-ticket audit. They proceed from observed agreement to probability interpretations, event sets, the probability triplet, axioms, a random variable and a continuous closure-time model. The pace is deliberately gradual; the lecture can continue across meetings. Formal proofs and detailed derivations are in the mathematical supplement.",
+    "text": "Lecture 01 · Probability through ticket triage\nOpen the complete lesson kit · Download the offline bundle\nSaturday, 3 October 2026 · 10:30 a.m.–12:10 p.m. IST. Lecture 00 was the introductory session on 27 September and covered “Maths, Systems and Research in the Age of AI”.\nThe main decks share a 35-content-slide sequence built around the six-ticket audit. They proceed from observed agreement to probability interpretations, event sets, the probability triplet, axioms, a random variable and a continuous closure-time model. The pace is deliberately gradual; the lecture can continue across meetings. Formal proofs and detailed derivations are in the mathematical supplement.",
     "crumbs": [
       "Slide Decks"
     ]
   },
   {
-    "objectID": "decks.html#first-formal-lecture-probability-through-ticket-triage",
-    "href": "decks.html#first-formal-lecture-probability-through-ticket-triage",
+    "objectID": "decks.html#lecture-01-probability-through-ticket-triage",
+    "href": "decks.html#lecture-01-probability-through-ticket-triage",
     "title": "Slide Decks",
     "section": "",
     "text": "Worked student deck: complete calculations and explanations, with additional worked practice.\nLive writing deck: matching prompts with handwriting space and pen controls. Save ink before closing the tab.\nInteractive probability lab: Bertrand’s chords, event collections and weights, and running frequencies.\nDetailed notes and practice solutions.\nSupplementary deck: Bertrand’s paradox: the chord models and their three answers, worked in full. Not part of the Lecture 1 sequence — read alongside the mathematical supplement.",
@@ -454,7 +464,7 @@
     "href": "resources.html#additional-reference",
     "title": "Resources",
     "section": "Additional Reference",
-    "text": "Additional Reference\nKrishna Jagannathan, Probability Foundations for Electrical Engineers, lecture notes, 9 July 2025. For Lecture 1, focus on Chapter 4 (§§4.1–4.5) and the elementary consequences in Chapters 5–6. Chapter 7 is optional background. The lecture notes provide an intuitive route while retaining the formal definitions.",
+    "text": "Additional Reference\nKrishna Jagannathan, Probability Foundations for Electrical Engineers, lecture notes, 9 July 2025. For Lecture 01, focus on Chapter 4 (§§4.1–4.5) and the elementary consequences in Chapters 5–6. Chapter 7 is optional background. The lecture notes provide an intuitive route while retaining the formal definitions.",
     "crumbs": [
       "Resources"
     ]
@@ -464,7 +474,7 @@
     "href": "resources.html#interactive-demonstrations",
     "title": "Resources",
     "section": "Interactive Demonstrations",
-    "text": "Interactive Demonstrations\nLecture 1 probability lab includes three offline experiments: Bertrand’s chord generators, event collections with fair or loaded dice, and running coin-toss frequencies.",
+    "text": "Interactive Demonstrations\nLecture 01 probability lab includes three offline experiments: Bertrand’s chord generators, event collections with fair or loaded dice, and running coin-toss frequencies.",
     "crumbs": [
       "Resources"
     ]

@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Soma S Dhavala · IIT Jammu">
-  <meta name="dcterms.date" content="2026-10-04">
+  <meta name="dcterms.date" content="2026-10-03">
   <title>Data Analytics for AI · Slide Decks – Probability through ticket triage</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -136,7 +136,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Probability through ticket triage</h1>
-  <p class="subtitle">Lecture 1 · Worked student edition</p>
+  <p class="subtitle">Lecture 01 · Worked student edition</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -146,7 +146,7 @@ Soma S Dhavala · IIT Jammu
 </div>
 </div>
 
-  <p class="date">2026-10-04</p>
+  <p class="date">2026-10-03</p>
 </section>
 <section id="s01" class="slide level2">
 <h2>A ticket-routing review</h2>
@@ -156,7 +156,7 @@ Soma S Dhavala · IIT Jammu
 <p>We will compare the reviewer reference outcome with the model classification ticket by ticket. The example is hypothetical. The reviewer decisions are operational references, not claims of error-free ground truth.</p>
 <aside class="notes">
 <p>Introduce the task and the two sources of labels before displaying the table.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -232,7 +232,7 @@ Soma S Dhavala · IIT Jammu
 <p>For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>1</mn></msub><annotation encoding="application/x-tex">t_1</annotation></semantics></math>, the model scores are 0.55 for Billing and 0.35 for Account Support. The reviewer reference includes both destinations. Exact agreement means the model classification equals the full reviewer reference outcome.</p>
 <aside class="notes">
 <p>Clarify that Other means neither named destination is required; another team may handle the ticket. The reference decisions are operational, not asserted ground truth.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -253,7 +253,7 @@ Soma S Dhavala · IIT Jammu
 <p>Exact agreements occur on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub></mrow><annotation encoding="application/x-tex">t_2,t_3,t_5,t_6</annotation></semantics></math>. Thus the observed agreement fraction is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>6</mn><mo>=</mo><mn>2</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">4/6=2/3</annotation></semantics></math>.</p>
 <aside class="notes">
 <p>Ask for reasons on t1 and t4; do not yet call the fraction a future performance probability.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -274,7 +274,7 @@ Soma S Dhavala · IIT Jammu
 <p>It is first an observed proportion in these six records. It becomes the probability of agreement if the experiment is to select one of these six ticket IDs uniformly. A claim about future tickets needs a target population and assumptions linking this audit to it.</p>
 <aside class="notes">
 <p>Distinguish a data summary from a probability statement by asking for the experiment.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -295,7 +295,7 @@ Soma S Dhavala · IIT Jammu
 <p>The classical rule for a finite set of equally likely cases is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">|</mo><mi>E</mi><mo stretchy="false" form="prefix">|</mo><mi>/</mi><mo stretchy="false" form="prefix">|</mo><mi mathvariant="normal">Ω</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">P(E)=|E|/|\Omega|</annotation></semantics></math>. Here each ID has probability <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">1/6</annotation></semantics></math> and four IDs show agreement, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">agreement</mtext><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4</mn><mi>/</mi><mn>6</mn><mo>=</mo><mn>2</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">P(\text{agreement})=4/6=2/3</annotation></semantics></math>. The uniform selection rule justifies equal weights for IDs in this experiment.</p>
 <aside class="notes">
 <p>Give students time to set up the problem before discussing the result.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -316,7 +316,7 @@ Soma S Dhavala · IIT Jammu
 <p>Two of four occupied types are agreements, so the answer under uniform selection among types is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>/</mi><mn>4</mn><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">2/4=1/2</annotation></semantics></math>. It differs from <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">4/6</annotation></semantics></math> under uniform selection among ticket IDs because the categories contain unequal numbers of records.</p>
 <aside class="notes">
 <p>Have students explain why changing the partition changes the sample unit and hence the selection rule.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -337,7 +337,7 @@ Soma S Dhavala · IIT Jammu
 <p>There are <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>×</mo><mn>2</mn><mo>=</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">4\times2=8</annotation></semantics></math> possible pairs in the full product. Four are occupied in this six-row table. Uniform weighting over eight pairs would be a third selection rule and is not implied by the audit.</p>
 <aside class="notes">
 <p>Separate the set of possible combinations from the subset observed in the audit.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -358,7 +358,7 @@ Soma S Dhavala · IIT Jammu
 <p>No.&nbsp;A frequency account connects probability to relative frequency in a specified repeatable process. If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mi>i</mi></msub><annotation encoding="application/x-tex">I_i</annotation></semantics></math> indicates agreement on trial <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>, the observed frequency after <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> trials is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>n</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><msub><mi>I</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">n^{-1}\sum_{i=1}^n I_i</annotation></semantics></math>; a limiting account relates this sequence to a probability <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>. Six observations alone establish no such limit and do not establish that future tickets follow the same process.</p>
 <aside class="notes">
 <p>Keep observed frequency, model probability and future estimation distinct.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -379,7 +379,7 @@ Soma S Dhavala · IIT Jammu
 <p>No.&nbsp;A subjective account treats probability as a degree of belief given information. The assignment needs stated information or judgments and must be coherent with the analyst’s other probability assignments. An evidential account also needs a specified rule connecting evidence and background assumptions to a number.</p>
 <aside class="notes">
 <p>State that these are interpretations, not competing arithmetic rules for the same fully specified experiment.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -400,7 +400,7 @@ Soma S Dhavala · IIT Jammu
 <p>The accounts emphasize symmetry, repeated observations, information-conditioned belief, and evidential support. A calculation still needs specified outcomes, an event and a probability assignment. A propensity interpretation instead locates chance in a specified physical or randomized mechanism.</p>
 <aside class="notes">
 <p>Use the slide as a transition, not a verdict on philosophical interpretations.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -421,7 +421,7 @@ Soma S Dhavala · IIT Jammu
 <p>The phrase “at random” does not say how the chord is generated. Bertrand’s chord problem has answers <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">1/3</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math> under different sampling procedures. We will pose the question here and return to its full resolution in the supplement.</p>
 <aside class="notes">
 <p>Show the chord illustration if space permits. Do not derive or choose a sampling procedure in the main lecture.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -442,7 +442,7 @@ Soma S Dhavala · IIT Jammu
 <p>Kolmogorov’s set-based framework specifies a sample space <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>, an event collection <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℱ</mi><annotation encoding="application/x-tex">\mathcal F</annotation></semantics></math>, and a probability measure <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>. We now build these objects from the ticket-selection experiment.</p>
 <aside class="notes">
 <p>Introduce the triplet only after students have named what is missing.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -463,7 +463,7 @@ Soma S Dhavala · IIT Jammu
 <p>The selected ID varies. The sample space is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ω</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>4</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\Omega=\{t_1,t_2,t_3,t_4,t_5,t_6\}</annotation></semantics></math>. The ticket contents and labels are fixed data in this experiment.</p>
 <aside class="notes">
 <p>Emphasize that the outcome is one ID, not a label or a probability.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -484,7 +484,7 @@ Soma S Dhavala · IIT Jammu
 <p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">B=\{t_1,t_2,t_5\}</annotation></semantics></math>. An event is a set of outcomes in the sample space. The statement “Billing is required” occurs exactly when the selected ID belongs to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>.</p>
 <aside class="notes">
 <p>Give students time to set up the problem before discussing the result.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -505,7 +505,7 @@ Soma S Dhavala · IIT Jammu
 <p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">A=\{t_1,t_3,t_6\}</annotation></semantics></math>. The two events overlap because <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>1</mn></msub><annotation encoding="application/x-tex">t_1</annotation></semantics></math> requires both destinations.</p>
 <aside class="notes">
 <p>Give students time to set up the problem before discussing the result.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -526,7 +526,7 @@ Soma S Dhavala · IIT Jammu
 <p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>∪</mo><mi>A</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>c</mi></msup><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>4</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">O=(B\cup A)^c=\{t_4\}</annotation></semantics></math>. The complement is taken relative to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>. It does not mean the ticket is unreviewed or unknown; another team may handle it.</p>
 <aside class="notes">
 <p>Give students time to set up the problem before discussing the result.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -547,7 +547,7 @@ Soma S Dhavala · IIT Jammu
 <p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>∩</mo><mi>A</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">B\cap A=\{t_1\}</annotation></semantics></math> means both destinations are required. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>∪</mo><mi>A</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">B\cup A=\{t_1,t_2,t_3,t_5,t_6\}</annotation></semantics></math> means at least one is required. “Or” in a union is inclusive.</p>
 <aside class="notes">
 <p>Give students time to set up the problem before discussing the result.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -568,7 +568,7 @@ Soma S Dhavala · IIT Jammu
 <p>The shared ID <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>1</mn></msub><annotation encoding="application/x-tex">t_1</annotation></semantics></math> appears in both marginal counts. Split the union into disjoint parts: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>\</mo><mi>A</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">B\setminus A=\{t_2,t_5\}</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>\</mo><mi>B</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">A\setminus B=\{t_3,t_6\}</annotation></semantics></math>, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>∩</mo><mi>A</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">B\cap A=\{t_1\}</annotation></semantics></math>. Hence <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>∪</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>+</mo><mn>2</mn><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>6</mn><mo>=</mo><mn>5</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">P(B\cup A)=(2+2+1)/6=5/6</annotation></semantics></math>. Equivalently, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>6</mn><mo>+</mo><mn>3</mn><mi>/</mi><mn>6</mn><mo>−</mo><mn>1</mn><mi>/</mi><mn>6</mn><mo>=</mo><mn>5</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">3/6+3/6-1/6=5/6</annotation></semantics></math>.</p>
 <aside class="notes">
 <p>Give students time to set up the problem before discussing the result.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -589,7 +589,7 @@ Soma S Dhavala · IIT Jammu
 <p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">B=\{t_1,t_2,t_5\}</annotation></semantics></math>; <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">A=\{t_1,t_3,t_6\}</annotation></semantics></math>; <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>∩</mo><mi>A</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">B\cap A=\{t_1\}</annotation></semantics></math>; <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>∪</mo><mi>A</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">B\cup A=\{t_1,t_2,t_3,t_5,t_6\}</annotation></semantics></math>; and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>4</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">O=\{t_4\}</annotation></semantics></math>. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>1</mn></msub><annotation encoding="application/x-tex">t_1</annotation></semantics></math> requires both named destinations.</p>
 <aside class="notes">
 <p>Stop here if students need more practice with sets before formal requirements.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -614,7 +614,7 @@ Soma S Dhavala · IIT Jammu
 <p>Thus <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn><mi>/</mi><mn>6</mn><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">P(B)=3/6=1/2</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>∪</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">P(B\cup A)=5/6</annotation></semantics></math>.</p>
 <aside class="notes">
 <p>First name each object, then write the symbols. Stress that the probability assignment depends on the stated uniform selection rule.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -635,7 +635,7 @@ Soma S Dhavala · IIT Jammu
 <p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>2</mn></msub><annotation encoding="application/x-tex">t_2</annotation></semantics></math> is an outcome in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math> is an event, a subset of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">P(B)=1/2</annotation></semantics></math> is a number assigned to that event. The measure takes events as input.</p>
 <aside class="notes">
 <p>Give students time to set up the problem before discussing the result.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -662,7 +662,7 @@ Soma S Dhavala · IIT Jammu
 <p>It therefore contains <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>⌀</mi><annotation encoding="application/x-tex">\varnothing</annotation></semantics></math> too. In the finite ticket model, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℱ</mi><mo>=</mo><msup><mn>2</mn><mi mathvariant="normal">Ω</mi></msup></mrow><annotation encoding="application/x-tex">\mathcal F=2^\Omega</annotation></semantics></math> satisfies these conditions.</p>
 <aside class="notes">
 <p>These are closure requirements on the collection of events. Keep them distinct from the probability axioms on the next slide.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -689,7 +689,7 @@ Soma S Dhavala · IIT Jammu
 <p>For example, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>B</mi><mi>c</mi></msup><annotation encoding="application/x-tex">B^c</annotation></semantics></math> are disjoint and exhaustive, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>B</mi><mi>c</mi></msup><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn><mi>/</mi><mn>6</mn><mo>+</mo><mn>3</mn><mi>/</mi><mn>6</mn><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">P(B)+P(B^c)=3/6+3/6=1</annotation></semantics></math>.</p>
 <aside class="notes">
 <p>State nonnegativity, normalization and countable additivity separately from sigma-algebra closure.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -710,7 +710,7 @@ Soma S Dhavala · IIT Jammu
 <p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>B</mi></msub><mo>:</mo><mi mathvariant="normal">Ω</mi><mo>→</mo><mi mathvariant="double-struck">ℝ</mi></mrow><annotation encoding="application/x-tex">X_B:\Omega\to\mathbb R</annotation></semantics></math>, where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">X_B(t)=1</annotation></semantics></math> if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>∈</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">t\in B</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">X_B(t)=0</annotation></semantics></math> if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>∉</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">t\notin B</annotation></semantics></math>. The values are <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">1,1,0,0,1,0</annotation></semantics></math> on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub></mrow><annotation encoding="application/x-tex">t_1,\ldots,t_6</annotation></semantics></math> respectively. A random variable is a set function from outcomes to the real line. The selected outcome is random; for a given outcome, the function value is fixed.</p>
 <aside class="notes">
 <p>Reinforce: the selected ticket outcome is random; the random variable is a function, not a second random mechanism.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -731,7 +731,7 @@ Soma S Dhavala · IIT Jammu
 <p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mi>t</mi><mo>∈</mo><mi>A</mi><mo stretchy="false" form="postfix">}</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">X_B(A)=\{X_B(t):t\in A\}=\{0,1\}</annotation></semantics></math>. The image is a set of real values, not a set of ticket IDs.</p>
 <aside class="notes">
 <p>Give students time to set up the problem before discussing the result.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -752,7 +752,7 @@ Soma S Dhavala · IIT Jammu
 <p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>X</mi><mi>B</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>t</mi><mo>∈</mo><mi mathvariant="normal">Ω</mi><mo>:</mo><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo>=</mo><mi>B</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">X_B^{-1}(\{1\})=\{t\in\Omega:X_B(t)=1\}=B=\{t_1,t_2,t_5\}</annotation></semantics></math>. Therefore <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mi>B</mi></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn><mi>/</mi><mn>6</mn><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">P(X_B=1)=P(B)=3/6=1/2</annotation></semantics></math>. The inverse image is an event; it need not be an inverse function.</p>
 <aside class="notes">
 <p>Trace the mapping in order: numerical condition, inverse-image event, probability of event.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -773,7 +773,7 @@ Soma S Dhavala · IIT Jammu
 <p>The model is stipulated for illustration, not estimated from the six-ticket audit. Its mean is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mi>θ</mi><mo>=</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mn>12</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>24</mn></mrow><annotation encoding="application/x-tex">\alpha\theta=2(12)=24</annotation></semantics></math> hours. The Gamma shape-scale density is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mi>t</mi><mn>144</mn></mfrac><msup><mi>e</mi><mrow><mi>−</mi><mi>t</mi><mi>/</mi><mn>12</mn></mrow></msup></mrow><annotation encoding="application/x-tex">f(t)=\frac{t}{144}e^{-t/12}</annotation></semantics></math> for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t\ge0</annotation></semantics></math>. The required probability is the area under this density to the right of 24 hours.</p>
 <aside class="notes">
 <p>Read the units and parameterization aloud. Explain that shape 2 is not the mean; 24 hours is the mean under this shape-scale model.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -795,7 +795,7 @@ Soma S Dhavala · IIT Jammu
 <p>For a ticket-ID event <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>C</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">|</mo><mi>C</mi><mo stretchy="false" form="prefix">|</mo><mi>/</mi><mn>6</mn><mo>=</mo><msub><mo>∑</mo><mrow><msub><mi>t</mi><mi>i</mi></msub><mo>∈</mo><mi>C</mi></mrow></msub><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(C)=|C|/6=\sum_{t_i\in C}P(\{t_i\})</annotation></semantics></math>. Under a continuous density model, probabilities are integrals over ranges. A density value is not itself a probability. The shaded right-tail area is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>T</mi><mi>c</mi></msub><mo>&gt;</mo><mn>24</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mn>24</mn><mi>∞</mi></msubsup><mfrac><mi>t</mi><mn>144</mn></mfrac><msup><mi>e</mi><mrow><mi>−</mi><mi>t</mi><mi>/</mi><mn>12</mn></mrow></msup><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">P(T_c&gt;24)=\int_{24}^{\infty}\frac{t}{144}e^{-t/12}\,dt</annotation></semantics></math>.</p>
 <aside class="notes">
 <p>Connect the shaded area to the integral, not to the height of the curve.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -816,7 +816,7 @@ Soma S Dhavala · IIT Jammu
 <p>With <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>=</mo><mi>t</mi><mi>/</mi><mn>12</mn></mrow><annotation encoding="application/x-tex">u=t/12</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>12</mn><mi>u</mi></mrow><annotation encoding="application/x-tex">t=12u</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>t</mi><mo>=</mo><mn>12</mn><mi>d</mi><mi>u</mi></mrow><annotation encoding="application/x-tex">dt=12du</annotation></semantics></math>: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mn>2</mn><mi>∞</mi></msubsup><mi>u</mi><msup><mi>e</mi><mrow><mi>−</mi><mi>u</mi></mrow></msup><mi>d</mi><mi>u</mi><mo>=</mo><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>e</mi><mrow><mi>−</mi><mi>u</mi></mrow></msup><msubsup><mo stretchy="false" form="postfix">]</mo><mn>2</mn><mi>∞</mi></msubsup><mo>=</mo><mn>3</mn><msup><mi>e</mi><mrow><mi>−</mi><mn>2</mn></mrow></msup><mo>≈</mo><mn>0.406</mn></mrow><annotation encoding="application/x-tex">\int_2^\infty ue^{-u}du=[-(u+1)e^{-u}]_2^\infty=3e^{-2}\approx0.406</annotation></semantics></math>. Under the stipulated model, about 0.406 of the probability lies above 24 hours.</p>
 <aside class="notes">
 <p>Interpret only under the stated hypothetical model; do not present this as measured service-desk performance.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -837,7 +837,7 @@ Soma S Dhavala · IIT Jammu
 <p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Ω</mi><mi>c</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mi>∞</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Omega_c=[0,\infty)</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">ℱ</mi><mi>c</mi></msub><mo>=</mo><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mi>∞</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal F_c=\mathcal B([0,\infty))</annotation></semantics></math>, and for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>∈</mo><msub><mi mathvariant="script">ℱ</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">E\in\mathcal F_c</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>c</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∫</mo><mi>E</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>/</mi><mn>144</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>e</mi><mrow><mi>−</mi><mi>t</mi><mi>/</mi><mn>12</mn></mrow></msup><mi>d</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">P_c(E)=\int_E (t/144)e^{-t/12}dt</annotation></semantics></math>. Define <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>c</mi></msub><mo>:</mo><msub><mi mathvariant="normal">Ω</mi><mi>c</mi></msub><mo>→</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mi>∞</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">T_c:\Omega_c\to[0,\infty)</annotation></semantics></math> by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>c</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">T_c(t)=t</annotation></semantics></math>. Then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>T</mi><mi>c</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mn>24</mn><mo>,</mo><mi>∞</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>24</mn><mo>,</mo><mi>∞</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">T_c^{-1}((24,\infty))=(24,\infty)</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>c</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>T</mi><mi>c</mi></msub><mo>&gt;</mo><mn>24</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn><msup><mi>e</mi><mrow><mi>−</mi><mn>2</mn></mrow></msup><mo>≈</mo><mn>0.406</mn></mrow><annotation encoding="application/x-tex">P_c(T_c&gt;24)=3e^{-2}\approx0.406</annotation></semantics></math>. This is a canonical space modeling closure time alone.</p>
 <aside class="notes">
 <p>Distinguish this triplet from the six-ticket ID triplet. In routine work, distribution notation often leaves the underlying space implicit.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -858,7 +858,7 @@ Soma S Dhavala · IIT Jammu
 <p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>∪</mo><mi>A</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>c</mi></msup><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>4</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">O=(B\cup A)^c=\{t_4\}</annotation></semantics></math>. Thus <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>O</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">P(O)=1/6</annotation></semantics></math>.</p>
 <aside class="notes">
 <p>Give students time to set up the problem before discussing the result.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -880,7 +880,7 @@ Soma S Dhavala · IIT Jammu
 <p>Therefore its probability is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>6</mn><mo>=</mo><mn>2</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">4/6=2/3</annotation></semantics></math>.</p>
 <aside class="notes">
 <p>Give students time to set up the problem before discussing the result.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -901,7 +901,7 @@ Soma S Dhavala · IIT Jammu
 <p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">C=\{t_2,t_3,t_5,t_6\}</annotation></semantics></math>, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>C</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4</mn><mi>/</mi><mn>6</mn><mo>=</mo><mn>2</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">P(C)=4/6=2/3</annotation></semantics></math>. This equals the observed agreement fraction because the model selects uniformly from this exact six-ticket audit.</p>
 <aside class="notes">
 <p>Give students time to set up the problem before discussing the result.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -922,7 +922,7 @@ Soma S Dhavala · IIT Jammu
 <p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>Y</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>C</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">Y^{-1}(\{1\})=C=\{t_2,t_3,t_5,t_6\}</annotation></semantics></math>. Thus <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>Y</mi><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>C</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4</mn><mi>/</mi><mn>6</mn><mo>=</mo><mn>2</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">P(Y=1)=P(C)=4/6=2/3</annotation></semantics></math>. The random variable records an outcome numerically; its inverse image is the event; the measure assigns that event a number.</p>
 <aside class="notes">
 <p>Give students time to set up the problem before discussing the result.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -943,7 +943,7 @@ Soma S Dhavala · IIT Jammu
 <p>The audit agreement fraction describes six fixed records. A future-ticket probability requires a target population and a sampling or generation model. For each probability claim, identify outcomes, events and the probability assignment. Continue with more event and distribution problems before advancing to further theory.</p>
 <aside class="notes">
 <p>Close by collecting one or two student formulations. The meeting duration is not a reason to rush the remaining examples.</p>
-<p>Reference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations.</p>
+<p>Reference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;

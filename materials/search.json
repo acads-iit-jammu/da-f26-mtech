@@ -4,245 +4,245 @@
     "href": "w01-probability-worked.html#s01",
     "title": "Probability through ticket triage",
     "section": "A ticket-routing review",
-    "text": "A ticket-routing review\n\nA service desk checks whether an LLM routes tickets to the appropriate teams. A reviewer supplies reference decisions; the model supplies classifications. What would it mean for them to agree?\n\nWe will compare the reviewer reference outcome with the model classification ticket by ticket. The example is hypothetical. The reviewer decisions are operational references, not claims of error-free ground truth.\n\nIntroduce the task and the two sources of labels before displaying the table.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "A ticket-routing review\n\nA service desk checks whether an LLM routes tickets to the appropriate teams. A reviewer supplies reference decisions; the model supplies classifications. What would it mean for them to agree?\n\nWe will compare the reviewer reference outcome with the model classification ticket by ticket. The example is hypothetical. The reviewer decisions are operational references, not claims of error-free ground truth.\n\nIntroduce the task and the two sources of labels before displaying the table.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s02",
     "href": "w01-probability-worked.html#s02",
     "title": "Probability through ticket triage",
     "section": "Six reviewed tickets",
-    "text": "Six reviewed tickets\n\nFor this hypothetical audit, the model uses a 0.50 threshold separately on each destination.\n\n\n\n\n\n\n\n\n\nTicket\nRequest\nReviewer\nModel\n\n\n\n\nt1t_1\nDuplicate charge; cannot log in\nBilling + Account Support\nBilling\n\n\nt2t_2\nDuplicate monthly charge\nBilling\nBilling\n\n\nt3t_3\nMFA phone change; cannot log in\nAccount Support\nAccount Support\n\n\nt4t_4\nDelivery-status question\nOther\nAccount Support\n\n\nt5t_5\nDuplicate renewal charge\nBilling\nBilling\n\n\nt6t_6\nLocked after password reset\nAccount Support\nAccount Support\n\n\n\nWhat does the table count as an agreement?\n\nFor t1t_1, the model scores are 0.55 for Billing and 0.35 for Account Support. The reviewer reference includes both destinations. Exact agreement means the model classification equals the full reviewer reference outcome.\n\nClarify that Other means neither named destination is required; another team may handle the ticket. The reference decisions are operational, not asserted ground truth.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Six reviewed tickets\n\nFor this hypothetical audit, the model uses a 0.50 threshold separately on each destination.\n\n\n\n\n\n\n\n\n\nTicket\nRequest\nReviewer\nModel\n\n\n\n\nt1t_1\nDuplicate charge; cannot log in\nBilling + Account Support\nBilling\n\n\nt2t_2\nDuplicate monthly charge\nBilling\nBilling\n\n\nt3t_3\nMFA phone change; cannot log in\nAccount Support\nAccount Support\n\n\nt4t_4\nDelivery-status question\nOther\nAccount Support\n\n\nt5t_5\nDuplicate renewal charge\nBilling\nBilling\n\n\nt6t_6\nLocked after password reset\nAccount Support\nAccount Support\n\n\n\nWhat does the table count as an agreement?\n\nFor t1t_1, the model scores are 0.55 for Billing and 0.35 for Account Support. The reviewer reference includes both destinations. Exact agreement means the model classification equals the full reviewer reference outcome.\n\nClarify that Other means neither named destination is required; another team may handle the ticket. The reference decisions are operational, not asserted ground truth.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s03",
     "href": "w01-probability-worked.html#s03",
     "title": "Probability through ticket triage",
     "section": "Which rows agree?",
-    "text": "Which rows agree?\n\nMark exact agreement between the reviewer reference and model classification. How many of the six records agree?\n\nExact agreements occur on t2,t3,t5,t6t_2,t_3,t_5,t_6. Thus the observed agreement fraction is 4/6=2/34/6=2/3.\n\nAsk for reasons on t1 and t4; do not yet call the fraction a future performance probability.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Which rows agree?\n\nMark exact agreement between the reviewer reference and model classification. How many of the six records agree?\n\nExact agreements occur on t2,t3,t5,t6t_2,t_3,t_5,t_6. Thus the observed agreement fraction is 4/6=2/34/6=2/3.\n\nAsk for reasons on t1 and t4; do not yet call the fraction a future performance probability.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s04",
     "href": "w01-probability-worked.html#s04",
     "title": "Probability through ticket triage",
     "section": "What does four out of six describe?",
-    "text": "What does four out of six describe?\n\nThe table records four agreements. Is 4/64/6 a probability for every question about this model?\n\nIt is first an observed proportion in these six records. It becomes the probability of agreement if the experiment is to select one of these six ticket IDs uniformly. A claim about future tickets needs a target population and assumptions linking this audit to it.\n\nDistinguish a data summary from a probability statement by asking for the experiment.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "What does four out of six describe?\n\nThe table records four agreements. Is 4/64/6 a probability for every question about this model?\n\nIt is first an observed proportion in these six records. It becomes the probability of agreement if the experiment is to select one of these six ticket IDs uniformly. A claim about future tickets needs a target population and assumptions linking this audit to it.\n\nDistinguish a data summary from a probability statement by asking for the experiment.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s05",
     "href": "w01-probability-worked.html#s05",
     "title": "Probability through ticket triage",
     "section": "Equal-likelihood counting",
-    "text": "Equal-likelihood counting\n\nIf one of the six ticket IDs is selected uniformly, what is the probability that the selected record shows agreement?\n\nThe classical rule for a finite set of equally likely cases is P(E)=|E|/|Ω|P(E)=|E|/|\\Omega|. Here each ID has probability 1/61/6 and four IDs show agreement, so P(agreement)=4/6=2/3P(\\text{agreement})=4/6=2/3. The uniform selection rule justifies equal weights for IDs in this experiment.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Equal-likelihood counting\n\nIf one of the six ticket IDs is selected uniformly, what is the probability that the selected record shows agreement?\n\nThe classical rule for a finite set of equally likely cases is P(E)=|E|/|Ω|P(E)=|E|/|\\Omega|. Here each ID has probability 1/61/6 and four IDs show agreement, so P(agreement)=4/6=2/3P(\\text{agreement})=4/6=2/3. The uniform selection rule justifies equal weights for IDs in this experiment.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s06",
     "href": "w01-probability-worked.html#s06",
     "title": "Probability through ticket triage",
     "section": "The cases being counted matter",
-    "text": "The cases being counted matter\n\nThe occupied reviewer/model pairs are: both destinations / Billing (t1t_1); Billing only / Billing (t2,t5t_2,t_5); Account only / Account (t3,t6t_3,t_6); Other / Account (t4t_4). If one pair type were selected uniformly, what agreement probability would result?\n\nTwo of four occupied types are agreements, so the answer under uniform selection among types is 2/4=1/22/4=1/2. It differs from 4/64/6 under uniform selection among ticket IDs because the categories contain unequal numbers of records.\n\nHave students explain why changing the partition changes the sample unit and hence the selection rule.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "The cases being counted matter\n\nThe occupied reviewer/model pairs are: both destinations / Billing (t1t_1); Billing only / Billing (t2,t5t_2,t_5); Account only / Account (t3,t6t_3,t_6); Other / Account (t4t_4). If one pair type were selected uniformly, what agreement probability would result?\n\nTwo of four occupied types are agreements, so the answer under uniform selection among types is 2/4=1/22/4=1/2. It differs from 4/64/6 under uniform selection among ticket IDs because the categories contain unequal numbers of records.\n\nHave students explain why changing the partition changes the sample unit and hence the selection rule.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s07",
     "href": "w01-probability-worked.html#s07",
     "title": "Probability through ticket triage",
     "section": "A larger set of possible label pairs",
-    "text": "A larger set of possible label pairs\n\nThere are four possible reviewer reference types and two model classes. How many pairs are possible in their full Cartesian product? How many appear here?\n\nThere are 4×2=84\\times2=8 possible pairs in the full product. Four are occupied in this six-row table. Uniform weighting over eight pairs would be a third selection rule and is not implied by the audit.\n\nSeparate the set of possible combinations from the subset observed in the audit.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "A larger set of possible label pairs\n\nThere are four possible reviewer reference types and two model classes. How many pairs are possible in their full Cartesian product? How many appear here?\n\nThere are 4×2=84\\times2=8 possible pairs in the full product. Four are occupied in this six-row table. Uniform weighting over eight pairs would be a third selection rule and is not implied by the audit.\n\nSeparate the set of possible combinations from the subset observed in the audit.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s08",
     "href": "w01-probability-worked.html#s08",
     "title": "Probability through ticket triage",
     "section": "Frequency and repeated observations",
-    "text": "Frequency and repeated observations\n\nDoes an agreement fraction of 4/64/6 establish a long-run agreement rate for future tickets?\n\nNo. A frequency account connects probability to relative frequency in a specified repeatable process. If IiI_i indicates agreement on trial ii, the observed frequency after nn trials is n−1∑i=1nIin^{-1}\\sum_{i=1}^n I_i; a limiting account relates this sequence to a probability pp. Six observations alone establish no such limit and do not establish that future tickets follow the same process.\n\nKeep observed frequency, model probability and future estimation distinct.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Frequency and repeated observations\n\nDoes an agreement fraction of 4/64/6 establish a long-run agreement rate for future tickets?\n\nNo. A frequency account connects probability to relative frequency in a specified repeatable process. If IiI_i indicates agreement on trial ii, the observed frequency after nn trials is n−1∑i=1nIin^{-1}\\sum_{i=1}^n I_i; a limiting account relates this sequence to a probability pp. Six observations alone establish no such limit and do not establish that future tickets follow the same process.\n\nKeep observed frequency, model probability and future estimation distinct.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s09",
     "href": "w01-probability-worked.html#s09",
     "title": "Probability through ticket triage",
     "section": "Belief and evidence",
-    "text": "Belief and evidence\n\nSuppose an analyst assigns probability 0.8 to agreement on the next ticket, given this audit and other information. Does the table alone determine 0.8?\n\nNo. A subjective account treats probability as a degree of belief given information. The assignment needs stated information or judgments and must be coherent with the analyst’s other probability assignments. An evidential account also needs a specified rule connecting evidence and background assumptions to a number.\n\nState that these are interpretations, not competing arithmetic rules for the same fully specified experiment.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Belief and evidence\n\nSuppose an analyst assigns probability 0.8 to agreement on the next ticket, given this audit and other information. Does the table alone determine 0.8?\n\nNo. A subjective account treats probability as a degree of belief given information. The assignment needs stated information or judgments and must be coherent with the analyst’s other probability assignments. An evidential account also needs a specified rule connecting evidence and background assumptions to a number.\n\nState that these are interpretations, not competing arithmetic rules for the same fully specified experiment.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s10",
     "href": "w01-probability-worked.html#s10",
     "title": "Probability through ticket triage",
     "section": "What the earlier views contribute",
-    "text": "What the earlier views contribute\n\nWhat does each account emphasize: equal-likelihood counting, frequency, belief, or evidential support? What remains necessary for a calculation?\n\nThe accounts emphasize symmetry, repeated observations, information-conditioned belief, and evidential support. A calculation still needs specified outcomes, an event and a probability assignment. A propensity interpretation instead locates chance in a specified physical or randomized mechanism.\n\nUse the slide as a transition, not a verdict on philosophical interpretations.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "What the earlier views contribute\n\nWhat does each account emphasize: equal-likelihood counting, frequency, belief, or evidential support? What remains necessary for a calculation?\n\nThe accounts emphasize symmetry, repeated observations, information-conditioned belief, and evidential support. A calculation still needs specified outcomes, an event and a probability assignment. A propensity interpretation instead locates chance in a specified physical or randomized mechanism.\n\nUse the slide as a transition, not a verdict on philosophical interpretations.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s11",
     "href": "w01-probability-worked.html#s11",
     "title": "Probability through ticket triage",
     "section": "A second question: a random chord",
-    "text": "A second question: a random chord\n\nA chord is selected at random from a circle. What is the probability that its length exceeds the side of an inscribed equilateral triangle?\n\nThe phrase “at random” does not say how the chord is generated. Bertrand’s chord problem has answers 1/31/3, 1/21/2 and 1/41/4 under different sampling procedures. We will pose the question here and return to its full resolution in the supplement.\n\nShow the chord illustration if space permits. Do not derive or choose a sampling procedure in the main lecture.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "A second question: a random chord\n\nA chord is selected at random from a circle. What is the probability that its length exceeds the side of an inscribed equilateral triangle?\n\nThe phrase “at random” does not say how the chord is generated. Bertrand’s chord problem has answers 1/31/3, 1/21/2 and 1/41/4 under different sampling procedures. We will pose the question here and return to its full resolution in the supplement.\n\nShow the chord illustration if space permits. Do not derive or choose a sampling procedure in the main lecture.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s12",
     "href": "w01-probability-worked.html#s12",
     "title": "Probability through ticket triage",
     "section": "What must a probability model specify?",
-    "text": "What must a probability model specify?\n\nThe ticket audit and the chord question both involve uncertainty. What mathematical objects would let us state the outcomes, the event and its probability?\n\nKolmogorov’s set-based framework specifies a sample space Ω\\Omega, an event collection ℱ\\mathcal F, and a probability measure PP. We now build these objects from the ticket-selection experiment.\n\nIntroduce the triplet only after students have named what is missing.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "What must a probability model specify?\n\nThe ticket audit and the chord question both involve uncertainty. What mathematical objects would let us state the outcomes, the event and its probability?\n\nKolmogorov’s set-based framework specifies a sample space Ω\\Omega, an event collection ℱ\\mathcal F, and a probability measure PP. We now build these objects from the ticket-selection experiment.\n\nIntroduce the triplet only after students have named what is missing.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s13",
     "href": "w01-probability-worked.html#s13",
     "title": "Probability through ticket triage",
     "section": "Specify the ticket experiment",
-    "text": "Specify the ticket experiment\n\nThe six records are fixed. We select one ticket ID uniformly. What varies, and what are the possible outcomes?\n\nThe selected ID varies. The sample space is Ω={t1,t2,t3,t4,t5,t6}\\Omega=\\{t_1,t_2,t_3,t_4,t_5,t_6\\}. The ticket contents and labels are fixed data in this experiment.\n\nEmphasize that the outcome is one ID, not a label or a probability.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Specify the ticket experiment\n\nThe six records are fixed. We select one ticket ID uniformly. What varies, and what are the possible outcomes?\n\nThe selected ID varies. The sample space is Ω={t1,t2,t3,t4,t5,t6}\\Omega=\\{t_1,t_2,t_3,t_4,t_5,t_6\\}. The ticket contents and labels are fixed data in this experiment.\n\nEmphasize that the outcome is one ID, not a label or a probability.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s14",
     "href": "w01-probability-worked.html#s14",
     "title": "Probability through ticket triage",
     "section": "Build the Billing event",
-    "text": "Build the Billing event\n\nWhich ticket IDs have Billing in the reviewer’s reference outcome? Write them as a set BB.\n\nB={t1,t2,t5}B=\\{t_1,t_2,t_5\\}. An event is a set of outcomes in the sample space. The statement “Billing is required” occurs exactly when the selected ID belongs to BB.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Build the Billing event\n\nWhich ticket IDs have Billing in the reviewer’s reference outcome? Write them as a set BB.\n\nB={t1,t2,t5}B=\\{t_1,t_2,t_5\\}. An event is a set of outcomes in the sample space. The statement “Billing is required” occurs exactly when the selected ID belongs to BB.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s15",
     "href": "w01-probability-worked.html#s15",
     "title": "Probability through ticket triage",
     "section": "Build the Account Support event",
-    "text": "Build the Account Support event\n\nWhich IDs have Account Support in the reviewer’s reference outcome? Write this event as AA.\n\nA={t1,t3,t6}A=\\{t_1,t_3,t_6\\}. The two events overlap because t1t_1 requires both destinations.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Build the Account Support event\n\nWhich IDs have Account Support in the reviewer’s reference outcome? Write this event as AA.\n\nA={t1,t3,t6}A=\\{t_1,t_3,t_6\\}. The two events overlap because t1t_1 requires both destinations.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s16",
     "href": "w01-probability-worked.html#s16",
     "title": "Probability through ticket triage",
     "section": "Other as a complement",
-    "text": "Other as a complement\n\nIn this two-destination question, “Other” means neither Billing nor Account Support is required. Express this event using AA and BB.\n\nO=(B∪A)c={t4}O=(B\\cup A)^c=\\{t_4\\}. The complement is taken relative to Ω\\Omega. It does not mean the ticket is unreviewed or unknown; another team may handle it.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Other as a complement\n\nIn this two-destination question, “Other” means neither Billing nor Account Support is required. Express this event using AA and BB.\n\nO=(B∪A)c={t4}O=(B\\cup A)^c=\\{t_4\\}. The complement is taken relative to Ω\\Omega. It does not mean the ticket is unreviewed or unknown; another team may handle it.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s17",
     "href": "w01-probability-worked.html#s17",
     "title": "Probability through ticket triage",
     "section": "Union and intersection",
-    "text": "Union and intersection\n\nUse the ticket IDs to find B∩AB\\cap A and B∪AB\\cup A. Interpret each event in words.\n\nB∩A={t1}B\\cap A=\\{t_1\\} means both destinations are required. B∪A={t1,t2,t3,t5,t6}B\\cup A=\\{t_1,t_2,t_3,t_5,t_6\\} means at least one is required. “Or” in a union is inclusive.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Union and intersection\n\nUse the ticket IDs to find B∩AB\\cap A and B∪AB\\cup A. Interpret each event in words.\n\nB∩A={t1}B\\cap A=\\{t_1\\} means both destinations are required. B∪A={t1,t2,t3,t5,t6}B\\cup A=\\{t_1,t_2,t_3,t_5,t_6\\} means at least one is required. “Or” in a union is inclusive.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s18",
     "href": "w01-probability-worked.html#s18",
     "title": "Probability through ticket triage",
     "section": "Count the union without double-counting",
-    "text": "Count the union without double-counting\n\nWhy is the number of IDs in B∪AB\\cup A not |B|+|A||B|+|A|? Calculate the probability under uniform selection.\n\nThe shared ID t1t_1 appears in both marginal counts. Split the union into disjoint parts: B\\A={t2,t5}B\\setminus A=\\{t_2,t_5\\}, A\\B={t3,t6}A\\setminus B=\\{t_3,t_6\\}, and B∩A={t1}B\\cap A=\\{t_1\\}. Hence P(B∪A)=(2+2+1)/6=5/6P(B\\cup A)=(2+2+1)/6=5/6. Equivalently, 3/6+3/6−1/6=5/63/6+3/6-1/6=5/6.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Count the union without double-counting\n\nWhy is the number of IDs in B∪AB\\cup A not |B|+|A||B|+|A|? Calculate the probability under uniform selection.\n\nThe shared ID t1t_1 appears in both marginal counts. Split the union into disjoint parts: B\\A={t2,t5}B\\setminus A=\\{t_2,t_5\\}, A\\B={t3,t6}A\\setminus B=\\{t_3,t_6\\}, and B∩A={t1}B\\cap A=\\{t_1\\}. Hence P(B∪A)=(2+2+1)/6=5/6P(B\\cup A)=(2+2+1)/6=5/6. Equivalently, 3/6+3/6−1/6=5/63/6+3/6-1/6=5/6.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s19",
     "href": "w01-probability-worked.html#s19",
     "title": "Probability through ticket triage",
     "section": "Pause and check the events",
-    "text": "Pause and check the events\n\nWithout looking back, list the IDs in BB, AA, B∩AB\\cap A, B∪AB\\cup A and OO. Explain the overlap.\n\nB={t1,t2,t5}B=\\{t_1,t_2,t_5\\}; A={t1,t3,t6}A=\\{t_1,t_3,t_6\\}; B∩A={t1}B\\cap A=\\{t_1\\}; B∪A={t1,t2,t3,t5,t6}B\\cup A=\\{t_1,t_2,t_3,t_5,t_6\\}; and O={t4}O=\\{t_4\\}. t1t_1 requires both named destinations.\n\nStop here if students need more practice with sets before formal requirements.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Pause and check the events\n\nWithout looking back, list the IDs in BB, AA, B∩AB\\cap A, B∪AB\\cup A and OO. Explain the overlap.\n\nB={t1,t2,t5}B=\\{t_1,t_2,t_5\\}; A={t1,t3,t6}A=\\{t_1,t_3,t_6\\}; B∩A={t1}B\\cap A=\\{t_1\\}; B∪A={t1,t2,t3,t5,t6}B\\cup A=\\{t_1,t_2,t_3,t_5,t_6\\}; and O={t4}O=\\{t_4\\}. t1t_1 requires both named destinations.\n\nStop here if students need more practice with sets before formal requirements.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s20",
     "href": "w01-probability-worked.html#s20",
     "title": "Probability through ticket triage",
     "section": "The probability-space triplet",
-    "text": "The probability-space triplet\n\nFor uniform selection from the six ticket IDs, specify the sample space, the events and the probability assignment.\n\n[]\nΩ={t1,t2,t3,t4,t5,t6}\\Omega=\\{t_1,t_2,t_3,t_4,t_5,t_6\\}.\nℱ=2Ω\\mathcal F=2^\\Omega, the collection of all subsets of Ω\\Omega.\nFor every E∈ℱE\\in\\mathcal F, P(E)=|E|/6P(E)=|E|/6.\nThus P(B)=3/6=1/2P(B)=3/6=1/2 and P(B∪A)=5/6P(B\\cup A)=5/6.\n\nFirst name each object, then write the symbols. Stress that the probability assignment depends on the stated uniform selection rule.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "The probability-space triplet\n\nFor uniform selection from the six ticket IDs, specify the sample space, the events and the probability assignment.\n\n[]\nΩ={t1,t2,t3,t4,t5,t6}\\Omega=\\{t_1,t_2,t_3,t_4,t_5,t_6\\}.\nℱ=2Ω\\mathcal F=2^\\Omega, the collection of all subsets of Ω\\Omega.\nFor every E∈ℱE\\in\\mathcal F, P(E)=|E|/6P(E)=|E|/6.\nThus P(B)=3/6=1/2P(B)=3/6=1/2 and P(B∪A)=5/6P(B\\cup A)=5/6.\n\nFirst name each object, then write the symbols. Stress that the probability assignment depends on the stated uniform selection rule.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s21",
     "href": "w01-probability-worked.html#s21",
     "title": "Probability through ticket triage",
     "section": "Outcomes, events and probability values",
-    "text": "Outcomes, events and probability values\n\nClassify each object: t2t_2, BB, and P(B)=1/2P(B)=1/2. Which one is the outcome? Which is an event? Which is a number?\n\nt2t_2 is an outcome in Ω\\Omega. BB is an event, a subset of Ω\\Omega. P(B)=1/2P(B)=1/2 is a number assigned to that event. The measure takes events as input.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Outcomes, events and probability values\n\nClassify each object: t2t_2, BB, and P(B)=1/2P(B)=1/2. Which one is the outcome? Which is an event? Which is a number?\n\nt2t_2 is an outcome in Ω\\Omega. BB is an event, a subset of Ω\\Omega. P(B)=1/2P(B)=1/2 is a number assigned to that event. The measure takes events as input.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s22",
     "href": "w01-probability-worked.html#s22",
     "title": "Probability through ticket triage",
     "section": "Requirements on the event collection",
-    "text": "Requirements on the event collection\n\nIf EE is an event, should “not EE” also be an event? If E1,E2,…E_1,E_2,\\ldots are events, what about “at least one occurs”?\n\nA sigma-algebra ℱ\\mathcal F on Ω\\Omega satisfies:\n\nΩ∈ℱ\\Omega\\in\\mathcal F.\nIf E∈ℱE\\in\\mathcal F, then Ec∈ℱE^c\\in\\mathcal F.\nIf E1,E2,…∈ℱE_1,E_2,\\ldots\\in\\mathcal F, then ⋃n=1∞En∈ℱ\\bigcup_{n=1}^{\\infty}E_n\\in\\mathcal F.\n\nIt therefore contains ⌀\\varnothing too. In the finite ticket model, ℱ=2Ω\\mathcal F=2^\\Omega satisfies these conditions.\n\nThese are closure requirements on the collection of events. Keep them distinct from the probability axioms on the next slide.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Requirements on the event collection\n\nIf EE is an event, should “not EE” also be an event? If E1,E2,…E_1,E_2,\\ldots are events, what about “at least one occurs”?\n\nA sigma-algebra ℱ\\mathcal F on Ω\\Omega satisfies:\n\nΩ∈ℱ\\Omega\\in\\mathcal F.\nIf E∈ℱE\\in\\mathcal F, then Ec∈ℱE^c\\in\\mathcal F.\nIf E1,E2,…∈ℱE_1,E_2,\\ldots\\in\\mathcal F, then ⋃n=1∞En∈ℱ\\bigcup_{n=1}^{\\infty}E_n\\in\\mathcal F.\n\nIt therefore contains ⌀\\varnothing too. In the finite ticket model, ℱ=2Ω\\mathcal F=2^\\Omega satisfies these conditions.\n\nThese are closure requirements on the collection of events. Keep them distinct from the probability axioms on the next slide.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s23",
     "href": "w01-probability-worked.html#s23",
     "title": "Probability through ticket triage",
     "section": "Kolmogorov’s probability axioms",
-    "text": "Kolmogorov’s probability axioms\n\nWhat conditions should a probability assignment satisfy on events?\n\nFor P:ℱ→[0,1]P:\\mathcal F\\to[0,1]:\n\nNonnegativity: P(E)≥0P(E)\\ge0 for every E∈ℱE\\in\\mathcal F.\nNormalization: P(Ω)=1P(\\Omega)=1.\nCountable additivity: for pairwise disjoint E1,E2,…∈ℱE_1,E_2,\\ldots\\in\\mathcal F, P(⋃n=1∞En)=∑n=1∞P(En)P(\\bigcup_{n=1}^{\\infty}E_n)=\\sum_{n=1}^{\\infty}P(E_n).\n\nFor example, BB and BcB^c are disjoint and exhaustive, and P(B)+P(Bc)=3/6+3/6=1P(B)+P(B^c)=3/6+3/6=1.\n\nState nonnegativity, normalization and countable additivity separately from sigma-algebra closure.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Kolmogorov’s probability axioms\n\nWhat conditions should a probability assignment satisfy on events?\n\nFor P:ℱ→[0,1]P:\\mathcal F\\to[0,1]:\n\nNonnegativity: P(E)≥0P(E)\\ge0 for every E∈ℱE\\in\\mathcal F.\nNormalization: P(Ω)=1P(\\Omega)=1.\nCountable additivity: for pairwise disjoint E1,E2,…∈ℱE_1,E_2,\\ldots\\in\\mathcal F, P(⋃n=1∞En)=∑n=1∞P(En)P(\\bigcup_{n=1}^{\\infty}E_n)=\\sum_{n=1}^{\\infty}P(E_n).\n\nFor example, BB and BcB^c are disjoint and exhaustive, and P(B)+P(Bc)=3/6+3/6=1P(B)+P(B^c)=3/6+3/6=1.\n\nState nonnegativity, normalization and countable additivity separately from sigma-algebra closure.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s24",
     "href": "w01-probability-worked.html#s24",
     "title": "Probability through ticket triage",
     "section": "A random variable for Billing",
-    "text": "A random variable for Billing\n\nCan we record numerically whether Billing is required? Define XBX_B on the ticket outcomes.\n\nXB:Ω→ℝX_B:\\Omega\\to\\mathbb R, where XB(t)=1X_B(t)=1 if t∈Bt\\in B and XB(t)=0X_B(t)=0 if t∉Bt\\notin B. The values are 1,1,0,0,1,01,1,0,0,1,0 on t1,…,t6t_1,\\ldots,t_6 respectively. A random variable is a set function from outcomes to the real line. The selected outcome is random; for a given outcome, the function value is fixed.\n\nReinforce: the selected ticket outcome is random; the random variable is a function, not a second random mechanism.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "A random variable for Billing\n\nCan we record numerically whether Billing is required? Define XBX_B on the ticket outcomes.\n\nXB:Ω→ℝX_B:\\Omega\\to\\mathbb R, where XB(t)=1X_B(t)=1 if t∈Bt\\in B and XB(t)=0X_B(t)=0 if t∉Bt\\notin B. The values are 1,1,0,0,1,01,1,0,0,1,0 on t1,…,t6t_1,\\ldots,t_6 respectively. A random variable is a set function from outcomes to the real line. The selected outcome is random; for a given outcome, the function value is fixed.\n\nReinforce: the selected ticket outcome is random; the random variable is a function, not a second random mechanism.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s25",
     "href": "w01-probability-worked.html#s25",
     "title": "Probability through ticket triage",
     "section": "Image of a set of outcomes",
-    "text": "Image of a set of outcomes\n\nFor A={t1,t3,t6}A=\\{t_1,t_3,t_6\\}, what values does XBX_B produce? Write the image XB(A)X_B(A).\n\nXB(A)={XB(t):t∈A}={0,1}X_B(A)=\\{X_B(t):t\\in A\\}=\\{0,1\\}. The image is a set of real values, not a set of ticket IDs.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Image of a set of outcomes\n\nFor A={t1,t3,t6}A=\\{t_1,t_3,t_6\\}, what values does XBX_B produce? Write the image XB(A)X_B(A).\n\nXB(A)={XB(t):t∈A}={0,1}X_B(A)=\\{X_B(t):t\\in A\\}=\\{0,1\\}. The image is a set of real values, not a set of ticket IDs.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s26",
     "href": "w01-probability-worked.html#s26",
     "title": "Probability through ticket triage",
     "section": "Inverse image and probability",
-    "text": "Inverse image and probability\n\nWhich outcomes produce the value 1? Express them as XB−1({1})X_B^{-1}(\\{1\\}) and calculate P(XB=1)P(X_B=1).\n\nXB−1({1})={t∈Ω:XB(t)=1}=B={t1,t2,t5}X_B^{-1}(\\{1\\})=\\{t\\in\\Omega:X_B(t)=1\\}=B=\\{t_1,t_2,t_5\\}. Therefore P(XB=1)=P(B)=3/6=1/2P(X_B=1)=P(B)=3/6=1/2. The inverse image is an event; it need not be an inverse function.\n\nTrace the mapping in order: numerical condition, inverse-image event, probability of event.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Inverse image and probability\n\nWhich outcomes produce the value 1? Express them as XB−1({1})X_B^{-1}(\\{1\\}) and calculate P(XB=1)P(X_B=1).\n\nXB−1({1})={t∈Ω:XB(t)=1}=B={t1,t2,t5}X_B^{-1}(\\{1\\})=\\{t\\in\\Omega:X_B(t)=1\\}=B=\\{t_1,t_2,t_5\\}. Therefore P(XB=1)=P(B)=3/6=1/2P(X_B=1)=P(B)=3/6=1/2. The inverse image is an event; it need not be an inverse function.\n\nTrace the mapping in order: numerical condition, inverse-image event, probability of event.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s27",
     "href": "w01-probability-worked.html#s27",
     "title": "Probability through ticket triage",
     "section": "A continuous ticket-time question",
-    "text": "A continuous ticket-time question\n\nLet TcT_c be the closure time, in hours, of a ticket from a specified process. Under an illustrative Gamma model with shape 2 and scale 12 hours, calculate P(Tc&gt;24)P(T_c&gt;24).\n\nThe model is stipulated for illustration, not estimated from the six-ticket audit. Its mean is αθ=2(12)=24\\alpha\\theta=2(12)=24 hours. The Gamma shape-scale density is f(t)=t144e−t/12f(t)=\\frac{t}{144}e^{-t/12} for t≥0t\\ge0. The required probability is the area under this density to the right of 24 hours.\n\nRead the units and parameterization aloud. Explain that shape 2 is not the mean; 24 hours is the mean under this shape-scale model.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "A continuous ticket-time question\n\nLet TcT_c be the closure time, in hours, of a ticket from a specified process. Under an illustrative Gamma model with shape 2 and scale 12 hours, calculate P(Tc&gt;24)P(T_c&gt;24).\n\nThe model is stipulated for illustration, not estimated from the six-ticket audit. Its mean is αθ=2(12)=24\\alpha\\theta=2(12)=24 hours. The Gamma shape-scale density is f(t)=t144e−t/12f(t)=\\frac{t}{144}e^{-t/12} for t≥0t\\ge0. The required probability is the area under this density to the right of 24 hours.\n\nRead the units and parameterization aloud. Explain that shape 2 is not the mean; 24 hours is the mean under this shape-scale model.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s28",
     "href": "w01-probability-worked.html#s28",
     "title": "Probability through ticket triage",
     "section": "From counting to integration",
-    "text": "From counting to integration\n\nFor the six equally likely ticket IDs, an event probability is found by counting IDs. For continuous closure time under this density, what replaces counting individual durations?\n\n\nFor a ticket-ID event CC, P(C)=|C|/6=∑ti∈CP({ti})P(C)=|C|/6=\\sum_{t_i\\in C}P(\\{t_i\\}). Under a continuous density model, probabilities are integrals over ranges. A density value is not itself a probability. The shaded right-tail area is P(Tc&gt;24)=∫24∞t144e−t/12dtP(T_c&gt;24)=\\int_{24}^{\\infty}\\frac{t}{144}e^{-t/12}\\,dt.\n\nConnect the shaded area to the integral, not to the height of the curve.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "From counting to integration\n\nFor the six equally likely ticket IDs, an event probability is found by counting IDs. For continuous closure time under this density, what replaces counting individual durations?\n\n\nFor a ticket-ID event CC, P(C)=|C|/6=∑ti∈CP({ti})P(C)=|C|/6=\\sum_{t_i\\in C}P(\\{t_i\\}). Under a continuous density model, probabilities are integrals over ranges. A density value is not itself a probability. The shaded right-tail area is P(Tc&gt;24)=∫24∞t144e−t/12dtP(T_c&gt;24)=\\int_{24}^{\\infty}\\frac{t}{144}e^{-t/12}\\,dt.\n\nConnect the shaded area to the integral, not to the height of the curve.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s29",
     "href": "w01-probability-worked.html#s29",
     "title": "Probability through ticket triage",
     "section": "Evaluate the Gamma tail",
-    "text": "Evaluate the Gamma tail\n\nEvaluate ∫24∞t144e−t/12dt\\int_{24}^{\\infty}\\frac{t}{144}e^{-t/12}\\,dt using u=t/12u=t/12. State the interpretation.\n\nWith u=t/12u=t/12, t=12ut=12u and dt=12dudt=12du: ∫2∞ue−udu=[−(u+1)e−u]2∞=3e−2≈0.406\\int_2^\\infty ue^{-u}du=[-(u+1)e^{-u}]_2^\\infty=3e^{-2}\\approx0.406. Under the stipulated model, about 0.406 of the probability lies above 24 hours.\n\nInterpret only under the stated hypothetical model; do not present this as measured service-desk performance.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Evaluate the Gamma tail\n\nEvaluate ∫24∞t144e−t/12dt\\int_{24}^{\\infty}\\frac{t}{144}e^{-t/12}\\,dt using u=t/12u=t/12. State the interpretation.\n\nWith u=t/12u=t/12, t=12ut=12u and dt=12dudt=12du: ∫2∞ue−udu=[−(u+1)e−u]2∞=3e−2≈0.406\\int_2^\\infty ue^{-u}du=[-(u+1)e^{-u}]_2^\\infty=3e^{-2}\\approx0.406. Under the stipulated model, about 0.406 of the probability lies above 24 hours.\n\nInterpret only under the stated hypothetical model; do not present this as measured service-desk performance.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s30",
     "href": "w01-probability-worked.html#s30",
     "title": "Probability through ticket triage",
     "section": "The closure-time probability space",
-    "text": "The closure-time probability space\n\nState the triplet for the closure-time calculation and define its random variable explicitly.\n\nΩc=[0,∞)\\Omega_c=[0,\\infty), ℱc=ℬ([0,∞))\\mathcal F_c=\\mathcal B([0,\\infty)), and for E∈ℱcE\\in\\mathcal F_c, Pc(E)=∫E(t/144)e−t/12dtP_c(E)=\\int_E (t/144)e^{-t/12}dt. Define Tc:Ωc→[0,∞)T_c:\\Omega_c\\to[0,\\infty) by Tc(t)=tT_c(t)=t. Then Tc−1((24,∞))=(24,∞)T_c^{-1}((24,\\infty))=(24,\\infty) and Pc(Tc&gt;24)=3e−2≈0.406P_c(T_c&gt;24)=3e^{-2}\\approx0.406. This is a canonical space modeling closure time alone.\n\nDistinguish this triplet from the six-ticket ID triplet. In routine work, distribution notation often leaves the underlying space implicit.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "The closure-time probability space\n\nState the triplet for the closure-time calculation and define its random variable explicitly.\n\nΩc=[0,∞)\\Omega_c=[0,\\infty), ℱc=ℬ([0,∞))\\mathcal F_c=\\mathcal B([0,\\infty)), and for E∈ℱcE\\in\\mathcal F_c, Pc(E)=∫E(t/144)e−t/12dtP_c(E)=\\int_E (t/144)e^{-t/12}dt. Define Tc:Ωc→[0,∞)T_c:\\Omega_c\\to[0,\\infty) by Tc(t)=tT_c(t)=t. Then Tc−1((24,∞))=(24,∞)T_c^{-1}((24,\\infty))=(24,\\infty) and Pc(Tc&gt;24)=3e−2≈0.406P_c(T_c&gt;24)=3e^{-2}\\approx0.406. This is a canonical space modeling closure time alone.\n\nDistinguish this triplet from the six-ticket ID triplet. In routine work, distribution notation often leaves the underlying space implicit.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s31",
     "href": "w01-probability-worked.html#s31",
     "title": "Probability through ticket triage",
     "section": "Worked check: neither named destination",
-    "text": "Worked check: neither named destination\n\nUnder uniform selection from the six audited IDs, find the probability of “Other,” meaning neither Billing nor Account Support is required.\n\nO=(B∪A)c={t4}O=(B\\cup A)^c=\\{t_4\\}. Thus P(O)=1/6P(O)=1/6.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Worked check: neither named destination\n\nUnder uniform selection from the six audited IDs, find the probability of “Other,” meaning neither Billing nor Account Support is required.\n\nO=(B∪A)c={t4}O=(B\\cup A)^c=\\{t_4\\}. Thus P(O)=1/6P(O)=1/6.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s32",
     "href": "w01-probability-worked.html#s32",
     "title": "Probability through ticket triage",
     "section": "Worked check: exactly one destination",
-    "text": "Worked check: exactly one destination\n\nFind the event and probability that exactly one of Billing and Account Support is required.\n\n(B\\A)∪(A\\B)={t2,t3,t5,t6}.(B\\setminus A)\\cup(A\\setminus B)=\\{t_2,t_3,t_5,t_6\\}.\nTherefore its probability is 4/6=2/34/6=2/3.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Worked check: exactly one destination\n\nFind the event and probability that exactly one of Billing and Account Support is required.\n\n(B\\A)∪(A\\B)={t2,t3,t5,t6}.(B\\setminus A)\\cup(A\\setminus B)=\\{t_2,t_3,t_5,t_6\\}.\nTherefore its probability is 4/6=2/34/6=2/3.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s33",
     "href": "w01-probability-worked.html#s33",
     "title": "Probability through ticket triage",
     "section": "Worked check: exact agreement",
-    "text": "Worked check: exact agreement\n\nLet CC be the event that the model classification equals the reviewer reference outcome. Find CC and its probability in the uniform ticket-ID experiment.\n\nC={t2,t3,t5,t6}C=\\{t_2,t_3,t_5,t_6\\}, so P(C)=4/6=2/3P(C)=4/6=2/3. This equals the observed agreement fraction because the model selects uniformly from this exact six-ticket audit.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Worked check: exact agreement\n\nLet CC be the event that the model classification equals the reviewer reference outcome. Find CC and its probability in the uniform ticket-ID experiment.\n\nC={t2,t3,t5,t6}C=\\{t_2,t_3,t_5,t_6\\}, so P(C)=4/6=2/3P(C)=4/6=2/3. This equals the observed agreement fraction because the model selects uniformly from this exact six-ticket audit.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s34",
     "href": "w01-probability-worked.html#s34",
     "title": "Probability through ticket triage",
     "section": "Worked check: agreement as a random variable",
-    "text": "Worked check: agreement as a random variable\n\nDefine Y(t)=1Y(t)=1 for exact agreement and 0 otherwise. Find Y−1({1})Y^{-1}(\\{1\\}) and P(Y=1)P(Y=1).\n\nY−1({1})=C={t2,t3,t5,t6}Y^{-1}(\\{1\\})=C=\\{t_2,t_3,t_5,t_6\\}. Thus P(Y=1)=P(C)=4/6=2/3P(Y=1)=P(C)=4/6=2/3. The random variable records an outcome numerically; its inverse image is the event; the measure assigns that event a number.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Worked check: agreement as a random variable\n\nDefine Y(t)=1Y(t)=1 for exact agreement and 0 otherwise. Find Y−1({1})Y^{-1}(\\{1\\}) and P(Y=1)P(Y=1).\n\nY−1({1})=C={t2,t3,t5,t6}Y^{-1}(\\{1\\})=C=\\{t_2,t_3,t_5,t_6\\}. Thus P(Y=1)=P(C)=4/6=2/3P(Y=1)=P(C)=4/6=2/3. The random variable records an outcome numerically; its inverse image is the event; the measure assigns that event a number.\n\nGive students time to set up the problem before discussing the result.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s35",
     "href": "w01-probability-worked.html#s35",
     "title": "Probability through ticket triage",
     "section": "Stopping point and continuation",
-    "text": "Stopping point and continuation\n\nState one distinction from today that is needed before interpreting an AI evaluation score as a future probability.\n\nThe audit agreement fraction describes six fixed records. A future-ticket probability requires a target population and a sampling or generation model. For each probability claim, identify outcomes, events and the probability assignment. Continue with more event and distribution problems before advancing to further theory.\n\nClose by collecting one or two student formulations. The meeting duration is not a reason to rush the remaining examples.\nReference: course Lecture 1 notes, §§1–8; rigorous supplement for formal derivations."
+    "text": "Stopping point and continuation\n\nState one distinction from today that is needed before interpreting an AI evaluation score as a future probability.\n\nThe audit agreement fraction describes six fixed records. A future-ticket probability requires a target population and a sampling or generation model. For each probability claim, identify outcomes, events and the probability assignment. Continue with more event and distribution problems before advancing to further theory.\n\nClose by collecting one or two student formulations. The meeting duration is not a reason to rush the remaining examples.\nReference: course Lecture 01 notes, §§1–8; rigorous supplement for formal derivations."
   },
   {
     "objectID": "w01-probability-worked.html#s36",
