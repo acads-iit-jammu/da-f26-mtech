@@ -655,7 +655,7 @@
     "href": "w01-probability-bertrand.html#s14",
     "title": "Bertrand’s paradox",
     "section": "Exercise: connect the constructions",
-    "text": "Exercise: connect the constructions\n\nRandomize the first endpoint in Experiment I uniformly, independently of θ\\theta. Show that this gives two independent uniform endpoints.\nGive Experiment II an independent uniform midpoint direction. Does its length distribution change?\nExplain why an equal length distribution need not mean an equal measure on chords.\n\nThe supplement’s Exercise 8 includes a worked solution.\nIn the advanced section, Model A uses independent uniform endpoints; B uses independent uniform distance and direction; C uses uniform midpoint area."
+    "text": "Exercise: connect the constructions\n\nRandomize the first endpoint in Experiment I uniformly, independently of θ\\theta. Show that this gives two independent uniform endpoints.\nGive Experiment II an independent uniform midpoint direction. Does its length distribution change?\nExplain why an equal length distribution need not mean an equal measure on chords.\n\nExercise 8 in the supplement states the full problem.\nIn the advanced section, Model A uses independent uniform endpoints; B uses independent uniform distance and direction; C uses uniform midpoint area."
   },
   {
     "objectID": "w01-probability-bertrand.html#s15",
