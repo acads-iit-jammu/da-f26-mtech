@@ -7,3 +7,11 @@
   p:has(+ p > math[display="block"]) { break-after: avoid; }
   p:has(> math[display="block"]), figure, li { break-inside: avoid; }
 }
+
+/* Definition and intuition insets in standalone notes and their PDFs. */
+.callout-note,.callout-tip,.callout-important{border:1px solid #ccd9e6;border-left:4px solid #2673a8;border-radius:5px;padding:14px 18px;margin:1.4em 0;background:#f5f9fd}
+.callout-tip{border-left-color:#36805e;background:#f5faf7}
+.callout-important{border-left-color:#a36b18;background:#fffaf1}
+.callout-note>p:first-child,.callout-tip>p:first-child,.callout-important>p:first-child{margin-top:0;color:#003f87}
+@media print{.callout-note,.callout-tip,.callout-important{padding:9px 12px;box-decoration-break:clone}.callout-note>p:first-child,.callout-tip>p:first-child,.callout-important>p:first-child{break-after:avoid}}
+@media print{.callout-note,.callout-tip,.callout-important{break-inside:avoid}}
