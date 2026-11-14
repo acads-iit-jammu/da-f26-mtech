@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>01.6 · Transformations of random variables – Data Analytics for AI</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../tutorials/07-multivariate-normal.html" rel="next">
+<link href="../tutorials/05-expectation-variance.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-970586c648819a176f05aa782ae30df3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-4e42ae105fa35cf935172ecd058ec8f7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="probability-notes.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tutorials/01-probability-foundations.html">01 · Fundamentals of Probability and Random Signal Theory</a></li><li class="breadcrumb-item"><a href="../tutorials/06-transformations.html"><span class="chapter-title">01.6 · Transformations of random variables</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Data Analytics for AI</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/acads-iit-jammu/da-f26-mtech" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../curriculum.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Curriculum</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignments</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modules</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">01 · Fundamentals of Probability and Random Signal Theory</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/01-probability-foundations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.1 · Introduction to probability through problems</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/02-random-variables.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.2 · Random variables and distributions through problems</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/02-joint-distributions-tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.3 tutorial · From outcomes to joint distributions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/04-meeting-problem.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.4 worked example · Two friends who may not meet</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/05-expectation-variance.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.5 · Expectation, mean and variance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/06-transformations.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">01.6 · Transformations of random variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/07-multivariate-normal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.7 · The multivariate normal distribution</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Supplementary Material</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/01-probability-supplement.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.1 supplement · Sets, measurable maps and Bertrand’s paradox</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/02-random-variables-supplement.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.2 supplement · Advanced distribution theory</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/05-expectation-supplement.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.5 supplement · Expectation and moment identities</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/06-transformations-supplement.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.6 supplement · Change of variables and induced laws</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/07-normal-supplement.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.7 supplement · Gaussian structure and conditional laws</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Resources</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#questions-and-objectives" id="toc-questions-and-objectives" class="nav-link active" data-scroll-target="#questions-and-objectives">Questions and objectives</a></li>
+  <li><a href="#start-from-the-event-the-cdf-method" id="toc-start-from-the-event-the-cdf-method" class="nav-link" data-scroll-target="#start-from-the-event-the-cdf-method">1. Start from the event: the CDF method</a>
+  <ul class="collapse">
+  <li><a href="#worked-example-square-a-signed-measurement-error" id="toc-worked-example-square-a-signed-measurement-error" class="nav-link" data-scroll-target="#worked-example-square-a-signed-measurement-error">Worked example: square a signed measurement error</a></li>
+  <li><a href="#general-construction" id="toc-general-construction" class="nav-link" data-scroll-target="#general-construction">General construction</a></li>
+  </ul></li>
+  <li><a href="#a-one-dimensional-jacobian" id="toc-a-one-dimensional-jacobian" class="nav-link" data-scroll-target="#a-one-dimensional-jacobian">2. A one-dimensional Jacobian</a>
+  <ul class="collapse">
+  <li><a href="#worked-example-convert-and-shift-a-duration" id="toc-worked-example-convert-and-shift-a-duration" class="nav-link" data-scroll-target="#worked-example-convert-and-shift-a-duration">Worked example: convert and shift a duration</a></li>
+  </ul></li>
+  <li><a href="#sum-of-two-durations-integrate-over-an-event" id="toc-sum-of-two-durations-integrate-over-an-event" class="nav-link" data-scroll-target="#sum-of-two-durations-integrate-over-an-event">3. Sum of two durations: integrate over an event</a>
+  <ul class="collapse">
+  <li><a href="#worked-example-two-independent-processing-phases" id="toc-worked-example-two-independent-processing-phases" class="nav-link" data-scroll-target="#worked-example-two-independent-processing-phases">Worked example: two independent processing phases</a></li>
+  </ul></li>
+  <li><a href="#construct-a-joint-density-then-marginalize" id="toc-construct-a-joint-density-then-marginalize" class="nav-link" data-scroll-target="#construct-a-joint-density-then-marginalize">4. Construct a joint density, then marginalize</a>
+  <ul class="collapse">
+  <li><a href="#rework-the-sum-using-an-auxiliary-variable" id="toc-rework-the-sum-using-an-auxiliary-variable" class="nav-link" data-scroll-target="#rework-the-sum-using-an-auxiliary-variable">Rework the sum using an auxiliary variable</a></li>
+  <li><a href="#formal-two-dimensional-change-of-variables" id="toc-formal-two-dimensional-change-of-variables" class="nav-link" data-scroll-target="#formal-two-dimensional-change-of-variables">Formal two-dimensional change of variables</a></li>
+  </ul></li>
+  <li><a href="#a-nonconstant-jacobian-total-duration-and-its-share" id="toc-a-nonconstant-jacobian-total-duration-and-its-share" class="nav-link" data-scroll-target="#a-nonconstant-jacobian-total-duration-and-its-share">5. A nonconstant Jacobian: total duration and its share</a>
+  <ul class="collapse">
+  <li><a href="#worked-example-time-spent-in-the-first-of-two-phases" id="toc-worked-example-time-spent-in-the-first-of-two-phases" class="nav-link" data-scroll-target="#worked-example-time-spent-in-the-first-of-two-phases">Worked example: time spent in the first of two phases</a></li>
+  </ul></li>
+  <li><a href="#return-to-the-meeting-time-gap" id="toc-return-to-the-meeting-time-gap" class="nav-link" data-scroll-target="#return-to-the-meeting-time-gap">6. Return to the meeting-time gap</a></li>
+  <li><a href="#generate-variables-by-transforming-simple-ones" id="toc-generate-variables-by-transforming-simple-ones" class="nav-link" data-scroll-target="#generate-variables-by-transforming-simple-ones">7. Generate variables by transforming simple ones</a>
+  <ul class="collapse">
+  <li><a href="#worked-example-generate-a-nonuniform-arrival-time" id="toc-worked-example-generate-a-nonuniform-arrival-time" class="nav-link" data-scroll-target="#worked-example-generate-a-nonuniform-arrival-time">Worked example: generate a nonuniform arrival time</a></li>
+  </ul></li>
+  <li><a href="#a-continuous-input-can-create-a-mixed-output" id="toc-a-continuous-input-can-create-a-mixed-output" class="nav-link" data-scroll-target="#a-continuous-input-can-create-a-mixed-output">8. A continuous input can create a mixed output</a></li>
+  <li><a href="#references-and-continuation" id="toc-references-and-continuation" class="nav-link" data-scroll-target="#references-and-continuation">References and continuation</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tutorials/01-probability-foundations.html">01 · Fundamentals of Probability and Random Signal Theory</a></li><li class="breadcrumb-item"><a href="../tutorials/06-transformations.html"><span class="chapter-title">01.6 · Transformations of random variables</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">01.6 · Transformations of random variables</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Data Analytics for AI · Executive M.Tech · IIT Jammu</strong><br>
+<a href="../tutorials/05-expectation-variance.html">Previous: expectation</a> · <a href="../tutorials/06-transformations-supplement.html">Rigorous supplement</a> · <a href="../tutorials/07-multivariate-normal.html">Next: multivariate normal</a></p>
+<section id="questions-and-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="questions-and-objectives">Questions and objectives</h2>
+<p>A service manager records two phase durations but needs the distribution of their sum. An engineer records a signed error but reports its square. In the friends’ meeting problem, the decision depends on the absolute gap rather than the two separate arrival times.</p>
+<p>In each case, the experiment and its probability measure remain fixed while a new function records a different value. We will derive transformed laws by constructing inverse-image events and integrating, by constructing a joint density with an auxiliary variable, and by applying Jacobians. All application models are stipulated for teaching.</p>
+</section>
+<section id="start-from-the-event-the-cdf-method" class="level2">
+<h2 class="anchored" data-anchor-id="start-from-the-event-the-cdf-method">1. Start from the event: the CDF method</h2>
+<section id="worked-example-square-a-signed-measurement-error" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example-square-a-signed-measurement-error">Worked example: square a signed measurement error</h3>
+<p>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> be a hypothetical sensor error, uniform on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>2</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[-2,2]</annotation></semantics></math> in a specified measurement unit. The reporting system uses squared error <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>=</mo><msup><mi>X</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">Y=X^2</annotation></semantics></math>. What is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>Y</mi><mo>≤</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(Y\le1)</annotation></semantics></math>?</p>
+<p>The condition <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>X</mi><mn>2</mn></msup><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">X^2\le1</annotation></semantics></math> selects <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn><mo>≤</mo><mi>X</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-1\le X\le1</annotation></semantics></math>, an interval of length 2 within an interval of length 4. Thus <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>Y</mi><mo>≤</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">P(Y\le1)=1/2</annotation></semantics></math>. For a general threshold <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>y</mi><mo>≤</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">0\le y\le4</annotation></semantics></math>,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mi>Y</mi><mo>≤</mo><mi>y</mi><mo stretchy="false" form="postfix">}</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>−</mi><msqrt><mi>y</mi></msqrt><mo>≤</mo><mi>X</mi><mo>≤</mo><msqrt><mi>y</mi></msqrt><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>F</mi><mi>Y</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mrow><mi>−</mi><msqrt><mi>y</mi></msqrt></mrow><msqrt><mi>y</mi></msqrt></msubsup><mfrac><mn>1</mn><mn>4</mn></mfrac><mspace width="0.167em"></mspace><mi>d</mi><mi>x</mi><mo>=</mo><mfrac><msqrt><mi>y</mi></msqrt><mn>2</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\{Y\le y\}=\{-\sqrt y\le X\le\sqrt y\},\qquad
+F_Y(y)=\int_{-\sqrt y}^{\sqrt y}\frac14\,dx=\frac{\sqrt y}{2}.</annotation></semantics></math></p>
+<p>Including thresholds outside the range,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>Y</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mi>y</mi><mo>&lt;</mo><mn>0</mn><mo>,</mo></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><msqrt><mi>y</mi></msqrt><mi>/</mi><mn>2</mn><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mn>0</mn><mo>≤</mo><mi>y</mi><mo>≤</mo><mn>4</mn><mo>,</mo></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>1</mn><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mi>y</mi><mo>&gt;</mo><mn>4</mn><mi>.</mi></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">F_Y(y)=\begin{cases}0,&amp;y&lt;0,\\\sqrt y/2,&amp;0\le y\le4,\\1,&amp;y&gt;4.\end{cases}</annotation></semantics></math></p>
+<p>Differentiation gives</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>Y</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>4</mn><msqrt><mi>y</mi></msqrt></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mn>0</mn><mo>&lt;</mo><mi>y</mi><mo>&lt;</mo><mn>4</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">f_Y(y)=\frac1{4\sqrt y},\qquad0&lt;y&lt;4,</annotation></semantics></math></p>
+<p>and zero elsewhere. The density is unbounded near zero but integrable: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mn>0</mn><mn>4</mn></msubsup><mo stretchy="false" form="prefix">(</mo><mn>4</mn><msqrt><mi>y</mi></msqrt><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><mi>d</mi><mi>y</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\int_0^4(4\sqrt y)^{-1}dy=1</annotation></semantics></math>. There is no atom at zero since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo>=</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">P(X=0)=0</annotation></semantics></math>.</p>
+</section>
+<section id="general-construction" class="level3">
+<h3 class="anchored" data-anchor-id="general-construction">General construction</h3>
+<p>For measurable <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>, define <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>=</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Y=g(X)</annotation></semantics></math>. Its induced law is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>Y</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>F</mi><mi>Y</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">P_Y(B)=P(g(X)\in B),\qquad F_Y(y)=P(g(X)\le y).</annotation></semantics></math></p>
+<p>If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> has a density,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>Y</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∫</mo><mrow><mo stretchy="false" form="prefix">{</mo><mi>x</mi><mo>:</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>y</mi><mo stretchy="false" form="postfix">}</mo></mrow></msub><msub><mi>f</mi><mi>X</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>x</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">F_Y(y)=\int_{\{x:g(x)\le y\}}f_X(x)\,dx.</annotation></semantics></math></p>
+<p>For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi><mo>=</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Z=g(X,Y)</annotation></semantics></math> and an available joint density,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>Z</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∬</mo><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>z</mi><mo stretchy="false" form="postfix">}</mo></mrow></msub><msub><mi>f</mi><mrow><mi>X</mi><mo>,</mo><mi>Y</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>x</mi><mspace width="0.167em"></mspace><mi>d</mi><mi>y</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">F_Z(z)=\iint_{\{(x,y):g(x,y)\le z\}}f_{X,Y}(x,y)\,dx\,dy.</annotation></semantics></math></p>
+<p>First identify the transformed range, then the inverse-image region and its bounds, then integrate. Differentiate the CDF where appropriate only after checking whether the transformed law has atoms. A smooth PDF is not guaranteed merely because the original variable has one.</p>
+<p><strong>Practice check T1.</strong> For the same <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>, find the CDF and PDF of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>X</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|X|</annotation></semantics></math>. Include the thresholds outside its range and verify normalization.</p>
+</section>
+</section>
+<section id="a-one-dimensional-jacobian" class="level2">
+<h2 class="anchored" data-anchor-id="a-one-dimensional-jacobian">2. A one-dimensional Jacobian</h2>
+<section id="worked-example-convert-and-shift-a-duration" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example-convert-and-shift-a-duration">Worked example: convert and shift a duration</h3>
+<p>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> be uniform on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0,2]</annotation></semantics></math> hours and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>=</mo><mn>10</mn><mo>+</mo><mn>60</mn><mi>X</mi></mrow><annotation encoding="application/x-tex">Y=10+60X</annotation></semantics></math> minutes. Then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn><mo>&lt;</mo><mi>Y</mi><mo>&lt;</mo><mn>130</mn></mrow><annotation encoding="application/x-tex">10&lt;Y&lt;130</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo>−</mo><mn>10</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>60</mn></mrow><annotation encoding="application/x-tex">x=(y-10)/60</annotation></semantics></math>. Since a one-minute interval of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math> corresponds to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>60</mn></mrow><annotation encoding="application/x-tex">1/60</annotation></semantics></math> hour of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>Y</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>f</mi><mi>X</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>y</mi><mo>−</mo><mn>10</mn></mrow><mn>60</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">|</mo><mfrac><mrow><mi>d</mi><mi>x</mi></mrow><mrow><mi>d</mi><mi>y</mi></mrow></mfrac><mo stretchy="true" form="postfix">|</mo></mrow><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mfrac><mn>1</mn><mn>60</mn></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>120</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">f_Y(y)=f_X\left(\frac{y-10}{60}\right)\left|\frac{dx}{dy}\right|
+=\frac12\frac1{60}=\frac1{120}.</annotation></semantics></math></p>
+<p>It integrates to 1 over an interval of length 120. Changing the numerical scale changes density height, preserving probabilities.</p>
+<p>If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math> is a differentiable, strictly monotone map with a differentiable inverse <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math> and nonzero derivative on the relevant support interior, the <strong>change-of-variable formula</strong> is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>Y</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>f</mi><mi>X</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">|</mo><msup><mi>h</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">f_Y(y)=f_X(h(y))\,|h'(y)|,</annotation></semantics></math></p>
+<p>on the transformed support and zero elsewhere. The multiplier is the absolute derivative of the <strong>inverse</strong> transformation. Endpoint exceptions of probability zero can be treated separately.</p>
+<p>For a transformation with finitely many smooth inverse branches, add their contributions:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>Y</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>x</mi><mo>:</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>y</mi></mrow></munder><mfrac><mrow><msub><mi>f</mi><mi>X</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mo stretchy="false" form="prefix">|</mo><msup><mi>g</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">f_Y(y)=\sum_{x:g(x)=y}\frac{f_X(x)}{|g'(x)|},</annotation></semantics></math></p>
+<p>at regular values with nonzero derivatives. For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>=</mo><msup><mi>X</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">Y=X^2</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>y</mi><mo>&lt;</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">0&lt;y&lt;4</annotation></semantics></math>, there are two roots <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>±</mi><msqrt><mi>y</mi></msqrt></mrow><annotation encoding="application/x-tex">\pm\sqrt y</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>Y</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><mrow><mn>2</mn><msqrt><mi>y</mi></msqrt></mrow></mfrac><mo>+</mo><mfrac><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><mrow><mn>2</mn><msqrt><mi>y</mi></msqrt></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mrow><mn>4</mn><msqrt><mi>y</mi></msqrt></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">f_Y(y)=\frac{1/4}{2\sqrt y}+\frac{1/4}{2\sqrt y}=\frac1{4\sqrt y}.</annotation></semantics></math></p>
+<p>Using only the positive root would lose half the probability. At the critical value zero, use the CDF to check for an atom rather than substituting into the branch formula.</p>
+</section>
+</section>
+<section id="sum-of-two-durations-integrate-over-an-event" class="level2">
+<h2 class="anchored" data-anchor-id="sum-of-two-durations-integrate-over-an-event">3. Sum of two durations: integrate over an event</h2>
+<section id="worked-example-two-independent-processing-phases" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example-two-independent-processing-phases">Worked example: two independent processing phases</h3>
+<p>Stipulate independent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>,</mo><mi>Y</mi><mo>∼</mo><mi>U</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X,Y\sim U(0,1)</annotation></semantics></math> hours. Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>X</mi><mo>+</mo><mi>Y</mi></mrow><annotation encoding="application/x-tex">S=X+Y</annotation></semantics></math> be total processing time, with phases sequential and no additional waiting. The joint density is 1 on the unit square. For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>s</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;s&lt;1</annotation></semantics></math>, the region <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mi>y</mi><mo>≤</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">x+y\le s</annotation></semantics></math> is a right triangle of area <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>s</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">s^2/2</annotation></semantics></math>. For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>s</mi><mo>&lt;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">1\le s&lt;2</annotation></semantics></math>, its complement in the square is a triangle of area <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>−</mo><mi>s</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(2-s)^2/2</annotation></semantics></math>. Hence</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>S</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mi>s</mi><mo>≤</mo><mn>0</mn><mo>,</mo></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><msup><mi>s</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mn>0</mn><mo>&lt;</mo><mi>s</mi><mo>&lt;</mo><mn>1</mn><mo>,</mo></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>1</mn><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>−</mo><mi>s</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mi>/</mi><mn>2</mn><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mn>1</mn><mo>≤</mo><mi>s</mi><mo>&lt;</mo><mn>2</mn><mo>,</mo></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>1</mn><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mi>s</mi><mo>≥</mo><mn>2</mn><mo>,</mo></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">F_S(s)=\begin{cases}
+0,&amp;s\le0,\\s^2/2,&amp;0&lt;s&lt;1,\\1-(2-s)^2/2,&amp;1\le s&lt;2,\\1,&amp;s\ge2,
+\end{cases}</annotation></semantics></math></p>
+<p>and</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>S</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mi>s</mi><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mn>0</mn><mo>&lt;</mo><mi>s</mi><mo>&lt;</mo><mn>1</mn><mo>,</mo></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>2</mn><mo>−</mo><mi>s</mi><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mn>1</mn><mo>≤</mo><mi>s</mi><mo>&lt;</mo><mn>2</mn><mo>,</mo></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mtext mathvariant="normal">otherwise</mtext><mi>.</mi></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">f_S(s)=\begin{cases}s,&amp;0&lt;s&lt;1,\\2-s,&amp;1\le s&lt;2,\\0,&amp;\text{otherwise}.\end{cases}</annotation></semantics></math></p>
+<p>The PDF integrates to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn><mo>+</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1/2+1/2=1</annotation></semantics></math>. It is not uniform even though both inputs are uniform. There are more original pairs near a total of one hour than near a total of zero or two hours.</p>
+</section>
+</section>
+<section id="construct-a-joint-density-then-marginalize" class="level2">
+<h2 class="anchored" data-anchor-id="construct-a-joint-density-then-marginalize">4. Construct a joint density, then marginalize</h2>
+<section id="rework-the-sum-using-an-auxiliary-variable" class="level3">
+<h3 class="anchored" data-anchor-id="rework-the-sum-using-an-auxiliary-variable">Rework the sum using an auxiliary variable</h3>
+<p>A map from two values to their sum loses information. To use a square Jacobian matrix, retain an auxiliary variable: set</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>X</mi><mo>+</mo><mi>Y</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>V</mi><mo>=</mo><mi>X</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">S=X+Y,\qquad V=X.</annotation></semantics></math></p>
+<p>The inverse is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">x=v</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>s</mi><mo>−</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">y=s-v</annotation></semantics></math>. Its Jacobian matrix and absolute determinant are</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>∂</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>∂</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd><mtd columnalign="center" style="text-align: center"><mi>−</mi><mn>1</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">|</mo><mrow><mi mathvariant="normal">det</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{\partial(x,y)}{\partial(s,v)}=
+\begin{pmatrix}0&amp;1\\1&amp;-1\end{pmatrix},\qquad |\det|=1.</annotation></semantics></math></p>
+<p>The original inequalities <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>x</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;x&lt;1</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>y</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;y&lt;1</annotation></semantics></math> become</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>v</mi><mo>&lt;</mo><mn>1</mn><mo>,</mo><mspace width="1.0em"></mspace><mn>0</mn><mo>&lt;</mo><mi>s</mi><mo>−</mo><mi>v</mi><mo>&lt;</mo><mn>1</mn><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mrow><mi mathvariant="normal">max</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>s</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>v</mi><mo>&lt;</mo><mrow><mi mathvariant="normal">min</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">0&lt;v&lt;1,\quad0&lt;s-v&lt;1
+\quad\Longleftrightarrow\quad \max(0,s-1)&lt;v&lt;\min(1,s).</annotation></semantics></math></p>
+<p>Thus <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>S</mi><mo>,</mo><mi>V</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">f_{S,V}(s,v)=1</annotation></semantics></math> on that region and zero elsewhere. Integrate out <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>S</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mrow><mrow><mi mathvariant="normal">max</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>s</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mrow><mi mathvariant="normal">min</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mn>1</mn><mspace width="0.167em"></mspace><mi>d</mi><mi>v</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">f_S(s)=\int_{\max(0,s-1)}^{\min(1,s)}1\,dv,</annotation></semantics></math></p>
+<p>when the upper bound exceeds the lower. The width is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math> for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>s</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;s&lt;1</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>−</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">2-s</annotation></semantics></math> for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>&lt;</mo><mi>s</mi><mo>&lt;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">1&lt;s&lt;2</annotation></semantics></math>, reproducing the CDF result.</p>
+<p>For a general joint density, the same construction gives</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>X</mi><mo>+</mo><mi>Y</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mrow><mi>−</mi><mi>∞</mi></mrow><mi>∞</mi></msubsup><msub><mi>f</mi><mrow><mi>X</mi><mo>,</mo><mi>Y</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo>,</mo><mi>s</mi><mo>−</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>v</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">f_{X+Y}(s)=\int_{-\infty}^{\infty}f_{X,Y}(v,s-v)\,dv.</annotation></semantics></math></p>
+<p>Under independence, this becomes the <strong>convolution</strong> formula</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>X</mi><mo>+</mo><mi>Y</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mrow><mi>−</mi><mi>∞</mi></mrow><mi>∞</mi></msubsup><msub><mi>f</mi><mi>X</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><msub><mi>f</mi><mi>Y</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>−</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>v</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">f_{X+Y}(s)=\int_{-\infty}^{\infty}f_X(v)f_Y(s-v)\,dv.</annotation></semantics></math></p>
+<p>Dependence does not prevent the first formula; it prevents replacing the joint density by the product without justification.</p>
+</section>
+<section id="formal-two-dimensional-change-of-variables" class="level3">
+<h3 class="anchored" data-anchor-id="formal-two-dimensional-change-of-variables">Formal two-dimensional change of variables</h3>
+<p>Suppose <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(X,Y)</annotation></semantics></math> has a joint density and the transformation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>U</mi><mo>,</mo><mi>V</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(U,V)=g(X,Y)</annotation></semantics></math> is a one-to-one continuously differentiable map between open support regions, with continuously differentiable inverse <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x,y)=h(u,v)</annotation></semantics></math> and nonzero Jacobian determinant. Then</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>U</mi><mo>,</mo><mi>V</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>f</mi><mrow><mi>X</mi><mo>,</mo><mi>Y</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi mathvariant="normal">det</mi><mfrac><mrow><mi>∂</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>∂</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo stretchy="true" form="postfix">|</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">f_{U,V}(u,v)=f_{X,Y}(h(u,v))
+\left|\det\frac{\partial(x,y)}{\partial(u,v)}\right|.</annotation></semantics></math></p>
+<p>A small region in the new coordinates corresponds to an old-coordinate area multiplied by the inverse determinant. Probability is preserved, so density acquires that factor. State the transformed support as part of the result. Null boundaries can be omitted; branch maps require adding branch contributions. A dimension-reducing map such as <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>↦</mo><mi>x</mi><mo>+</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">(x,y)\mapsto x+y</annotation></semantics></math> has no square determinant by itself.</p>
+<p><strong>Practice check T2.</strong> For independent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">U(0,1)</annotation></semantics></math> inputs, use <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mi>X</mi><mo>−</mo><mi>Y</mi></mrow><annotation encoding="application/x-tex">R=X-Y</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mi>Y</mi></mrow><annotation encoding="application/x-tex">V=Y</annotation></semantics></math> to obtain a joint density and then the density of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>. Show the support inequalities explicitly.</p>
+<p><strong>Stopping point.</strong> Draw both the original square and the transformed <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(s,v)</annotation></semantics></math> region before introducing a nonconstant determinant.</p>
+</section>
+</section>
+<section id="a-nonconstant-jacobian-total-duration-and-its-share" class="level2">
+<h2 class="anchored" data-anchor-id="a-nonconstant-jacobian-total-duration-and-its-share">5. A nonconstant Jacobian: total duration and its share</h2>
+<section id="worked-example-time-spent-in-the-first-of-two-phases" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example-time-spent-in-the-first-of-two-phases">Worked example: time spent in the first of two phases</h3>
+<p>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>,</mo><mi>Y</mi></mrow><annotation encoding="application/x-tex">X,Y</annotation></semantics></math> be independent with density <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>e</mi><mrow><mi>−</mi><mi>x</mi></mrow></msup><annotation encoding="application/x-tex">e^{-x}</annotation></semantics></math> on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x&gt;0</annotation></semantics></math>, zero otherwise, using a time unit in which the rate is 1. This exponential model is a stipulation. Define</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>X</mi><mo>+</mo><mi>Y</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>R</mi><mo>=</mo><mfrac><mi>X</mi><mrow><mi>X</mi><mo>+</mo><mi>Y</mi></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">S=X+Y,\qquad R=\frac{X}{X+Y}.</annotation></semantics></math></p>
+<p>The total is positive and the fraction lies between 0 and 1. The inverse map is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>r</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">x=rs</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">y=(1-r)s</annotation></semantics></math>. Compute rather than guess the determinant:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>∂</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>∂</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mi>r</mi></mtd><mtd columnalign="center" style="text-align: center"><mi>s</mi></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn><mo>−</mo><mi>r</mi></mtd><mtd columnalign="center" style="text-align: center"><mi>−</mi><mi>s</mi></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mrow><mi mathvariant="normal">det</mi><mo>⁡</mo></mrow><mo>=</mo><mi>−</mi><mi>r</mi><mi>s</mi><mo>−</mo><mi>s</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mi>s</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{\partial(x,y)}{\partial(s,r)}=
+\begin{pmatrix}r&amp;s\\1-r&amp;-s\end{pmatrix},\qquad
+\det=-rs-s(1-r)=-s.</annotation></semantics></math></p>
+<p>Thus</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>S</mi><mo>,</mo><mi>R</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>e</mi><mrow><mi>−</mi><mi>r</mi><mi>s</mi></mrow></msup><msup><mi>e</mi><mrow><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mi>s</mi></mrow></msup><mi>s</mi><mo>=</mo><mi>s</mi><msup><mi>e</mi><mrow><mi>−</mi><mi>s</mi></mrow></msup><mo>,</mo><mspace width="1.0em"></mspace><mi>s</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>0</mn><mo>&lt;</mo><mi>r</mi><mo>&lt;</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">f_{S,R}(s,r)=e^{-rs}e^{-(1-r)s}s=se^{-s},\quad s&gt;0,\ 0&lt;r&lt;1.</annotation></semantics></math></p>
+<p>Marginalization gives</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>S</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mn>1</mn></msubsup><mi>s</mi><msup><mi>e</mi><mrow><mi>−</mi><mi>s</mi></mrow></msup><mspace width="0.167em"></mspace><mi>d</mi><mi>r</mi><mo>=</mo><mi>s</mi><msup><mi>e</mi><mrow><mi>−</mi><mi>s</mi></mrow></msup><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>f</mi><mi>R</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mi>∞</mi></msubsup><mi>s</mi><msup><mi>e</mi><mrow><mi>−</mi><mi>s</mi></mrow></msup><mspace width="0.167em"></mspace><mi>d</mi><mi>s</mi><mo>=</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">f_S(s)=\int_0^1se^{-s}\,dr=se^{-s},\qquad
+f_R(r)=\int_0^\infty se^{-s}\,ds=1.</annotation></semantics></math></p>
+<p>Integration by parts yields <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mn>0</mn><mi>∞</mi></msubsup><mi>s</mi><msup><mi>e</mi><mrow><mi>−</mi><mi>s</mi></mrow></msup><mi>d</mi><mi>s</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\int_0^\infty se^{-s}ds=1</annotation></semantics></math>. The joint density factors into its marginals on the product support, so the total and share are independent in this particular model. This conclusion depends on the stipulated equal-rate exponential inputs; it does not follow from the definitions of total and share alone.</p>
+<p>For example,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>≤</mo><mn>2</mn><mo>,</mo><mi>R</mi><mo>≤</mo><mn>1</mn><mi>/</mi><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mn>2</mn></msubsup><msubsup><mo>∫</mo><mn>0</mn><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow></msubsup><mi>s</mi><msup><mi>e</mi><mrow><mi>−</mi><mi>s</mi></mrow></msup><mspace width="0.167em"></mspace><mi>d</mi><mi>r</mi><mspace width="0.167em"></mspace><mi>d</mi><mi>s</mi><mo>=</mo><mfrac><mn>1</mn><mn>4</mn></mfrac><mo stretchy="false" form="prefix">[</mo><mn>1</mn><mo>−</mo><mn>3</mn><msup><mi>e</mi><mrow><mi>−</mi><mn>2</mn></mrow></msup><mo stretchy="false" form="postfix">]</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">P(S\le2,R\le1/4)=\int_0^2\int_0^{1/4}se^{-s}\,dr\,ds
+=\frac14[1-3e^{-2}].</annotation></semantics></math></p>
+</section>
+</section>
+<section id="return-to-the-meeting-time-gap" class="level2">
+<h2 class="anchored" data-anchor-id="return-to-the-meeting-time-gap">6. Return to the meeting-time gap</h2>
+<p>For independent uniform arrivals <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>A</mi></msub><mo>,</mo><msub><mi>T</mi><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">T_A,T_B</annotation></semantics></math> in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0,1]</annotation></semantics></math>, take the signed difference <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi><mo>=</mo><msub><mi>T</mi><mi>B</mi></msub><mo>−</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><annotation encoding="application/x-tex">Z=T_B-T_A</annotation></semantics></math> and retain <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><annotation encoding="application/x-tex">V=T_A</annotation></semantics></math>. Then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>A</mi></msub><mo>=</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">t_A=v</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>B</mi></msub><mo>=</mo><mi>v</mi><mo>+</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">t_B=v+z</annotation></semantics></math> and the inverse determinant has absolute value 1. The joint support is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">max</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>−</mi><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>v</mi><mo>&lt;</mo><mrow><mi mathvariant="normal">min</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>1</mn><mo>−</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\max(0,-z)&lt;v&lt;\min(1,1-z).</annotation></semantics></math></p>
+<p>Integrating its width gives <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>Z</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mo stretchy="false" form="prefix">|</mo><mi>z</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">f_Z(z)=1-|z|</annotation></semantics></math> for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn><mo>&lt;</mo><mi>z</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-1&lt;z&lt;1</annotation></semantics></math>. The absolute gap <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mo stretchy="false" form="prefix">|</mo><mi>Z</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">D=|Z|</annotation></semantics></math> has two preimages for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d&gt;0</annotation></semantics></math>, so</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>D</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>f</mi><mi>Z</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>f</mi><mi>Z</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="1.0em"></mspace><mn>0</mn><mo>&lt;</mo><mi>d</mi><mo>&lt;</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">f_D(d)=f_Z(d)+f_Z(-d)=2(1-d),\quad0&lt;d&lt;1.</annotation></semantics></math></p>
+<p>This agrees with the band-area CDF route in 01.4. Both routes construct the same induced law under the same original measure.</p>
+<p><strong>Practice check T3.</strong> Use the general difference formula with independent densities <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h(t)=2(1-t)</annotation></semantics></math> on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0,1]</annotation></semantics></math> to set up the integral for the absolute gap. Check that your bounds depend on the gap value.</p>
+</section>
+<section id="generate-variables-by-transforming-simple-ones" class="level2">
+<h2 class="anchored" data-anchor-id="generate-variables-by-transforming-simple-ones">7. Generate variables by transforming simple ones</h2>
+<section id="worked-example-generate-a-nonuniform-arrival-time" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example-generate-a-nonuniform-arrival-time">Worked example: generate a nonuniform arrival time</h3>
+<p>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>∼</mo><mi>U</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">U\sim U(0,1)</annotation></semantics></math> and define <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mn>1</mn><mo>−</mo><msqrt><mrow><mn>1</mn><mo>−</mo><mi>U</mi></mrow></msqrt></mrow><annotation encoding="application/x-tex">T=1-\sqrt{1-U}</annotation></semantics></math>. For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>t</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0\le t\le1</annotation></semantics></math>,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>T</mi><mo>≤</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msqrt><mrow><mn>1</mn><mo>−</mo><mi>U</mi></mrow></msqrt><mo>≤</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>U</mi><mo>≤</mo><mn>1</mn><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>t</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>t</mi><mo>−</mo><msup><mi>t</mi><mn>2</mn></msup><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+P(T\le t)&amp;=P(1-\sqrt{1-U}\le t)\\
+&amp;=P(U\le1-(1-t)^2)=2t-t^2.
+\end{aligned}</annotation></semantics></math></p>
+<p>Differentiation gives <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>T</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f_T(t)=2(1-t)</annotation></semantics></math>, the early-arrival model. Two independent uniform inputs transformed separately produce independent arrivals with these marginals.</p>
+<p>More generally, for a CDF <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math> define its generalized inverse <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>F</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">inf</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">{</mo><mi>x</mi><mo>:</mo><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mi>u</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">F^{-1}(u)=\inf\{x:F(x)\ge u\}</annotation></semantics></math> for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>u</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;u&lt;1</annotation></semantics></math>. Then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>F</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>U</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F^{-1}(U)</annotation></semantics></math> has CDF <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>. The generalized inverse also handles discrete laws: if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>=</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>0.5</mn><mo>,</mo><mn>0.3</mn><mo>,</mo><mn>0.2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(N=0,1,2)=(0.5,0.3,0.2)</annotation></semantics></math>, assign 0 for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>&lt;</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">U&lt;0.5</annotation></semantics></math>, 1 for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.5</mn><mo>≤</mo><mi>U</mi><mo>&lt;</mo><mn>0.8</mn></mrow><annotation encoding="application/x-tex">0.5\le U&lt;0.8</annotation></semantics></math>, and 2 otherwise.</p>
+<p>Generating both variables from the <strong>same</strong> uniform input can create dependence even when both marginals are correct. The multivariate-normal construction in 01.7 will deliberately combine independent inputs to obtain a chosen covariance.</p>
+<p><strong>Practice check T4.</strong> For an exponential duration with rate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\lambda&gt;0</annotation></semantics></math>, derive the inverse-CDF generator from <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><msup><mi>e</mi><mrow><mi>−</mi><mi>λ</mi><mi>t</mi></mrow></msup></mrow><annotation encoding="application/x-tex">F(t)=1-e^{-\lambda t}</annotation></semantics></math> for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t\ge0</annotation></semantics></math>. State the domain of the uniform input and the resulting support.</p>
+</section>
+</section>
+<section id="a-continuous-input-can-create-a-mixed-output" class="level2">
+<h2 class="anchored" data-anchor-id="a-continuous-input-can-create-a-mixed-output">8. A continuous input can create a mixed output</h2>
+<p>Return to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math> and define the capped wait <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>W</mi><mo>=</mo><mrow><mi mathvariant="normal">min</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>,</mo><mn>1</mn><mi>/</mi><mn>4</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">W=\min(D,1/4)</annotation></semantics></math>. For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>w</mi><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">0\le w&lt;1/4</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>W</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>w</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>w</mi><mo>−</mo><msup><mi>w</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">F_W(w)=2w-w^2</annotation></semantics></math>. At and above <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>W</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>w</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F_W(w)=1</annotation></semantics></math>. The CDF jumps by</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msub><mi>F</mi><mi>W</mi></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mn>4</mn><msup><mo stretchy="false" form="postfix">)</mo><mo>−</mo></msup><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mfrac><mn>7</mn><mn>16</mn></mfrac><mo>=</mo><mfrac><mn>9</mn><mn>16</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">1-F_W((1/4)^-)=1-\frac7{16}=\frac9{16}.</annotation></semantics></math></p>
+<p>Thus <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math> has a continuous component on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mi>/</mi><mn>4</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,1/4)</annotation></semantics></math> and a point mass <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>9</mn><mi>/</mi><mn>16</mn></mrow><annotation encoding="application/x-tex">9/16</annotation></semantics></math> at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math>. Differentiating away from the jump cannot recover that atom. This is why the CDF and inverse-image construction is the general starting point.</p>
+<p><strong>Practice check T5.</strong> Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>∼</mo><mi>U</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X\sim U(0,2)</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>=</mo><mrow><mi mathvariant="normal">min</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Y=\min(X,1)</annotation></semantics></math>. State its continuous density component and atom, and check that their total mass is 1.</p>
+</section>
+<section id="references-and-continuation" class="level2">
+<h2 class="anchored" data-anchor-id="references-and-continuation">References and continuation</h2>
+<p>The change-of-variable hypotheses and auxiliary-variable method were checked against Pishro-Nik’s <a href="https://www.probabilitycourse.com/chapter5/5_2_4_functions.php">§5.2.4, Functions of Two Continuous Random Variables</a>. The worked examples above show their support calculations explicitly. See the <a href="../tutorials/06-transformations-supplement.html">supplement</a> for the change-of-variables proof and a normal-variable generator using polar coordinates.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/acads-iit-jammu\.github\.io\/da-f26-mtech");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../tutorials/05-expectation-variance.html" class="pagination-link" aria-label="01.5 · Expectation, mean and variance">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">01.5 · Expectation, mean and variance</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../tutorials/07-multivariate-normal.html" class="pagination-link" aria-label="01.7 · The multivariate normal distribution">
+        <span class="nav-page-text"><span class="chapter-title">01.7 · The multivariate normal distribution</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Data Analytics for AI · Executive M.Tech · Monsoon 2026 · IIT Jammu</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

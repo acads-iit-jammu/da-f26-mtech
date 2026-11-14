@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>01.7 supplement · Gaussian structure and conditional laws – Data Analytics for AI</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../resources.html" rel="next">
+<link href="../tutorials/06-transformations-supplement.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-970586c648819a176f05aa782ae30df3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-4e42ae105fa35cf935172ecd058ec8f7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="probability-notes.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tutorials/01-probability-supplement.html">Supplementary Material</a></li><li class="breadcrumb-item"><a href="../tutorials/07-normal-supplement.html"><span class="chapter-title">01.7 supplement · Gaussian structure and conditional laws</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Data Analytics for AI</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/acads-iit-jammu/da-f26-mtech" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../curriculum.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Curriculum</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignments</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modules</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">01 · Fundamentals of Probability and Random Signal Theory</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/01-probability-foundations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.1 · Introduction to probability through problems</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/02-random-variables.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.2 · Random variables and distributions through problems</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/02-joint-distributions-tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.3 tutorial · From outcomes to joint distributions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/04-meeting-problem.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.4 worked example · Two friends who may not meet</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/05-expectation-variance.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.5 · Expectation, mean and variance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/06-transformations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.6 · Transformations of random variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/07-multivariate-normal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.7 · The multivariate normal distribution</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Supplementary Material</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/01-probability-supplement.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.1 supplement · Sets, measurable maps and Bertrand’s paradox</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/02-random-variables-supplement.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.2 supplement · Advanced distribution theory</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/05-expectation-supplement.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.5 supplement · Expectation and moment identities</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/06-transformations-supplement.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.6 supplement · Change of variables and induced laws</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/07-normal-supplement.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">01.7 supplement · Gaussian structure and conditional laws</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Resources</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#definition-including-singular-laws" id="toc-definition-including-singular-laws" class="nav-link active" data-scroll-target="#definition-including-singular-laws">1. Definition including singular laws</a></li>
+  <li><a href="#density-and-normalization-by-an-invertible-map" id="toc-density-and-normalization-by-an-invertible-map" class="nav-link" data-scroll-target="#density-and-normalization-by-an-invertible-map">2. Density and normalization by an invertible map</a></li>
+  <li><a href="#linear-maps-and-marginal-distributions" id="toc-linear-maps-and-marginal-distributions" class="nav-link" data-scroll-target="#linear-maps-and-marginal-distributions">3. Linear maps and marginal distributions</a></li>
+  <li><a href="#conditioning-in-blocks" id="toc-conditioning-in-blocks" class="nav-link" data-scroll-target="#conditioning-in-blocks">4. Conditioning in blocks</a></li>
+  <li><a href="#probability-inside-a-bivariate-ellipse" id="toc-probability-inside-a-bivariate-ellipse" class="nav-link" data-scroll-target="#probability-inside-a-bivariate-ellipse">5. Probability inside a bivariate ellipse</a></li>
+  <li><a href="#further-exercises" id="toc-further-exercises" class="nav-link" data-scroll-target="#further-exercises">Further exercises</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tutorials/01-probability-supplement.html">Supplementary Material</a></li><li class="breadcrumb-item"><a href="../tutorials/07-normal-supplement.html"><span class="chapter-title">01.7 supplement · Gaussian structure and conditional laws</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">01.7 supplement · Gaussian structure and conditional laws</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="../tutorials/07-multivariate-normal.html">Main lecture 01.7</a></p>
+<section id="definition-including-singular-laws" class="level2">
+<h2 class="anchored" data-anchor-id="definition-including-singular-laws">1. Definition including singular laws</h2>
+<p>A Gaussian vector can be represented as <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝑿</mi><mo>=</mo><mi mathvariant="bold-italic">𝝁</mi><mo>+</mo><mi>A</mi><mi mathvariant="bold-italic">𝒁</mi></mrow><annotation encoding="application/x-tex">\mathbf X=\boldsymbol\mu+A\mathbf Z</annotation></semantics></math> for independent standard normal components of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="bold-italic">𝒁</mi><annotation encoding="application/x-tex">\mathbf Z</annotation></semantics></math>, with covariance <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi><mo>=</mo><mi>A</mi><msup><mi>A</mi><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">\Sigma=AA^T</annotation></semantics></math>. The characteristic function is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>φ</mi><mi mathvariant="bold-italic">𝑿</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>e</mi><mrow><mi>i</mi><msup><mi>t</mi><mi>T</mi></msup><mi mathvariant="bold-italic">𝑿</mi></mrow></msup><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mrow><mi mathvariant="normal">exp</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><msup><mi>t</mi><mi>T</mi></msup><mi mathvariant="bold-italic">𝝁</mi><mo>−</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><msup><mi>t</mi><mi>T</mi></msup><mi mathvariant="normal">Σ</mi><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\varphi_{\mathbf X}(t)=E[e^{it^T\mathbf X}]
+=\exp(it^T\boldsymbol\mu-\tfrac12t^T\Sigma t).</annotation></semantics></math></p>
+<p>This follows by independence and the standard-normal characteristic function <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup><annotation encoding="application/x-tex">e^{-t^2/2}</annotation></semantics></math>. It also shows that every linear combination is normal with its corresponding mean and variance. Conversely, the all-linear-combinations definition gives this characteristic function; uniqueness identifies the affine-normal law. A zero variance is allowed in this definition.</p>
+<p>If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math> is singular, there is nonzero <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math> with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mi>T</mi></msup><mi mathvariant="normal">Σ</mi><mi>a</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a^T\Sigma a=0</annotation></semantics></math>, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mi>T</mi></msup><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝑿</mi><mo>−</mo><mi mathvariant="bold-italic">𝝁</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a^T(\mathbf X-\boldsymbol\mu)=0</annotation></semantics></math> almost surely. The distribution lies in a lower-dimensional affine subspace and has no density with respect to full-dimensional Lebesgue measure. The positive-definite density formula must not be used with a zero determinant.</p>
+</section>
+<section id="density-and-normalization-by-an-invertible-map" class="level2">
+<h2 class="anchored" data-anchor-id="density-and-normalization-by-an-invertible-map">2. Density and normalization by an invertible map</h2>
+<p>For positive-definite <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>, choose <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math> invertible with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><msup><mi>L</mi><mi>T</mi></msup><mo>=</mo><mi mathvariant="normal">Σ</mi></mrow><annotation encoding="application/x-tex">LL^T=\Sigma</annotation></semantics></math>, for example its Cholesky factor. The independent-standard-normal density is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mi>p</mi><mi>/</mi><mn>2</mn></mrow></msup><msup><mi>e</mi><mrow><mi>−</mi><msup><mi mathvariant="bold-italic">𝒛</mi><mi>T</mi></msup><mi mathvariant="bold-italic">𝒛</mi><mi>/</mi><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(2\pi)^{-p/2}e^{-\mathbf z^T\mathbf z/2}</annotation></semantics></math>. Under <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝒙</mi><mo>=</mo><mi mathvariant="bold-italic">𝝁</mi><mo>+</mo><mi>L</mi><mi mathvariant="bold-italic">𝒛</mi></mrow><annotation encoding="application/x-tex">\mathbf x=\boldsymbol\mu+L\mathbf z</annotation></semantics></math>, the inverse determinant is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mrow><mi mathvariant="normal">det</mi><mo>⁡</mo></mrow><mi>L</mi><msup><mo stretchy="false" form="prefix">|</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo>=</mo><mo stretchy="false" form="prefix">|</mo><mi mathvariant="normal">Σ</mi><msup><mo stretchy="false" form="prefix">|</mo><mrow><mi>−</mi><mn>1</mn><mi>/</mi><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">|\det L|^{-1}=|\Sigma|^{-1/2}</annotation></semantics></math>. Substitution gives the stated multivariate density.</p>
+<p>Its integral is 1 because the change of variables converts it back to the product of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> normalized standard-normal densities. The covariance is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>I</mi><msup><mi>L</mi><mi>T</mi></msup><mo>=</mo><mi mathvariant="normal">Σ</mi></mrow><annotation encoding="application/x-tex">LIL^T=\Sigma</annotation></semantics></math>. The factorization also proves that whitening yields independent normal coordinates; identity covariance alone would imply only uncorrelated coordinates for an arbitrary non-Gaussian vector.</p>
+</section>
+<section id="linear-maps-and-marginal-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="linear-maps-and-marginal-distributions">3. Linear maps and marginal distributions</h2>
+<p>For a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>×</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">k\times p</annotation></semantics></math> matrix <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math> and vector <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mi mathvariant="bold-italic">𝑿</mi><mo>+</mo><mi>b</mi><mo>=</mo><mi>B</mi><mi mathvariant="bold-italic">𝝁</mi><mo>+</mo><mi>b</mi><mo>+</mo><mi>B</mi><mi>A</mi><mi mathvariant="bold-italic">𝒁</mi></mrow><annotation encoding="application/x-tex">B\mathbf X+b=B\boldsymbol\mu+b+BA\mathbf Z</annotation></semantics></math> is Gaussian with covariance <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mi mathvariant="normal">Σ</mi><msup><mi>B</mi><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">B\Sigma B^T</annotation></semantics></math>. Taking <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math> to select coordinates proves the marginal property. Taking a single row proves the linear-combination property. The characteristic function above establishes that Gaussian laws are determined by their means and covariance matrices, including singular cases.</p>
+</section>
+<section id="conditioning-in-blocks" class="level2">
+<h2 class="anchored" data-anchor-id="conditioning-in-blocks">4. Conditioning in blocks</h2>
+<p>Partition the vector as <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msubsup><mi mathvariant="bold-italic">𝑿</mi><mi>a</mi><mi>T</mi></msubsup><mo>,</mo><msubsup><mi mathvariant="bold-italic">𝑿</mi><mi>b</mi><mi>T</mi></msubsup><msup><mo stretchy="false" form="postfix">)</mo><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">(\mathbf X_a^T,\mathbf X_b^T)^T</annotation></semantics></math> and partition <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝝁</mi><mo>,</mo><mi mathvariant="normal">Σ</mi></mrow><annotation encoding="application/x-tex">\boldsymbol\mu,\Sigma</annotation></semantics></math> accordingly. For positive-definite <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Σ</mi><mrow><mi>a</mi><mi>a</mi></mrow></msub><annotation encoding="application/x-tex">\Sigma_{aa}</annotation></semantics></math> is invertible. Define the residual</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝑹</mi><mo>=</mo><msub><mi mathvariant="bold-italic">𝑿</mi><mi>b</mi></msub><mo>−</mo><msub><mi mathvariant="bold-italic">𝝁</mi><mi>b</mi></msub><mo>−</mo><msub><mi mathvariant="normal">Σ</mi><mrow><mi>b</mi><mi>a</mi></mrow></msub><msubsup><mi mathvariant="normal">Σ</mi><mrow><mi>a</mi><mi>a</mi></mrow><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><msub><mi mathvariant="bold-italic">𝑿</mi><mi>a</mi></msub><mo>−</mo><msub><mi mathvariant="bold-italic">𝝁</mi><mi>a</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathbf R=\mathbf X_b-\boldsymbol\mu_b-\Sigma_{ba}\Sigma_{aa}^{-1}(\mathbf X_a-\boldsymbol\mu_a).</annotation></semantics></math></p>
+<p>It has mean zero and cross-covariance</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Cov</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝑹</mi><mo>,</mo><msub><mi mathvariant="bold-italic">𝑿</mi><mi>a</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi mathvariant="normal">Σ</mi><mrow><mi>b</mi><mi>a</mi></mrow></msub><mo>−</mo><msub><mi mathvariant="normal">Σ</mi><mrow><mi>b</mi><mi>a</mi></mrow></msub><msubsup><mi mathvariant="normal">Σ</mi><mrow><mi>a</mi><mi>a</mi></mrow><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><msub><mi mathvariant="normal">Σ</mi><mrow><mi>a</mi><mi>a</mi></mrow></msub><mo>=</mo><mn>0</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\operatorname{Cov}(\mathbf R,\mathbf X_a)=\Sigma_{ba}-\Sigma_{ba}\Sigma_{aa}^{-1}\Sigma_{aa}=0.</annotation></semantics></math></p>
+<p>The pair <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝑹</mi><mo>,</mo><msub><mi mathvariant="bold-italic">𝑿</mi><mi>a</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(\mathbf R,\mathbf X_a)</annotation></semantics></math> is jointly Gaussian. A block-diagonal covariance makes its characteristic function factor into the product of the two block characteristic functions, proving independence. Expansion gives</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Cov</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝑹</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi mathvariant="normal">Σ</mi><mrow><mi>b</mi><mi>b</mi></mrow></msub><mo>−</mo><msub><mi mathvariant="normal">Σ</mi><mrow><mi>b</mi><mi>a</mi></mrow></msub><msubsup><mi mathvariant="normal">Σ</mi><mrow><mi>a</mi><mi>a</mi></mrow><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><msub><mi mathvariant="normal">Σ</mi><mrow><mi>a</mi><mi>b</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\operatorname{Cov}(\mathbf R)=\Sigma_{bb}-\Sigma_{ba}\Sigma_{aa}^{-1}\Sigma_{ab}.</annotation></semantics></math></p>
+<p>Consequently a conditional-law version is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold-italic">𝑿</mi><mi>b</mi></msub><mo>∣</mo><msub><mi mathvariant="bold-italic">𝑿</mi><mi>a</mi></msub><mo>=</mo><msub><mi>x</mi><mi>a</mi></msub><mo>∼</mo><mi>N</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi mathvariant="bold-italic">𝝁</mi><mi>b</mi></msub><mo>+</mo><msub><mi mathvariant="normal">Σ</mi><mrow><mi>b</mi><mi>a</mi></mrow></msub><msubsup><mi mathvariant="normal">Σ</mi><mrow><mi>a</mi><mi>a</mi></mrow><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>a</mi></msub><mo>−</mo><msub><mi mathvariant="bold-italic">𝝁</mi><mi>a</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><msub><mi mathvariant="normal">Σ</mi><mrow><mi>b</mi><mi>b</mi></mrow></msub><mo>−</mo><msub><mi mathvariant="normal">Σ</mi><mrow><mi>b</mi><mi>a</mi></mrow></msub><msubsup><mi mathvariant="normal">Σ</mi><mrow><mi>a</mi><mi>a</mi></mrow><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><msub><mi mathvariant="normal">Σ</mi><mrow><mi>a</mi><mi>b</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathbf X_b\mid\mathbf X_a=x_a\sim N\left(
+\boldsymbol\mu_b+\Sigma_{ba}\Sigma_{aa}^{-1}(x_a-\boldsymbol\mu_a),
+\Sigma_{bb}-\Sigma_{ba}\Sigma_{aa}^{-1}\Sigma_{ab}\right).</annotation></semantics></math></p>
+<p>The covariance is the Schur complement and is positive definite here. The bivariate formula follows by scalar substitution. This derivation specifies a continuous density version and does not condition through a ratio with a zero-probability singleton. Conditional distributions are only uniquely determined almost everywhere in general.</p>
+<p>The same characteristic-function factorization proves that zero cross-covariance of Gaussian subvectors is equivalent to their independence. The statement requires the joint Gaussian assumption, not merely normal marginal distributions.</p>
+</section>
+<section id="probability-inside-a-bivariate-ellipse" class="level2">
+<h2 class="anchored" data-anchor-id="probability-inside-a-bivariate-ellipse">5. Probability inside a bivariate ellipse</h2>
+<p>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝑿</mi><mo>∼</mo><msub><mi>N</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝝁</mi><mo>,</mo><mi mathvariant="normal">Σ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathbf X\sim N_2(\boldsymbol\mu,\Sigma)</annotation></semantics></math> with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math> positive definite and whiten to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="bold-italic">𝒁</mi><annotation encoding="application/x-tex">\mathbf Z</annotation></semantics></math>. The squared Mahalanobis distance is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝑿</mi><mo>−</mo><mi mathvariant="bold-italic">𝝁</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>T</mi></msup><msup><mi mathvariant="normal">Σ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝑿</mi><mo>−</mo><mi mathvariant="bold-italic">𝝁</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mi>Z</mi><mn>1</mn><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>Z</mi><mn>2</mn><mn>2</mn></msubsup><mi>.</mi></mrow><annotation encoding="application/x-tex">Q=(\mathbf X-\boldsymbol\mu)^T\Sigma^{-1}(\mathbf X-\boldsymbol\mu)=Z_1^2+Z_2^2.</annotation></semantics></math></p>
+<p>For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">c\ge0</annotation></semantics></math>, polar integration gives</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo>≤</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mrow><mn>2</mn><mi>π</mi></mrow></msubsup><msubsup><mo>∫</mo><mn>0</mn><msqrt><mi>c</mi></msqrt></msubsup><mfrac><mn>1</mn><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>r</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup><mi>r</mi><mspace width="0.167em"></mspace><mi>d</mi><mi>r</mi><mspace width="0.167em"></mspace><mi>d</mi><mi>θ</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><msubsup><mrow><mo stretchy="true" form="prefix">[</mo><mi>−</mi><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>r</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup><mo stretchy="true" form="postfix">]</mo></mrow><mn>0</mn><msqrt><mi>c</mi></msqrt></msubsup><mo>=</mo><mn>1</mn><mo>−</mo><msup><mi>e</mi><mrow><mi>−</mi><mi>c</mi><mi>/</mi><mn>2</mn></mrow></msup><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+P(Q\le c)&amp;=\int_0^{2\pi}\int_0^{\sqrt c}\frac1{2\pi}e^{-r^2/2}r\,dr\,d\theta\\
+&amp;=\left[-e^{-r^2/2}\right]_0^{\sqrt c}=1-e^{-c/2}.
+\end{aligned}</annotation></semantics></math></p>
+<p>Thus <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math> has a chi-square distribution with two degrees of freedom. The probability-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> ellipse has <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mi>−</mi><mn>2</mn><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>α</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">c=-2\log(1-\alpha)</annotation></semantics></math> for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>α</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;\alpha&lt;1</annotation></semantics></math>. In <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> dimensions the analogous quadratic form is chi-square with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> degrees of freedom; the simple exponential CDF here is specific to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">p=2</annotation></semantics></math>.</p>
+</section>
+<section id="further-exercises" class="level2">
+<h2 class="anchored" data-anchor-id="further-exercises">Further exercises</h2>
+<p><strong>NS1.</strong> Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>4</mn></mtd><mtd columnalign="center" style="text-align: center"><mi>−</mi><mn>2</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>−</mi><mn>2</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>4</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\Sigma=\begin{pmatrix}4&amp;-2\\-2&amp;4\end{pmatrix}</annotation></semantics></math>. Find its eigenvalues, principal directions and the semiaxis lengths of its 95% probability ellipse.</p>
+<p><strong>NS2.</strong> If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝑿</mi><mo>∼</mo><msub><mi>N</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi mathvariant="normal">Σ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathbf X\sim N_2(0,\Sigma)</annotation></semantics></math> with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>4</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\Sigma=\begin{pmatrix}1&amp;1\\1&amp;4\end{pmatrix}</annotation></semantics></math>, calculate the covariance of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mn>1</mn></msub><mo>+</mo><msub><mi>X</mi><mn>2</mn></msub><mo>,</mo><msub><mi>X</mi><mn>2</mn></msub><mo>−</mo><msub><mi>X</mi><mn>1</mn></msub><msup><mo stretchy="false" form="postfix">)</mo><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">(X_1+X_2,X_2-X_1)^T</annotation></semantics></math>. Are these transformed coordinates independent?</p>
+<p><strong>NS3.</strong> In the same sensor model, verify total variance for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mn>2</mn></msub><annotation encoding="application/x-tex">X_2</annotation></semantics></math> using the conditional variance and the variance of the conditional mean.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>The bivariate normal construction and conditional formulas were checked against <a href="https://www.probabilitycourse.com/chapter5/5_3_2_bivariate_normal_dist.php">Pishro-Nik §5.3.2</a>. The matrix and polar derivations above develop the corresponding multivariate statements used in <a href="../tutorials/07-multivariate-normal.html">01.7</a>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/acads-iit-jammu\.github\.io\/da-f26-mtech");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../tutorials/06-transformations-supplement.html" class="pagination-link" aria-label="01.6 supplement · Change of variables and induced laws">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">01.6 supplement · Change of variables and induced laws</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../resources.html" class="pagination-link" aria-label="Resources">
+        <span class="nav-page-text">Resources</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Data Analytics for AI · Executive M.Tech · Monsoon 2026 · IIT Jammu</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

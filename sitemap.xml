@@ -22,7 +22,7 @@
   </url>
   <url>
     <loc>https://acads-iit-jammu.github.io/da-f26-mtech/modules.html</loc>
-    <lastmod>2026-10-31T03:42:44.926Z</lastmod>
+    <lastmod>2026-11-14T03:49:57.832Z</lastmod>
   </url>
   <url>
     <loc>https://acads-iit-jammu.github.io/da-f26-mtech/tutorials/01-probability-foundations.html</loc>
@@ -38,7 +38,19 @@
   </url>
   <url>
     <loc>https://acads-iit-jammu.github.io/da-f26-mtech/tutorials/04-meeting-problem.html</loc>
-    <lastmod>2026-10-31T03:42:44.879Z</lastmod>
+    <lastmod>2026-11-14T03:49:57.833Z</lastmod>
+  </url>
+  <url>
+    <loc>https://acads-iit-jammu.github.io/da-f26-mtech/tutorials/05-expectation-variance.html</loc>
+    <lastmod>2026-11-14T03:44:55.624Z</lastmod>
+  </url>
+  <url>
+    <loc>https://acads-iit-jammu.github.io/da-f26-mtech/tutorials/06-transformations.html</loc>
+    <lastmod>2026-11-14T03:44:55.626Z</lastmod>
+  </url>
+  <url>
+    <loc>https://acads-iit-jammu.github.io/da-f26-mtech/tutorials/07-multivariate-normal.html</loc>
+    <lastmod>2026-11-14T03:49:57.831Z</lastmod>
   </url>
   <url>
     <loc>https://acads-iit-jammu.github.io/da-f26-mtech/tutorials/01-probability-supplement.html</loc>
@@ -47,6 +59,18 @@
   <url>
     <loc>https://acads-iit-jammu.github.io/da-f26-mtech/tutorials/02-random-variables-supplement.html</loc>
     <lastmod>2026-10-31T03:42:44.927Z</lastmod>
+  </url>
+  <url>
+    <loc>https://acads-iit-jammu.github.io/da-f26-mtech/tutorials/05-expectation-supplement.html</loc>
+    <lastmod>2026-11-14T03:48:01.985Z</lastmod>
+  </url>
+  <url>
+    <loc>https://acads-iit-jammu.github.io/da-f26-mtech/tutorials/06-transformations-supplement.html</loc>
+    <lastmod>2026-11-14T03:48:01.988Z</lastmod>
+  </url>
+  <url>
+    <loc>https://acads-iit-jammu.github.io/da-f26-mtech/tutorials/07-normal-supplement.html</loc>
+    <lastmod>2026-11-14T03:48:01.990Z</lastmod>
   </url>
   <url>
     <loc>https://acads-iit-jammu.github.io/da-f26-mtech/resources.html</loc>

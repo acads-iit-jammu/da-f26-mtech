@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>01.7 · The multivariate normal distribution – Data Analytics for AI</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../tutorials/01-probability-supplement.html" rel="next">
+<link href="../tutorials/06-transformations.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-970586c648819a176f05aa782ae30df3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-4e42ae105fa35cf935172ecd058ec8f7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="probability-notes.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tutorials/01-probability-foundations.html">01 · Fundamentals of Probability and Random Signal Theory</a></li><li class="breadcrumb-item"><a href="../tutorials/07-multivariate-normal.html"><span class="chapter-title">01.7 · The multivariate normal distribution</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Data Analytics for AI</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/acads-iit-jammu/da-f26-mtech" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../curriculum.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Curriculum</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignments</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modules</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">01 · Fundamentals of Probability and Random Signal Theory</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/01-probability-foundations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.1 · Introduction to probability through problems</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/02-random-variables.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.2 · Random variables and distributions through problems</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/02-joint-distributions-tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.3 tutorial · From outcomes to joint distributions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/04-meeting-problem.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.4 worked example · Two friends who may not meet</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/05-expectation-variance.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.5 · Expectation, mean and variance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/06-transformations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.6 · Transformations of random variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/07-multivariate-normal.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">01.7 · The multivariate normal distribution</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Supplementary Material</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/01-probability-supplement.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.1 supplement · Sets, measurable maps and Bertrand’s paradox</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/02-random-variables-supplement.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.2 supplement · Advanced distribution theory</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/05-expectation-supplement.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.5 supplement · Expectation and moment identities</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/06-transformations-supplement.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.6 supplement · Change of variables and induced laws</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/07-normal-supplement.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.7 supplement · Gaussian structure and conditional laws</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Resources</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#questions-and-objectives" id="toc-questions-and-objectives" class="nav-link active" data-scroll-target="#questions-and-objectives">Questions and objectives</a></li>
+  <li><a href="#build-two-related-measurements" id="toc-build-two-related-measurements" class="nav-link" data-scroll-target="#build-two-related-measurements">1. Build two related measurements</a>
+  <ul class="collapse">
+  <li><a href="#a-numerical-model-before-the-general-definition" id="toc-a-numerical-model-before-the-general-definition" class="nav-link" data-scroll-target="#a-numerical-model-before-the-general-definition">A numerical model before the general definition</a></li>
+  <li><a href="#mean-vector-and-covariance-matrix" id="toc-mean-vector-and-covariance-matrix" class="nav-link" data-scroll-target="#mean-vector-and-covariance-matrix">Mean vector and covariance matrix</a></li>
+  </ul></li>
+  <li><a href="#definition-and-density" id="toc-definition-and-density" class="nav-link" data-scroll-target="#definition-and-density">2. Definition and density</a>
+  <ul class="collapse">
+  <li><a href="#worked-example-evaluate-and-interpret-a-density" id="toc-worked-example-evaluate-and-interpret-a-density" class="nav-link" data-scroll-target="#worked-example-evaluate-and-interpret-a-density">Worked example: evaluate and interpret a density</a></li>
+  </ul></li>
+  <li><a href="#the-two-dimensional-formula-and-its-geometry" id="toc-the-two-dimensional-formula-and-its-geometry" class="nav-link" data-scroll-target="#the-two-dimensional-formula-and-its-geometry">3. The two-dimensional formula and its geometry</a>
+  <ul class="collapse">
+  <li><a href="#a-contour-is-not-itself-a-probability" id="toc-a-contour-is-not-itself-a-probability" class="nav-link" data-scroll-target="#a-contour-is-not-itself-a-probability">A contour is not itself a probability</a></li>
+  </ul></li>
+  <li><a href="#marginal-and-conditional-normal-laws" id="toc-marginal-and-conditional-normal-laws" class="nav-link" data-scroll-target="#marginal-and-conditional-normal-laws">4. Marginal and conditional normal laws</a>
+  <ul class="collapse">
+  <li><a href="#marginals-retain-coordinates" id="toc-marginals-retain-coordinates" class="nav-link" data-scroll-target="#marginals-retain-coordinates">Marginals retain coordinates</a></li>
+  <li><a href="#condition-on-one-observed-sensor" id="toc-condition-on-one-observed-sensor" class="nav-link" data-scroll-target="#condition-on-one-observed-sensor">Condition on one observed sensor</a></li>
+  <li><a href="#independence-is-a-special-normal-model-property" id="toc-independence-is-a-special-normal-model-property" class="nav-link" data-scroll-target="#independence-is-a-special-normal-model-property">Independence is a special normal-model property</a></li>
+  </ul></li>
+  <li><a href="#linear-transformations-generation-and-whitening" id="toc-linear-transformations-generation-and-whitening" class="nav-link" data-scroll-target="#linear-transformations-generation-and-whitening">5. Linear transformations, generation and whitening</a>
+  <ul class="collapse">
+  <li><a href="#worked-example-a-weighted-financial-quantity" id="toc-worked-example-a-weighted-financial-quantity" class="nav-link" data-scroll-target="#worked-example-a-weighted-financial-quantity">Worked example: a weighted financial quantity</a></li>
+  <li><a href="#generate-the-desired-covariance" id="toc-generate-the-desired-covariance" class="nav-link" data-scroll-target="#generate-the-desired-covariance">Generate the desired covariance</a></li>
+  </ul></li>
+  <li><a href="#boundary-cases-and-what-the-model-does-not-establish" id="toc-boundary-cases-and-what-the-model-does-not-establish" class="nav-link" data-scroll-target="#boundary-cases-and-what-the-model-does-not-establish">6. Boundary cases and what the model does not establish</a></li>
+  <li><a href="#references-and-module-continuation" id="toc-references-and-module-continuation" class="nav-link" data-scroll-target="#references-and-module-continuation">References and module continuation</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tutorials/01-probability-foundations.html">01 · Fundamentals of Probability and Random Signal Theory</a></li><li class="breadcrumb-item"><a href="../tutorials/07-multivariate-normal.html"><span class="chapter-title">01.7 · The multivariate normal distribution</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">01.7 · The multivariate normal distribution</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Data Analytics for AI · Executive M.Tech · IIT Jammu</strong><br>
+<a href="../tutorials/06-transformations.html">Previous: transformations</a> · <a href="../tutorials/07-normal-supplement.html">Rigorous supplement</a> · <a href="../modules.html">Module overview</a></p>
+<section id="questions-and-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="questions-and-objectives">Questions and objectives</h2>
+<p>Two sensors measure deviations from their calibration targets. Each deviation can be positive or negative. If they share an environmental disturbance, large values may occur together. Knowing each marginal distribution does not determine the probability of simultaneous deviations or the distribution of one sensor after observing the other.</p>
+<p>We will construct a multivariate normal vector, define its density and covariance matrix, derive its two-dimensional form, and use its marginals, conditional laws and linear transformations. We will interpret density contours and generate correlated observations. All sensor and financial models below are hypothetical; a normal law is an assumption to examine, not a conclusion from a mean and covariance alone.</p>
+</section>
+<section id="build-two-related-measurements" class="level2">
+<h2 class="anchored" data-anchor-id="build-two-related-measurements">1. Build two related measurements</h2>
+<section id="a-numerical-model-before-the-general-definition" class="level3">
+<h3 class="anchored" data-anchor-id="a-numerical-model-before-the-general-definition">A numerical model before the general definition</h3>
+<p>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mn>1</mn></msub><mo>,</mo><msub><mi>Z</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">Z_1,Z_2</annotation></semantics></math> be independent standard normal variables, each with density</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϕ</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><msqrt><mrow><mn>2</mn><mi>π</mi></mrow></msqrt></mfrac><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>z</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup><mo>,</mo><mspace width="2.0em"></mspace><mi>z</mi><mo>∈</mo><mi mathvariant="double-struck">ℝ</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\phi(z)=\frac1{\sqrt{2\pi}}e^{-z^2/2},\qquad z\in\mathbb R.</annotation></semantics></math></p>
+<p>This is the one-dimensional normal distribution with mean 0 and variance 1. In general, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>μ</mi><mo>,</mo><msup><mi>σ</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">N(\mu,\sigma^2)</annotation></semantics></math> has mean <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>, variance <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>σ</mi><mn>2</mn></msup><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sigma^2&gt;0</annotation></semantics></math>, and density <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϕ</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>−</mo><mi>μ</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>σ</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>σ</mi></mrow><annotation encoding="application/x-tex">\phi((x-\mu)/\sigma)/\sigma</annotation></semantics></math>.</p>
+<p>Define two sensor errors in a common measurement unit:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mn>1</mn></msub><mo>=</mo><msub><mi>Z</mi><mn>1</mn></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>X</mi><mn>2</mn></msub><mo>=</mo><msub><mi>Z</mi><mn>1</mn></msub><mo>+</mo><msqrt><mn>3</mn></msqrt><msub><mi>Z</mi><mn>2</mn></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">X_1=Z_1,\qquad X_2=Z_1+\sqrt3 Z_2.</annotation></semantics></math></p>
+<p>Linearity of expectation gives both means zero. Independence gives</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Var</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><mrow><mi mathvariant="normal">Var</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>+</mo><mn>3</mn><mo>=</mo><mn>4</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">\operatorname{Var}(X_1)=1,\qquad
+\operatorname{Var}(X_2)=1+3=4,</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Cov</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mn>1</mn></msub><mo>,</mo><msub><mi>X</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msub><mi>Z</mi><mn>1</mn></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>Z</mi><mn>1</mn></msub><mo>+</mo><msqrt><mn>3</mn></msqrt><msub><mi>Z</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\operatorname{Cov}(X_1,X_2)=E[Z_1(Z_1+\sqrt3Z_2)]=1.</annotation></semantics></math></p>
+<p>Their correlation is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>⋅</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/(1\cdot2)=1/2</annotation></semantics></math>. The term <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Z</mi><mn>1</mn></msub><annotation encoding="application/x-tex">Z_1</annotation></semantics></math> shared by the two formulas creates covariance. If we know <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mn>1</mn></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">X_1=1</annotation></semantics></math>, the natural conditional model is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mn>2</mn></msub><mo>=</mo><mn>1</mn><mo>+</mo><msqrt><mn>3</mn></msqrt><msub><mi>Z</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">X_2=1+\sqrt3 Z_2</annotation></semantics></math>, giving conditional mean 1 and variance 3. We will justify this using the joint density later in the lecture.</p>
+</section>
+<section id="mean-vector-and-covariance-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="mean-vector-and-covariance-matrix">Mean vector and covariance matrix</h3>
+<p>For a column vector <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝑿</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>X</mi><mi>p</mi></msub><msup><mo stretchy="false" form="postfix">)</mo><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">\mathbf X=(X_1,\ldots,X_p)^T</annotation></semantics></math> with finite second moments, define</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝝁</mi><mo>=</mo><mi>E</mi><mo stretchy="false" form="prefix">[</mo><mi mathvariant="bold-italic">𝑿</mi><mo stretchy="false" form="postfix">]</mo><mo>,</mo><mspace width="2.0em"></mspace><mi mathvariant="normal">Σ</mi><mo>=</mo><mi>E</mi><mo stretchy="false" form="prefix">[</mo><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝑿</mi><mo>−</mo><mi mathvariant="bold-italic">𝝁</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝑿</mi><mo>−</mo><mi mathvariant="bold-italic">𝝁</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>T</mi></msup><mo stretchy="false" form="postfix">]</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\boldsymbol\mu=E[\mathbf X],\qquad
+\Sigma=E[(\mathbf X-\boldsymbol\mu)(\mathbf X-\boldsymbol\mu)^T].</annotation></semantics></math></p>
+<p>The diagonal entries are variances; entry <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(i,j)</annotation></semantics></math> is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Cov</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mi>i</mi></msub><mo>,</mo><msub><mi>X</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{Cov}(X_i,X_j)</annotation></semantics></math>. In the sensor model,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝝁</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mi mathvariant="normal">Σ</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>4</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\boldsymbol\mu=\begin{pmatrix}0\\0\end{pmatrix},\qquad
+\Sigma=\begin{pmatrix}1&amp;1\\1&amp;4\end{pmatrix}.</annotation></semantics></math></p>
+<p>Every covariance matrix is symmetric and positive semidefinite: for any vector <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mi>T</mi></msup><mi mathvariant="normal">Σ</mi><mi>a</mi><mo>=</mo><mrow><mi mathvariant="normal">Var</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msup><mi>a</mi><mi>T</mi></msup><mi mathvariant="bold-italic">𝑿</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a^T\Sigma a=\operatorname{Var}(a^T\mathbf X)\ge0</annotation></semantics></math>. Positive definite means this is strictly positive for every nonzero <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>; it excludes a linear combination with zero variance.</p>
+</section>
+</section>
+<section id="definition-and-density" class="level2">
+<h2 class="anchored" data-anchor-id="definition-and-density">2. Definition and density</h2>
+<p>A vector is <strong>multivariate normal</strong>, or <strong>jointly Gaussian</strong>, if every linear combination <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mi>T</mi></msup><mi mathvariant="bold-italic">𝑿</mi></mrow><annotation encoding="application/x-tex">a^T\mathbf X</annotation></semantics></math> is a univariate normal variable, allowing a constant as a degenerate normal. Equivalently, it can be represented as</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝑿</mi><mo>=</mo><mi mathvariant="bold-italic">𝝁</mi><mo>+</mo><mi>A</mi><mi mathvariant="bold-italic">𝒁</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathbf X=\boldsymbol\mu+A\mathbf Z,</annotation></semantics></math></p>
+<p>where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="bold-italic">𝒁</mi><annotation encoding="application/x-tex">\mathbf Z</annotation></semantics></math> has independent standard normal components. Its covariance is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><msup><mi>A</mi><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">AA^T</annotation></semantics></math>. We write <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝑿</mi><mo>∼</mo><msub><mi>N</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝝁</mi><mo>,</mo><mi mathvariant="normal">Σ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathbf X\sim N_p(\boldsymbol\mu,\Sigma)</annotation></semantics></math>.</p>
+<p>For a <strong>positive definite</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>×</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">p\times p</annotation></semantics></math> covariance matrix, the joint density is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi mathvariant="bold-italic">𝑿</mi></msub><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒙</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>p</mi><mi>/</mi><mn>2</mn></mrow></msup><mo stretchy="false" form="prefix">|</mo><mi mathvariant="normal">Σ</mi><msup><mo stretchy="false" form="prefix">|</mo><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow></msup></mrow></mfrac><mrow><mi mathvariant="normal">exp</mi><mo>⁡</mo></mrow><mrow><mo stretchy="true" form="prefix">[</mo><mi>−</mi><mfrac><mn>1</mn><mn>2</mn></mfrac><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒙</mi><mo>−</mo><mi mathvariant="bold-italic">𝝁</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>T</mi></msup><msup><mi mathvariant="normal">Σ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒙</mi><mo>−</mo><mi mathvariant="bold-italic">𝝁</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="true" form="postfix">]</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mi mathvariant="bold-italic">𝒙</mi><mo>∈</mo><msup><mi mathvariant="double-struck">ℝ</mi><mi>p</mi></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">f_{\mathbf X}(\mathbf x)=
+\frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}
+\exp\left[-\frac12(\mathbf x-\boldsymbol\mu)^T\Sigma^{-1}(\mathbf x-\boldsymbol\mu)\right],
+\qquad\mathbf x\in\mathbb R^p.</annotation></semantics></math></p>
+<p>Here <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi mathvariant="normal">Σ</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|\Sigma|</annotation></semantics></math> denotes the determinant. A canonical probability model is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msup><mi mathvariant="double-struck">ℝ</mi><mi>p</mi></msup><mo>,</mo><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><msup><mi mathvariant="double-struck">ℝ</mi><mi>p</mi></msup><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(\mathbb R^p,\mathcal B(\mathbb R^p),P)</annotation></semantics></math> with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∫</mo><mi>B</mi></msub><msub><mi>f</mi><mi mathvariant="bold-italic">𝑿</mi></msub><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒙</mi><mo stretchy="false" form="postfix">)</mo><mi>d</mi><mi mathvariant="bold-italic">𝒙</mi></mrow><annotation encoding="application/x-tex">P(B)=\int_B f_{\mathbf X}(\mathbf x)d\mathbf x</annotation></semantics></math> and coordinate random variables. The density is nonnegative and integrates to 1. It is not the probability of a point, which is zero.</p>
+<p>To see where the formula comes from, choose an invertible <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math> with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><msup><mi>L</mi><mi>T</mi></msup><mo>=</mo><mi mathvariant="normal">Σ</mi></mrow><annotation encoding="application/x-tex">LL^T=\Sigma</annotation></semantics></math>, and transform independent standard normals by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝒙</mi><mo>=</mo><mi mathvariant="bold-italic">𝝁</mi><mo>+</mo><mi>L</mi><mi mathvariant="bold-italic">𝒛</mi></mrow><annotation encoding="application/x-tex">\mathbf x=\boldsymbol\mu+L\mathbf z</annotation></semantics></math>. The inverse Jacobian factor is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">|</mo><mrow><mi mathvariant="normal">det</mi><mo>⁡</mo></mrow><mi>L</mi><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mn>1</mn><mi>/</mi><msqrt><mrow><mo stretchy="false" form="prefix">|</mo><mi mathvariant="normal">Σ</mi><mo stretchy="false" form="prefix">|</mo></mrow></msqrt></mrow><annotation encoding="application/x-tex">1/|\det L|=1/\sqrt{|\Sigma|}</annotation></semantics></math>, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="bold-italic">𝒛</mi><mi>T</mi></msup><mi mathvariant="bold-italic">𝒛</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒙</mi><mo>−</mo><mi mathvariant="bold-italic">𝝁</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>T</mi></msup><msup><mi mathvariant="normal">Σ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒙</mi><mo>−</mo><mi mathvariant="bold-italic">𝝁</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathbf z^T\mathbf z=(\mathbf x-\boldsymbol\mu)^T\Sigma^{-1}(\mathbf x-\boldsymbol\mu)</annotation></semantics></math>. This applies the previous lecture’s change-of-variables rule. The supplement supplies the full normalization argument.</p>
+<section id="worked-example-evaluate-and-interpret-a-density" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example-evaluate-and-interpret-a-density">Worked example: evaluate and interpret a density</h3>
+<p>For the sensor covariance,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi mathvariant="normal">Σ</mi><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mn>4</mn><mo>−</mo><mn>1</mn><mo>=</mo><mn>3</mn><mo>,</mo><mspace width="2.0em"></mspace><msup><mi mathvariant="normal">Σ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo>=</mo><mfrac><mn>1</mn><mn>3</mn></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>4</mn></mtd><mtd columnalign="center" style="text-align: center"><mi>−</mi><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>−</mi><mn>1</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">|\Sigma|=4-1=3,\qquad
+\Sigma^{-1}=\frac13\begin{pmatrix}4&amp;-1\\-1&amp;1\end{pmatrix}.</annotation></semantics></math></p>
+<p>At <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝒙</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>2</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">\mathbf x=(1,2)^T</annotation></semantics></math>, the quadratic form is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mfrac><mn>1</mn><mn>3</mn></mfrac><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>−</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>4</mn><mn>3</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">q=\frac13(4(1)^2-2(1)(2)+(2)^2)=\frac43.</annotation></semantics></math></p>
+<p>Therefore</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>π</mi><msqrt><mn>3</mn></msqrt></mrow></mfrac><msup><mi>e</mi><mrow><mi>−</mi><mn>2</mn><mi>/</mi><mn>3</mn></mrow></msup><mo>≈</mo><mn>0.04718</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">f(1,2)=\frac{1}{2\pi\sqrt3}e^{-2/3}\approx0.04718.</annotation></semantics></math></p>
+<p>This is a density in inverse squared measurement units. A small rectangle centered there with widths <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mn>1</mn></msub><mo>,</mo><msub><mi>h</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">h_1,h_2</annotation></semantics></math> has probability approximately <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>h</mi><mn>1</mn></msub><msub><mi>h</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">f(1,2)h_1h_2</annotation></semantics></math> when the density varies little over it. The exact probability is its double integral, not <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.04718</mn><annotation encoding="application/x-tex">0.04718</annotation></semantics></math>.</p>
+<p><strong>Practice check N1.</strong> For the same model, evaluate the quadratic form and density at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>−</mi><mn>2</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">(1,-2)^T</annotation></semantics></math>. Explain the comparison with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>2</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">(1,2)^T</annotation></semantics></math> using the sign of the covariance.</p>
+</section>
+</section>
+<section id="the-two-dimensional-formula-and-its-geometry" class="level2">
+<h2 class="anchored" data-anchor-id="the-two-dimensional-formula-and-its-geometry">3. The two-dimensional formula and its geometry</h2>
+<p>Write</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mi>σ</mi><mn>1</mn><mn>2</mn></msubsup></mtd><mtd columnalign="center" style="text-align: center"><mi>ρ</mi><msub><mi>σ</mi><mn>1</mn></msub><msub><mi>σ</mi><mn>2</mn></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>ρ</mi><msub><mi>σ</mi><mn>1</mn></msub><msub><mi>σ</mi><mn>2</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><msubsup><mi>σ</mi><mn>2</mn><mn>2</mn></msubsup></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>σ</mi><mn>1</mn></msub><mo>,</mo><msub><mi>σ</mi><mn>2</mn></msub><mo>&gt;</mo><mn>0</mn><mo>,</mo><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">|</mo><mi>ρ</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\Sigma=\begin{pmatrix}
+\sigma_1^2&amp;\rho\sigma_1\sigma_2\\
+\rho\sigma_1\sigma_2&amp;\sigma_2^2
+\end{pmatrix},\qquad \sigma_1,\sigma_2&gt;0,\quad |\rho|&lt;1.</annotation></semantics></math></p>
+<p>Its determinant is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>σ</mi><mn>1</mn><mn>2</mn></msubsup><msubsup><mi>σ</mi><mn>2</mn><mn>2</mn></msubsup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>ρ</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sigma_1^2\sigma_2^2(1-\rho^2)&gt;0</annotation></semantics></math>. Put <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mi>i</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><msub><mi>μ</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msub><mi>σ</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">z_i=(x_i-\mu_i)/\sigma_i</annotation></semantics></math>. The density becomes</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>,</mo><msub><mi>x</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>π</mi><msub><mi>σ</mi><mn>1</mn></msub><msub><mi>σ</mi><mn>2</mn></msub><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>ρ</mi><mn>2</mn></msup></mrow></msqrt></mrow></mfrac><mrow><mi mathvariant="normal">exp</mi><mo>⁡</mo></mrow><mrow><mo stretchy="true" form="prefix">[</mo><mi>−</mi><mfrac><mrow><msubsup><mi>z</mi><mn>1</mn><mn>2</mn></msubsup><mo>−</mo><mn>2</mn><mi>ρ</mi><msub><mi>z</mi><mn>1</mn></msub><msub><mi>z</mi><mn>2</mn></msub><mo>+</mo><msubsup><mi>z</mi><mn>2</mn><mn>2</mn></msubsup></mrow><mrow><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>ρ</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo stretchy="true" form="postfix">]</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">f(x_1,x_2)=\frac{1}{2\pi\sigma_1\sigma_2\sqrt{1-\rho^2}}
+\exp\left[-\frac{z_1^2-2\rho z_1z_2+z_2^2}{2(1-\rho^2)}\right].</annotation></semantics></math></p>
+<p>At fixed density, the quadratic form <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒙</mi><mo>−</mo><mi mathvariant="bold-italic">𝝁</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>T</mi></msup><msup><mi mathvariant="normal">Σ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒙</mi><mo>−</mo><mi mathvariant="bold-italic">𝝁</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">q=(\mathbf x-\boldsymbol\mu)^T\Sigma^{-1}(\mathbf x-\boldsymbol\mu)</annotation></semantics></math> is constant. If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi><mo>=</mo><mi>Q</mi><mi mathvariant="normal">Λ</mi><msup><mi>Q</mi><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">\Sigma=Q\Lambda Q^T</annotation></semantics></math> with orthonormal eigenvectors and positive eigenvalues <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>λ</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\lambda_i</annotation></semantics></math>, coordinates <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝒖</mi><mo>=</mo><msup><mi>Q</mi><mi>T</mi></msup><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒙</mi><mo>−</mo><mi mathvariant="bold-italic">𝝁</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathbf u=Q^T(\mathbf x-\boldsymbol\mu)</annotation></semantics></math> give</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mfrac><msubsup><mi>u</mi><mn>1</mn><mn>2</mn></msubsup><msub><mi>λ</mi><mn>1</mn></msub></mfrac><mo>+</mo><mfrac><msubsup><mi>u</mi><mn>2</mn><mn>2</mn></msubsup><msub><mi>λ</mi><mn>2</mn></msub></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">q=\frac{u_1^2}{\lambda_1}+\frac{u_2^2}{\lambda_2}.</annotation></semantics></math></p>
+<p>Contours are ellipses centered at the mean, with principal directions given by the eigenvectors and semiaxis lengths <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><mi>c</mi><msub><mi>λ</mi><mi>i</mi></msub></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{c\lambda_i}</annotation></semantics></math> at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">q=c</annotation></semantics></math>. Positive correlation tilts contours toward pairs with matching signs of standardized deviations; negative correlation favors opposite signs. Marginal standard deviations and principal-axis standard deviations are generally different quantities.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../materials/07-multivariate-normal/normal-contours.svg" class="img-fluid figure-img" alt="Three Gaussian probability ellipses with correlation minus 0.8, zero and plus 0.8."></p>
+<figcaption>Equal marginal variances with different correlations. Each outlined region contains 95% of the stipulated Gaussian probability.</figcaption>
+</figure>
+</div>
+<p><a href="../materials/07-multivariate-normal/bivariate-normal.html">Open the bivariate-normal density and conditioning explorer</a>. Change correlation, means and scales. Compare the density heatmap and its contour with the marginal and conditional curves. The density color scale is displayed; use the numerical values when comparing models.</p>
+<section id="a-contour-is-not-itself-a-probability" class="level3">
+<h3 class="anchored" data-anchor-id="a-contour-is-not-itself-a-probability">A contour is not itself a probability</h3>
+<p>For this bivariate normal law,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>≤</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><msup><mi>e</mi><mrow><mi>−</mi><mi>c</mi><mi>/</mi><mn>2</mn></mrow></msup><mo>,</mo><mspace width="2.0em"></mspace><mi>c</mi><mo>≥</mo><mn>0</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">P(q\le c)=1-e^{-c/2},\qquad c\ge0.</annotation></semantics></math></p>
+<p>Thus the ellipse <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q\le1</annotation></semantics></math> contains about <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>39.35</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">39.35\%</annotation></semantics></math>, not <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>68</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">68\%</annotation></semantics></math>, of the probability. A 95% <strong>probability ellipse</strong> uses <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mi>−</mi><mn>2</mn><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>0.05</mn><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>5.991</mn></mrow><annotation encoding="application/x-tex">c=-2\log(0.05)\approx5.991</annotation></semantics></math>. It describes the distribution of observations under known parameters; it is not automatically a confidence region for an estimated mean. The contour line itself has probability zero. The supplement derives the interior probability by polar integration.</p>
+</section>
+</section>
+<section id="marginal-and-conditional-normal-laws" class="level2">
+<h2 class="anchored" data-anchor-id="marginal-and-conditional-normal-laws">4. Marginal and conditional normal laws</h2>
+<section id="marginals-retain-coordinates" class="level3">
+<h3 class="anchored" data-anchor-id="marginals-retain-coordinates">Marginals retain coordinates</h3>
+<p>Ignoring the second sensor in the construction gives <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mn>1</mn></msub><mo>=</mo><msub><mi>Z</mi><mn>1</mn></msub><mo>∼</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_1=Z_1\sim N(0,1)</annotation></semantics></math>. Ignoring the first gives <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mn>2</mn></msub><mo>=</mo><msub><mi>Z</mi><mn>1</mn></msub><mo>+</mo><msqrt><mn>3</mn></msqrt><msub><mi>Z</mi><mn>2</mn></msub><mo>∼</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_2=Z_1+\sqrt3Z_2\sim N(0,4)</annotation></semantics></math>. This illustrates the general property: every subvector of a jointly normal vector is normal, with the corresponding subvector of means and covariance submatrix.</p>
+<p>The statement that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mn>2</mn></msub><annotation encoding="application/x-tex">X_2</annotation></semantics></math> is normal follows from joint normality of the independent normal inputs and the linear-combination property. Having normally shaped marginal distributions alone would not justify the full joint model.</p>
+</section>
+<section id="condition-on-one-observed-sensor" class="level3">
+<h3 class="anchored" data-anchor-id="condition-on-one-observed-sensor">Condition on one observed sensor</h3>
+<p>Complete the square in the bivariate exponent:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><msubsup><mi>z</mi><mn>1</mn><mn>2</mn></msubsup><mo>−</mo><mn>2</mn><mi>ρ</mi><msub><mi>z</mi><mn>1</mn></msub><msub><mi>z</mi><mn>2</mn></msub><mo>+</mo><msubsup><mi>z</mi><mn>2</mn><mn>2</mn></msubsup></mrow><mrow><mn>1</mn><mo>−</mo><msup><mi>ρ</mi><mn>2</mn></msup></mrow></mfrac><mo>=</mo><msubsup><mi>z</mi><mn>1</mn><mn>2</mn></msubsup><mo>+</mo><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>z</mi><mn>2</mn></msub><mo>−</mo><mi>ρ</mi><msub><mi>z</mi><mn>1</mn></msub><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><mrow><mn>1</mn><mo>−</mo><msup><mi>ρ</mi><mn>2</mn></msup></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{z_1^2-2\rho z_1z_2+z_2^2}{1-\rho^2}
+=z_1^2+\frac{(z_2-\rho z_1)^2}{1-\rho^2}.</annotation></semantics></math></p>
+<p>The joint density factors into the marginal density of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mn>1</mn></msub><annotation encoding="application/x-tex">X_1</annotation></semantics></math> and a normal density in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mn>2</mn></msub><annotation encoding="application/x-tex">X_2</annotation></semantics></math>. Therefore a natural conditional version is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mn>2</mn></msub><mo>∣</mo><msub><mi>X</mi><mn>1</mn></msub><mo>=</mo><mi>x</mi><mo>∼</mo><mi>N</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>μ</mi><mn>2</mn></msub><mo>+</mo><mi>ρ</mi><mfrac><msub><mi>σ</mi><mn>2</mn></msub><msub><mi>σ</mi><mn>1</mn></msub></mfrac><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>−</mo><msub><mi>μ</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="1.0em"></mspace><msubsup><mi>σ</mi><mn>2</mn><mn>2</mn></msubsup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>ρ</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">X_2\mid X_1=x\sim N\left(
+\mu_2+\rho\frac{\sigma_2}{\sigma_1}(x-\mu_1),\quad
+\sigma_2^2(1-\rho^2)\right).</annotation></semantics></math></p>
+<p>Conditioning shifts the mean linearly and reduces the variance unless <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\rho=0</annotation></semantics></math>. This is a density-based conditional law at a continuous value; it does not divide by the zero probability <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mn>1</mn></msub><mo>=</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(X_1=x)</annotation></semantics></math>.</p>
+<p>For the sensor model, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mn>1</mn></msub><mo>=</mo><msub><mi>μ</mi><mn>2</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\mu_1=\mu_2=0</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mn>1</mn></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sigma_1=1</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mn>2</mn></msub><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\sigma_2=2</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\rho=1/2</annotation></semantics></math>. At <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mn>1</mn></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">X_1=1</annotation></semantics></math>,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msub><mi>X</mi><mn>2</mn></msub><mo>∣</mo><msub><mi>X</mi><mn>1</mn></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><mrow><mi mathvariant="normal">Var</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mn>2</mn></msub><mo>∣</mo><msub><mi>X</mi><mn>1</mn></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>1</mn><mi>/</mi><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">E[X_2\mid X_1=1]=1,\qquad
+\operatorname{Var}(X_2\mid X_1=1)=4(1-1/4)=3.</annotation></semantics></math></p>
+<p>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Φ</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mrow><mi>−</mi><mi>∞</mi></mrow><mi>t</mi></msubsup><mi>ϕ</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mi>d</mi><mi>z</mi></mrow><annotation encoding="application/x-tex">\Phi(t)=\int_{-\infty}^t\phi(z)dz</annotation></semantics></math> be the standard-normal CDF. A further probability calculation is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mn>2</mn></msub><mo>&gt;</mo><mn>2</mn><mo>∣</mo><msub><mi>X</mi><mn>1</mn></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mi mathvariant="normal">Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mn>2</mn><mo>−</mo><mn>1</mn></mrow><msqrt><mn>3</mn></msqrt></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>≈</mo><mn>0.282</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">P(X_2&gt;2\mid X_1=1)=1-\Phi\left(\frac{2-1}{\sqrt3}\right)\approx0.282,</annotation></semantics></math></p>
+<p>whereas <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mn>2</mn></msub><mo>&gt;</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mi mathvariant="normal">Φ</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>0.159</mn></mrow><annotation encoding="application/x-tex">P(X_2&gt;2)=1-\Phi(1)\approx0.159</annotation></semantics></math>. The conditioning information changes the question and the result; it does not establish a causal relation between sensors.</p>
+<p><strong>Practice check N2.</strong> In this sensor model, give the conditional mean and variance at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mn>1</mn></msub><mo>=</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">X_1=-1</annotation></semantics></math>. Write <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mn>2</mn></msub><mo>&gt;</mo><mn>0</mn><mo>∣</mo><msub><mi>X</mi><mn>1</mn></msub><mo>=</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(X_2&gt;0\mid X_1=-1)</annotation></semantics></math> in terms of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Φ</mi><annotation encoding="application/x-tex">\Phi</annotation></semantics></math>.</p>
+</section>
+<section id="independence-is-a-special-normal-model-property" class="level3">
+<h3 class="anchored" data-anchor-id="independence-is-a-special-normal-model-property">Independence is a special normal-model property</h3>
+<p>For jointly normal scalar components, zero covariance is equivalent to independence. In the bivariate formula, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\rho=0</annotation></semantics></math> removes the cross term and makes the density the product of two marginal normal densities. The same principle applies to subvectors whose cross-covariance matrix is zero.</p>
+<p>The qualification <strong>jointly normal</strong> matters. Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi><mo>∼</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Z\sim N(0,1)</annotation></semantics></math> and independently choose <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mi>+</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">B=+1</annotation></semantics></math> or <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math> with equal probabilities. Set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>=</mo><mi>Z</mi></mrow><annotation encoding="application/x-tex">X=Z</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>=</mo><mi>B</mi><mi>Z</mi></mrow><annotation encoding="application/x-tex">Y=BZ</annotation></semantics></math>. Both marginals are standard normal and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mi>Y</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mi>E</mi><mo stretchy="false" form="prefix">[</mo><mi>B</mi><mo stretchy="false" form="postfix">]</mo><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>Z</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">E[XY]=E[B]E[Z^2]=0</annotation></semantics></math>. Yet <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>X</mi><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mo stretchy="false" form="prefix">|</mo><mi>Y</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|X|=|Y|</annotation></semantics></math> surely, so they are dependent. Also <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>+</mo><mi>Y</mi></mrow><annotation encoding="application/x-tex">X+Y</annotation></semantics></math> has a point mass of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math> at zero and is not a nondegenerate normal variable. Thus the vector is not jointly normal.</p>
+<p><strong>Stopping point.</strong> Compare a marginal distribution, a conditional distribution, and the independence condition before applying matrix transformations.</p>
+</section>
+</section>
+<section id="linear-transformations-generation-and-whitening" class="level2">
+<h2 class="anchored" data-anchor-id="linear-transformations-generation-and-whitening">5. Linear transformations, generation and whitening</h2>
+<section id="worked-example-a-weighted-financial-quantity" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example-a-weighted-financial-quantity">Worked example: a weighted financial quantity</h3>
+<p>Suppose two modelled daily changes, in percentage points, are jointly normal with means 0.1 and 0.2, standard deviations 1 and 2, and correlation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>. Their covariance matrix is the sensor matrix. For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mn>0.6</mn><msub><mi>X</mi><mn>1</mn></msub><mo>+</mo><mn>0.4</mn><msub><mi>X</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">R=0.6X_1+0.4X_2</annotation></semantics></math>,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><mi>R</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.6</mn><mo stretchy="false" form="prefix">(</mo><mn>0.1</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>0.4</mn><mo stretchy="false" form="prefix">(</mo><mn>0.2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.14</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">E[R]=0.6(0.1)+0.4(0.2)=0.14,</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Var</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mn>0.6</mn><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msup><mn>0.4</mn><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mn>0.6</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>0.4</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1.48</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\operatorname{Var}(R)=0.6^2(1)+0.4^2(4)+2(0.6)(0.4)(1)=1.48.</annotation></semantics></math></p>
+<p>Because this is a linear combination of jointly normal variables,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>∼</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mn>0.14</mn><mo>,</mo><mn>1.48</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">R\sim N(0.14,1.48).</annotation></semantics></math></p>
+<p>For example, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>R</mi><mo>&lt;</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi mathvariant="normal">Φ</mi><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>0.14</mn><mi>/</mi><msqrt><mn>1.48</mn></msqrt><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>0.454</mn></mrow><annotation encoding="application/x-tex">P(R&lt;0)=\Phi(-0.14/\sqrt{1.48})\approx0.454</annotation></semantics></math>. This is a calculation within an invented model, not a financial forecast. The mean and variance calculation is valid beyond normal distributions, but the conclusion that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math> is normal needs the joint-normal assumption.</p>
+<p>In general,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝑿</mi><mo>∼</mo><msub><mi>N</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝝁</mi><mo>,</mo><mi mathvariant="normal">Σ</mi><mo stretchy="false" form="postfix">)</mo><mspace width="1.0em"></mspace><mo>⇒</mo><mspace width="1.0em"></mspace><mi>A</mi><mi mathvariant="bold-italic">𝑿</mi><mo>+</mo><mi>b</mi><mo>∼</mo><msub><mi>N</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mi mathvariant="bold-italic">𝝁</mi><mo>+</mo><mi>b</mi><mo>,</mo><mi>A</mi><mi mathvariant="normal">Σ</mi><msup><mi>A</mi><mi>T</mi></msup><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathbf X\sim N_p(\boldsymbol\mu,\Sigma)
+\quad\Longrightarrow\quad
+A\mathbf X+b\sim N_k(A\boldsymbol\mu+b,A\Sigma A^T).</annotation></semantics></math></p>
+<p>The new covariance may be singular, even if the original covariance is positive definite, when <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math> has deficient row rank.</p>
+</section>
+<section id="generate-the-desired-covariance" class="level3">
+<h3 class="anchored" data-anchor-id="generate-the-desired-covariance">Generate the desired covariance</h3>
+<p>For the two-dimensional parameterization, independent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mn>1</mn></msub><mo>,</mo><msub><mi>Z</mi><mn>2</mn></msub><mo>∼</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Z_1,Z_2\sim N(0,1)</annotation></semantics></math> give</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mn>1</mn></msub><mo>=</mo><msub><mi>μ</mi><mn>1</mn></msub><mo>+</mo><msub><mi>σ</mi><mn>1</mn></msub><msub><mi>Z</mi><mn>1</mn></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>X</mi><mn>2</mn></msub><mo>=</mo><msub><mi>μ</mi><mn>2</mn></msub><mo>+</mo><msub><mi>σ</mi><mn>2</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>ρ</mi><msub><mi>Z</mi><mn>1</mn></msub><mo>+</mo><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>ρ</mi><mn>2</mn></msup></mrow></msqrt><msub><mi>Z</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">X_1=\mu_1+\sigma_1Z_1,\qquad
+X_2=\mu_2+\sigma_2\left(\rho Z_1+\sqrt{1-\rho^2}Z_2\right).</annotation></semantics></math></p>
+<p>Then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Cov</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mn>1</mn></msub><mo>,</mo><msub><mi>X</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>ρ</mi><msub><mi>σ</mi><mn>1</mn></msub><msub><mi>σ</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\operatorname{Cov}(X_1,X_2)=\rho\sigma_1\sigma_2</annotation></semantics></math>, while the second variance is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>σ</mi><mn>2</mn><mn>2</mn></msubsup><mo stretchy="false" form="prefix">[</mo><msup><mi>ρ</mi><mn>2</mn></msup><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>ρ</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>=</mo><msubsup><mi>σ</mi><mn>2</mn><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">\sigma_2^2[\rho^2+(1-\rho^2)]=\sigma_2^2</annotation></semantics></math>. This is the two-dimensional Cholesky construction <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝑿</mi><mo>=</mo><mi mathvariant="bold-italic">𝝁</mi><mo>+</mo><mi>L</mi><mi mathvariant="bold-italic">𝒁</mi></mrow><annotation encoding="application/x-tex">\mathbf X=\boldsymbol\mu+L\mathbf Z</annotation></semantics></math>.</p>
+<p>Conversely, for invertible <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math> with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><msup><mi>L</mi><mi>T</mi></msup><mo>=</mo><mi mathvariant="normal">Σ</mi></mrow><annotation encoding="application/x-tex">LL^T=\Sigma</annotation></semantics></math>,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝒁</mi><mo>=</mo><msup><mi>L</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝑿</mi><mo>−</mo><mi mathvariant="bold-italic">𝝁</mi><mo stretchy="false" form="postfix">)</mo><mo>∼</mo><msub><mi>N</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>I</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathbf Z=L^{-1}(\mathbf X-\boldsymbol\mu)\sim N_p(0,I).</annotation></semantics></math></p>
+<p>This operation is called <strong>whitening</strong>. For the sensor example, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mn>1</mn></msub><mo>=</mo><msub><mi>X</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">Z_1=X_1</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mn>2</mn></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mn>2</mn></msub><mo>−</mo><msub><mi>X</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msqrt><mn>3</mn></msqrt></mrow><annotation encoding="application/x-tex">Z_2=(X_2-X_1)/\sqrt3</annotation></semantics></math>. Dividing each original coordinate by its own standard deviation only standardizes the marginals; it leaves correlation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math> and does not whiten.</p>
+<p><a href="../materials/07-multivariate-normal/normal-generation.html">Open the generation and whitening demonstration</a>. The same fixed simulated standard-normal pairs are transformed as correlation changes. Compare population covariance with the finite simulated sample covariance; they need not coincide exactly.</p>
+<p><strong>Practice check N3.</strong> For the sensor model, find the distribution of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mn>2</mn></msub><mo>−</mo><msub><mi>X</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">X_2-X_1</annotation></semantics></math>. Verify that its variance agrees with the construction in independent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mn>1</mn></msub><mo>,</mo><msub><mi>Z</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">Z_1,Z_2</annotation></semantics></math>.</p>
+</section>
+</section>
+<section id="boundary-cases-and-what-the-model-does-not-establish" class="level2">
+<h2 class="anchored" data-anchor-id="boundary-cases-and-what-the-model-does-not-establish">6. Boundary cases and what the model does not establish</h2>
+<p>At <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>ρ</mi><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|\rho|=1</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi mathvariant="normal">Σ</mi><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">|\Sigma|=0</annotation></semantics></math> and the density formula involving <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="normal">Σ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">\Sigma^{-1}</annotation></semantics></math> is unavailable. A Gaussian distribution can still exist: for example <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mn>2</mn></msub><mo>=</mo><mn>2</mn><msub><mi>X</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">X_2=2X_1</annotation></semantics></math> with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mn>1</mn></msub><mo>∼</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_1\sim N(0,1)</annotation></semantics></math> is concentrated on a line. It has no density with respect to two-dimensional area. The interactive density explorer restricts <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>ρ</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|\rho|&lt;1</annotation></semantics></math> so it always displays a genuine planar density.</p>
+<p>A normal distribution has unbounded support. It can be a stipulated model for signed errors or changes, but using it for an inherently nonnegative duration requires considering the negative values it permits. Normal-looking marginals, an elliptical scatterplot, and a computed covariance do not by themselves prove joint normality. Distributional assumptions must be assessed using the context and data.</p>
+<p><strong>Practice check N4.</strong> Explain why <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>2</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>2</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\begin{pmatrix}1&amp;2\\2&amp;1\end{pmatrix}</annotation></semantics></math> cannot be a covariance matrix. Find a linear combination whose proposed variance would be negative.</p>
+<p><strong>Practice check N5.</strong> Find the constant <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> for a bivariate normal probability ellipse containing 90% of observations. Does its contour line have probability 90%?</p>
+</section>
+<section id="references-and-module-continuation" class="level2">
+<h2 class="anchored" data-anchor-id="references-and-module-continuation">References and module continuation</h2>
+<p>The bivariate construction, density and conditional law were checked against Pishro-Nik’s <a href="https://www.probabilitycourse.com/chapter5/5_3_2_bivariate_normal_dist.php">§5.3.2, Bivariate Normal Distribution</a>. Penn State’s <a href="https://online.stat.psu.edu/stat505/Lesson04">STAT 505, Lesson 4</a> gives additional multivariate-normal reading. See the <a href="../tutorials/07-normal-supplement.html">supplement</a> for normalization, block conditioning, singular cases and the ellipse calculation.</p>
+<p>Together, 01.5–01.7 develop expectation and joint moments, distributions of functions, generation of random variables, and a tractable multivariate model. The next module studies sequences of random variables, random processes and convergence; the stopping points here allow time to consolidate the calculations first.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/acads-iit-jammu\.github\.io\/da-f26-mtech");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../tutorials/06-transformations.html" class="pagination-link" aria-label="01.6 · Transformations of random variables">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">01.6 · Transformations of random variables</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../tutorials/01-probability-supplement.html" class="pagination-link" aria-label="01.1 supplement · Sets, measurable maps and Bertrand's paradox">
+        <span class="nav-page-text"><span class="chapter-title">01.1 supplement · Sets, measurable maps and Bertrand’s paradox</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Data Analytics for AI · Executive M.Tech · Monsoon 2026 · IIT Jammu</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
