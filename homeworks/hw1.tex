@@ -1,0 +1,108 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=22mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,enumitem,fancyhdr,xcolor}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist[enumerate]{leftmargin=*,itemsep=5pt,topsep=5pt}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small Data Analytics for AI -- Executive M.Tech}
+\fancyhead[R]{\small IIT Jammu}
+\fancyfoot[L]{\small Homework 1 -- Due 14 November 2026}
+\fancyfoot[R]{\thepage}
+\setlength{\headheight}{14pt}
+\newcommand{\teach}[1]{\par\smallskip\textit{Instructor note:} #1\par}
+\begin{document}
+
+{\Large\bfseries Homework 1: Identifying probability objects}
+\par\textbf{Due: 14 November 2026}\par
+Five problems: two easy, two medium and one difficult. All scenarios and numerical values are hypothetical or stipulated. Give short explanations and show steps for the few requested calculations.
+\section*{Problem 1 -- Selecting a reviewed ticket (easy)}
+
+A service-desk supervisor selects one ticket uniformly from six completed reviews: every ticket ID has the same chance of selection. The number of corrections made to each suggested response is already recorded.
+
+\begin{center}\begin{tabular}{lcccccc}\toprule
+Ticket ID & $t_1$ & $t_2$ & $t_3$ & $t_4$ & $t_5$ & $t_6$ \\
+\midrule
+Corrections & 0 & 1 & 0 & 2 & 1 & 0 \\
+\bottomrule\end{tabular}\end{center}
+
+\begin{enumerate}
+\item State the sample space $\Omega$ and give one outcome. Why is $\{0,1,2\}$ not the sample space of ticket IDs in this experiment?
+\item Define a random variable $X$ recording the correction count. State its domain, range and value at $t_4$.
+\item Write the event $A$ that the selected response needed at least one correction, both as a set of ticket IDs and using $X$. Calculate $P(A)$.
+\item The \textbf{power set} $2^\Omega$ is the collection of all subsets of $\Omega$. Taking $\mathcal F=2^\Omega$, specify the probability triplet $(\Omega,\mathcal F,P)$ by stating what each component is and how $P$ assigns a probability to any event. Distinguish $t_4$, $\{t_4\}$ and $P(\{t_4\})$.
+\end{enumerate}
+
+\section*{Problem 2 -- Inspecting backup power supplies (easy)}
+
+An engineer inspects two backup power supplies, labelled supply 1 and supply 2, at a fixed time. Either supply alone can power the equipment. Each supply is recorded as working (W) or failed (F).
+
+An outcome is a two-letter string: the \textbf{first symbol describes supply 1} and the \textbf{second describes supply 2}. For example, WF means supply 1 works and supply 2 has failed. The four outcome probabilities are stipulated below; independence is not assumed.
+
+\begin{center}\begin{tabular}{lcccc}\toprule
+State & WW & WF & FW & FF \\
+\midrule
+Probability & 0.60 & 0.10 & 0.20 & 0.10 \\
+\bottomrule\end{tabular}\end{center}
+
+\begin{enumerate}
+\item State $\Omega$. Define the random variable $N$ counting failed supplies by giving its value at each outcome.
+\item Identify the event $A$ that the equipment cannot operate. Write it as a subset of $\Omega$ and using $N$, then give $P(A)$.
+\item Take $\mathcal F=2^\Omega$. How does the table define $P(B)$ for any event $B$? Explain why $P(N=1)$ combines more than one outcome probability.
+\item State the three \textbf{Kolmogorov axioms}: nonnegativity, normalization and countable additivity for pairwise disjoint events. Check the first two from the table and illustrate the third using the singleton events $\{WF\}$ and $\{FW\}$.
+\end{enumerate}
+
+\clearpage
+\section*{Problem 3 -- Selecting an invoice for review (medium)}
+
+An accounts team has reviewed four invoices. A discrepancy is a recorded mismatch, such as an incorrect quantity or price. The counts below are fixed. A manager selects exactly one invoice ID for a follow-up check. The software selects each ID with probability equal to its weight divided by the total weight.
+
+\begin{center}\begin{tabular}{lcccc}\toprule
+Invoice ID & $i_1$ & $i_2$ & $i_3$ & $i_4$ \\
+\midrule
+Discrepancies & 0 & 1 & 1 & 2 \\
+Selection weight & 1 & 1 & 2 & 2 \\
+\bottomrule\end{tabular}\end{center}
+
+\begin{enumerate}
+\item Specify $\Omega$, take $\mathcal F=2^\Omega$, and define the probability measure $P$ using the weights. Define $X$ as the discrepancy count on the selected invoice.
+\item Write the event $\{X=1\}$ as a set of invoice IDs. Calculate its probability and distinguish the function $X$, the value 1, the event $\{X=1\}$ and the number $P(X=1)$.
+\item The \textbf{probability mass function (PMF)} is $p_X(x)=P(X=x)$. The \textbf{cumulative distribution function (CDF)} is $F_X(t)=P(X\le t)=\sum_{x\le t}p_X(x)$. Identify the event used to evaluate $F_X(1)$ and calculate this one value. A full CDF formula is not required.
+\item If the manager instead selects the four IDs uniformly, which of $\Omega$, $\mathcal F$, $P$ and $X$ change? Explain without recalculating the distribution.
+\end{enumerate}
+
+\section*{Problem 4 -- Recording a service response time (medium)}
+
+A hypothetical service model records the response time of one request, in seconds. Take $\Omega=[0,2]$ and let $T(\omega)=\omega$. Use the usual Borel event collection $\mathcal F$, generated by intervals; you need not construct it. An interval has probability equal to its length divided by 2. A response taking more than 1.5 seconds triggers a review.
+
+\begin{enumerate}
+\item Identify the probability triplet $(\Omega,\mathcal F,P)$ and give one outcome. State the domain and range of $T$. Why can an outcome and the value of $T$ have the same numerical representation here?
+\item Write the review event $A$ as an interval and as $\{\omega\in\Omega:T(\omega)>1.5\}$. Calculate $P(A)$.
+\item The \textbf{probability density function (PDF)} for this model is $f_T(t)=1/2$ on $[0,2]$ and zero outside; interval probabilities are areas under this density. Identify which of $f_T(1)$ and $P(T=1)$ is a density value and which is an event probability. Are they equal?
+\item The \textbf{CDF} is $F_T(t)=P(T\le t)$. Identify the subset of $\Omega$ corresponding to $F_T(1)$ and calculate this value using interval length. Distinguish the event, its probability and the density value at 1.
+\end{enumerate}
+
+\clearpage
+\section*{Problem 5 -- Events distinguishable from two reports (difficult)}
+
+A training manager selects one of four completed assessment records uniformly. The scores are fixed:
+
+\begin{center}\begin{tabular}{lcccc}\toprule
+Record ID & $a$ & $b$ & $c$ & $d$ \\
+\midrule
+Score & 40 & 60 & 80 & 90 \\
+\bottomrule\end{tabular}\end{center}
+
+The reporting system reveals only whether each of two events occurred: $A=\{c,d\}$, meaning the selected score is at least 70, and $B=\{a,b,c\}$, meaning it is at most 80. It does not reveal the selected ID or exact score.
+
+A \textbf{sigma-algebra} contains $\Omega$ and is closed under complements (relative to $\Omega$) and countable unions. The smallest sigma-algebra containing $A$ and $B$, written $\sigma(A,B)$, consists of the events distinguishable from these two yes/no reports.
+
+\begin{enumerate}
+\item State $\Omega$ and define the score function $S$. Express $A$ and $B$ using $S$. How many events belong to the full power set $2^\Omega$?
+\item Identify the nonempty groups among $A\cap B$, $A\cap B^c$, $A^c\cap B$ and $A^c\cap B^c$. List all their unions, including the empty union, to obtain $\mathcal G=\sigma(A,B)$.
+\item Explain briefly why $\mathcal G$ satisfies the sigma-algebra properties and is smaller than $2^\Omega$. Can the two reports distinguish record $a$ from record $b$? Is $\{a\}$ an event in $\mathcal G$?
+\item Specify the coarse probability triplet $(\Omega,\mathcal G,P)$ by giving a rule for $P(C)$ for $C\in\mathcal G$. A function is a random variable on this space only if every threshold set $\{\omega:X(\omega)\le t\}$ belongs to $\mathcal G$. Does the exact score function $S$ meet this requirement? Check the threshold $t=50$.
+\end{enumerate}
+\end{document}

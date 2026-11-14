@@ -1,0 +1,76 @@
+---
+title: "01.5 supplement · Expectation and moment identities"
+format:
+  html:
+    html-math-method: mathml
+    css: probability-notes.css
+---
+
+[Main lecture 01.5](05-expectation-variance.qmd)
+
+This supplement states existence conditions and proves the identities used in the worked lecture. Its exercises are unsolved here; solutions are instructor-only.
+
+## 1. Integrability and induced laws
+
+For a measurable real-valued $X$, write $X^+=\max(X,0)$ and $X^-=\max(-X,0)$. Their nonnegative Lebesgue integrals are always defined in $[0,\infty]$. Define $E[X]=E[X^+]-E[X^-]$ when the two terms are not both infinite. A finite real mean requires $E[|X|]<\infty$.
+
+If $P_X$ is the induced law, then $E[g(X)]=\int g\,dP_X$ whenever $g(X)$ is nonnegative or integrable. For an indicator $g=\mathbf1_B$, this is precisely $P(X\in B)=P_X(B)$. Extend by finite linear combinations to nonnegative simple functions, then by monotone convergence to nonnegative measurable functions. Subtract positive and negative parts for integrable functions. This proves the PMF/PDF formulas used in the lecture without requiring an invertible $g$.
+
+For a standard Cauchy density $f(x)=1/[\pi(1+x^2)]$, the positive first-moment integral is proportional to $\int_0^\infty x/(1+x^2)dx=\infty$, and the negative part has the same infinite magnitude. The mean is undefined. Symmetric truncated integrals vanish, but this principal-value cancellation is not expectation.
+
+## 2. Variance and the best constant in squared error
+
+Assume $E[X^2]<\infty$. Cauchy–Schwarz implies $E[|X|]\le\sqrt{E[X^2]}$, so the mean exists. Expanding and using linearity,
+
+$$E[(X-\mu)^2]=E[X^2]-2\mu E[X]+\mu^2=E[X^2]-\mu^2.$$
+
+For any constant $a$,
+
+$$E[(X-a)^2]=\operatorname{Var}(X)+(a-\mu)^2,$$
+
+because the cross term contains $E[X-\mu]=0$. Thus the mean minimizes expected squared error among constant predictions. This does not say the mean minimizes absolute error or other losses.
+
+Since $(X-\mu)^2\ge0$, its expectation is zero exactly when it vanishes almost surely. Hence zero variance is equivalent to $X=\mu$ almost surely.
+
+## 3. Covariance and linear combinations
+
+For finite second moments, Cauchy–Schwarz makes $E[|XY|]$ finite. Expanding the centered product gives $\operatorname{Cov}(X,Y)=E[XY]-E[X]E[Y]$. Bilinearity then gives
+
+$$\operatorname{Var}\left(\sum_i a_iX_i\right)=\sum_{i,j}a_i a_j\operatorname{Cov}(X_i,X_j)=a^T\Sigma a.$$
+
+Cauchy–Schwarz applied to centered variables gives $|\operatorname{Cov}(X,Y)|\le\sigma_X\sigma_Y$. Correlation is defined only when both variances are positive. Equality corresponds to an almost-sure linear relation between the centered variables. Independence and integrability imply $E[XY]=E[X]E[Y]$; factorization of this one moment is not a converse criterion for independence.
+
+## 4. Conditional expectation and total variance
+
+For an integrable $X$ and a sigma-algebra $\mathcal G\subseteq\mathcal F$, $E[X\mid\mathcal G]$ is a $\mathcal G$-measurable integrable variable $m$ satisfying $\int_A m\,dP=\int_A X\,dP$ for every $A\in\mathcal G$. It is unique up to almost-sure equality. Taking $A=\Omega$ proves $E[m]=E[X]$. Conditioning on a variable $Y$ means conditioning on $\sigma(Y)$. PMF and density calculations in the main notes produce versions of this object.
+
+Assume $E[X^2]<\infty$ and put $m=E[X\mid\mathcal G]$. Decompose
+
+$$X-E[X]=(X-m)+(m-E[X]).$$
+
+The cross term has expectation zero because $E[X-m\mid\mathcal G]=0$ and $m-E[X]$ is $\mathcal G$-measurable. Therefore
+
+$$\operatorname{Var}(X)=E[(X-m)^2]+E[(m-E[X])^2]
+=E[\operatorname{Var}(X\mid\mathcal G)]+\operatorname{Var}(m).$$
+
+The same decomposition proves the optimality of $m$ among square-integrable $\mathcal G$-measurable predictors under squared-error loss.
+
+## 5. Generating functions and their existence
+
+For a nonnegative integer-valued $N$, $G_N(s)=E[s^N]$ is defined for $0\le s\le1$, using $0^0=1$ in the series at zero. For $0<s<1$ termwise derivatives follow from power-series theory. As $s\uparrow1$, monotone convergence gives $G_N'(1^-)=E[N]$ and $G_N''(1^-)=E[N(N-1)]$, with infinite values allowed. Finite second moment yields
+
+$$\operatorname{Var}(N)=G_N''(1^-)+G_N'(1^-)-G_N'(1^-)^2.$$
+
+The **moment generating function** is $M_X(t)=E[e^{tX}]$ where finite. If finite on an open interval containing zero, differentiation under the integral gives $M_X^{(k)}(0)=E[X^k]$ and determines the law uniquely. For a Bernoulli variable, $M_X(t)=1-p+pe^t$, giving first and second raw moments $p$. Not every distribution has an MGF finite on such an interval, so one cannot use this method without its existence hypothesis.
+
+## Further exercises
+
+**ES1.** Prove $\operatorname{Var}(aX+b)=a^2\operatorname{Var}(X)$ directly from the centered definition.
+
+**ES2.** Let $X$ have density $2/x^3$ for $x\ge1$, zero otherwise. Verify normalization, and determine whether its first and second moments are finite.
+
+**ES3.** For the triangular support-ticket model, use $Y\mid X=x\sim U(0,x)$ to verify the law of total variance for $Y$.
+
+## References
+
+The expectation and variance conventions follow Lancaster University's [MATH230, Chapter 3](https://www.maths.lancs.ac.uk/~titman/MATH230/expectation1.html); conditional-density calculations and total-moment identities can be compared with [Pishro-Nik §5.2.3](https://www.probabilitycourse.com/chapter5/5_2_3_conditioning_independence.php).

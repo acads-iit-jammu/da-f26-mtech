@@ -1,0 +1,786 @@
+[
+  {
+    "objectID": "w01-probability-worked.html#s01",
+    "href": "w01-probability-worked.html#s01",
+    "title": "Introduction to probability through problems",
+    "section": "A ticket-routing review",
+    "text": "A ticket-routing review\n\nA service desk checks whether an LLM routes tickets to the appropriate teams. A reviewer supplies reference decisions; the model supplies classifications. What would it mean for them to agree?\n\nWe will compare the reviewer reference outcome with the model classification ticket by ticket. The example is hypothetical. The reviewer decisions are operational references, not claims of error-free ground truth.\n\nIntroduce the task and the two sources of labels before displaying the table.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s02",
+    "href": "w01-probability-worked.html#s02",
+    "title": "Introduction to probability through problems",
+    "section": "Six reviewed tickets",
+    "text": "Six reviewed tickets\n\nFor this hypothetical audit, the model uses a 0.50 threshold separately on each destination.\n\n\n\n\n\n\n\n\n\nTicket\nRequest\nReviewer\nModel\n\n\n\n\nt1t_1\nDuplicate charge; cannot log in\nBilling + Account Support\nBilling\n\n\nt2t_2\nDuplicate monthly charge\nBilling\nBilling\n\n\nt3t_3\nMFA phone change; cannot log in\nAccount Support\nAccount Support\n\n\nt4t_4\nDelivery-status question\nOther\nAccount Support\n\n\nt5t_5\nDuplicate renewal charge\nBilling\nBilling\n\n\nt6t_6\nLocked after password reset\nAccount Support\nAccount Support\n\n\n\nWhat does the table count as an agreement?\n\nFor t1t_1, the model scores are 0.55 for Billing and 0.35 for Account Support. The reviewer reference includes both destinations. Exact agreement means the model classification equals the full reviewer reference outcome.\n\nClarify that Other means neither named destination is required; another team may handle the ticket. The reference decisions are operational, not asserted ground truth.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s03",
+    "href": "w01-probability-worked.html#s03",
+    "title": "Introduction to probability through problems",
+    "section": "Which rows agree?",
+    "text": "Which rows agree?\n\nMark exact agreement between the reviewer reference and model classification. How many of the six records agree?\n\nExact agreements occur on t2,t3,t5,t6t_2,t_3,t_5,t_6. Thus the observed agreement fraction is 4/6=2/34/6=2/3.\n\nAsk for reasons on t1 and t4; do not yet call the fraction a future performance probability.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s04",
+    "href": "w01-probability-worked.html#s04",
+    "title": "Introduction to probability through problems",
+    "section": "What does four out of six describe?",
+    "text": "What does four out of six describe?\n\nThe table records four agreements. Is 4/64/6 a probability for every question about this model?\n\nIt is first an observed proportion in these six records. It becomes the probability of agreement if the experiment is to select one of these six ticket IDs uniformly. A claim about future tickets needs a target population and assumptions linking this audit to it.\n\nDistinguish a data summary from a probability statement by asking for the experiment.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s05",
+    "href": "w01-probability-worked.html#s05",
+    "title": "Introduction to probability through problems",
+    "section": "Equal-likelihood counting",
+    "text": "Equal-likelihood counting\n\nIf one of the six ticket IDs is selected uniformly, what is the probability that the selected record shows agreement?\n\nThe classical rule for a finite set of equally likely cases is P(E)=|E|/|Ω|P(E)=|E|/|\\Omega|. Here each ID has probability 1/61/6 and four IDs show agreement, so P(agreement)=4/6=2/3P(\\text{agreement})=4/6=2/3. The uniform selection rule justifies equal weights for IDs in this experiment.\n\nGive students time to set up the problem before discussing the result.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s06",
+    "href": "w01-probability-worked.html#s06",
+    "title": "Introduction to probability through problems",
+    "section": "The cases being counted matter",
+    "text": "The cases being counted matter\n\nThe occupied reviewer/model pairs are: both destinations / Billing (t1t_1); Billing only / Billing (t2,t5t_2,t_5); Account only / Account (t3,t6t_3,t_6); Other / Account (t4t_4). If one pair type were selected uniformly, what agreement probability would result?\n\nTwo of four occupied types are agreements, so the answer under uniform selection among types is 2/4=1/22/4=1/2. It differs from 4/64/6 under uniform selection among ticket IDs because the categories contain unequal numbers of records.\n\nHave students explain why changing the partition changes the sample unit and hence the selection rule.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s07",
+    "href": "w01-probability-worked.html#s07",
+    "title": "Introduction to probability through problems",
+    "section": "A larger set of possible label pairs",
+    "text": "A larger set of possible label pairs\n\nThere are four possible reviewer types and four model outputs (neither, Billing only, Account Support only, both). How many pairs are possible in their full Cartesian product? How many appear here?\n\nThere are 4×4=164\\times4=16 possible pairs in the full product. Four are occupied in this six-row table. Uniform weighting over 16 pairs would give 4/16=1/44/16=1/4 agreement. This third selection rule is not implied by the audit.\n\nSeparate the set of possible combinations from the subset observed in the audit.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s08",
+    "href": "w01-probability-worked.html#s08",
+    "title": "Introduction to probability through problems",
+    "section": "Frequency and repeated observations",
+    "text": "Frequency and repeated observations\n\nDoes an agreement fraction of 4/64/6 establish a long-run agreement rate for future tickets?\n\nNo. A frequency account connects probability to relative frequency in a specified repeatable process. If IiI_i indicates agreement on trial ii, the observed frequency after nn trials is n−1∑i=1nIin^{-1}\\sum_{i=1}^n I_i; a limiting account relates this sequence to a probability pp. Six observations alone establish no such limit and do not establish that future tickets follow the same process.\n\nKeep observed frequency, model probability and future estimation distinct.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s09",
+    "href": "w01-probability-worked.html#s09",
+    "title": "Introduction to probability through problems",
+    "section": "Belief and evidence",
+    "text": "Belief and evidence\n\nSuppose an analyst assigns probability 0.8 to agreement on the next ticket, given this audit and other information. Does the table alone determine 0.8?\n\nNo. A subjective account treats probability as a degree of belief given information. The assignment needs stated information or judgments and must be coherent with the analyst’s other probability assignments. An evidential account also needs a specified rule connecting evidence and background assumptions to a number.\n\nState that these are interpretations, not competing arithmetic rules for the same fully specified experiment.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s10",
+    "href": "w01-probability-worked.html#s10",
+    "title": "Introduction to probability through problems",
+    "section": "What the earlier views contribute",
+    "text": "What the earlier views contribute\n\nWhat does each account emphasize: equal-likelihood counting, frequency, belief, or evidential support? What remains necessary for a calculation?\n\nThe accounts emphasize symmetry, repeated observations, information-conditioned belief, and evidential support. A calculation still needs specified outcomes, an event and a probability assignment. A propensity interpretation instead locates chance in a specified physical or randomized mechanism.\n\nUse the slide as a transition, not a verdict on philosophical interpretations.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s11",
+    "href": "w01-probability-worked.html#s11",
+    "title": "Introduction to probability through problems",
+    "section": "A second question: a random chord",
+    "text": "A second question: a random chord\n\nA chord is selected at random from a circle. What is the probability that its length exceeds the side of an inscribed equilateral triangle?\n\nThe phrase “at random” does not say how the chord is generated. Bertrand’s chord problem has answers 1/31/3, 1/21/2 and 1/41/4 under different sampling procedures. We will pose the question here and return to its full resolution in the supplement.\n\nShow the chord illustration if space permits. Do not derive or choose a sampling procedure in the main lecture.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s12",
+    "href": "w01-probability-worked.html#s12",
+    "title": "Introduction to probability through problems",
+    "section": "What must a probability model specify?",
+    "text": "What must a probability model specify?\n\nThe ticket audit and the chord question both involve uncertainty. What mathematical objects would let us state the outcomes, the event and its probability?\n\nKolmogorov’s set-based framework specifies a sample space Ω\\Omega, an event collection ℱ\\mathcal F, and a probability measure PP. We now build these objects from the ticket-selection experiment.\n\nIntroduce the triplet only after students have named what is missing.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s13",
+    "href": "w01-probability-worked.html#s13",
+    "title": "Introduction to probability through problems",
+    "section": "Specify the ticket experiment",
+    "text": "Specify the ticket experiment\n\nThe six records are fixed. We select one ticket ID uniformly. What varies, and what are the possible outcomes?\n\nThe selected ID varies. The sample space is Ω={t1,t2,t3,t4,t5,t6}\\Omega=\\{t_1,t_2,t_3,t_4,t_5,t_6\\}. The ticket contents and labels are fixed data in this experiment.\n\nEmphasize that the outcome is one ID, not a label or a probability.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s14",
+    "href": "w01-probability-worked.html#s14",
+    "title": "Introduction to probability through problems",
+    "section": "Build the Billing event",
+    "text": "Build the Billing event\n\nWhich ticket IDs have Billing in the reviewer’s reference outcome? Write them as a set BB.\n\nB={t1,t2,t5}B=\\{t_1,t_2,t_5\\}. An event is a set of outcomes in the sample space. The statement “Billing is required” occurs exactly when the selected ID belongs to BB.\n\nGive students time to set up the problem before discussing the result.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s15",
+    "href": "w01-probability-worked.html#s15",
+    "title": "Introduction to probability through problems",
+    "section": "Build the Account Support event",
+    "text": "Build the Account Support event\n\nWhich IDs have Account Support in the reviewer’s reference outcome? Write this event as AA.\n\nA={t1,t3,t6}A=\\{t_1,t_3,t_6\\}. The two events overlap because t1t_1 requires both destinations.\n\nGive students time to set up the problem before discussing the result.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s16",
+    "href": "w01-probability-worked.html#s16",
+    "title": "Introduction to probability through problems",
+    "section": "Other as a complement",
+    "text": "Other as a complement\n\nIn this two-destination question, “Other” means neither Billing nor Account Support is required. Express this event using AA and BB.\n\nO=(B∪A)c={t4}O=(B\\cup A)^c=\\{t_4\\}. The complement is taken relative to Ω\\Omega. It does not mean the ticket is unreviewed or unknown; another team may handle it.\n\nGive students time to set up the problem before discussing the result.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s17",
+    "href": "w01-probability-worked.html#s17",
+    "title": "Introduction to probability through problems",
+    "section": "Union and intersection",
+    "text": "Union and intersection\n\nUse the ticket IDs to find B∩AB\\cap A and B∪AB\\cup A. Interpret each event in words.\n\nB∩A={t1}B\\cap A=\\{t_1\\} means both destinations are required. B∪A={t1,t2,t3,t5,t6}B\\cup A=\\{t_1,t_2,t_3,t_5,t_6\\} means at least one is required. “Or” in a union is inclusive.\n\nGive students time to set up the problem before discussing the result.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s18",
+    "href": "w01-probability-worked.html#s18",
+    "title": "Introduction to probability through problems",
+    "section": "Count the union without double-counting",
+    "text": "Count the union without double-counting\n\nWhy is the number of IDs in B∪AB\\cup A not |B|+|A||B|+|A|? Calculate the probability under uniform selection.\n\nThe shared ID t1t_1 appears in both marginal counts. Split the union into disjoint parts: B\\A={t2,t5}B\\setminus A=\\{t_2,t_5\\}, A\\B={t3,t6}A\\setminus B=\\{t_3,t_6\\}, and B∩A={t1}B\\cap A=\\{t_1\\}. Hence P(B∪A)=(2+2+1)/6=5/6P(B\\cup A)=(2+2+1)/6=5/6. Equivalently, 3/6+3/6−1/6=5/63/6+3/6-1/6=5/6.\n\nGive students time to set up the problem before discussing the result.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s19",
+    "href": "w01-probability-worked.html#s19",
+    "title": "Introduction to probability through problems",
+    "section": "The probability-space triplet",
+    "text": "The probability-space triplet\n\nFor uniform selection from the six ticket IDs, specify the sample space, the events and the probability assignment.\n\n(Ω,ℱ,P)(\\Omega,\\mathcal F,P)\nΩ={t1,t2,t3,t4,t5,t6}\\Omega=\\{t_1,t_2,t_3,t_4,t_5,t_6\\}.\nℱ=2Ω\\mathcal F=2^\\Omega, the collection of all subsets of Ω\\Omega.\nFor every E∈ℱE\\in\\mathcal F, P(E)=|E|/6P(E)=|E|/6.\nThus P(B)=3/6=1/2P(B)=3/6=1/2 and P(B∪A)=5/6P(B\\cup A)=5/6.\n\nFirst name each object, then write the symbols. Stress that the probability assignment depends on the stated uniform selection rule.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s20",
+    "href": "w01-probability-worked.html#s20",
+    "title": "Introduction to probability through problems",
+    "section": "Outcomes, events and probability values",
+    "text": "Outcomes, events and probability values\n\nClassify each object: t2t_2, BB, and P(B)=1/2P(B)=1/2. Which one is the outcome? Which is an event? Which is a number?\n\nt2t_2 is an outcome in Ω\\Omega. BB is an event, a subset of Ω\\Omega. P(B)=1/2P(B)=1/2 is a number assigned to that event. The measure takes events as input.\n\nGive students time to set up the problem before discussing the result.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s21",
+    "href": "w01-probability-worked.html#s21",
+    "title": "Introduction to probability through problems",
+    "section": "Kolmogorov’s probability axioms",
+    "text": "Kolmogorov’s probability axioms\n\nThe four audit categories have probabilities 2/6,2/6,1/6,1/62/6,2/6,1/6,1/6. They do not overlap and their probabilities sum to 1. What general rules does this suggest?\n\nFor P:ℱ→[0,1]P:\\mathcal F\\to[0,1]:\n\nNonnegativity: P(E)≥0P(E)\\ge0 for every E∈ℱE\\in\\mathcal F.\nNormalization: P(Ω)=1P(\\Omega)=1.\nCountable additivity: for pairwise disjoint E1,E2,…∈ℱE_1,E_2,\\ldots\\in\\mathcal F, P(⋃n=1∞En)=∑n=1∞P(En)P(\\bigcup_{n=1}^{\\infty}E_n)=\\sum_{n=1}^{\\infty}P(E_n).\n\nFor example, BB and BcB^c are disjoint and exhaustive, and P(B)+P(Bc)=3/6+3/6=1P(B)+P(B^c)=3/6+3/6=1.\n\nConnect each axiom to the calculation; technical event-collection conditions are supplementary.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s22",
+    "href": "w01-probability-worked.html#s22",
+    "title": "Introduction to probability through problems",
+    "section": "A random variable for Billing",
+    "text": "A random variable for Billing\n\nCan we record numerically whether Billing is required? Define XBX_B on the ticket outcomes.\n\nThe values of XBX_B on t1,…,t6t_1,\\ldots,t_6 are 1,1,0,0,1,01,1,0,0,1,0. A random variable assigns a number to each outcome. Here P(XB=1)=3/6=1/2P(X_B=1)=3/6=1/2. The function takes a ticket as input; the probability measure takes a set of tickets as input. Once the ticket is known, its recorded value is fixed.\n\nReinforce: the selected ticket outcome is random; the random variable is a function, not a second random mechanism.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s23",
+    "href": "w01-probability-worked.html#s23",
+    "title": "Introduction to probability through problems",
+    "section": "Image of a set of outcomes",
+    "text": "Image of a set of outcomes\n\nFor A={t1,t3,t6}A=\\{t_1,t_3,t_6\\}, what values does XBX_B produce? Write the image XB(A)X_B(A).\n\nXB(A)={XB(t):t∈A}={0,1}X_B(A)=\\{X_B(t):t\\in A\\}=\\{0,1\\}. The image is a set of real values, not a set of ticket IDs.\n\nGive students time to set up the problem before discussing the result.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s24",
+    "href": "w01-probability-worked.html#s24",
+    "title": "Introduction to probability through problems",
+    "section": "Inverse image and probability",
+    "text": "Inverse image and probability\n\nWhich outcomes produce the value 1? Express them as XB−1({1})X_B^{-1}(\\{1\\}) and calculate P(XB=1)P(X_B=1).\n\nXB−1({1})={t∈Ω:XB(t)=1}=B={t1,t2,t5}X_B^{-1}(\\{1\\})=\\{t\\in\\Omega:X_B(t)=1\\}=B=\\{t_1,t_2,t_5\\}. Therefore P(XB=1)=P(B)=3/6=1/2P(X_B=1)=P(B)=3/6=1/2. The inverse image is an event; it need not be an inverse function.\n\nTrace the mapping in order: numerical condition, inverse-image event, probability of event.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s25",
+    "href": "w01-probability-worked.html#s25",
+    "title": "Introduction to probability through problems",
+    "section": "The law of the Billing indicator",
+    "text": "The law of the Billing indicator\n\nThe Billing indicator is 1 on t1,t2,t5t_1,t_2,t_5 and 0 otherwise. Under uniform ID selection, what probability law does it induce?\n\nThe distribution gives the probabilities of the numerical values: P(XB=1)=1/2P(X_B=1)=1/2 and P(XB=0)=1/2P(X_B=0)=1/2. These probabilities sum to 1. Count the outcomes producing each value.\n\nWork the example, then connect it to the definition.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s26",
+    "href": "w01-probability-worked.html#s26",
+    "title": "Introduction to probability through problems",
+    "section": "One die: outcome, event, value, probability",
+    "text": "One die: outcome, event, value, probability\n\nRoll a stipulated fair die. Let Ωd={1,…,6}\\Omega_d=\\{1,\\ldots,6\\}, ℱd=2Ωd\\mathcal F_d=2^{\\Omega_d}, Pd(E)=|E|/6P_d(E)=|E|/6, and Z(ω)=ωZ(\\omega)=\\omega. Distinguish 44, {4}\\{4\\}, Z(4)Z(4) and Pd({4})P_d(\\{4\\}).\n\nThe outcome is 4; the singleton event is {4}\\{4\\}; the function value is Z(4)=4Z(4)=4; its probability is Pd({4})=1/6P_d(\\{4\\})=1/6. Also Z−1({2,4,6})={2,4,6}Z^{-1}(\\{2,4,6\\})=\\{2,4,6\\}, so Pd(Z is even)=1/2P_d(Z\\text{ is even})=1/2.\n\nWork the example, then connect it to the definition.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s27",
+    "href": "w01-probability-worked.html#s27",
+    "title": "Introduction to probability through problems",
+    "section": "Worked check: neither named destination",
+    "text": "Worked check: neither named destination\n\nUnder uniform selection from the six audited IDs, find the probability of “Other,” meaning neither Billing nor Account Support is required.\n\nO=(B∪A)c={t4}O=(B\\cup A)^c=\\{t_4\\}. Thus P(O)=1/6P(O)=1/6.\n\nGive students time to set up the problem before discussing the result.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s28",
+    "href": "w01-probability-worked.html#s28",
+    "title": "Introduction to probability through problems",
+    "section": "Worked check: exactly one destination",
+    "text": "Worked check: exactly one destination\n\nFind the event and probability that exactly one of Billing and Account Support is required.\n\n(B\\A)∪(A\\B)={t2,t3,t5,t6}.(B\\setminus A)\\cup(A\\setminus B)=\\{t_2,t_3,t_5,t_6\\}.\nTherefore its probability is 4/6=2/34/6=2/3.\n\nGive students time to set up the problem before discussing the result.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s29",
+    "href": "w01-probability-worked.html#s29",
+    "title": "Introduction to probability through problems",
+    "section": "Worked check: exact agreement",
+    "text": "Worked check: exact agreement\n\nLet CC be the event that the model classification equals the reviewer reference outcome. Find CC and its probability in the uniform ticket-ID experiment.\n\nC={t2,t3,t5,t6}C=\\{t_2,t_3,t_5,t_6\\}, so P(C)=4/6=2/3P(C)=4/6=2/3. This equals the observed agreement fraction because the experiment selects one ticket ID uniformly from this exact six-ticket audit.\n\nGive students time to set up the problem before discussing the result.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s30",
+    "href": "w01-probability-worked.html#s30",
+    "title": "Introduction to probability through problems",
+    "section": "Worked check: agreement as a random variable",
+    "text": "Worked check: agreement as a random variable\n\nDefine Y(t)=1Y(t)=1 for exact agreement and 0 otherwise. Find Y−1({1})Y^{-1}(\\{1\\}) and P(Y=1)P(Y=1).\n\nY−1({1})=C={t2,t3,t5,t6}Y^{-1}(\\{1\\})=C=\\{t_2,t_3,t_5,t_6\\}. Thus P(Y=1)=P(C)=4/6=2/3P(Y=1)=P(C)=4/6=2/3. The random variable records an outcome numerically; its inverse image is the event; the measure assigns that event a number.\n\nGive students time to set up the problem before discussing the result.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s31",
+    "href": "w01-probability-worked.html#s31",
+    "title": "Introduction to probability through problems",
+    "section": "Weighted audit selection",
+    "text": "Weighted audit selection\n\nKeep the six audit records, but select IDs with weights (1,1,1,3,1,1)/8(1,1,1,3,1,1)/8. Agreement is C={t2,t3,t5,t6}C=\\{t_2,t_3,t_5,t_6\\}; Other is {t4}\\{t_4\\}. Find both probabilities.\n\nThe weights sum to one and define Q(E)=∑ti∈EwiQ(E)=\\sum_{t_i\\in E}w_i. Therefore Q(C)=4/8=1/2Q(C)=4/8=1/2 and Q(O)=3/8Q(O)=3/8. The observed fraction remains 4/64/6; the changed experiment gives a different selection probability.\n\nWork the example, then connect it to the definition.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s32",
+    "href": "w01-probability-worked.html#s32",
+    "title": "Introduction to probability through problems",
+    "section": "Fraud-screen worked example",
+    "text": "Fraud-screen worked example\n\nIn a hypothetical batch of 20 transactions, reviewers mark 4 as fraud. A screen flags 3 of those and 2 of the other 16. Select one ID uniformly. Find the false-positive and false-negative probabilities.\n\nWith FF the flagged set and HH the reviewer-positive set, P(F∩Hc)=2/20=0.10P(F\\cap H^c)=2/20=0.10 and P(Fc∩H)=1/20=0.05P(F^c\\cap H)=1/20=0.05. Selecting instead from the 16 reviewer-negative IDs gives false-positive fraction 2/16=0.1252/16=0.125. State the population before choosing a denominator.\n\nWork the example, then connect it to the definition.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s33",
+    "href": "w01-probability-worked.html#s33",
+    "title": "Introduction to probability through problems",
+    "section": "Sensor-tolerance worked example",
+    "text": "Sensor-tolerance worked example\n\nA hypothetical sensor error ε\\varepsilon is uniform on [−2,2][-2,2] mm. Its density is 1/41/4 on that interval. Find the probability that the error exceeds 1 mm in absolute value.\n\nThe event is [−2,−1)∪(1,2][-2,-1)\\cup(1,2], of total length 2. Thus P(|ε|&gt;1)=2/4=1/2P(|\\varepsilon|&gt;1)=2/4=1/2. The density is 1/41/4 per mm on [−2,2][-2,2]. Probability is area; the total area is 1. Uniform error is stipulated.\n\nWork the example, then connect it to the definition.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s34",
+    "href": "w01-probability-worked.html#s34",
+    "title": "Introduction to probability through problems",
+    "section": "Assessment-indicator worked example",
+    "text": "Assessment-indicator worked example\n\nSelect one of five hypothetical records uniformly. Scores are 45, 60, 70, 80 and 95; passing means at least 60. Define the pass indicator and its law.\n\nOn record IDs a1,…,a5a_1,\\ldots,a_5, let Y(ai)=1Y(a_i)=1 for a passing score and 0 otherwise. Then Y−1({1})={a2,a3,a4,a5}Y^{-1}(\\{1\\})=\\{a_2,a_3,a_4,a_5\\}, so PY({1})=4/5P_Y(\\{1\\})=4/5 and PY({0})=1/5P_Y(\\{0\\})=1/5. This describes selection from these records, not a future cohort.\n\nWork the example, then connect it to the definition.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s35",
+    "href": "w01-probability-worked.html#s35",
+    "title": "Introduction to probability through problems",
+    "section": "Electrical engineering: two power supplies",
+    "text": "Electrical engineering: two power supplies\n\nA hypothetical device has a primary and a backup supply. The stipulated probabilities for (primary, backup) are (W,W):0.90(W,W):0.90, (W,F):0.06(W,F):0.06, (F,W):0.03(F,W):0.03, (F,F):0.01(F,F):0.01, where WW means working and FF means failed. The device operates if at least one supply works. Find its operating probability.\n\nThe four states are the outcomes; all their subsets are events. Their probabilities are nonnegative and sum to 1. The device fails only in (F,F)(F,F), so P(operates)=1−0.01=0.99P(\\text{operates})=1-0.01=0.99. Direct addition gives 0.90+0.06+0.03=0.990.90+0.06+0.03=0.99. This introduces the complement rule P(Ec)=1−P(E)P(E^c)=1-P(E). The joint state probabilities are given; independence of the supplies is not assumed.\n\nWork through the sampling rule and calculation before naming the general idea.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s36",
+    "href": "w01-probability-worked.html#s36",
+    "title": "Introduction to probability through problems",
+    "section": "IT operations: overlapping incident tags",
+    "text": "IT operations: overlapping incident tags\n\nSelect uniformly one of 40 fixed incident IDs in a hypothetical log. Twelve have a network tag, nine a storage tag, and four have both. Find the probabilities of at least one tag, exactly one tag, and neither tag.\n\nLet NN and SS be the two tagged sets. At least one contains 12+9−4=1712+9-4=17 IDs, so its probability is 17/4017/40. Exactly one contains (12−4)+(9−4)=13(12-4)+(9-4)=13 IDs, giving 13/4013/40. Neither contains 40−17=2340-17=23 IDs, giving 23/4023/40. Tags can overlap even though only one incident ID is selected.\n\nWork through the sampling rule and calculation before naming the general idea.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s37",
+    "href": "w01-probability-worked.html#s37",
+    "title": "Introduction to probability through problems",
+    "section": "Accounting: reconciliation categories",
+    "text": "Accounting: reconciliation categories\n\nA hypothetical ledger has 30 distinct invoice IDs: 21 reconcile correctly, 5 have only a missing receipt, 3 have only an amount mismatch, and 1 has both issues. Select one ID uniformly. Find the probabilities of any issue and of an amount mismatch.\n\nThe four disjoint categories have probabilities 21/30,5/30,3/30,1/3021/30,5/30,3/30,1/30, which sum to 1. Any issue has probability (5+3+1)/30=9/30(5+3+1)/30=9/30. An amount mismatch includes the last two categories, so its probability is (3+1)/30=4/30(3+1)/30=4/30. Category names must specify whether overlapping issues are included.\n\nWork through the sampling rule and calculation before naming the general idea.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s38",
+    "href": "w01-probability-worked.html#s38",
+    "title": "Introduction to probability through problems",
+    "section": "Agriculture: plot selection and area selection",
+    "text": "Agriculture: plot selection and area selection\n\nA hypothetical farm has plot A of area 1 hectare and plot B of area 3 hectares. All of A is classified as stressed and none of B is. First select a plot ID uniformly and report its classification. Then consider selecting a location uniformly by area across the farm. Find the probability of reporting stress in each experiment.\n\nFor uniform plot selection, Ω={A,B}\\Omega=\\{A,B\\} and P({A})=1/2P(\\{A\\})=1/2. For uniform area selection, the stressed area is 1 out of 4 hectares, giving probability 1/41/4. At the plot-label level the second experiment assigns weights 1/41/4 and 3/43/4. Changing the sampling unit changes the probability. Neither answer estimates an unstated future drought risk.\n\nWork through the sampling rule and calculation before naming the general idea.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s39",
+    "href": "w01-probability-worked.html#s39",
+    "title": "Introduction to probability through problems",
+    "section": "Finance: a loss distribution from fixed records",
+    "text": "Finance: a loss distribution from fixed records\n\nSelect one of ten hypothetical contract records uniformly. Six have a recorded loss of ₹0, three have ₹100, and one has ₹500. Let LL record the loss. Find its distribution, P(L&gt;0)P(L&gt;0) and P(L≥100)P(L\\ge100).\n\nThe outcomes are the ten contract IDs, while LL takes values 0, 100 and 500. Counting the IDs gives P(L=0)=6/10P(L=0)=6/10, P(L=100)=3/10P(L=100)=3/10, and P(L=500)=1/10P(L=500)=1/10. Thus P(L&gt;0)=4/10P(L&gt;0)=4/10 and P(L≥100)=4/10P(L\\ge100)=4/10. The events coincide on these records. Three loss values do not receive equal probabilities. This describes selection from a fixed ledger, not a forecast.\n\nWork through the sampling rule and calculation before naming the general idea.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s40",
+    "href": "w01-probability-worked.html#s40",
+    "title": "Introduction to probability through problems",
+    "section": "Support: number of required destinations",
+    "text": "Support: number of required destinations\n\nFor the six-ticket audit, record D(t)D(t), the number of named destinations required by the reviewer: Billing and Account Support. Find the distribution of DD under uniform ticket selection.\n\nTicket t4t_4 gives 0, tickets t2,t3,t5,t6t_2,t_3,t_5,t_6 give 1, and t1t_1 gives 2. Hence P(D=0)=1/6P(D=0)=1/6, P(D=1)=4/6P(D=1)=4/6 and P(D=2)=1/6P(D=2)=1/6. The probabilities sum to 1. “Other” means zero of these two named destinations, not that no support is needed.\n\nWork through the sampling rule and calculation before naming the general idea.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s41",
+    "href": "w01-probability-worked.html#s41",
+    "title": "Introduction to probability through problems",
+    "section": "Agriculture: germination counts",
+    "text": "Agriculture: germination counts\n\nSelect one of eight hypothetical seed-tray records uniformly. The recorded numbers of germinated seeds are 0,1,1,2,2,2,3,30,1,1,2,2,2,3,3. Let GG be the recorded count. Find its distribution and the probability of at least two germinated seeds.\n\nTray IDs are equally likely; their counts are not. The distribution is P(G=0)=1/8P(G=0)=1/8, P(G=1)=2/8P(G=1)=2/8, P(G=2)=3/8P(G=2)=3/8, P(G=3)=2/8P(G=3)=2/8. Therefore P(G≥2)=(3+2)/8=5/8P(G\\ge2)=(3+2)/8=5/8. No assumption of independent seed germination is needed to describe selection from these fixed records.\n\nWork through the sampling rule and calculation before naming the general idea.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s42",
+    "href": "w01-probability-worked.html#s42",
+    "title": "Introduction to probability through problems",
+    "section": "IT monitoring: a continuous waiting time",
+    "text": "IT monitoring: a continuous waiting time\n\nA monitoring check runs every 10 minutes. Stipulate that an incident arrives at a uniformly distributed time within one checking cycle. Let WW be the wait until the next check. What is P(W&gt;7)P(W&gt;7)?\n\nThe waiting time is uniform on [0,10][0,10] minutes. Waiting more than 7 minutes occupies an interval of length 3, so P(W&gt;7)=3/10P(W&gt;7)=3/10. Equivalently, the density is 1/101/10 per minute and the area is 3(1/10)3(1/10). A periodic checking schedule alone does not establish the uniform arrival assumption.\n\nWork through the sampling rule and calculation before naming the general idea.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s43",
+    "href": "w01-probability-worked.html#s43",
+    "title": "Probability through ticket triage",
+    "section": "Assessment-indicator practice",
+    "text": "Assessment-indicator practice\n\nSelect one of five hypothetical records uniformly. Scores are 45, 60, 70, 80 and 95; passing means at least 60. Define the pass indicator and its law.\n\nOn record IDs a1,…,a5a_1,\\ldots,a_5, let Y(ai)=1Y(a_i)=1 for a passing score and 0 otherwise. Then Y−1({1})={a2,a3,a4,a5}Y^{-1}(\\{1\\})=\\{a_2,a_3,a_4,a_5\\}, so PY({1})=4/5P_Y(\\{1\\})=4/5 and PY({0})=1/5P_Y(\\{0\\})=1/5. This describes selection from these records, not a future cohort.\n\nWork the example, then connect it to the definition.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s44",
+    "href": "w01-probability-worked.html#s44",
+    "title": "Probability through ticket triage",
+    "section": "Stopping point and continuation",
+    "text": "Stopping point and continuation\n\nState one distinction from today that is needed before interpreting an AI evaluation score as a future probability.\n\nThe audit agreement fraction describes six fixed records. A future-ticket probability requires a target population and a sampling or generation model. For each probability claim, identify outcomes, events and the probability assignment. Continue with more event and distribution problems before advancing to further theory.\n\nClose by collecting one or two student formulations. The meeting duration is not a reason to rush the remaining examples.\nReference: course 01.1 notes, §§1–8; rigorous supplement for formal derivations."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s45",
+    "href": "w01-probability-worked.html#s45",
+    "title": "Introduction to probability",
+    "section": "Accuracy and class proportions",
+    "text": "Accuracy and class proportions\n\nA hypothetical test set contains 9,900 nondefective and 100 defective items. A system always predicts “nondefective.” Calculate its accuracy and defect detection fraction.\n\nAccuracy:\n990010000=0.99.\\frac{9900}{10000}=0.99.\nFraction of defective items detected:\n0100=0.\\frac0{100}=0.\nThe overall proportion correct does not specify performance within the defective class.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s46",
+    "href": "w01-probability-worked.html#s46",
+    "title": "Introduction to probability",
+    "section": "Practice: two fair dice",
+    "text": "Practice: two fair dice\n\nAssume two independent fair dice. List the 36 equally likely ordered outcomes and find the probability that the sum is 7.\n\nThere are 36 ordered pairs, each with probability 1/361/36 under the stated assumptions.\nThe favourable pairs are\n(1,6),(2,5),(3,4),(4,3),(5,2),(6,1).(1,6),(2,5),(3,4),(4,3),(5,2),(6,1).\nThus P(sum 7)=6/36=1/6P(\\text{sum }7)=6/36=1/6.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s47",
+    "href": "w01-probability-worked.html#s47",
+    "title": "Introduction to probability",
+    "section": "Practice: at least one six",
+    "text": "Practice: at least one six\n\nAssume two independent fair dice. Using the complement, find the probability of at least one six.\n\nThe complement is “neither die shows six.”\nThere are 5×5=255\\times5=25 such ordered pairs.\nP(at least one six)=1−2536=1136.P(\\text{at least one six})=1-\\frac{25}{36}=\\frac{11}{36}.\nThe favourable outcomes are not just (6,6)(6,6).\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s48",
+    "href": "w01-probability-worked.html#s48",
+    "title": "Introduction to probability",
+    "section": "Review: describing a probability calculation",
+    "text": "Review: describing a probability calculation\n\nA hypothetical log has 50 requests, 7 above 200 ms. Select one request uniformly. Define the outcome, the latency random variable, and the event of latency above 200 ms; calculate its probability.\n\nOutcome: a request identifier in Ω={1,…,50}\\Omega=\\{1,\\ldots,50\\}.\nRandom variable: X(i)X(i) is the recorded latency of request ii, in milliseconds.\nEvent: A={i:X(i)&gt;200}A=\\{i:X(i)&gt;200\\}, containing seven identifiers.\nWith all subsets as events and uniform selection,\nP(A)=7/50=0.14.P(A)=7/50=0.14.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s49",
+    "href": "w01-probability-worked.html#s49",
+    "title": "Introduction to probability",
+    "section": "Review: assumptions behind the answer",
+    "text": "Review: assumptions behind the answer\n\nFor a probability calculation based on data or a transformed random variable, what must be specified about the experiment, event and distribution?\n\nSpecify the experiment and the sampling rule.\nWrite the event as a set or an equivalent numerical condition.\nUse probabilities consistent with the sampling rule. Counting requires equally likely outcomes.\nFor a transformation, carry the distribution with it and check the inverse image of the event.\n\nAsk students to apply these steps to one inspection problem and one continuous measurement model, rather than recite the list.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-worked.html#s50",
+    "href": "w01-probability-worked.html#s50",
+    "title": "Introduction to probability",
+    "section": "Further reading",
+    "text": "Further reading\n\nUse the main notes for additional worked problems and the supplement for the formal development.\n\nJay L. Devore, Probability and Statistics for Engineering and the Sciences, 9th edition, Chapters 2–4: sample spaces and events, probability, random variables and their distributions. The publisher’s table of contents is provided for reference.\nKrishna Jagannathan, Probability Foundations for Electrical Engineers, Chapters 1, 4, and 11. The examples here are stipulated for this course.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; course lesson notes for the original worked examples."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p01",
+    "href": "w01-probability-interpretations-worked.html#p01",
+    "title": "Probability before Kolmogorov",
+    "section": "What does a probability mean?",
+    "text": "What does a probability mean?\n\nIn a hypothetical agent benchmark, success was recorded on 90 of 100 tasks. What does the statement “success probability is 0.9” assert, and what does it assume?\n\nThe observed fraction is 0.9 on this benchmark. Treating it as a probability for future tasks requires a model connecting the benchmark tasks to the tasks of interest. The answer also depends on what probability is taken to mean: long-run frequency, coherent degree of belief, or a relation between evidence and a proposition. The axioms specify valid calculations; by themselves they do not select one interpretation.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nThe observed fraction is 0.9 on this benchmark. Treating it as a probability for future tasks requires a model connecting the benchmark tasks to the tasks of interest. The answer also depends on what probability is taken to mean: long-run frequency, coherent degree of belief, or a relation between evidence and a proposition. The axioms specify valid calculations; by themselves they do not select one interpretation."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p02",
+    "href": "w01-probability-interpretations-worked.html#p02",
+    "title": "Probability before Kolmogorov",
+    "section": "The calculus and its interpretation",
+    "text": "The calculus and its interpretation\n\nSeparate two questions: which probability calculations are valid, and what do the numbers represent?\n\nKolmogorov’s 1933 Grundbegriffe der Wahrscheinlichkeitsrechnung axiomatized the calculus. The axioms constrain a probability measure. They do not, by themselves, say whether a probability is a long-run frequency, a degree of belief, or something else.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nKolmogorov’s 1933 Grundbegriffe der Wahrscheinlichkeitsrechnung axiomatized the calculus. The axioms constrain a probability measure. They do not, by themselves, say whether a probability is a long-run frequency, a degree of belief, or something else."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p03",
+    "href": "w01-probability-interpretations-worked.html#p03",
+    "title": "Probability before Kolmogorov",
+    "section": "Laplace’s classical rule",
+    "text": "Laplace’s classical rule\n\nA fair die has six equally likely faces. What probability does the classical rule assign to an even face?\n\nThe classical rule is favourable cases divided by equally possible cases:\nP(A)=number of favourable casesnumber of equally possible cases.P(A)=\\frac{\\text{number of favourable cases}}{\\text{number of equally possible cases}}.\nFor a fair die, three of the six faces are even, so the rule gives 3/6=1/23/6=1/2. Hájek, §3.1, discusses Laplace’s formulation in the Philosophical Essay on Probabilities (1814).\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nThe classical rule is favourable cases divided by equally possible cases:\nP(A)=number of favourable casesnumber of equally possible cases.P(A)=\\frac{\\text{number of favourable cases}}{\\text{number of equally possible cases}}.\nFor a fair die, three of the six faces are even, so the rule gives 3/6=1/23/6=1/2. Hájek, §3.1, discusses Laplace’s formulation in the Philosophical Essay on Probabilities (1814)."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p04",
+    "href": "w01-probability-interpretations-worked.html#p04",
+    "title": "Probability before Kolmogorov",
+    "section": "The assumption behind counting",
+    "text": "The assumption behind counting\n\nWhat justifies assigning the same probability to every face?\n\nThe classical rule needs an equally-likely partition. In the die example, fairness is the model assumption that gives each face probability 1/61/6. Counting then follows from that assumption. It does not establish fairness.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nThe classical rule needs an equally-likely partition. In the die example, fairness is the model assumption that gives each face probability 1/61/6. Counting then follows from that assumption. It does not establish fairness."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p05",
+    "href": "w01-probability-interpretations-worked.html#p05",
+    "title": "Probability before Kolmogorov",
+    "section": "A circular definition",
+    "text": "A circular definition\n\nCan “equally possible” define probability without already using a probability idea?\n\nNo. To call two cases equally possible is already to assert that neither has greater probability. The classical definition explains probability using a special case of probability. Keynes (1921) called the appeal to equal possibility the principle of indifference.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nNo. To call two cases equally possible is already to assert that neither has greater probability. The classical definition explains probability using a special case of probability. Keynes (1921) called the appeal to equal possibility the principle of indifference."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p06",
+    "href": "w01-probability-interpretations-worked.html#p06",
+    "title": "Probability before Kolmogorov",
+    "section": "One experiment, two partitions",
+    "text": "One experiment, two partitions\n\nToss a fair coin twice. What is the probability of at least one head? First list the ordered outcomes.\n\nThe ordered sample space is {HH,HT,TH,TT}\\{HH,HT,TH,TT\\}. Under independent fair tosses, each outcome has probability 1/41/4. The event is {HH,HT,TH}\\{HH,HT,TH\\}, so its probability is 3/43/4.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nThe ordered sample space is {HH,HT,TH,TT}\\{HH,HT,TH,TT\\}. Under independent fair tosses, each outcome has probability 1/41/4. The event is {HH,HT,TH}\\{HH,HT,TH\\}, so its probability is 3/43/4."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p07",
+    "href": "w01-probability-interpretations-worked.html#p07",
+    "title": "Probability before Kolmogorov",
+    "section": "The same event with three cases",
+    "text": "The same event with three cases\n\nA three-case account lists: a head on the first toss; a tail then a head; two tails. Are these cases equally likely?\n\nThey form a disjoint, exhaustive partition: {HH,HT}\\{HH,HT\\}, {TH}\\{TH\\} and {TT}\\{TT\\}. Their probabilities are 1/21/2, 1/41/4 and 1/41/4. Only the first two cases include at least one head, so the probability is 1/2+1/4=3/41/2+1/4=3/4. Counting the cases as equal would give 2/32/3, which is incorrect for this partition.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nThey form a disjoint, exhaustive partition: {HH,HT}\\{HH,HT\\}, {TH}\\{TH\\} and {TT}\\{TT\\}. Their probabilities are 1/21/2, 1/41/4 and 1/41/4. Only the first two cases include at least one head, so the probability is 1/2+1/4=3/41/2+1/4=3/4. Counting the cases as equal would give 2/32/3, which is incorrect for this partition."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p08",
+    "href": "w01-probability-interpretations-worked.html#p08",
+    "title": "Probability before Kolmogorov",
+    "section": "Partition dependence",
+    "text": "Partition dependence\n\nWhat failed in the three-case calculation?\n\nThe list itself is valid: exactly one case occurs. The error is assigning equal weights without justification. The same experiment admits different exhaustive partitions, and their parts need not have the same probabilities.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nThe list itself is valid: exactly one case occurs. The error is assigning equal weights without justification. The same experiment admits different exhaustive partitions, and their parts need not have the same probabilities."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p09",
+    "href": "w01-probability-interpretations-worked.html#p09",
+    "title": "Probability before Kolmogorov",
+    "section": "When the counting rule is valid",
+    "text": "When the counting rule is valid\n\nState a condition under which P(A)=|A|/|Ω|P(A)=|A|/|\\Omega| is justified for finite Ω\\Omega.\n\nIf the model assigns equal probability to each of the finitely many outcomes, then each has probability 1/|Ω|1/|\\Omega|. Finite additivity gives\nP(A)=∑ω∈AP({ω})=|A||Ω|.P(A)=\\sum_{\\omega\\in A}P(\\{\\omega\\})=\\frac{|A|}{|\\Omega|}.\nThus counting is a consequence of the uniform finite model, not a definition that selects that model.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nIf the model assigns equal probability to each of the finitely many outcomes, then each has probability 1/|Ω|1/|\\Omega|. Finite additivity gives\nP(A)=∑ω∈AP({ω})=|A||Ω|.P(A)=\\sum_{\\omega\\in A}P(\\{\\omega\\})=\\frac{|A|}{|\\Omega|}.\nThus counting is a consequence of the uniform finite model, not a definition that selects that model."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p10",
+    "href": "w01-probability-interpretations-worked.html#p10",
+    "title": "Probability before Kolmogorov",
+    "section": "A measured fraction is not a probability",
+    "text": "A measured fraction is not a probability\n\nIn nn observed trials, the event AA occurred Nn(A)N_n(A) times. What does Nn(A)/nN_n(A)/n describe?\n\nIt is the observed relative frequency:\nfn(A)=Nn(A)n.f_n(A)=\\frac{N_n(A)}{n}.\nIt is a statistic computed from a finite record. A probability belongs to a model. The two quantities are related in repeated-trial settings, but they are not the same definition.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nIt is the observed relative frequency:\nfn(A)=Nn(A)n.f_n(A)=\\frac{N_n(A)}{n}.\nIt is a statistic computed from a finite record. A probability belongs to a model. The two quantities are related in repeated-trial settings, but they are not the same definition."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p11",
+    "href": "w01-probability-interpretations-worked.html#p11",
+    "title": "Probability before Kolmogorov",
+    "section": "The frequency interpretation",
+    "text": "The frequency interpretation\n\nHow does the frequency account define the probability of AA?\n\nIt identifies probability with the limiting relative frequency of AA in an indefinitely long sequence of repetitions. Venn’s The Logic of Chance (1866) and von Mises’s work (1919; 1928) developed frequency accounts. Von Mises formulated them using infinite sequences called collectives.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nIt identifies probability with the limiting relative frequency of AA in an indefinitely long sequence of repetitions. Venn’s The Logic of Chance (1866) and von Mises’s work (1919; 1928) developed frequency accounts. Von Mises formulated them using infinite sequences called collectives."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p12",
+    "href": "w01-probability-interpretations-worked.html#p12",
+    "title": "Probability before Kolmogorov",
+    "section": "What is a collective?",
+    "text": "What is a collective?\n\nWhy did von Mises impose a condition on selected subsequences?\n\nA collective is an infinite sequence in which relative frequencies of attributes converge and the limits remain unchanged under admissible selection rules that do not use the selected outcomes. If arbitrary selection were allowed, one could select subsequences based on outcomes and alter their frequencies. The admissible rules therefore need restriction; Church formalized place selection using recursive rules (see Hájek, §3.4).\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nA collective is an infinite sequence in which relative frequencies of attributes converge and the limits remain unchanged under admissible selection rules that do not use the selected outcomes. If arbitrary selection were allowed, one could select subsequences based on outcomes and alter their frequencies. The admissible rules therefore need restriction; Church formalized place selection using recursive rules (see Hájek, §3.4)."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p13",
+    "href": "w01-probability-interpretations-worked.html#p13",
+    "title": "Probability before Kolmogorov",
+    "section": "Limits of the frequency account",
+    "text": "Limits of the frequency account\n\nCan a finite run establish that the limiting relative frequency exists? What about a one-time event?\n\nNo finite record establishes an infinite limit. The frequency account postulates the limit rather than deriving it. It also requires an event to belong to a repeatable sequence, so it does not directly assign probability to a single non-repeatable event.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nNo finite record establishes an infinite limit. The frequency account postulates the limit rather than deriving it. It also requires an event to belong to a repeatable sequence, so it does not directly assign probability to a single non-repeatable event."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p14",
+    "href": "w01-probability-interpretations-worked.html#p14",
+    "title": "Probability before Kolmogorov",
+    "section": "A theorem or a definition?",
+    "text": "A theorem or a definition?\n\nUnder the frequency interpretation, is convergence a theorem? Under the axioms, what is its status?\n\nUnder the frequency definition, convergence is true by construction. Under the axioms, convergence is a theorem under stated hypotheses. For independent, identically distributed Bernoulli trials with success probability pp, the strong law gives convergence of the observed success frequency to pp with probability one. A theorem makes its hypotheses explicit.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nUnder the frequency definition, convergence is true by construction. Under the axioms, convergence is a theorem under stated hypotheses. For independent, identically distributed Bernoulli trials with success probability pp, the strong law gives convergence of the observed success frequency to pp with probability one. A theorem makes its hypotheses explicit."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p15",
+    "href": "w01-probability-interpretations-worked.html#p15",
+    "title": "Probability before Kolmogorov",
+    "section": "Probability as degree of belief",
+    "text": "Probability as degree of belief\n\nHow might a probability describe uncertainty about an event that will not be repeated?\n\nSubjective accounts interpret probability as a degree of belief. Ramsey (1926) and de Finetti (1931, 1937) connected a person’s probability for AA to betting quotients they would accept. This approach can address one-off events as well as repeated trials.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nSubjective accounts interpret probability as a degree of belief. Ramsey (1926) and de Finetti (1931, 1937) connected a person’s probability for AA to betting quotients they would accept. This approach can address one-off events as well as repeated trials."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p16",
+    "href": "w01-probability-interpretations-worked.html#p16",
+    "title": "Probability before Kolmogorov",
+    "section": "Coherence constrains beliefs",
+    "text": "Coherence constrains beliefs\n\nWhat condition prevents a system of betting probabilities from guaranteeing a loss?\n\nCoherence requires that the assigned betting quotients do not permit a set of bets that loses in every outcome. This requirement forces finite addition rules. The calculus is recovered from a consistency condition on the degrees of belief.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nCoherence requires that the assigned betting quotients do not permit a set of bets that loses in every outcome. This requirement forces finite addition rules. The calculus is recovered from a consistency condition on the degrees of belief."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p17",
+    "href": "w01-probability-interpretations-worked.html#p17",
+    "title": "Probability before Kolmogorov",
+    "section": "Finite and countable additivity",
+    "text": "Finite and countable additivity\n\nDoes coherence alone justify countable additivity?\n\nDe Finetti argued that this reasoning justifies finite additivity, not countable additivity. That is a mathematical difference from Kolmogorov’s third axiom. Several standard limit theorems fail without countable additivity.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nDe Finetti argued that this reasoning justifies finite additivity, not countable additivity. That is a mathematical difference from Kolmogorov’s third axiom. Several standard limit theorems fail without countable additivity."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p18",
+    "href": "w01-probability-interpretations-worked.html#p18",
+    "title": "Probability before Kolmogorov",
+    "section": "Probability as a relation to evidence",
+    "text": "Probability as a relation to evidence\n\nCan probability be understood as a relation between evidence and a proposition, rather than a personal belief?\n\nLogical accounts treat probability as partial entailment: a relation between evidence and a proposition that is not defined by an individual’s opinion. Keynes (1921), Jeffreys (1939) and Carnap (1950) developed versions of this programme. It seeks a canonical assignment when evidence is incomplete.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nLogical accounts treat probability as partial entailment: a relation between evidence and a proposition that is not defined by an individual’s opinion. Keynes (1921), Jeffreys (1939) and Carnap (1950) developed versions of this programme. It seeks a canonical assignment when evidence is incomplete."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p19",
+    "href": "w01-probability-interpretations-worked.html#p19",
+    "title": "Probability before Kolmogorov",
+    "section": "The principle of indifference returns",
+    "text": "The principle of indifference returns\n\nHow does the logical account face the difficulty of assigning probabilities without enough evidence?\n\nIt may appeal to a canonical assignment or the principle of indifference. But indifference depends on how possibilities are partitioned. The two-toss example showed that exhaustive cases need not be equally probable. The logical account therefore faces the same partition-dependence as the classical rule.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nIt may appeal to a canonical assignment or the principle of indifference. But indifference depends on how possibilities are partitioned. The two-toss example showed that exhaustive cases need not be equally probable. The logical account therefore faces the same partition-dependence as the classical rule."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p20",
+    "href": "w01-probability-interpretations-worked.html#p20",
+    "title": "Probability before Kolmogorov",
+    "section": "Fiducial probability",
+    "text": "Fiducial probability\n\nWhat was Fisher’s fiducial argument intended to obtain?\n\nFisher (1930) proposed deriving probability statements about an unknown parameter from its sampling distribution, without assuming a prior distribution. The aim was to obtain interval statements in applied statistics without the subjective element of a prior.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nFisher (1930) proposed deriving probability statements about an unknown parameter from its sampling distribution, without assuming a prior distribution. The aim was to obtain interval statements in applied statistics without the subjective element of a prior."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p21",
+    "href": "w01-probability-interpretations-worked.html#p21",
+    "title": "Probability before Kolmogorov",
+    "section": "What fiducial probability is—and is not",
+    "text": "What fiducial probability is—and is not\n\nIs fiducial probability an alternative interpretation of the probability calculus?\n\nIt concerns inferential statements about unknown parameters; it is not an account of what probability means generally. It is therefore not an alternative to the axioms in the same sense as frequency or degree-of-belief accounts. Fisher’s 1930 proposal is nearly contemporary with Kolmogorov’s 1933 axiomatization. Parameter-distribution methods need their own assumptions; a sampling distribution alone does not automatically supply a unique probability law for an unknown parameter. See Reid, slides 7–8 and 16.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nIt concerns inferential statements about unknown parameters; it is not an account of what probability means generally. It is therefore not an alternative to the axioms in the same sense as frequency or degree-of-belief accounts. Fisher’s 1930 proposal is nearly contemporary with Kolmogorov’s 1933 axiomatization. Parameter-distribution methods need their own assumptions; a sampling distribution alone does not automatically supply a unique probability law for an unknown parameter. See Reid, slides 7–8 and 16."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p22",
+    "href": "w01-probability-interpretations-worked.html#p22",
+    "title": "Probability before Kolmogorov",
+    "section": "Bertrand: a question without a sampling rule",
+    "text": "Bertrand: a question without a sampling rule\n\nIf someone says “choose a chord at random,” is the probability model specified?\n\nNo. The phrase does not identify a probability measure on the chord space. Bertrand’s paradox shows that different defensible sampling mechanisms give different probabilities for the same geometric event. Specify the mechanism—for example, what quantity is uniform—and the model is well posed. This diagnosis needs no new mathematics.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nNo. The phrase does not identify a probability measure on the chord space. Bertrand’s paradox shows that different defensible sampling mechanisms give different probabilities for the same geometric event. Specify the mechanism—for example, what quantity is uniform—and the model is well posed. This diagnosis needs no new mathematics."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p23",
+    "href": "w01-probability-interpretations-worked.html#p23",
+    "title": "Probability before Kolmogorov",
+    "section": "What Bertrand does not explain",
+    "text": "What Bertrand does not explain\n\nDoes specifying a sampling rule provide a framework for proving results about infinite sequences or processes?\n\nNo. Bertrand illustrates the need to specify the model, but it does not provide the mathematical language for infinite sequences, continuous-time processes, or conditioning on null events. Those require probability measures on suitable spaces and events.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nNo. Bertrand illustrates the need to specify the model, but it does not provide the mathematical language for infinite sequences, continuous-time processes, or conditioning on null events. Those require probability measures on suitable spaces and events."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p24",
+    "href": "w01-probability-interpretations-worked.html#p24",
+    "title": "Probability before Kolmogorov",
+    "section": "Measure theory preceded the axioms",
+    "text": "Measure theory preceded the axioms\n\nWas measure theory invented to resolve Bertrand’s paradox?\n\nNo. Measure and integration supply a way to assign mass to sets and calculate probabilities on infinite outcome spaces. Measure theory supplied tools for formulating and proving probability results beyond finite counting.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nNo. Measure and integration supply a way to assign mass to sets and calculate probabilities on infinite outcome spaces. Measure theory supplied tools for formulating and proving probability results beyond finite counting."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p25",
+    "href": "w01-probability-interpretations-worked.html#p25",
+    "title": "Probability before Kolmogorov",
+    "section": "Infinite sequences need measurable events",
+    "text": "Infinite sequences need measurable events\n\nTo say that relative frequencies converge with probability one, what set must be an event?\n\nThe set of infinite outcome sequences on which the frequencies converge must belong to the event σ-algebra. Countable additivity and closure under countable unions support such statements. Finite additivity alone is insufficient for the standard limit theory.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nThe set of infinite outcome sequences on which the frequencies converge must belong to the event σ-algebra. Countable additivity and closure under countable unions support such statements. Finite additivity alone is insufficient for the standard limit theory."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p26",
+    "href": "w01-probability-interpretations-worked.html#p26",
+    "title": "Probability before Kolmogorov",
+    "section": "Processes on function spaces",
+    "text": "Processes on function spaces\n\nWhat kind of probability space can represent a random continuous path?\n\nA process such as Brownian motion can be represented by a probability measure on a space of continuous functions. Kolmogorov’s extension theorem gives conditions under which consistent finite-dimensional distributions determine a measure on an infinite product space.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nA process such as Brownian motion can be represented by a probability measure on a space of continuous functions. Kolmogorov’s extension theorem gives conditions under which consistent finite-dimensional distributions determine a measure on an infinite product space."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p27",
+    "href": "w01-probability-interpretations-worked.html#p27",
+    "title": "Probability before Kolmogorov",
+    "section": "Conditioning on a probability-zero event",
+    "text": "Conditioning on a probability-zero event\n\nWhy does P(A∣B)=P(A∩B)/P(B)P(A\\mid B)=P(A\\cap B)/P(B) not define conditioning when P(B)=0P(B)=0?\n\nThe denominator is zero. In continuous models, exact-value events commonly have probability zero, so the elementary ratio cannot define conditional probabilities there. Kolmogorov’s conditional expectation relative to a σ-algebra supplies a more general object, defined up to events of probability zero. Specifying a value on an individual null event requires additional structure; the elementary ratio alone is insufficient.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nThe denominator is zero. In continuous models, exact-value events commonly have probability zero, so the elementary ratio cannot define conditional probabilities there. Kolmogorov’s conditional expectation relative to a σ-algebra supplies a more general object, defined up to events of probability zero. Specifying a value on an individual null event requires additional structure; the elementary ratio alone is insufficient."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p28",
+    "href": "w01-probability-interpretations-worked.html#p28",
+    "title": "Probability before Kolmogorov",
+    "section": "A shared mathematical framework",
+    "text": "A shared mathematical framework\n\nWhat do finite audits, continuous measurements and random paths need in common?\n\nEach needs an outcome space, measurable events and a probability measure. Their specific spaces differ, but common axioms let us state and prove rules that apply across these models.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nEach needs an outcome space, measurable events and a probability measure. Their specific spaces differ, but common axioms let us state and prove rules that apply across these models."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p29",
+    "href": "w01-probability-interpretations-worked.html#p29",
+    "title": "Probability before Kolmogorov",
+    "section": "What the axioms settle",
+    "text": "What the axioms settle\n\nDo the axioms determine which probability interpretation is correct?\n\nNo. The axioms fix rules of calculation. Interpretations differ over what probabilities assert and how a particular measure is chosen. The sample space, event collection and probability measure are parts of the model. Bertrand illustrates why they must be specified; measure theory provides a language for specifying them and proving limit theorems.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nNo. The axioms fix rules of calculation. Interpretations differ over what probabilities assert and how a particular measure is chosen. The sample space, event collection and probability measure are parts of the model. Bertrand illustrates why they must be specified; measure theory provides a language for specifying them and proving limit theorems."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p30",
+    "href": "w01-probability-interpretations-worked.html#p30",
+    "title": "Probability before Kolmogorov",
+    "section": "Reading guide",
+    "text": "Reading guide\n\nWhich arguments should be revisited in the main notes, and which belong to the Bertrand supplement?\n\nRead Section 2 of the main notes alongside this deck. The two-toss partition calculation is worked within this deck and in supplement §1. Main notes §3 poses Bertrand’s question; supplement §3 develops the sampling models and common chord space. This deck is a historical and conceptual companion; it does not replace the worked probability problems.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nRead Section 2 of the main notes alongside this deck. The two-toss partition calculation is worked within this deck and in supplement §1. Main notes §3 poses Bertrand’s question; supplement §3 develops the sampling models and common chord space. This deck is a historical and conceptual companion; it does not replace the worked probability problems."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s01",
+    "href": "w01-probability-bertrand.html#s01",
+    "title": "Bertrand’s paradox",
+    "section": "Random selection of a chord",
+    "text": "Random selection of a chord\n\nA chord is selected at random in a circle. What is the probability that it is longer than the side of an inscribed equilateral triangle?\n\n\nWe will calculate three answers to this same question, then make the probability models precise.\n\nPose the question before specifying a probability triplet. Let the three calculations motivate the formal models.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s02",
+    "href": "w01-probability-bertrand.html#s02",
+    "title": "Bertrand’s paradox",
+    "section": "The chord-length question",
+    "text": "The chord-length question\n\nFor a circle of radius RR, find the probability that a sampled chord has length L&gt;3RL&gt;\\sqrt3R. What probability would you assign?\n\nThe reference length is 3R\\sqrt3R.\nWe will calculate the probability under three specified sampling rules.\nIn each case the required event is the same geometric condition:\nL&gt;3R.L&gt;\\sqrt3R.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s03",
+    "href": "w01-probability-bertrand.html#s03",
+    "title": "Bertrand’s paradox",
+    "section": "Chord length from the midpoint distance",
+    "text": "Chord length from the midpoint distance\n\nLet D be the distance from the centre to the chord. Express its length L in terms of D.\n\n\nThe right triangle gives (L/2)2+D2=R2(L/2)^2+D^2=R^2.\nTherefore L=2R2−D2L=2\\sqrt{R^2-D^2}.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s04",
+    "href": "w01-probability-bertrand.html#s04",
+    "title": "Bertrand’s paradox",
+    "section": "Converting the long-chord condition",
+    "text": "Converting the long-chord condition\n\nUsing L=2R2−D2L=2\\sqrt{R^2-D^2}, express the strict condition L&gt;3RL&gt;\\sqrt3R as an inequality for DD.\n\nThe perpendicular from the centre bisects the chord, giving\n(L/2)2+D2=R2,L=2R2−D2.(L/2)^2+D^2=R^2,\\qquad L=2\\sqrt{R^2-D^2}.\nNow apply the strict threshold:\n2R2−D2&gt;3R.2\\sqrt{R^2-D^2}&gt;\\sqrt3R.\nBoth sides are nonnegative, so squaring is valid:\n4(R2−D2)&gt;3R2⇔D2&lt;R2/4.4(R^2-D^2)&gt;3R^2\\iff D^2&lt;R^2/4.\nSince D≥0D\\ge0, the event is D&lt;R/2D&lt;R/2.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s05",
+    "href": "w01-probability-bertrand.html#s05",
+    "title": "Bertrand’s paradox",
+    "section": "A numerical geometry check",
+    "text": "A numerical geometry check\n\nFor R=10R=10 cm and L=2R2−D2L=2\\sqrt{R^2-D^2}, calculate LL when D=3D=3 cm and when D=6D=6 cm. Compare both lengths with 3R\\sqrt3R.\n\nAt D=3D=3 cm: L=2100−9=291≈19.08L=2\\sqrt{100-9}=2\\sqrt{91}\\approx19.08 cm.\nAt D=6D=6 cm: L=2100−36=16L=2\\sqrt{100-36}=16 cm.\nThe threshold is 103≈17.3210\\sqrt3\\approx17.32 cm.\nThe first chord is longer than the threshold; the second is shorter. This agrees with the test D&lt;5D&lt;5 cm.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s06",
+    "href": "w01-probability-bertrand.html#s06",
+    "title": "Bertrand’s paradox",
+    "section": "Experiment I: a uniform angle at a fixed endpoint",
+    "text": "Experiment I: a uniform angle at a fixed endpoint\n\nUse a unit circle and fix a=(1,0)a=(1,0). Choose θ\\theta uniformly in (0,π)(0,\\pi), measured from the upward tangent towards the disk. Find the long-chord probability.\n\nThe resulting chord has length L=2sin⁡θL=2\\sin\\,\\theta.\nL&gt;3⇔π/3&lt;θ&lt;2π/3.L&gt;\\sqrt3\\iff\\pi/3&lt;\\theta&lt;2\\pi/3.\nThe favorable interval occupies one third of the angular range:\n2π/3−π/3π=13.\\frac{2\\pi/3-\\pi/3}{\\pi}=\\frac13."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s07",
+    "href": "w01-probability-bertrand.html#s07",
+    "title": "Bertrand’s paradox",
+    "section": "Experiment II: a uniform distance",
+    "text": "Experiment II: a uniform distance\n\nChoose rr uniformly in (0,1)(0,1). Set the midpoint to (r,0)(r,0) and draw the vertical chord through it. Find the long-chord probability.\n\nL=21−r2,L&gt;3⇔r&lt;1/2.L=2\\sqrt{1-r^2},\\qquad L&gt;\\sqrt3\\iff r&lt;1/2.\nHalf the available distance interval is favorable:\n1/21=12.\\frac{1/2}{1}=\\frac12.\nFixing the midpoint direction specifies which chord is drawn."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s08",
+    "href": "w01-probability-bertrand.html#s08",
+    "title": "Bertrand’s paradox",
+    "section": "Experiment III: a uniform midpoint",
+    "text": "Experiment III: a uniform midpoint\n\nChoose a midpoint uniformly by area in the unit disk. Draw the chord perpendicular to the radius through that point. Find the long-chord probability.\n\nThe midpoint must lie inside the concentric disk of radius 1/21/2.\nπ(1/2)2π=14.\\frac{\\pi(1/2)^2}{\\pi}=\\frac14.\nThe centre and boundary have area zero; omit them to make the construction unique and nondegenerate."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s09",
+    "href": "w01-probability-bertrand.html#s09",
+    "title": "Bertrand’s paradox",
+    "section": "The same English question gives three answers",
+    "text": "The same English question gives three answers\n\n\n\nMeaning of “random chord”\nProbability of L&gt;3L&gt;\\sqrt3\n\n\n\n\nUniform angle at a fixed endpoint\n1/31/3\n\n\nUniform distance with a fixed direction\n1/21/2\n\n\nUniform midpoint area\n1/41/4\n\n\n\nEach calculation follows its stated sampling rule.\nWe now make the outcomes, events and measures precise with (Ω,ℱ,P)(\\Omega,\\mathcal F,P)."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s10",
+    "href": "w01-probability-bertrand.html#s10",
+    "title": "Bertrand’s paradox",
+    "section": "The angle experiment as a triplet",
+    "text": "The angle experiment as a triplet\nΩ1=(0,π),ℱ1=ℬ((0,π)).\\Omega_1=(0,\\pi),\\qquad\\mathcal F_1=\\mathcal B((0,\\pi)).\nFor a Borel event BB, define\nP1(B)=1π∫Bdθ.P_1(B)=\\frac1\\pi\\int_B d\\theta.\nE1=(π/3,2π/3),P1(E1)=13.E_1=(\\pi/3,2\\pi/3),\\qquad P_1(E_1)=\\frac13.\nℬ\\mathcal B denotes the Borel σ-algebra generated by the open sets."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s11",
+    "href": "w01-probability-bertrand.html#s11",
+    "title": "Bertrand’s paradox",
+    "section": "The distance experiment as a triplet",
+    "text": "The distance experiment as a triplet\nΩ2=(0,1),ℱ2=ℬ((0,1)).\\Omega_2=(0,1),\\qquad\\mathcal F_2=\\mathcal B((0,1)).\nFor a Borel event BB, define\nP2(B)=∫Bdr.P_2(B)=\\int_B dr.\nE2=(0,1/2),P2(E2)=12.E_2=(0,1/2),\\qquad P_2(E_2)=\\frac12.\nThe fixed midpoint direction is part of the construction."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s12",
+    "href": "w01-probability-bertrand.html#s12",
+    "title": "Bertrand’s paradox",
+    "section": "The midpoint experiment as a triplet",
+    "text": "The midpoint experiment as a triplet\nD*={(x,y):0&lt;x2+y2&lt;1}.D^*=\\{(x,y):0&lt;x^2+y^2&lt;1\\}.\nΩ3=D*,ℱ3=ℬ(D*).\\Omega_3=D^*,\\qquad\\mathcal F_3=\\mathcal B(D^*).\nP3(B)=1π∬Bdxdy.P_3(B)=\\frac1\\pi\\iint_B dx\\,dy.\nE3={(x,y):0&lt;x2+y2&lt;1/4},P3(E3)=14.E_3=\\{(x,y):0&lt;x^2+y^2&lt;1/4\\},\\qquad P_3(E_3)=\\frac14.\nThe omitted centre and boundary have area zero."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s13",
+    "href": "w01-probability-bertrand.html#s13",
+    "title": "Bertrand’s paradox",
+    "section": "The probability triplets resolve the contradiction",
+    "text": "The probability triplets resolve the contradiction\nWith the probability triplets specified, the apparent contradiction is resolved: the three answers belong to three different probability models.\nP1(E1)=13,P2(E2)=12,P3(E3)=14.P_1(E_1)=\\frac13,\\qquad P_2(E_2)=\\frac12,\\qquad P_3(E_3)=\\frac14.\nStopping point. The resolution is complete. The remaining slides study sampling maps and induced measures on a common chord space."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s14",
+    "href": "w01-probability-bertrand.html#s14",
+    "title": "Bertrand’s paradox",
+    "section": "Exercise: connect the constructions",
+    "text": "Exercise: connect the constructions\n\nRandomize the first endpoint in Experiment I uniformly, independently of θ\\theta. Show that this gives two independent uniform endpoints.\nGive Experiment II an independent uniform midpoint direction. Does its length distribution change?\nExplain why an equal length distribution need not mean an equal measure on chords.\n\nExercise 8 in the supplement states the full problem.\nIn the advanced section, Model A uses independent uniform endpoints; B uses independent uniform distance and direction; C uses uniform midpoint area."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s15",
+    "href": "w01-probability-bertrand.html#s15",
+    "title": "Bertrand’s paradox",
+    "section": "Coordinates that specify a chord",
+    "text": "Coordinates that specify a chord\n\nFor radius RR, let t=D/R∈(0,1)t=D/R\\in(0,1) and ϕ∈[0,2π)\\phi\\in[0,2\\pi) describe the midpoint. Let C(ϕ,t)C(\\phi,t) be the chord through Rt(cos⁡ϕ,sin⁡ϕ)Rt(\\cos\\,\\phi,\\sin\\,\\phi), perpendicular to that radius.\n\nLet t=D/Rt=D/R and let ϕ\\phi be the direction of the midpoint from the centre.\nPlace the midpoint at distance RtRt in direction ϕ\\phi, then draw the perpendicular chord.\nCall this construction C(ϕ,t)C(\\phi,t).\nWe use 0&lt;t&lt;10&lt;t&lt;1 and 0≤ϕ&lt;2π0\\le\\phi&lt;2\\pi. Diameters and zero-length chords have probability zero under the three models.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s16",
+    "href": "w01-probability-bertrand.html#s16",
+    "title": "Bertrand’s paradox",
+    "section": "Recovering the chord coordinates",
+    "text": "Recovering the chord coordinates\n\nFor midpoint mm and radius RR, define t=∥m∥/Rt=\\|m\\|/R and ϕ=Arg⁡(m)∈[0,2π)\\phi=\\operatorname{Arg}(m)\\in[0,2\\pi). Recover (ϕ,t)(\\phi,t) from the chord.\n\nMeasure its normalized midpoint distance and direction:\nt=∥m∥R,ϕ=Arg⁡(m)∈[0,2π).t=\\frac{\\|m\\|}{R},\\qquad \\phi=\\operatorname{Arg}(m)\\in[0,2\\pi).\nThus\nC−1(c)=(ϕ,t).C^{-1}(c)=(\\phi,t).\nThis is an inverse function on the stated chord space. The supplement gives the endpoint formula and verifies both inverse identities.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s17",
+    "href": "w01-probability-bertrand.html#s17",
+    "title": "Bertrand’s paradox",
+    "section": "Model B: uniform radial distance",
+    "text": "Model B: uniform radial distance\n\nSample DD uniformly on (0,R)(0,R) and independently ϕ\\phi uniformly on [0,2π)[0,2\\pi). For L=2R2−D2L=2\\sqrt{R^2-D^2}, find the probability of L&gt;3RL&gt;\\sqrt3R.\n\nThe event is D&lt;R/2D&lt;R/2.\nThe favourable radial interval has length R/2R/2, out of total length RR:\nPB(L&gt;3R)=R/2R=12.P_B(L&gt;\\sqrt3R)=\\frac{R/2}{R}=\\frac12.\nThis model is uniform in radial distance.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s18",
+    "href": "w01-probability-bertrand.html#s18",
+    "title": "Bertrand’s paradox",
+    "section": "Model B: sampling map and inverse",
+    "text": "Model B: sampling map and inverse\n\nLet U,VU,V be independent uniforms on (0,1)(0,1) and [0,1)[0,1), and set t=Ut=U, ϕ=2πV\\phi=2\\pi V. Using C(ϕ,t)C(\\phi,t), write the chord, recover (U,V)(U,V), and express its length.\n\nt=U,ϕ=2πV,c=C(2πV,U).t=U,\\qquad \\phi=2\\pi V,\\qquad c=C(2\\pi V,U).\nFrom the sampled chord, recover\nU=t,V=ϕ/(2π).U=t,\\qquad V=\\phi/(2\\pi).\nThe length is LB=2R1−U2L_B=2R\\sqrt{1-U^2}, and the long-chord event is U&lt;1/2U&lt;1/2.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s19",
+    "href": "w01-probability-bertrand.html#s19",
+    "title": "Bertrand’s paradox",
+    "section": "Model C: a midpoint uniform in disk area",
+    "text": "Model C: a midpoint uniform in disk area\n\nChoose the chord midpoint uniformly by area in a disk of radius R. The long-chord event is D&lt;R/2. Find the probability.\n\nLong chords have midpoints within radius R/2R/2.\nUniform area sampling gives\nPC(L&gt;3R)=π(R/2)2πR2=14.P_C(L&gt;\\sqrt3R)=\\frac{\\pi(R/2)^2}{\\pi R^2}=\\frac14.\nThe smaller disk occupies a quarter of the total area.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s20",
+    "href": "w01-probability-bertrand.html#s20",
+    "title": "Bertrand’s paradox",
+    "section": "Why uniform area uses a square root",
+    "text": "Why uniform area uses a square root\n\nFor a midpoint sampled uniformly by area in a radius-R disk and U uniform on (0,1), derive P(D&lt;r) and the corresponding transformation of U.\n\nP(D&lt;r)=πr2πR2=(rR)2.P(D&lt;r)=\\frac{\\pi r^2}{\\pi R^2}=\\left(\\frac rR\\right)^2.\nThe transformation D=RUD=R\\sqrt U has exactly this property:\nP(RU&lt;r)=P(U&lt;(r/R)2)=(r/R)2.P(R\\sqrt U&lt;r)=P\\!\\left(U&lt;(r/R)^2\\right)=(r/R)^2.\nUsing D=RUD=RU instead would give uniform radial distance.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s21",
+    "href": "w01-probability-bertrand.html#s21",
+    "title": "Bertrand’s paradox",
+    "section": "Model C: sampling map and inverse",
+    "text": "Model C: sampling map and inverse\n\nFor uniform disk area, set t=Ut=\\sqrt U, ϕ=2πV\\phi=2\\pi V, with independent uniforms U,VU,V on (0,1)(0,1) and [0,1)[0,1). Using C(ϕ,t)C(\\phi,t), write the chord, its inverse and its length.\n\nt=U,ϕ=2πV,c=C(2πV,U).t=\\sqrt U,\\qquad \\phi=2\\pi V,\\qquad c=C(2\\pi V,\\sqrt U).\nInverse: U=t2U=t^2, V=ϕ/(2π)V=\\phi/(2\\pi).\nThe length is LC=2R1−UL_C=2R\\sqrt{1-U}.\nThe long-chord event is U&lt;1/4U&lt;1/4, which has probability 1/41/4.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s22",
+    "href": "w01-probability-bertrand.html#s22",
+    "title": "Bertrand’s paradox",
+    "section": "Practice: a smaller midpoint region",
+    "text": "Practice: a smaller midpoint region\n\nFor the same disk of radius R, find P(D&lt;R/3) under (i) a uniform radial distance and (ii) a midpoint chosen uniformly by disk area.\n\nModel B, uniform radial distance:\nPB(D&lt;R/3)=R/3R=13.P_B(D&lt;R/3)=\\frac{R/3}{R}=\\frac13.\nModel C, uniform area:\nPC(D&lt;R/3)=π(R/3)2πR2=19.P_C(D&lt;R/3)=\\frac{\\pi(R/3)^2}{\\pi R^2}=\\frac19.\nThe region is identical. The two sampling distributions assign it different probabilities.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-interpretations-worked.html#p31",
+    "href": "w01-probability-interpretations-worked.html#p31",
+    "title": "Probability before Kolmogorov",
+    "section": "Sources and further reading",
+    "text": "Sources and further reading\n\nWhere can the interpretations and formal definitions be checked?\n\nAlan Hájek, Interpretations of Probability, §§1, 3.1–3.4: calculus, classical, evidential, subjective and frequency accounts.\nNancy Reid, Distributions for Parameters, slides 7–8 and 16: Fisher’s fiducial proposal and its inferential role.\nKrishna Jagannathan, Probability Foundations for Electrical Engineers, Chapters 4 and 11: spaces, measurable functions and laws.\n\nCompanion to Section 2 of the main notes. Source pointers appear on the final references slide.\nSuggested discussion:\nAlan Hájek, Interpretations of Probability, §§1, 3.1–3.4: calculus, classical, evidential, subjective and frequency accounts.\nNancy Reid, Distributions for Parameters, slides 7–8 and 16: Fisher’s fiducial proposal and its inferential role.\nKrishna Jagannathan, Probability Foundations for Electrical Engineers, Chapters 4 and 11: spaces, measurable functions and laws."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s23",
+    "href": "w01-probability-bertrand.html#s23",
+    "title": "Bertrand’s paradox",
+    "section": "Model A: two uniform endpoints",
+    "text": "Model A: two uniform endpoints\n\nChoose independent uniform angles A1,A2A_1,A_2 on [0,2π)[0,2\\pi), and set Θ=(A2−A1)mod⁡2π\\Theta=(A_2-A_1)\\bmod 2\\pi. Express the chord length using Θ\\Theta.\n\nAfter the first angle is chosen, rotational symmetry leaves Θ\\Theta uniform on [0,2π)[0,2\\pi).\nBisect the isosceles triangle formed by the centre and the two endpoints. Then\nL/2=Rsin⁡(Θ/2),L=2Rsin⁡(Θ/2).L/2=R\\sin\\,(\\Theta/2),\\qquad L=2R\\sin\\,(\\Theta/2).\nFor Θ=π\\Theta=\\pi, the endpoints are opposite and L=2RL=2R.\n\nDraw the central isosceles triangle and bisect it before introducing the formula. Explain that the relative angle is uniform because the endpoints are independent and uniform.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s24",
+    "href": "w01-probability-bertrand.html#s24",
+    "title": "Bertrand’s paradox",
+    "section": "Model A: the favourable angular interval",
+    "text": "Model A: the favourable angular interval\n\nLet Θ=(A2−A1)mod⁡2π\\Theta=(A_2-A_1)\\bmod2\\pi be uniform on [0,2π)[0,2\\pi) and L=2Rsin⁡(Θ/2)L=2R\\sin\\,(\\Theta/2). Solve L&gt;3RL&gt;\\sqrt3R for Θ\\Theta.\n\nsin⁡(Θ/2)&gt;3/2.\\sin\\,(\\Theta/2)&gt;\\sqrt3/2.\nSince 0≤Θ/2&lt;π0\\le\\Theta/2&lt;\\pi,\nπ/3&lt;Θ/2&lt;2π/3.\\pi/3&lt;\\Theta/2&lt;2\\pi/3.\nTherefore 2π/3&lt;Θ&lt;4π/32\\pi/3&lt;\\Theta&lt;4\\pi/3, and\nPA(long)=4π/3−2π/32π=13.P_A(\\text{long})=\\frac{4\\pi/3-2\\pi/3}{2\\pi}=\\frac13.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s25",
+    "href": "w01-probability-bertrand.html#s25",
+    "title": "Bertrand’s paradox",
+    "section": "Model A in midpoint coordinates",
+    "text": "Model A in midpoint coordinates\n\nFor uniform Θ\\Theta on [0,2π)[0,2\\pi), define α=min⁡(Θ,2π−Θ)\\alpha=\\min(\\Theta,2\\pi-\\Theta). Find its distribution and the midpoint distance t=D/Rt=D/R.\n\nα=min⁡(Θ,2π−Θ),0≤α≤π.\\alpha=\\min(\\Theta,2\\pi-\\Theta),\\qquad 0\\le\\alpha\\le\\pi.\nThe right triangle gives t=D/R=cos⁡(α/2)t=D/R=\\cos\\,(\\alpha/2).\nFor 0≤a≤π0\\le a\\le\\pi, the angular intervals producing α≤a\\alpha\\le a have total length 2a2a:\nP(α≤a)=2a2π=aπ.P(\\alpha\\le a)=\\frac{2a}{2\\pi}=\\frac a\\pi.\nThus α\\alpha is uniform on [0,π][0,\\pi].\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s26",
+    "href": "w01-probability-bertrand.html#s26",
+    "title": "Bertrand’s paradox",
+    "section": "Model A: sampling map and inverse",
+    "text": "Model A: sampling map and inverse\n\nFor independent uniform endpoint angles, set U=α/πU=\\alpha/\\pi, α=min⁡(Θ,2π−Θ)\\alpha=\\min(\\Theta,2\\pi-\\Theta) and V=ϕ/(2π)V=\\phi/(2\\pi). With t=cos⁡(α/2)t=\\cos\\,(\\alpha/2), find the chord map and its inverse.\n\nt=cos⁡(πU/2),c=C(2πV,cos⁡(πU/2)).t=\\cos\\,(\\pi U/2),\\qquad c=C(2\\pi V,\\cos\\,(\\pi U/2)).\nInverse:\nU=2πarccos⁡(t),V=ϕ/(2π).U=\\frac2\\pi\\arccos(t),\\qquad V=\\phi/(2\\pi).\nThis generates the same distribution of unordered chords as independent uniform endpoints. The supplement proves the independence of the midpoint direction and the smaller separation.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s27",
+    "href": "w01-probability-bertrand.html#s27",
+    "title": "Bertrand’s paradox",
+    "section": "Model A: the length random variable",
+    "text": "Model A: the length random variable\n\nFor independent uniform endpoint angles, use U=α/πU=\\alpha/\\pi, t=cos⁡(α/2)t=\\cos\\,(\\alpha/2). Express L=2R1−t2L=2R\\sqrt{1-t^2} in terms of UU and find the condition for L&gt;3RL&gt;\\sqrt3R.\n\nLA=2R1−cos⁡2(πU/2)=2Rsin⁡(πU/2).L_A=2R\\sqrt{1-\\cos\\,^2(\\pi U/2)}=2R\\sin\\,(\\pi U/2).\nThe sine is increasing for 0&lt;U&lt;10&lt;U&lt;1, so\nLA&gt;3R⇔U&gt;2/3.L_A&gt;\\sqrt3R\\iff U&gt;2/3.\nTherefore PA(long)=1−2/3=1/3P_A(\\text{long})=1-2/3=1/3.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s28",
+    "href": "w01-probability-bertrand.html#s28",
+    "title": "Bertrand’s paradox",
+    "section": "Practice: recovering the source coordinates",
+    "text": "Practice: recovering the source coordinates\n\nFor t=1/2t=1/2 and ϕ=π\\phi=\\pi, recover v=ϕ/(2π)v=\\phi/(2\\pi) and uu under Model A, t=cos⁡(πU/2)t=\\cos\\,(\\pi U/2); Model B, t=Ut=U; and Model C, t=Ut=\\sqrt U. Is the chord longer than 3R\\sqrt3R?\n\nIn every model, v=ϕ/(2π)=1/2v=\\phi/(2\\pi)=1/2.\nModel A: u=(2/π)arccos⁡(1/2)=2/3u=(2/\\pi)\\arccos(1/2)=2/3.\nModel B: u=t=1/2u=t=1/2.\nModel C: u=t2=1/4u=t^2=1/4.\nThe chord length equals 3R\\sqrt3R, so it is outside the strict long-chord event in all three models.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s29",
+    "href": "w01-probability-bertrand.html#s29",
+    "title": "Bertrand’s paradox",
+    "section": "Comparing the three sampling distributions",
+    "text": "Comparing the three sampling distributions\n\nSummarize the event calculations using the same uniform source U.\n\n\n\n\n\n\n\n\n\n\nSampling rule\nNormalized distance tt\nLong-chord condition\nProbability\n\n\n\n\nA: uniform endpoints\ncos⁡(πU/2)\\cos\\,(\\pi U/2)\nU&gt;2/3U&gt;2/3\n1/31/3\n\n\nB: uniform radial distance\nUU\nU&lt;1/2U&lt;1/2\n1/21/2\n\n\nC: uniform midpoint area\nU\\sqrt U\nU&lt;1/4U&lt;1/4\n1/41/4\n\n\n\nEach result uses a specified random variable and a specified sampling distribution.\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s30",
+    "href": "w01-probability-bertrand.html#s30",
+    "title": "Bertrand’s paradox",
+    "section": "Three measures on a common chord space",
+    "text": "Three measures on a common chord space\n\nHow can the rotationally invariant models use the same chord space?\n\nLet 𝒞*\\mathcal C_* be the nondegenerate, nondiameter chords and let ℱ𝒞*\\mathcal F_{\\mathcal C_*} be the event collection defined in the supplement.\n(𝒞*,ℱ𝒞*,PA),(𝒞*,ℱ𝒞*,PB),(𝒞*,ℱ𝒞*,PC).(\\mathcal C_*,\\mathcal F_{\\mathcal C_*},P_A),\\quad(\\mathcal C_*,\\mathcal F_{\\mathcal C_*},P_B),\\quad(\\mathcal C_*,\\mathcal F_{\\mathcal C_*},P_C).\nThe event is E={c:D(c)&lt;R/2}E=\\{c:D(c)&lt;R/2\\} in all three models.\nThe sampling rules assign different probabilities to regions of the chord space.\n“Random chord” does not select one of these probability distributions.\nCompare the sampling experiments · Inspect the maps and inverses\n\nAllow students to work before showing the completed calculation. Discuss the interpretation before advancing.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  },
+  {
+    "objectID": "w01-probability-bertrand.html#s31",
+    "href": "w01-probability-bertrand.html#s31",
+    "title": "Bertrand’s paradox",
+    "section": "Changing coordinates in one fixed model",
+    "text": "Changing coordinates in one fixed model\n\nKeep Model B, where T=D/RT=D/R is uniform on (0,1)(0,1). Put W=T2W=T^2. What is P(W&lt;1/4)P(W&lt;1/4)?\n\nW&lt;1/4⇔T2&lt;1/4⇔T&lt;1/2.W&lt;1/4\\iff T^2&lt;1/4\\iff T&lt;1/2.\nHence PB(W&lt;1/4)=1/2P_B(W&lt;1/4)=1/2.\nWW is not uniform: in general, PB(W&lt;w)=wP_B(W&lt;w)=\\sqrt w for 0&lt;w&lt;10&lt;w&lt;1.\nDeclaring WW uniform would change the sampling model to Model C.\n\nStopping point: students should explain both why the three sampling models differ and why a coordinate change within a fixed model preserves probability.\nReference: Jagannathan, Chapter 4; rigorous supplement §3 for the sampling maps and derivations."
+  }
+]

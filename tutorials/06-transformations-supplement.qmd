@@ -1,0 +1,66 @@
+---
+title: "01.6 supplement · Change of variables and induced laws"
+format:
+  html:
+    html-math-method: mathml
+    css: probability-notes.css
+---
+
+[Main lecture 01.6](06-transformations.qmd)
+
+## 1. The general construction does not require a density
+
+For a measurable map $g:\mathbb R^m\to\mathbb R^k$ and random vector $\mathbf X$, the law of $\mathbf Y=g(\mathbf X)$ is $P_{\mathbf Y}(B)=P_{\mathbf X}(g^{-1}(B))$. Preimages preserve complements and countable unions, so this assignment is a probability measure on Borel sets. It remains valid for discrete, continuous, mixed and singular laws. The notation $g^{-1}(B)$ means a set preimage, not necessarily a functional inverse.
+
+If $\mathbf X$ has a density, integrate it over the preimage. A transformed density exists only if the new law is absolutely continuous with respect to the appropriate volume measure. For instance, $(X,X)$ lives on a diagonal and has no ordinary planar density even when $X$ has a density on the line.
+
+## 2. Change-of-variables theorem for densities
+
+Let $U,V\subseteq\mathbb R^m$ be open and let $g:U\to V$ be a $C^1$ diffeomorphism. Let $\mathbf X$ have density $f$ with $P(\mathbf X\in U)=1$. Write $h=g^{-1}$. By the multivariable integration theorem, for every Borel $B\subseteq V$,
+
+$$\begin{aligned}
+P(g(\mathbf X)\in B)
+&=\int_{g^{-1}(B)}f(\mathbf x)d\mathbf x\\
+&=\int_B f(h(\mathbf y))|\det Dh(\mathbf y)|d\mathbf y.
+\end{aligned}$$
+
+The integrand is therefore a density on $V$, extended by zero elsewhere. Its integral is 1 by taking $B=V$. The inverse function theorem gives $Dh(g(\mathbf x))=[Dg(\mathbf x)]^{-1}$, so the inverse determinant is the reciprocal of the forward determinant in absolute value. Absolute value accounts for orientation reversal.
+
+A null set excluded from the original support causes no loss of probability. When a transformation is one-to-one only on separate regions, partition the original support into those regions, apply the theorem on each, and add their densities on overlapping image regions. This proves the finite-branch formula. Critical sets with positive probability cannot simply be discarded.
+
+## 3. Auxiliary-variable construction and convolution
+
+If $(X,Y)$ has density $f_{X,Y}$, the linear map $(x,y)\mapsto(s,v)=(x+y,x)$ is invertible on the plane with inverse $(v,s-v)$ and absolute inverse determinant 1. Hence $f_{S,V}(s,v)=f_{X,Y}(v,s-v)$ and marginalization yields $f_S(s)=\int f_{X,Y}(v,s-v)dv$. Nonnegativity permits the iterated integral by Tonelli's theorem. Product convolution is obtained only under independence.
+
+For a signed difference $R=Y-X$, take $V=X$: $f_R(r)=\int f_{X,Y}(v,v+r)dv$. Under iid densities $h$, symmetry gives $f_R(r)=f_R(-r)$; folding yields $f_{|R|}(d)=2f_R(d)$ for $d>0$, provided no atom at zero is omitted. The meeting model has none because the diagonal has probability zero.
+
+## 4. Inverse-CDF generation
+
+For a CDF $F$, let $Q(u)=\inf\{x:F(x)\ge u\}$, $0<u<1$. The CDF properties imply $Q(u)\le x$ if and only if $u\le F(x)$. Thus if $U\sim U(0,1)$,
+
+$$P(Q(U)\le x)=P(U\le F(x))=F(x).$$
+
+This argument handles jumps and flat portions; ordinary functional inversion is not required. Uniform endpoint values have probability zero in the mathematical model, but implementations of logarithmic generators must avoid evaluating $\log0$.
+
+## 5. Polar transformation and standard-normal generation
+
+Let $U_1,U_2$ be independent uniform variables on $(0,1)$. Set $R=\sqrt{-2\log U_1}$ and $\Theta=2\pi U_2$. For $r\ge0$, $P(R\le r)=1-e^{-r^2/2}$, so $f_R(r)=re^{-r^2/2}$ for $r>0$. The angle is uniform on $(0,2\pi)$ and independent of $R$.
+
+Set $Z_1=R\cos\Theta$, $Z_2=R\sin\Theta$. Away from a null origin and angle cut, the polar-to-Cartesian absolute determinant is $r$. Hence
+
+$$f_{Z_1,Z_2}(z_1,z_2)=\frac{re^{-r^2/2}}{2\pi}\frac1r
+=\frac1{2\pi}e^{-(z_1^2+z_2^2)/2}=\phi(z_1)\phi(z_2).$$
+
+The outputs are independent standard normals. This derivation explains the Box–Muller construction used for the fixed simulated points in Lecture 01.7's visual demonstration. Pseudorandom implementation is a computational approximation to the ideal independent-uniform inputs.
+
+## Further exercises
+
+**TS1.** Let $(X,Y)$ be uniform on $(0,1)^2$. For $U=2X$, $V=3Y$, obtain the inverse Jacobian, joint support and density. Verify normalization.
+
+**TS2.** Let $X$ have density $2x$ on $(0,1)$. Use the CDF and inverse-derivative routes to obtain the distribution of $Y=\sqrt X$.
+
+**TS3.** Let $X$ have density $1/2$ on $(-1,1)$. Find the full law of $Y=\max(X,0)$, accounting for any atom.
+
+## References
+
+The density transformation theorem and its Jacobian convention were checked against [Pishro-Nik §5.2.4](https://www.probabilitycourse.com/chapter5/5_2_4_functions.php). The support calculations and generator derivation above are explicit applications of that theorem.

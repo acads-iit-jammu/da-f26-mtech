@@ -1,0 +1,222 @@
+---
+title: "01.6 · Transformations of random variables"
+format:
+  html:
+    html-math-method: mathml
+    css: probability-notes.css
+---
+
+**Data Analytics for AI · Executive M.Tech · IIT Jammu**  
+[Previous: expectation](05-expectation-variance.qmd) · [Rigorous supplement](06-transformations-supplement.qmd) · [Next: multivariate normal](07-multivariate-normal.qmd)
+
+## Questions and objectives
+
+A service manager records two phase durations but needs the distribution of their sum. An engineer records a signed error but reports its square. In the friends' meeting problem, the decision depends on the absolute gap rather than the two separate arrival times.
+
+In each case, the experiment and its probability measure remain fixed while a new function records a different value. We will derive transformed laws by constructing inverse-image events and integrating, by constructing a joint density with an auxiliary variable, and by applying Jacobians. All application models are stipulated for teaching.
+
+## 1. Start from the event: the CDF method
+
+### Worked example: square a signed measurement error
+
+Let $X$ be a hypothetical sensor error, uniform on $[-2,2]$ in a specified measurement unit. The reporting system uses squared error $Y=X^2$. What is $P(Y\le1)$?
+
+The condition $X^2\le1$ selects $-1\le X\le1$, an interval of length 2 within an interval of length 4. Thus $P(Y\le1)=1/2$. For a general threshold $0\le y\le4$,
+
+$$\{Y\le y\}=\{-\sqrt y\le X\le\sqrt y\},\qquad
+F_Y(y)=\int_{-\sqrt y}^{\sqrt y}\frac14\,dx=\frac{\sqrt y}{2}.$$
+
+Including thresholds outside the range,
+
+$$F_Y(y)=\begin{cases}0,&y<0,\\\sqrt y/2,&0\le y\le4,\\1,&y>4.\end{cases}$$
+
+Differentiation gives
+
+$$f_Y(y)=\frac1{4\sqrt y},\qquad0<y<4,$$
+
+and zero elsewhere. The density is unbounded near zero but integrable: $\int_0^4(4\sqrt y)^{-1}dy=1$. There is no atom at zero since $P(X=0)=0$.
+
+### General construction
+
+For measurable $g$, define $Y=g(X)$. Its induced law is
+
+$$P_Y(B)=P(g(X)\in B),\qquad F_Y(y)=P(g(X)\le y).$$
+
+If $X$ has a density,
+
+$$F_Y(y)=\int_{\{x:g(x)\le y\}}f_X(x)\,dx.$$
+
+For $Z=g(X,Y)$ and an available joint density,
+
+$$F_Z(z)=\iint_{\{(x,y):g(x,y)\le z\}}f_{X,Y}(x,y)\,dx\,dy.$$
+
+First identify the transformed range, then the inverse-image region and its bounds, then integrate. Differentiate the CDF where appropriate only after checking whether the transformed law has atoms. A smooth PDF is not guaranteed merely because the original variable has one.
+
+**Practice check T1.** For the same $X$, find the CDF and PDF of $|X|$. Include the thresholds outside its range and verify normalization.
+
+## 2. A one-dimensional Jacobian
+
+### Worked example: convert and shift a duration
+
+Let $X$ be uniform on $[0,2]$ hours and $Y=10+60X$ minutes. Then $10<Y<130$ and $x=(y-10)/60$. Since a one-minute interval of $Y$ corresponds to $1/60$ hour of $X$,
+
+$$f_Y(y)=f_X\left(\frac{y-10}{60}\right)\left|\frac{dx}{dy}\right|
+=\frac12\frac1{60}=\frac1{120}.$$
+
+It integrates to 1 over an interval of length 120. Changing the numerical scale changes density height, preserving probabilities.
+
+If $g$ is a differentiable, strictly monotone map with a differentiable inverse $h$ and nonzero derivative on the relevant support interior, the **change-of-variable formula** is
+
+$$f_Y(y)=f_X(h(y))\,|h'(y)|,$$
+
+on the transformed support and zero elsewhere. The multiplier is the absolute derivative of the **inverse** transformation. Endpoint exceptions of probability zero can be treated separately.
+
+For a transformation with finitely many smooth inverse branches, add their contributions:
+
+$$f_Y(y)=\sum_{x:g(x)=y}\frac{f_X(x)}{|g'(x)|},$$
+
+at regular values with nonzero derivatives. For $Y=X^2$ and $0<y<4$, there are two roots $\pm\sqrt y$:
+
+$$f_Y(y)=\frac{1/4}{2\sqrt y}+\frac{1/4}{2\sqrt y}=\frac1{4\sqrt y}.$$
+
+Using only the positive root would lose half the probability. At the critical value zero, use the CDF to check for an atom rather than substituting into the branch formula.
+
+## 3. Sum of two durations: integrate over an event
+
+### Worked example: two independent processing phases
+
+Stipulate independent $X,Y\sim U(0,1)$ hours. Let $S=X+Y$ be total processing time, with phases sequential and no additional waiting. The joint density is 1 on the unit square. For $0<s<1$, the region $x+y\le s$ is a right triangle of area $s^2/2$. For $1\le s<2$, its complement in the square is a triangle of area $(2-s)^2/2$. Hence
+
+$$F_S(s)=\begin{cases}
+0,&s\le0,\\s^2/2,&0<s<1,\\1-(2-s)^2/2,&1\le s<2,\\1,&s\ge2,
+\end{cases}$$
+
+and
+
+$$f_S(s)=\begin{cases}s,&0<s<1,\\2-s,&1\le s<2,\\0,&\text{otherwise}.\end{cases}$$
+
+The PDF integrates to $1/2+1/2=1$. It is not uniform even though both inputs are uniform. There are more original pairs near a total of one hour than near a total of zero or two hours.
+
+## 4. Construct a joint density, then marginalize
+
+### Rework the sum using an auxiliary variable
+
+A map from two values to their sum loses information. To use a square Jacobian matrix, retain an auxiliary variable: set
+
+$$S=X+Y,\qquad V=X.$$
+
+The inverse is $x=v$, $y=s-v$. Its Jacobian matrix and absolute determinant are
+
+$$\frac{\partial(x,y)}{\partial(s,v)}=
+\begin{pmatrix}0&1\\1&-1\end{pmatrix},\qquad |\det|=1.$$
+
+The original inequalities $0<x<1$, $0<y<1$ become
+
+$$0<v<1,\quad0<s-v<1
+\quad\Longleftrightarrow\quad \max(0,s-1)<v<\min(1,s).$$
+
+Thus $f_{S,V}(s,v)=1$ on that region and zero elsewhere. Integrate out $v$:
+
+$$f_S(s)=\int_{\max(0,s-1)}^{\min(1,s)}1\,dv,$$
+
+when the upper bound exceeds the lower. The width is $s$ for $0<s<1$ and $2-s$ for $1<s<2$, reproducing the CDF result.
+
+For a general joint density, the same construction gives
+
+$$f_{X+Y}(s)=\int_{-\infty}^{\infty}f_{X,Y}(v,s-v)\,dv.$$
+
+Under independence, this becomes the **convolution** formula
+
+$$f_{X+Y}(s)=\int_{-\infty}^{\infty}f_X(v)f_Y(s-v)\,dv.$$
+
+Dependence does not prevent the first formula; it prevents replacing the joint density by the product without justification.
+
+### Formal two-dimensional change of variables
+
+Suppose $(X,Y)$ has a joint density and the transformation $(U,V)=g(X,Y)$ is a one-to-one continuously differentiable map between open support regions, with continuously differentiable inverse $(x,y)=h(u,v)$ and nonzero Jacobian determinant. Then
+
+$$f_{U,V}(u,v)=f_{X,Y}(h(u,v))
+\left|\det\frac{\partial(x,y)}{\partial(u,v)}\right|.$$
+
+A small region in the new coordinates corresponds to an old-coordinate area multiplied by the inverse determinant. Probability is preserved, so density acquires that factor. State the transformed support as part of the result. Null boundaries can be omitted; branch maps require adding branch contributions. A dimension-reducing map such as $(x,y)\mapsto x+y$ has no square determinant by itself.
+
+**Practice check T2.** For independent $U(0,1)$ inputs, use $R=X-Y$, $V=Y$ to obtain a joint density and then the density of $R$. Show the support inequalities explicitly.
+
+**Stopping point.** Draw both the original square and the transformed $(s,v)$ region before introducing a nonconstant determinant.
+
+## 5. A nonconstant Jacobian: total duration and its share
+
+### Worked example: time spent in the first of two phases
+
+Let $X,Y$ be independent with density $e^{-x}$ on $x>0$, zero otherwise, using a time unit in which the rate is 1. This exponential model is a stipulation. Define
+
+$$S=X+Y,\qquad R=\frac{X}{X+Y}.$$
+
+The total is positive and the fraction lies between 0 and 1. The inverse map is $x=rs$, $y=(1-r)s$. Compute rather than guess the determinant:
+
+$$\frac{\partial(x,y)}{\partial(s,r)}=
+\begin{pmatrix}r&s\\1-r&-s\end{pmatrix},\qquad
+\det=-rs-s(1-r)=-s.$$
+
+Thus
+
+$$f_{S,R}(s,r)=e^{-rs}e^{-(1-r)s}s=se^{-s},\quad s>0,\ 0<r<1.$$
+
+Marginalization gives
+
+$$f_S(s)=\int_0^1se^{-s}\,dr=se^{-s},\qquad
+f_R(r)=\int_0^\infty se^{-s}\,ds=1.$$
+
+Integration by parts yields $\int_0^\infty se^{-s}ds=1$. The joint density factors into its marginals on the product support, so the total and share are independent in this particular model. This conclusion depends on the stipulated equal-rate exponential inputs; it does not follow from the definitions of total and share alone.
+
+For example,
+
+$$P(S\le2,R\le1/4)=\int_0^2\int_0^{1/4}se^{-s}\,dr\,ds
+=\frac14[1-3e^{-2}].$$
+
+## 6. Return to the meeting-time gap
+
+For independent uniform arrivals $T_A,T_B$ in $[0,1]$, take the signed difference $Z=T_B-T_A$ and retain $V=T_A$. Then $t_A=v$, $t_B=v+z$ and the inverse determinant has absolute value 1. The joint support is
+
+$$\max(0,-z)<v<\min(1,1-z).$$
+
+Integrating its width gives $f_Z(z)=1-|z|$ for $-1<z<1$. The absolute gap $D=|Z|$ has two preimages for $d>0$, so
+
+$$f_D(d)=f_Z(d)+f_Z(-d)=2(1-d),\quad0<d<1.$$
+
+This agrees with the band-area CDF route in 01.4. Both routes construct the same induced law under the same original measure.
+
+**Practice check T3.** Use the general difference formula with independent densities $h(t)=2(1-t)$ on $[0,1]$ to set up the integral for the absolute gap. Check that your bounds depend on the gap value.
+
+## 7. Generate variables by transforming simple ones
+
+### Worked example: generate a nonuniform arrival time
+
+Let $U\sim U(0,1)$ and define $T=1-\sqrt{1-U}$. For $0\le t\le1$,
+
+$$\begin{aligned}
+P(T\le t)&=P(1-\sqrt{1-U}\le t)\\
+&=P(U\le1-(1-t)^2)=2t-t^2.
+\end{aligned}$$
+
+Differentiation gives $f_T(t)=2(1-t)$, the early-arrival model. Two independent uniform inputs transformed separately produce independent arrivals with these marginals.
+
+More generally, for a CDF $F$ define its generalized inverse $F^{-1}(u)=\inf\{x:F(x)\ge u\}$ for $0<u<1$. Then $F^{-1}(U)$ has CDF $F$. The generalized inverse also handles discrete laws: if $P(N=0,1,2)=(0.5,0.3,0.2)$, assign 0 for $U<0.5$, 1 for $0.5\le U<0.8$, and 2 otherwise.
+
+Generating both variables from the **same** uniform input can create dependence even when both marginals are correct. The multivariate-normal construction in 01.7 will deliberately combine independent inputs to obtain a chosen covariance.
+
+**Practice check T4.** For an exponential duration with rate $\lambda>0$, derive the inverse-CDF generator from $F(t)=1-e^{-\lambda t}$ for $t\ge0$. State the domain of the uniform input and the resulting support.
+
+## 8. A continuous input can create a mixed output
+
+Return to $D$ and define the capped wait $W=\min(D,1/4)$. For $0\le w<1/4$, $F_W(w)=2w-w^2$. At and above $1/4$, $F_W(w)=1$. The CDF jumps by
+
+$$1-F_W((1/4)^-)=1-\frac7{16}=\frac9{16}.$$
+
+Thus $W$ has a continuous component on $(0,1/4)$ and a point mass $9/16$ at $1/4$. Differentiating away from the jump cannot recover that atom. This is why the CDF and inverse-image construction is the general starting point.
+
+**Practice check T5.** Let $X\sim U(0,2)$ and $Y=\min(X,1)$. State its continuous density component and atom, and check that their total mass is 1.
+
+## References and continuation
+
+The change-of-variable hypotheses and auxiliary-variable method were checked against Pishro-Nik's [§5.2.4, Functions of Two Continuous Random Variables](https://www.probabilitycourse.com/chapter5/5_2_4_functions.php). The worked examples above show their support calculations explicitly. See the [supplement](06-transformations-supplement.qmd) for the change-of-variables proof and a normal-variable generator using polar coordinates.

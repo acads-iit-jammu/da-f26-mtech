@@ -1,0 +1,251 @@
+---
+title: "01.4 worked example · Two friends who may not meet"
+format:
+  html:
+    html-math-method: mathml
+    css: probability-notes.css
+---
+
+**Data Analytics for AI · Executive M.Tech · IIT Jammu**  
+**Module 01 · Fundamentals of Probability and Random Signal Theory**
+
+[Previous: 01.3 worked tutorial](02-joint-distributions-tutorial.qmd) · [Next: 01.5 expectation](05-expectation-variance.qmd) · [Distribution-theory supplement](02-random-variables-supplement.qmd#meeting-time-transformation)
+
+## 1. The question and the experiment
+
+Two friends agree to meet at a reference time $t=0$. Each arrives during the following hour. Whoever arrives first waits for 15 minutes, then leaves if the other has not arrived. **What is the probability that they do not meet?**
+
+This student-raised problem lets us distinguish a set of outcomes from the probability assigned to it. We will solve the same question under two stipulated arrival models: independent uniform arrivals, and independent arrivals with a density that decreases over the hour. Neither is claimed to describe observed arrival behavior.
+
+We assume each friend does arrive within the hour, the first arrival waits the full 15 minutes even if that extends beyond the hour, and arrival exactly at the departure time counts as a meeting. The boundary convention does not affect probabilities under the two density models below.
+
+### Identify the probability objects
+
+Measure time in hours. An outcome is the ordered pair $\omega=(t_A,t_B)$: A's arrival time first, B's second. For example, $(0.2,0.3)$ means A arrives after 12 minutes and B after 18 minutes; they meet because the gap is six minutes.
+
+Take
+
+$$\Omega=[0,1]^2,\qquad \mathcal F=\mathcal B([0,1]^2).$$
+
+The Borel sigma-algebra includes the rectangles, triangles and diagonal bands used here. Define the coordinate random variables
+
+$$T_A(t_A,t_B)=t_A,\qquad T_B(t_A,t_B)=t_B.$$
+
+The triplet is $(\Omega,\mathcal F,P)$, but the specification is incomplete until we choose $P$. A joint density will assign probabilities to events by integration.
+
+## 2. Describe the event before choosing a density
+
+The waiting allowance is $\delta=15/60=1/4$ hour. The friends meet precisely when their arrival-time difference is at most $\delta$:
+
+$$M_\delta=\{\omega:|T_A(\omega)-T_B(\omega)|\le\delta\}.$$
+
+Its complement, the event asked for, is
+
+$$N_\delta=\{\omega:|T_A(\omega)-T_B(\omega)|>\delta\}.$$
+
+Split the no-meeting event into two disjoint possibilities:
+
+$$N_\delta=\{T_B>T_A+\delta\}\ \cup\ \{T_A>T_B+\delta\}.$$
+
+In the first, B arrives too late for A; in the second, A arrives too late for B. On the unit square with $t_A$ horizontal and $t_B$ vertical, the meeting event is the band between $t_B=t_A-\delta$ and $t_B=t_A+\delta$. The two remaining corner triangles form $N_\delta$. These are measurable regions, so $P$ can act on them.
+
+**Before calculating:** sketch the unit square and locate $(0.2,0.3)$ and $(0.1,0.8)$. Decide which belongs to the meeting band. The model has not yet told us whether area alone gives probability.
+
+[Open the waiting-time demonstration](../materials/02-random-variables/meeting-problem.html). Both panels use the same square and meeting band. Their background shading represents different joint densities.
+
+## 3. Model U: independent uniform arrivals
+
+### Specify the measure
+
+Assume $T_A$ and $T_B$ are independent and each uniform on $[0,1]$. Their marginal densities are 1 on that interval, zero elsewhere. Independence gives
+
+$$f_U(t_A,t_B)=\begin{cases}1,&(t_A,t_B)\in[0,1]^2,\\0,&\text{otherwise}.\end{cases}$$
+
+For a Borel event $E\subseteq\Omega$,
+
+$$P_U(E)=\iint_E1\,dt_A\,dt_B.$$
+
+This integrates to 1 on the square. Under this particular measure, probability equals area. Merely specifying the square would not justify equal area weights.
+
+### Geometry first: probability of not meeting
+
+At $\delta=1/4$, each no-meeting triangle has two perpendicular sides of length $1-\delta=3/4$. Its area is
+
+$$\frac12\left(\frac34\right)^2=\frac9{32}.$$
+
+The triangles are disjoint, so
+
+$$P_U(N_{1/4})=2\left(\frac9{32}\right)=\boxed{\frac9{16}=0.5625}.$$
+
+Consequently,
+
+$$P_U(M_{1/4})=1-\frac9{16}=\boxed{\frac7{16}=0.4375}.$$
+
+The answer to the original no-meeting question is **56.25% under independent uniform arrivals**.
+
+### Recover the result by a double integral
+
+For the upper triangle, $0\le t_A<3/4$ and $t_A+1/4<t_B\le1$. Symmetry of this joint density under exchanging the friends gives equal probabilities to the two triangles:
+
+$$\begin{aligned}
+P_U(N_{1/4})
+&=2\int_0^{3/4}\int_{t_A+1/4}^1 1\,dt_B\,dt_A\\
+&=2\int_0^{3/4}\left(\frac34-t_A\right)dt_A\\
+&=2\left[\frac34t_A-\frac{t_A^2}{2}\right]_0^{3/4}
+=\frac9{16}.
+\end{aligned}$$
+
+Integration adds density over the original event, just as a finite probability model adds outcome weights. The factor of 2 uses symmetry; independence alone would not justify it if the two arrival distributions differed.
+
+**Suggested stopping point.** Have learners explain the integration bounds and why the two triangles have equal probabilities before changing the arrival model.
+
+## 4. Model E: independent arrivals weighted toward earlier times
+
+### Normalize the proposed marginal density
+
+Keep the same experiment and waiting rule. Now stipulate that each arrival has density proportional to $1-t$ on $[0,1]$. With $f_T(t)=c(1-t)$ there,
+
+$$1=\int_0^1c(1-t)\,dt=c\left[t-\frac{t^2}{2}\right]_0^1=\frac c2,$$
+
+so
+
+$$f_T(t)=\begin{cases}2(1-t),&0\le t\le1,\\0,&\text{otherwise}.\end{cases}$$
+
+This is a different hypothetical model, not a conclusion that these friends actually arrive early. A higher density near zero means an interval of fixed small length near zero receives more probability than one near the end of the hour. A single exact time still has probability zero.
+
+For example,
+
+$$P_E(T_A\le1/4)=\int_0^{1/4}2(1-t)\,dt
+=\left[2t-t^2\right]_0^{1/4}=\frac7{16},$$
+
+compared with $1/4$ in Model U.
+
+### Independence still holds, but the measure changes
+
+Assume the two arrivals are independent with this same marginal density. The joint density is
+
+$$f_E(t_A,t_B)=4(1-t_A)(1-t_B)\quad\text{on }[0,1]^2,$$
+
+and zero elsewhere. It integrates to 1 because each marginal integrates to 1. The probability measure is now
+
+$$P_E(E)=\iint_E4(1-t_A)(1-t_B)\,dt_A\,dt_B.$$
+
+The outcome space, sigma-algebra, coordinate functions and meeting event are unchanged. Only the probability measure changes. Probability is no longer the unweighted area of a region.
+
+### Integrate over the same two triangles
+
+The density remains symmetric in $t_A,t_B$. Hence
+
+$$P_E(N_{1/4})=2\int_0^{3/4}\int_{t_A+1/4}^1
+4(1-t_A)(1-t_B)\,dt_B\,dt_A.$$
+
+For a fixed $t_A$,
+
+$$\int_{t_A+1/4}^1(1-t_B)\,dt_B
+=\frac12\left(\frac34-t_A\right)^2.$$
+
+Thus
+
+$$P_E(N_{1/4})=4\int_0^{3/4}(1-t_A)\left(\frac34-t_A\right)^2dt_A.$$
+
+To show the remaining arithmetic, put $u=3/4-t_A$, so $1-t_A=1/4+u$:
+
+$$\begin{aligned}
+P_E(N_{1/4})
+&=4\int_0^{3/4}\left(\frac14+u\right)u^2\,du\\
+&=4\left[\frac{u^3}{12}+\frac{u^4}{4}\right]_0^{3/4}\\
+&=\frac9{64}+\frac{81}{256}
+=\boxed{\frac{117}{256}\approx0.45703125}.
+\end{aligned}$$
+
+Therefore
+
+$$P_E(M_{1/4})=1-\frac{117}{256}=\boxed{\frac{139}{256}\approx0.54296875}.$$
+
+| Arrival model | Meet within the waiting allowance | Do not meet |
+|---|---:|---:|
+| Independent uniform | $7/16=43.75\%$ | $9/16=56.25\%$ |
+| Independent decreasing-density | $139/256\approx54.30\%$ | $117/256\approx45.70\%$ |
+
+Both models assume independent arrivals. In this comparison, changing both marginal densities increases the probability that the two times are close. Independence does not fix the meeting probability. Nor does the calculation prove that every possible model favoring early arrivals must improve it.
+
+## 5. Transform the pair into an arrival-time gap
+
+### A one-dimensional variable for the same question
+
+Define the measurable function $g(t_A,t_B)=|t_A-t_B|$ and the random variable
+
+$$D=g(T_A,T_B)=|T_A-T_B|.$$
+
+Its values are gaps in hours, from 0 to 1. The meeting event is the inverse image
+
+$$M_\delta=D^{-1}([0,\delta])=\{D\le\delta\}.$$
+
+Many arrival pairs have the same gap. Thus the distribution of $D$ retains the gap information and discards the individual arrival times. It is induced by the original measure: for a Borel set $B$ of gaps, $P_D(B)=P(D^{-1}(B))$.
+
+### Derive the gap CDF and PDF under uniform arrivals
+
+For $0\le d\le1$, the two triangles outside the band of width $d$ have total area $(1-d)^2$. Hence the **CDF**, defined by $F_{D,U}(d)=P_U(D\le d)$, is
+
+$$F_{D,U}(d)=\begin{cases}
+0,&d<0,\\
+1-(1-d)^2=2d-d^2,&0\le d\le1,\\
+1,&d>1.
+\end{cases}$$
+
+Differentiating on $(0,1)$ gives a **PDF**:
+
+$$f_{D,U}(d)=2(1-d)\quad(0<d<1),$$
+
+zero outside $[0,1]$. Its values at the endpoints do not affect any probability. It is nonnegative and integrates to 1. Recover the meeting probability:
+
+$$P_U(D\le1/4)=\int_0^{1/4}2(1-d)\,dd
+=\left[2d-d^2\right]_0^{1/4}=\frac7{16}.$$
+
+This density has the same formula as the **individual arrival-time density in Model E**, but it describes a different variable under a different probability measure. In Model E, the gap density is not $2(1-d)$.
+
+## 6. Vary the waiting policy, retaining the models
+
+Let $w$ be the waiting allowance in minutes and $\delta=w/60$. For $0\le\delta\le1$, the uniform calculation gives
+
+$$P_U(N_\delta)=(1-\delta)^2,\qquad
+P_U(M_\delta)=2\delta-\delta^2.$$
+
+In Model E, the same integration with $1/4$ replaced by $\delta$ gives, with $a=1-\delta$,
+
+$$\begin{aligned}
+P_E(N_\delta)
+&=4\int_0^{1-\delta}(1-t)(1-\delta-t)^2\,dt\\
+&=4\int_0^a(\delta+u)u^2\,du
+=\frac{4\delta a^3}{3}+a^4\\
+&=(1-\delta)^3\left(1+\frac\delta3\right).
+\end{aligned}$$
+
+Therefore
+
+$$P_E(M_\delta)=1-(1-\delta)^3\left(1+\frac\delta3\right).$$
+
+At zero waiting time, meeting requires equal arrival times, a diagonal of probability zero under both models. At 60 minutes, all pairs qualify and the meeting probability is 1. Increasing the waiting allowance enlarges the event without changing either model's measure.
+
+[Explore waiting times from 0 to 60 minutes](../materials/02-random-variables/meeting-problem.html). The demonstration evaluates these formulas exactly up to numerical rounding; its shaded grid is only a display of density, not a numerical probability estimator.
+
+**Practice check 1.** If the waiting allowance rises from 15 to 30 minutes, does the meeting probability double? Calculate the result under each model and explain using the expanded band.
+
+**Practice check 2.** Under uniform arrivals, what waiting allowance is needed for a meeting probability of at least $3/4$? State your answer in minutes.
+
+**Practice check 3.** Keep uniform marginal arrivals but suppose $T_B=T_A$ exactly. What is the meeting probability at zero waiting time? Explain which original assumption fails and why a two-dimensional joint PDF no longer describes this new model.
+
+## 7. What stays fixed and what changes?
+
+| Object | In this example |
+|---|---|
+| Outcome $\omega$ | An ordered pair of arrival times |
+| Sample space $\Omega$ | The unit square |
+| Event collection $\mathcal F$ | Its Borel sigma-algebra |
+| Random variables $T_A,T_B$ | Coordinate projections |
+| Transformed variable $D$ | The absolute arrival-time gap |
+| Event $M_\delta$ | The inverse-image band $D^{-1}([0,\delta])$ |
+| Probability measure | $P_U$ or $P_E$, defined by its joint density |
+| Probability of meeting | The integral of the chosen density over the band |
+
+Changing the arrival density changes the measure while leaving a fixed waiting-time event unchanged. Changing the waiting allowance changes the event while leaving a chosen arrival model unchanged. The [supplement](02-random-variables-supplement.qmd#meeting-time-transformation) derives the gap density under both models and states the independence and density assumptions needed for that calculation.

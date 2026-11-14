@@ -1,0 +1,347 @@
+---
+title: "01.3 tutorial · From outcomes to joint distributions"
+format:
+  html:
+    html-math-method: mathml
+    css: probability-notes.css
+---
+
+**Data Analytics for AI · Executive M.Tech · IIT Jammu**  
+**Module 01 · Fundamentals of Probability and Random Signal Theory**
+
+[Lecture 01.2](02-random-variables.qmd) · [Next: 01.4 meeting problem](04-meeting-problem.qmd) · [Rigorous supplement](02-random-variables-supplement.qmd)
+
+## What this tutorial develops
+
+If the first of two coin tosses is heads, does that change the possible total number of heads? If a selected record belongs to a particular group, which denominator should we use? If diagnosis and repair times are related, does knowing one change the distribution of the other?
+
+We answer these questions through three worked experiments: two coin tosses, selection from a smoking–cancer table, and continuous support-ticket durations. All counts and operational models are **hypothetical or stipulated for teaching**. The health table is not epidemiological evidence.
+
+By the end, you should be able to identify the probability space, construct events from random-variable conditions, obtain joint and marginal distributions, normalize a conditional distribution, and test independence. We also calculate a closure-time probability for a function of two variables.
+
+The recurring distinction is between a probability model on outcomes and the distribution of the values recorded from those outcomes. First map an outcome to values. To ask a probability question, choose a set of values and take its **inverse image**, the set of original outcomes producing those values. The probability measure acts on that event.
+
+$$
+\omega\xrightarrow{(X,Y)}(X(\omega),Y(\omega)),\qquad
+D\xrightarrow{(X,Y)^{-1}}\{\omega:(X(\omega),Y(\omega))\in D\}
+\xrightarrow{P}[0,1].
+$$
+
+Here an inverse image does not require an invertible function. Several outcomes may produce the same observed values.
+
+## 1. Two independent fair coin tosses
+
+### Begin with the question
+
+Toss a fair coin twice, **independently**, recording the results in order. We want to know how observing the first toss changes our uncertainty about the total number of heads. Fairness alone would not specify the relationship between the tosses; independence is an additional assumption.
+
+An outcome is a complete ordered record, such as HT: first heads, then tails. The probability model is
+
+$$\Omega=\{HH,HT,TH,TT\},\qquad\mathcal F=2^\Omega,
+\qquad P(A)=\frac{|A|}{4}\quad(A\in\mathcal F).$$
+
+Define $X$ as the total number of heads and $Y$ as the indicator that the first toss is heads:
+
+$$Y(\omega)=\begin{cases}1,&\text{first toss is heads},\\0,&\text{first toss is tails}.\end{cases}$$
+
+| Outcome $\omega$ | $X(\omega)$ | $Y(\omega)$ | $P(\{\omega\})$ |
+|---|---:|---:|---:|
+| HH | 2 | 1 | $1/4$ |
+| HT | 1 | 1 | $1/4$ |
+| TH | 1 | 0 | $1/4$ |
+| TT | 0 | 0 | $1/4$ |
+
+For example, the condition “one head in total and a head first” selects only HT:
+
+$$\{X=1,Y=1\}=\{\omega:X(\omega)=1,\ Y(\omega)=1\}=\{HT\}.$$
+
+Therefore $P(X=1,Y=1)=P(\{HT\})=1/4$. The pair $(1,1)$ is a pair of numerical values; $\{HT\}$ is the event in the original sample space.
+
+### Joint distribution and its marginals
+
+The **joint PMF** is $p_{X,Y}(x,y)=P(X=x,Y=y)$. It is nonnegative, and summing over all value pairs gives 1. Grouping outcomes by their recorded pair gives:
+
+| $X\backslash Y$ | $Y=0$ | $Y=1$ | $p_X(x)$ |
+|---|---:|---:|---:|
+| $X=0$ | $1/4$ | 0 | $1/4$ |
+| $X=1$ | $1/4$ | $1/4$ | $1/2$ |
+| $X=2$ | 0 | $1/4$ | $1/4$ |
+| $p_Y(y)$ | $1/2$ | $1/2$ | 1 |
+
+To find the probability of one head regardless of the first toss, combine the disjoint events HT and TH:
+
+$$P(X=1)=P(X=1,Y=0)+P(X=1,Y=1)=\frac14+\frac14=\frac12.$$
+
+This gives the **marginalization** rule:
+
+$$p_X(x)=\sum_y p_{X,Y}(x,y),\qquad p_Y(y)=\sum_x p_{X,Y}(x,y).$$
+
+These are distributions of the recorded values, not replacement definitions of the original outcomes. Formally, the induced law of $(X,Y)$ assigns a set $D$ of value pairs the probability
+
+$$P_{(X,Y)}(D)=P\big((X,Y)^{-1}(D)\big).$$
+
+A real random variable is a function whose threshold inverse images $\{\omega:X(\omega)\le t\}$ are events for every real $t$. In these finite examples with the full power set, every real-valued function meets this requirement. For a pair, inverse images of Borel sets of value pairs must be events.
+
+### Condition on the first toss
+
+If we are told $Y=1$, only HH and HT remain possible. Each has conditional probability $1/2$. In particular,
+
+$$P(X=2\mid Y=1)=\frac{P(X=2,Y=1)}{P(Y=1)}=\frac{1/4}{1/2}=\frac12.$$
+
+The **conditional PMF** is
+
+$$p_{X\mid Y}(x\mid y)=\frac{p_{X,Y}(x,y)}{p_Y(y)},\qquad p_Y(y)>0.$$
+
+| $x$ | 0 | 1 | 2 |
+|---|---:|---:|---:|
+| $p_X(x)$ | $1/4$ | $1/2$ | $1/4$ |
+| $p_{X\mid Y}(x\mid1)$ | 0 | $1/2$ | $1/2$ |
+
+The conditional row sums to 1 because we have restricted the population of possible outcomes and renormalized its weights.
+
+### Independent tosses, dependent recordings
+
+If $X$ and $Y$ were independent, every joint cell would factor:
+
+$$p_{X,Y}(x,y)=p_X(x)p_Y(y)\quad\text{for every }(x,y).$$
+
+But two heads and a first tail cannot occur:
+
+$$P(X=2,Y=0)=0,\qquad P(X=2)P(Y=0)=\frac14\frac12=\frac18.$$
+
+Thus $X$ and $Y$ are dependent. The total $X$ includes information from the first toss, which $Y$ also records. Independence of the two tosses does not imply independence of arbitrary functions that use overlapping information.
+
+More generally, $X$ and $Y$ are **independent** when
+
+$$P(X\in B,Y\in C)=P(X\in B)P(Y\in C)$$
+
+for every pair of Borel sets $B,C$. The PMF factorization is the discrete equivalent. One failed cell disproves independence; one successful cell does not establish it.
+
+[Open the two-coin demonstration](../materials/02-random-variables/two-coin-independence.html). Select $(X,Y)=(2,0)$ to see the counterexample. Then select $(1,1)$: that cell happens to factor even though the variables remain dependent. Compare with the two separate toss indicators, which are independent.
+
+**Practice check 1.** Find the distribution of $X$ given $Y=0$. Identify its underlying outcomes before calculating.
+
+**Suggested stopping point.** Ask learners to explain the difference between independent tosses and dependent recordings before moving on.
+
+## 2. Two attributes of a selected person
+
+### Specify the experiment before choosing a denominator
+
+Consider 1,000 fixed individual records. The recorded attributes are binary smoking status and cancer-diagnosis status at the review time. These invented counts are used only to practice probability calculations. Select one individual ID uniformly; do not select a category uniformly.
+
+$$\Omega=\{\omega_1,\ldots,\omega_{1000}\},\quad
+\mathcal F=2^\Omega,\quad P(A)=\frac{|A|}{1000}.$$
+
+Define $S(\omega)=1$ for a record labelled smoker and 0 otherwise; define $C(\omega)=1$ for a record with a cancer diagnosis and 0 otherwise.
+
+| | $C=1$ | $C=0$ | Total |
+|---|---:|---:|---:|
+| $S=1$ | 60 | 240 | 300 |
+| $S=0$ | 35 | 665 | 700 |
+| Total | 95 | 905 | 1,000 |
+
+The event $\{S=1,C=1\}$ is a set of 60 individual IDs, so its probability is $60/1000=0.06$. Dividing all cell counts by the sampling denominator gives:
+
+| | $C=1$ | $C=0$ | $p_S(s)$ |
+|---|---:|---:|---:|
+| $S=1$ | 0.060 | 0.240 | 0.300 |
+| $S=0$ | 0.035 | 0.665 | 0.700 |
+| $p_C(c)$ | 0.095 | 0.905 | 1.000 |
+
+### What can these observations distinguish?
+
+Knowing $(S,C)$ identifies one of four groups, not an individual within a group. Write
+
+$$A_{11}=\{S=1,C=1\},\quad A_{10}=\{S=1,C=0\},\quad
+A_{01}=\{S=0,C=1\},\quad A_{00}=\{S=0,C=0\}.$$
+
+The **generated sigma-algebra** $\sigma(S,C)$ consists of all unions of these four groups, including the empty union. A sigma-algebra contains $\Omega$ and is closed under complements and countable unions. Unions of the four groups satisfy these conditions: complementation selects the remaining groups, and any union still selects groups.
+
+All four groups are nonempty, so they are the four atoms of this observation-based collection and $|\sigma(S,C)|=2^4=16$. This is much smaller than $|2^\Omega|=2^{1000}$. For example, the event $\{C=1\}=A_{11}\cup A_{01}$ is available from the observations, but a singleton individual ID is not. This is information lost by recording only the two attributes, not a claim that an individual has probability zero in the original model.
+
+### Conditional questions and Bayes' theorem
+
+Among smoker-labelled records, 60 of 300 have a cancer diagnosis:
+
+$$P(C=1\mid S=1)=\frac{60}{300}=\frac{0.06}{0.30}=0.20.$$
+
+Among records with a cancer diagnosis, 60 of 95 have the smoker label:
+
+$$P(S=1\mid C=1)=\frac{60}{95}=\frac{0.06}{0.095}\approx0.632.$$
+
+The same numerator is divided by different conditioning-group sizes. Reversing a conditional changes the question. Equating the two expressions for the joint probability gives **Bayes' theorem**:
+
+$$P(S=1\mid C=1)=\frac{P(C=1\mid S=1)P(S=1)}{P(C=1)},\qquad P(C=1)>0.$$
+
+Here the denominator can also be recovered by total probability:
+
+$$P(C=1)=0.20(0.30)+0.05(0.70)=0.095,$$
+
+because $P(C=1\mid S=0)=35/700=0.05$. Substitution gives $0.20(0.30)/0.095=12/19$.
+
+Since $P(C=1\mid S=1)=0.20\ne0.095=P(C=1)$, the variables are dependent under this fixed-record selection model. This calculation establishes an association in the invented table. It does not establish causation, estimate future risk, or justify generalizing to another population.
+
+**Practice check 2.** Identify the event and denominator for $P(S=0\mid C=0)$, then calculate it. Give one event in $\sigma(S,C)$ that combines exactly two atoms.
+
+## 3. Continuous diagnosis and repair times
+
+### Define what closure time includes
+
+For one future support ticket, let $X$ be hours spent diagnosing the issue and $Y$ hours implementing the fix. Assume these phases are sequential, with no waiting or additional work included, so the modelled closure time is $T=X+Y$. These are assumptions for teaching, not measured service behavior.
+
+A convenient underlying space is
+
+$$\Omega=[0,\infty)^2,\qquad\mathcal F=\mathcal B([0,\infty)^2).$$
+
+An outcome $\omega=(x,y)$ is a complete pair of phase durations. The variables are coordinate projections: $X(x,y)=x$, $Y(x,y)=y$. We specify $P$ using a density:
+
+$$P(A)=\iint_A f_{X,Y}(x,y)\,dx\,dy,\qquad A\in\mathcal F.$$
+
+The support of the density will be a rectangle or a triangle inside this space. Outside that support the model assigns probability zero. The identity representation is convenient, but the underlying outcome and the recorded values remain conceptually different objects.
+
+### Rectangle model: calculate a region probability
+
+Stipulate that $(X,Y)$ is uniform over $0\le x\le2$, $0\le y\le3$. What is the chance that diagnosis takes at most one hour and repair at most 1.5 hours?
+
+The full rectangle has area 6 square hours; the qualifying rectangle has area $1\times1.5=1.5$. Uniform weighting gives probability $1.5/6=1/4$.
+
+The **joint density** is consequently
+
+$$f_{X,Y}(x,y)=\begin{cases}1/6,&0\le x\le2,\ 0\le y\le3,\\0,&\text{otherwise}.\end{cases}$$
+
+A joint PDF is nonnegative and integrates to 1 over the plane. Its integral over a region is the probability that the recorded pair belongs to that region. Here
+
+$$\int_0^2\int_0^3\frac16\,dy\,dx=1,\qquad
+P(X\le1,Y\le1.5)=\int_0^1\int_0^{1.5}\frac16\,dy\,dx=\frac14.$$
+
+A density value is not a point probability: $P(X=x,Y=y)=0$ for each point in this model. The density has units of inverse square hours; integration over area produces a dimensionless probability.
+
+For either discrete or continuous variables, the **joint CDF** is
+
+$$F_{X,Y}(a,b)=P(X\le a,Y\le b).$$
+
+It accumulates probability over a lower-left region. The calculation above is $F_{X,Y}(1,1.5)$; a CDF value is a probability, whereas a PDF value is a density.
+
+### Marginals: retain one duration
+
+To find $P(X\le1)$ regardless of repair time, include all $0\le y\le3$:
+
+$$P(X\le1)=\int_0^1\int_0^3\frac16\,dy\,dx=\frac12.$$
+
+The inner integral gives the **marginal density** of $X$. In general,
+
+$$f_X(x)=\int_{-\infty}^{\infty}f_{X,Y}(x,y)\,dy,\qquad
+f_Y(y)=\int_{-\infty}^{\infty}f_{X,Y}(x,y)\,dx.$$
+
+For this rectangle,
+
+$$f_X(x)=\frac12\quad(0\le x\le2),\qquad
+f_Y(y)=\frac13\quad(0\le y\le3),$$
+
+with both densities zero outside their stated intervals. Integrating over the other variable plays the same role as summing over the other column or row in a joint PMF.
+
+### Conditional density and independence
+
+First condition on a band with positive probability. Among outcomes with $0.5<X<1$, the proportion with $Y\le1$ is
+
+$$P(Y\le1\mid0.5<X<1)=\frac{(0.5)(1)/6}{(0.5)(3)/6}=\frac13.$$
+
+The factor corresponding to the diagnosis band cancels. This suggests that knowing diagnosis time does not change the repair distribution in this particular model.
+
+For a jointly distributed pair admitting a PDF, a **conditional-density version** is
+
+$$f_{Y\mid X}(y\mid x)=\frac{f_{X,Y}(x,y)}{f_X(x)},\qquad0<f_X(x)<\infty.$$
+
+It integrates to 1 in $y$ for almost every such $x$. This is not the elementary event ratio with denominator $P(X=x)$, which is zero here. The density ratio supplies a conditional distribution; the [supplement](02-random-variables-supplement.qmd#conditioning-with-a-joint-density) explains its narrow-band interpretation and why values on null conditioning sets are not uniquely prescribed.
+
+For $0<x<2$, the natural formula gives $f_{Y\mid X}(y\mid x)=1/3$ on $[0,3]$, zero elsewhere. It does not change with $x$. Moreover,
+
+$$f_{X,Y}(x,y)=f_X(x)f_Y(y)$$
+
+almost everywhere on the entire plane, including where the densities vanish. This factorization is equivalent to independence when a joint PDF exists. Thus $X$ and $Y$ are independent **under the stipulated rectangle model**.
+
+## 4. Change the support: dependent continuous durations
+
+### A triangular operational model
+
+Now replace the rectangle assumption by $0\le Y\le X\le2$: repair never lasts longer than diagnosis in this hypothetical model. Stipulate uniform density on that triangle. Its area is $2$, so
+
+$$f_{X,Y}(x,y)=\begin{cases}1/2,&0\le y\le x\le2,\\0,&\text{otherwise}.\end{cases}$$
+
+The total probability is $\int_0^2\int_0^x(1/2)\,dy\,dx=\int_0^2 x/2\,dx=1$. A constant density on a triangle does not imply independence: the allowable repair interval depends on diagnosis time.
+
+For instance, if diagnosis takes at most one hour, repair cannot exceed one hour. Hence
+
+$$P(X\le1,Y>1)=0.$$
+
+We now calculate the marginals to compare this joint probability with their product.
+
+### Work through the limits of integration
+
+At a fixed $x\in[0,2]$, allowable $y$ runs from 0 to $x$. At a fixed $y\in[0,2]$, allowable $x$ runs from $y$ to 2. Therefore
+
+$$f_X(x)=\int_0^x\frac12\,dy=\frac{x}{2},\qquad
+f_Y(y)=\int_y^2\frac12\,dx=\frac{2-y}{2},$$
+
+on $[0,2]$, with zero values outside. Both integrate to 1. In particular,
+
+$$P(X\le1)=\int_0^1\frac{x}{2}\,dx=\frac14,\qquad
+P(Y>1)=\int_1^2\frac{2-y}{2}\,dy=\frac14.$$
+
+Their product is $1/16$, different from the joint probability 0. This proves dependence using events with positive marginal probabilities, without relying on density values at a single point.
+
+### Conditioning changes the distribution
+
+For $0<x<2$, divide by the marginal density:
+
+$$f_{Y\mid X}(y\mid x)=\begin{cases}1/x,&0\le y\le x,\\0,&\text{otherwise}.\end{cases}$$
+
+The natural conditional distribution is uniform on $[0,x]$, whose length changes with $x$. It is normalized because $\int_0^x(1/x)\,dy=1$. For example,
+
+$$P(Y\le0.5\mid X=1)=\int_0^{0.5}1\,dy=\frac12,$$
+
+whereas
+
+$$P(Y\le0.5\mid X=1.5)=\int_0^{0.5}\frac1{1.5}\,dy=\frac13.$$
+
+These use the stated conditional-density version, not ratios of point-event probabilities. At $x=0$, the marginal density is zero and the ratio is undefined.
+
+[Open the continuous-support demonstration](../materials/02-random-variables/continuous-independence.html). Switch between rectangle and triangle, then move the diagnosis-time slider. Compare the conditional repair density with its marginal density, and compare the joint-event probability with the product of marginals.
+
+### Transform the pair: closure within two hours
+
+A service manager asks for the probability of modelled closure within two hours. The new random variable is $T(\omega)=X(\omega)+Y(\omega)$. Its threshold event is
+
+$$\{T\le2\}=\{(x,y):0\le y\le x\le2,\ x+y\le2\}.$$
+
+For $0\le x\le1$, the upper limit on $y$ is $x$; for $1<x\le2$, it is $2-x$. Thus
+
+$$\begin{aligned}
+P(T\le2)
+&=\int_0^1\int_0^x\frac12\,dy\,dx
++\int_1^2\int_0^{2-x}\frac12\,dy\,dx\\
+&=\frac14+\frac14=\frac12.
+\end{aligned}$$
+
+This computes one CDF value $F_T(2)$ by finding an inverse-image region. It does not require deriving the whole density of $T$, and it does not validate the stipulated duration model for a real service.
+
+**Practice check 3.** In the triangle model, find $P(Y\le0.5)$ and compare it with $P(Y\le0.5\mid X=1)$. Draw or describe both regions or slices first.
+
+**Practice check 4.** In the rectangle model, identify the region $X+Y\le2$ and calculate its probability. Explain which model assumption changes the result relative to the triangle.
+
+**Suggested stopping point.** Resume from the triangle if time is needed for students to set up the integrals themselves. The sequence need not fit into one meeting.
+
+## 5. Identify the object before calculating
+
+| Object | What it takes as input | What it produces |
+|---|---|---|
+| Random variable $X$ | An outcome $\omega$ | A numerical value |
+| Random vector $(X,Y)$ | An outcome $\omega$ | A pair of numerical values |
+| Inverse image $(X,Y)^{-1}(D)$ | A set $D$ of value pairs | An event in $\Omega$ |
+| Probability measure $P$ | An event in $\mathcal F$ | A number in $[0,1]$ |
+| Joint PMF | A pair of discrete values | The probability of that pair |
+| Joint PDF | A location in the value plane | A density, integrated to get probabilities |
+| Joint CDF | Two thresholds | A probability of meeting both thresholds |
+| Conditional distribution | A specified conditioning value or event | A normalized distribution under that information |
+
+For further derivations, see the [rigorous supplement, Sections 1–5](02-random-variables-supplement.qmd). For additional worked contexts and independent exercises, return to [Lecture 01.2](02-random-variables.qmd).

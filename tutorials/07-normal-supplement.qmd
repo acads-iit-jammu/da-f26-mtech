@@ -1,0 +1,81 @@
+---
+title: "01.7 supplement · Gaussian structure and conditional laws"
+format:
+  html:
+    html-math-method: mathml
+    css: probability-notes.css
+---
+
+[Main lecture 01.7](07-multivariate-normal.qmd)
+
+## 1. Definition including singular laws
+
+A Gaussian vector can be represented as $\mathbf X=\boldsymbol\mu+A\mathbf Z$ for independent standard normal components of $\mathbf Z$, with covariance $\Sigma=AA^T$. The characteristic function is
+
+$$\varphi_{\mathbf X}(t)=E[e^{it^T\mathbf X}]
+=\exp(it^T\boldsymbol\mu-\tfrac12t^T\Sigma t).$$
+
+This follows by independence and the standard-normal characteristic function $e^{-t^2/2}$. It also shows that every linear combination is normal with its corresponding mean and variance. Conversely, the all-linear-combinations definition gives this characteristic function; uniqueness identifies the affine-normal law. A zero variance is allowed in this definition.
+
+If $\Sigma$ is singular, there is nonzero $a$ with $a^T\Sigma a=0$, so $a^T(\mathbf X-\boldsymbol\mu)=0$ almost surely. The distribution lies in a lower-dimensional affine subspace and has no density with respect to full-dimensional Lebesgue measure. The positive-definite density formula must not be used with a zero determinant.
+
+## 2. Density and normalization by an invertible map
+
+For positive-definite $\Sigma$, choose $L$ invertible with $LL^T=\Sigma$, for example its Cholesky factor. The independent-standard-normal density is $(2\pi)^{-p/2}e^{-\mathbf z^T\mathbf z/2}$. Under $\mathbf x=\boldsymbol\mu+L\mathbf z$, the inverse determinant is $|\det L|^{-1}=|\Sigma|^{-1/2}$. Substitution gives the stated multivariate density.
+
+Its integral is 1 because the change of variables converts it back to the product of $p$ normalized standard-normal densities. The covariance is $LIL^T=\Sigma$. The factorization also proves that whitening yields independent normal coordinates; identity covariance alone would imply only uncorrelated coordinates for an arbitrary non-Gaussian vector.
+
+## 3. Linear maps and marginal distributions
+
+For a $k\times p$ matrix $B$ and vector $b$, $B\mathbf X+b=B\boldsymbol\mu+b+BA\mathbf Z$ is Gaussian with covariance $B\Sigma B^T$. Taking $B$ to select coordinates proves the marginal property. Taking a single row proves the linear-combination property. The characteristic function above establishes that Gaussian laws are determined by their means and covariance matrices, including singular cases.
+
+## 4. Conditioning in blocks
+
+Partition the vector as $(\mathbf X_a^T,\mathbf X_b^T)^T$ and partition $\boldsymbol\mu,\Sigma$ accordingly. For positive-definite $\Sigma$, $\Sigma_{aa}$ is invertible. Define the residual
+
+$$\mathbf R=\mathbf X_b-\boldsymbol\mu_b-\Sigma_{ba}\Sigma_{aa}^{-1}(\mathbf X_a-\boldsymbol\mu_a).$$
+
+It has mean zero and cross-covariance
+
+$$\operatorname{Cov}(\mathbf R,\mathbf X_a)=\Sigma_{ba}-\Sigma_{ba}\Sigma_{aa}^{-1}\Sigma_{aa}=0.$$
+
+The pair $(\mathbf R,\mathbf X_a)$ is jointly Gaussian. A block-diagonal covariance makes its characteristic function factor into the product of the two block characteristic functions, proving independence. Expansion gives
+
+$$\operatorname{Cov}(\mathbf R)=\Sigma_{bb}-\Sigma_{ba}\Sigma_{aa}^{-1}\Sigma_{ab}.$$
+
+Consequently a conditional-law version is
+
+$$\mathbf X_b\mid\mathbf X_a=x_a\sim N\left(
+\boldsymbol\mu_b+\Sigma_{ba}\Sigma_{aa}^{-1}(x_a-\boldsymbol\mu_a),
+\Sigma_{bb}-\Sigma_{ba}\Sigma_{aa}^{-1}\Sigma_{ab}\right).$$
+
+The covariance is the Schur complement and is positive definite here. The bivariate formula follows by scalar substitution. This derivation specifies a continuous density version and does not condition through a ratio with a zero-probability singleton. Conditional distributions are only uniquely determined almost everywhere in general.
+
+The same characteristic-function factorization proves that zero cross-covariance of Gaussian subvectors is equivalent to their independence. The statement requires the joint Gaussian assumption, not merely normal marginal distributions.
+
+## 5. Probability inside a bivariate ellipse
+
+Let $\mathbf X\sim N_2(\boldsymbol\mu,\Sigma)$ with $\Sigma$ positive definite and whiten to $\mathbf Z$. The squared Mahalanobis distance is
+
+$$Q=(\mathbf X-\boldsymbol\mu)^T\Sigma^{-1}(\mathbf X-\boldsymbol\mu)=Z_1^2+Z_2^2.$$
+
+For $c\ge0$, polar integration gives
+
+$$\begin{aligned}
+P(Q\le c)&=\int_0^{2\pi}\int_0^{\sqrt c}\frac1{2\pi}e^{-r^2/2}r\,dr\,d\theta\\
+&=\left[-e^{-r^2/2}\right]_0^{\sqrt c}=1-e^{-c/2}.
+\end{aligned}$$
+
+Thus $Q$ has a chi-square distribution with two degrees of freedom. The probability-$\alpha$ ellipse has $c=-2\log(1-\alpha)$ for $0<\alpha<1$. In $p$ dimensions the analogous quadratic form is chi-square with $p$ degrees of freedom; the simple exponential CDF here is specific to $p=2$.
+
+## Further exercises
+
+**NS1.** Let $\Sigma=\begin{pmatrix}4&-2\\-2&4\end{pmatrix}$. Find its eigenvalues, principal directions and the semiaxis lengths of its 95% probability ellipse.
+
+**NS2.** If $\mathbf X\sim N_2(0,\Sigma)$ with $\Sigma=\begin{pmatrix}1&1\\1&4\end{pmatrix}$, calculate the covariance of $(X_1+X_2,X_2-X_1)^T$. Are these transformed coordinates independent?
+
+**NS3.** In the same sensor model, verify total variance for $X_2$ using the conditional variance and the variance of the conditional mean.
+
+## References
+
+The bivariate normal construction and conditional formulas were checked against [Pishro-Nik §5.3.2](https://www.probabilitycourse.com/chapter5/5_3_2_bivariate_normal_dist.php). The matrix and polar derivations above develop the corresponding multivariate statements used in [01.7](07-multivariate-normal.qmd).

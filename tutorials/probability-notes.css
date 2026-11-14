@@ -1,0 +1,4 @@
+/* Use a font with OpenType MATH metrics so MathML braces and limits scale. */
+math {
+  font-family: "STIX Two Math", "Cambria Math", math;
+}

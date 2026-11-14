@@ -1,0 +1,262 @@
+---
+title: "01.5 · Expectation, mean and variance"
+format:
+  html:
+    html-math-method: mathml
+    css: probability-notes.css
+---
+
+**Data Analytics for AI · Executive M.Tech · IIT Jammu**  
+[Previous: meeting problem](04-meeting-problem.qmd) · [Rigorous supplement](05-expectation-supplement.qmd) · [Next: transformations](06-transformations.qmd)
+
+## Questions and objectives
+
+A service team needs to budget reviewer time. A reliability engineer needs to distinguish consistent performance from occasional large deviations. An evaluation lead needs to combine results from task groups with different frequencies. A distribution answers probability questions; expectation summarizes specified numerical functions of that distribution.
+
+We will define expectation for discrete and continuous variables, identify the mean and variance, calculate expectations of functions, and use covariance and conditional expectation. All datasets and application models are hypothetical. Worked examples include solutions; practice checks are for independent work.
+
+## 1. Begin with a weighted workload
+
+### Worked example: reviewer time per request
+
+Select one request under a stipulated model. Let $X$ be the additional review time in minutes. The possible values and probabilities are:
+
+| $x$ (minutes) | 0 | 2 | 5 |
+|---|---:|---:|---:|
+| $p_X(x)$ | 0.5 | 0.3 | 0.2 |
+| $x p_X(x)$ | 0 | 0.6 | 1.0 |
+
+For planning, weight each possible time by its probability:
+
+$$0(0.5)+2(0.3)+5(0.2)=1.6\text{ minutes per request}.$$
+
+This is not a claim that any request takes 1.6 minutes. In this model no request does. It is a probability-weighted average. If 100 requests each have this marginal distribution, their expected total additional review time is $100(1.6)=160$ minutes. Their realized total can differ, and independence has not yet been assumed.
+
+### Definition: expectation and mean
+
+Let $X$ be a real random variable on $(\Omega,\mathcal F,P)$. Its **expectation**, also called its **mean**, is
+
+$$\mu_X=E[X]=\int_\Omega X(\omega)\,dP(\omega),$$
+
+when $E[|X|]<\infty$. For calculations using the induced distribution,
+
+$$E[X]=\sum_x x p_X(x)\quad\text{(discrete)},\qquad
+E[X]=\int_{-\infty}^{\infty}x f_X(x)\,dx\quad\text{(a density exists)}.$$
+
+The sum or integral must converge absolutely for a finite expectation. A nonnegative variable may have expectation $+\infty$. For signed variables, cancellation of divergent positive and negative contributions does not define a mean. The supplement gives a boundary example.
+
+The units of the mean are the units of $X$. In the workload example, $E[X]=1.6$ minutes. The PMF supplies the weights; it is not an ordinary average of the distinct possible values, which would incorrectly give $(0+2+5)/3$.
+
+A **sample mean** $\bar X_n=(X_1+\cdots+X_n)/n$ is a statistic computed from observations; the model mean $\mu_X$ is a property of a probability law. For independent, identically distributed observations with finite absolute mean, the law of large numbers gives a long-run interpretation. A small sample need not have an average near $\mu_X$; convergence is developed in Module 02.
+
+**Practice check E1.** A hypothetical invoice correction cost is 0, 100 or 400 rupees with probabilities $0.7,0.2,0.1$. Calculate its mean and explain why averaging the three cost values without weights answers a different question.
+
+## 2. Continuous expectation
+
+### Worked example: the gap between the friends' arrivals
+
+In the independent uniform-arrival model from [01.4](04-meeting-problem.qmd), the gap $D=|T_A-T_B|$ has density $f_D(d)=2(1-d)$ for $0<d<1$, zero elsewhere. What is the mean gap?
+
+$$\begin{aligned}
+E[D]&=\int_0^1 d\,2(1-d)\,dd
+=2\int_0^1(d-d^2)\,dd\\
+&=2\left[\frac{d^2}{2}-\frac{d^3}{3}\right]_0^1
+=\frac13\text{ hour}=20\text{ minutes}.
+\end{aligned}$$
+
+The integrand is value times density. Density alone integrates to probability; multiplying by the value before integrating gives its probability-weighted mean. This is the mean **arrival gap**, not the first friend's actual waiting time, which is capped at 15 minutes by the policy.
+
+### Worked example: actual waiting time
+
+Let $W=\min(D,1/4)$ be the time the first arrival spends waiting. If the gap is below $1/4$, the wait equals the gap; otherwise it is $1/4$ even though the friends fail to meet. Then
+
+$$\begin{aligned}
+E[W]
+&=\int_0^{1/4}d\,2(1-d)\,dd
++\frac14\int_{1/4}^1 2(1-d)\,dd\\
+&=\frac5{96}+\frac14\frac9{16}
+=\frac{37}{192}\text{ hour}
+=11.5625\text{ minutes}.
+\end{aligned}$$
+
+This calculation motivates the **expectation-of-a-function rule** (often called LOTUS). For an integrable measurable $g(X)$,
+
+$$E[g(X)]=\sum_x g(x)p_X(x)quad\text{or}\quad
+E[g(X)]=\int g(x)f_X(x)\,dx.$$
+
+We do not need to derive the distribution of $g(X)$ first. In fact $W$ has a point mass at $1/4$, so treating it as having only a smooth PDF would miss part of its law.
+
+For a pair with a joint density, the corresponding formula is
+
+$$E[g(X,Y)]=\iint g(x,y)f_{X,Y}(x,y)\,dx\,dy,$$
+
+provided the same integral with $|g|$ is finite. Replace the double integral by a double sum for a joint PMF.
+
+## 3. Variance: distinguish means from variability
+
+### Same mean, different performance
+
+Suppose system A always takes two seconds, while system B takes one or three seconds with equal probability. Both means are two seconds. Their mean signed deviations are zero, so signed deviations cannot measure spread. Squaring the deviations gives 0 for A and 1 square second for B.
+
+For a variable with finite second moment, the **variance** and **standard deviation** are
+
+$$\operatorname{Var}(X)=E[(X-\mu_X)^2],\qquad
+\operatorname{SD}(X)=\sqrt{\operatorname{Var}(X)}.$$
+
+Variance is nonnegative and has squared units; standard deviation has the original units. Expanding the square gives the computational identity
+
+$$\operatorname{Var}(X)=E[X^2]-(E[X])^2.$$
+
+The mean is the first raw moment; $E[X^2]$ is the second raw moment; variance is the second moment about the mean. A zero variance means $X=\mu_X$ with probability 1.
+
+### Worked example: reviewer-time variance
+
+For the initial PMF,
+
+$$E[X^2]=0^2(0.5)+2^2(0.3)+5^2(0.2)=6.2.$$
+
+Therefore
+
+$$\operatorname{Var}(X)=6.2-1.6^2=3.64\text{ minutes}^2,
+\qquad\operatorname{SD}(X)=\sqrt{3.64}\approx1.908\text{ minutes}.$$
+
+Check directly:
+
+$$0.5(0-1.6)^2+0.3(2-1.6)^2+0.2(5-1.6)^2
+=1.28+0.048+2.312=3.64.$$
+
+Variance summarizes spread about the mean. It does not by itself specify a tail probability or guarantee a service deadline.
+
+### Worked example: continuous gap variance
+
+For the arrival gap,
+
+$$E[D^2]=2\int_0^1(d^2-d^3)\,dd
+=2\left(\frac13-\frac14\right)=\frac16.$$
+
+Thus
+
+$$\operatorname{Var}(D)=\frac16-\frac19=\frac1{18}\text{ hour}^2.$$
+
+If $D_m=60D$ is the gap in minutes, its mean is 20 minutes and its variance is $60^2/18=200$ minutes squared. Its standard deviation is $\sqrt{200}\approx14.142$ minutes.
+
+**Practice check E2.** Let $U$ have density $1/4$ on $[0,4]$ seconds. Calculate $E[U]$, $E[U^2]$, its variance and standard deviation. State the units at each step.
+
+**Stopping point.** Students should be able to calculate and distinguish $E[X^2]$ and $(E[X])^2$ before proceeding.
+
+## 4. Linear combinations and covariance
+
+### Convert a workload into a cost
+
+If a processing charge is $C=10+3X$ rupees, with $X$ measured in minutes, then the initial workload model gives
+
+$$E[C]=10+3(1.6)=14.8\text{ rupees},\qquad
+\operatorname{Var}(C)=3^2(3.64)=32.76\text{ rupees}^2.$$
+
+In general, for integrable variables,
+
+$$E[aX+bY+c]=aE[X]+bE[Y]+c.$$
+
+**Linearity needs no independence.** For finite second moments, $\operatorname{Var}(aX+b)=a^2\operatorname{Var}(X)$. Adding a fixed amount shifts the mean but does not change spread.
+
+### Why two duration variances may not add
+
+In the triangular support-ticket model, $f_{X,Y}(x,y)=1/2$ on $0<y<x<2$. The marginals are $f_X(x)=x/2$ and $f_Y(y)=(2-y)/2$ on $(0,2)$. Direct integration gives
+
+$$E[X]=\int_0^2\frac{x^2}{2}\,dx=\frac43,\quad
+E[Y]=\int_0^2\frac{y(2-y)}2\,dy=\frac23,$$
+
+$$E[X^2]=2,\qquad E[Y^2]=\frac23,$$
+
+and hence both variances are $2/9$. For the total duration, we also need
+
+$$E[XY]=\int_0^2\int_0^x\frac{xy}{2}\,dy\,dx
+=\int_0^2\frac{x^3}{4}\,dx=1.$$
+
+The **covariance** is
+
+$$\operatorname{Cov}(X,Y)=E[(X-E[X])(Y-E[Y])]=E[XY]-E[X]E[Y].$$
+
+Here it is $1-(4/3)(2/3)=1/9$ hours squared. Expanding a squared sum gives
+
+$$\operatorname{Var}(aX+bY)=a^2\operatorname{Var}(X)+b^2\operatorname{Var}(Y)+2ab\operatorname{Cov}(X,Y).$$
+
+For $T=X+Y$, $E[T]=2$ hours and
+
+$$\operatorname{Var}(T)=\frac29+\frac29+2\frac19=\frac23\text{ hours}^2.$$
+
+Omitting covariance would give $4/9$, an incorrect result for this model. When both variances are positive, **correlation** is
+
+$$\rho_{X,Y}=\frac{\operatorname{Cov}(X,Y)}{\operatorname{SD}(X)\operatorname{SD}(Y)};$$
+
+here it is $1/2$. Correlation is dimensionless and lies in $[-1,1]$. Independence implies zero covariance when second moments exist; the converse generally fails.
+
+### Worked distinction: uncorrelated does not mean independent
+
+Let $U$ be uniform on $[-1,1]$ and $V=U^2$. Symmetry gives $E[U]=E[U^3]=0$, so $\operatorname{Cov}(U,V)=0$. Yet $V$ is determined by $U$. More explicitly, the events $|U|\le1/2$ and $V\le1/4$ are identical, each with probability $1/2$; their intersection has probability $1/2$, not $1/4$.
+
+**Practice check E3.** A daily total is the sum of 20 independent request costs, each with mean 14.8 and variance 32.76. Find the mean and variance of the total. Which calculation remains valid if independence is removed but each marginal distribution is retained?
+
+## 5. Conditional means and changing task populations
+
+### Worked example: two task groups
+
+Let $G$ denote the type of a randomly selected task. Stipulate $P(G=\mathrm{routine})=0.75$ and $P(G=\mathrm{complex})=0.25$. The review-time means within these groups are 2 and 6 minutes; their variances are 1 and 4 minutes squared.
+
+Weight the group means by group probabilities:
+
+$$E[X]=0.75(2)+0.25(6)=3\text{ minutes}.$$
+
+A **conditional mean** is the expectation under a conditional distribution:
+
+$$m(g)=E[X\mid G=g]=\sum_x x p_{X\mid G}(x\mid g)$$
+
+or its density integral, where defined. The random variable $m(G)=E[X\mid G]$ assigns each outcome its group's mean. The **law of total expectation** is
+
+$$E[X]=E[E[X\mid G]].$$
+
+For finite second moments, the **law of total variance** is
+
+$$\operatorname{Var}(X)=E[\operatorname{Var}(X\mid G)]+\operatorname{Var}(E[X\mid G]).$$
+
+Here the within-group term is $0.75(1)+0.25(4)=1.75$. The between-group term is
+
+$$0.75(2-3)^2+0.25(6-3)^2=0.75+2.25=3.$$
+
+The total variance is $4.75$ minutes squared. Averaging the conditional variances alone would miss variability due to the different group means. A change in task proportions can change the overall mean and variance even when each group's performance is unchanged.
+
+### Continuous conditioning in the support-ticket triangle
+
+The conditional density of $Y$ given $X=x$ is $1/x$ on $(0,x)$, for $0<x<2$. Consequently,
+
+$$E[Y\mid X=x]=\int_0^x y\frac1x\,dy=\frac x2.$$
+
+Using the marginal of $X$,
+
+$$E[E[Y\mid X]]=\int_0^2\frac x2\frac x2\,dx=\frac23,$$
+
+which agrees with the direct calculation of $E[Y]$. This is conditioning through a density version, not division by $P(X=x)=0$.
+
+**Practice check E4.** Change the routine-task probability to $1/2$, retaining the two group means and variances. Find the new overall mean and variance.
+
+## 6. Expectations of indicators and generating functions
+
+A review passes with stipulated probability $p$. Let $I=1$ for a pass and 0 otherwise. Then
+
+$$E[I]=0(1-p)+1p=p,\qquad\operatorname{Var}(I)=p-p^2=p(1-p).$$
+
+This gives the general identity $E[\mathbf1_A]=P(A)$. A sum of indicators counts occurrences, so its expected count is the sum of the occurrence probabilities, even when the indicators are dependent.
+
+For a nonnegative integer-valued count $N$, the **probability generating function** is $G_N(s)=E[s^N]=\sum_{n\ge0}p_N(n)s^n$ for $0\le s\le1$. For the reviewer-count PMF $P(N=0,1,2)=(0.5,0.3,0.2)$,
+
+$$G_N(s)=0.5+0.3s+0.2s^2,\qquad G_N'(1)=0.7=E[N].$$
+
+Also $G_N''(1)=0.4=E[N(N-1)]$, so $\operatorname{Var}(N)=0.4+0.7-0.7^2=0.61$. For infinite supports, derivatives at 1 are understood as left limits with the relevant finite-moment assumptions. The supplement also defines the moment generating function; it need not exist near zero for every law.
+
+**Practice check E5.** For a Bernoulli indicator with success probability $0.8$, write its PGF and use it to calculate the mean and variance.
+
+## References and continuation
+
+Definitions and expectation-of-a-function formulas were checked against Lancaster University's [MATH230, Chapter 3, §§3.1–3.2](https://www.maths.lancs.ac.uk/~titman/MATH230/expectation1.html). Conditional expectation and total-variance identities are discussed in Pishro-Nik's [§5.2.3](https://www.probabilitycourse.com/chapter5/5_2_3_conditioning_independence.php). The examples and calculations above are developed for this course.
+
+The [supplement](05-expectation-supplement.qmd) proves the identities and addresses existence. Next, [01.6](06-transformations.qmd) derives the distributions of functions such as sums, gaps and squared errors.

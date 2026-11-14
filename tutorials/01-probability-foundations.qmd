@@ -1,0 +1,757 @@
+---
+title: "01.1 · Introduction to probability through problems"
+format:
+  html:
+    html-math-method: mathml
+    css: probability-notes.css
+---
+
+**Data Analytics for AI · Executive M.Tech · IIT Jammu**  
+**Module 01 · Fundamentals of Probability and Random Signal Theory**  
+**01.1 · Saturday, 3 October 2026 · 10:30 a.m.–12:10 p.m. IST**
+
+**Lecture materials**
+
+- **Notes:** [PDF](../materials/01-probability/01-probability-notes.pdf)
+- **Deck:** [Worked student deck](../materials/w01-probability-worked.html) ([PDF](../materials/01-probability/01-probability-worked.pdf))
+- **Interactive lab:** [Open the probability lab](../materials/01-probability/lab.html)
+
+**Supplementary material**
+
+- **Notes:** [Rigorous supplement](01-probability-supplement.html) ([PDF](../materials/01-probability/01-probability-supplement.pdf))
+- **Deck:** [Probability before Kolmogorov](../materials/w01-probability-interpretations-worked.html) ([PDF](../materials/01-probability/01-probability-interpretations-worked.pdf))
+- **Deck:** [Bertrand's paradox](../materials/w01-probability-bertrand.html) ([PDF](../materials/01-probability/01-probability-bertrand.pdf))
+- **Interactive demonstration:** [Sampling maps and chord length](../materials/01-probability/mappings.html)
+
+## Purpose and pace
+
+We use worked problems to introduce outcomes, sample spaces, events, probability measures and random variables. The examples begin with a support audit and extend to electrical engineering, IT operations, finance, accounting, agriculture and training. All numerical scenarios are hypothetical.
+
+For each problem, identify what is selected or generated, which outcomes meet the condition, and how the sampling rule assigns their probabilities. After a calculation, state the idea it illustrates and the limits of its interpretation.
+
+The main notes use finite counting, weighted sums and simple areas. They include historical interpretations, Kolmogorov's triplet and his three axioms. Short definition boxes explain the event collection and the probability axioms. The [supplement](01-probability-supplement.html) develops their proofs, Borel sets and measurability; those technical developments are not prerequisites for the main problems.
+
+Worked examples include their calculations as part of the teaching. Checkpoints and the separate practice questions are for students to solve. Stop at the suggested checkpoints and continue in the next meeting as needed.
+
+## 1. A ticket-routing audit
+
+An IT service desk is checking whether an LLM routes incoming tickets to the
+appropriate department. The pilot uses three reference outcomes:
+
+- **Billing** when Billing is required;
+- **Account Support** when Account Support is required;
+- **Other** when neither Billing nor Account Support is required.
+
+“Other” is the complement category for this two-destination question: the
+reviewer finds that neither Billing nor Account Support is required. Another
+team may handle such a ticket; “Other” does not mean that the ticket was
+unreviewed or its status is unknown. A ticket may require both Billing and
+Account Support, so the reference outcome can contain both labels.
+
+The table is a hypothetical audit. Reviewer labels are operational reference
+decisions; they are not asserted to be error-free ground truth. For $t_1$,
+the LLM reports scores $s_B(x)=0.55$ and $s_A(x)=0.35$ for Billing and
+Account Support. These are model scores; calibration as probabilities is not assumed. To obtain the hard model
+classification shown in the table, apply a threshold of $0.50$ separately to
+each destination. The other rows show the resulting model classifications.
+
+| Ticket | Request summary | Reviewer reference | Model classification |
+|---|---|---|---|
+| $t_1$ | “I was charged twice, and now I cannot log in to my account.” | Billing and Account Support | Billing |
+| $t_2$ | A duplicate charge appears on the monthly invoice | Billing | Billing |
+| $t_3$ | Cannot log in after changing the phone used for MFA | Account Support | Account Support |
+| $t_4$ | A delivery-status question unrelated to billing or account access | Other | Account Support |
+| $t_5$ | A subscription renewal was charged twice | Billing | Billing |
+| $t_6$ | Account locked after a password reset | Account Support | Account Support |
+
+The model and reviewer agree exactly on $t_2,t_3,t_5,t_6$. They disagree on
+$t_1$, where the model omits Account Support, and $t_4$, where the model
+assigns Account Support but the reviewer assigns Other. Relative to the
+reviewer protocol, the Account Support decision on $t_1$ is a false negative
+and that on $t_4$ is a false positive. Thus the observed
+agreement fraction is $4/6$.
+
+Ask:
+
+> What does $4/6$ describe? Under what experiment would it be a probability,
+> and what additional assumptions would connect it to future tickets?
+
+The fraction is an observed summary of these six records. It becomes a
+probability for selecting uniformly from these six ticket IDs once that
+selection experiment is specified. It does not, by itself, describe future
+service-desk traffic.
+
+**Checkpoint 1.** Identify the reference outcome for $t_1$ and explain why
+“Other” applies to $t_4$ but not to $t_1$.
+
+## 2. Historical development and interpretations
+
+Problems of chance helped drive the development of probability: Pascal and Fermat's correspondence in 1654 examined how to reason about uncertain outcomes in games. The [translated correspondence](https://www.york.ac.uk/depts/maths/histstat/pascal.htm) shows the role of concrete problems. Later interpretations emphasized equal-likelihood counting, repeated observations, belief and evidential support. These remain different ways of understanding an assignment of probability, rather than a sequence in which each simply replaced the previous one.
+
+Kolmogorov's 1933 axiomatic foundation supplied a common mathematical framework for probability calculations; see the [historical introduction in Imperial College's probability notes](https://www.ma.imperial.ac.uk/~bin06/Math482/2015/liv3.pdf). It specifies the rules a probability model must obey. It does not, by itself, choose the appropriate sampling mechanism or probability assignment for an application. We first compare interpretations using the audit, then use Bertrand's question to see why a model needs to be specified.
+
+Probability has been interpreted in several ways. The accounts below answer
+different questions about what the number $4/6$ might mean. None follows just
+from seeing six rows in a table.
+
+### Classical equal-likelihood
+
+The classical rule counts favourable outcomes among equally likely cases. If
+one ticket ID is selected uniformly from the six IDs, four selections produce
+agreement, so
+
+$$P(\text{agreement})=\frac{4}{6}=\frac{2}{3}.$$
+
+This calculation is valid for that selection experiment. It does not imply
+that future tickets are equally likely to be any of these six records, or
+that the six records represent future traffic. A finite list defines possible
+cases; the uniform selection rule supplies the equal weights.
+
+The partition chosen for counting also matters. Group the tickets by the pair
+(reviewer outcome, model classification):
+
+| Reviewer outcome | Model classification | Ticket IDs | Exact match? |
+|---|---|---|---|
+| Billing and Account Support | Billing | $t_1$ | No |
+| Billing only | Billing | $t_2,t_5$ | Yes |
+| Account Support only | Account Support | $t_3,t_6$ | Yes |
+| Other | Account Support | $t_4$ | No |
+
+There are four occupied pair types in this audit. If an experiment selected
+one of these four types uniformly, two of the four would be exact matches,
+giving $2/4$. If it selected one of the six ticket IDs uniformly, the pair
+types would instead have probabilities $1/6,2/6,2/6,1/6$, giving $4/6$.
+Thresholding two destination scores separately permits four model outputs:
+neither, Billing only, Account Support only, or both. Thus the full product
+contains $4\times4=16$ reviewer/model pairs, of which four occur in this
+audit. Uniform selection among all 16 pairs would be a third experiment;
+its four matching pairs would give agreement probability $4/16=1/4$.
+Equal weighting of pair types does not follow from grouping tickets that
+way. Counting requires a stated set of cases and a reason to treat those
+cases as equally likely.
+
+### Frequency
+
+The observed agreement proportion is
+
+$$\widehat p_6=\frac{1}{6}\sum_{i=1}^{6}I_i=\frac{4}{6},$$
+
+where $I_i=1$ when the model classification exactly matches the reviewer's
+reference outcome for ticket $t_i$, and $I_i=0$ otherwise. A frequency
+interpretation connects a probability to the limiting relative frequency in a
+specified repeatable process. This audit records one finite set of six
+tickets; it does not establish that limit or show that future ticket mix and
+model performance will remain the same.
+
+Repeatedly sampling the LLM for the same text under randomized decoding would
+define another process. Its output frequency would describe generated
+classifications, not necessarily agreement with reviewer decisions. The
+process and event must be stated before interpreting a frequency.
+
+### Subjective probability and Bayesian updating
+
+A subjective interpretation treats probability as a person's degree of
+belief given available information. An analyst might assess the chance that
+the model agrees with the review protocol on a future ticket, using this audit
+and other stated information. The six rows do not determine that assessment
+uniquely. Coherence constrains probability assignments; subjective does not
+mean arbitrary. Countable additivity is an additional condition in the
+Kolmogorov model and does not follow from every finite coherence argument.
+
+Bayesian updating describes how an assessment changes when evidence is
+observed. If $H$ is the proposition that the next ticket's model
+classification will agree with its reference outcome and $D$ is additional
+evidence, Bayes' rule gives
+
+$$P(H\mid D)=\frac{P(D\mid H)P(H)}{P(D)},\qquad P(D)>0.$$
+
+The formula does not supply the prior or likelihood; those come from a model
+and stated information. Conditional probability and Bayesian updating will be
+developed later.
+
+### Logical or evidential probability
+
+A logical or evidential interpretation aims to quantify how strongly stated
+evidence supports a proposition. Here the evidence could include the six audit
+rows, the review protocol and assumptions about the future ticket population.
+A numerical answer requires a rule connecting that evidence and those
+assumptions to a degree of support. If the rule invokes indifference, it must
+specify which cases are treated equally and why. Counting ticket IDs and
+counting occupied label-pair types give different answers because they
+describe different selection rules. This identifies a problem with an
+unspecified indifference rule; it does not refute every logical account.
+
+### What the interpretations leave for a probability model
+
+Classical probability emphasizes equal likelihood, frequency emphasizes
+repetition, subjective probability represents an assessment given
+information, and logical accounts specify evidential support. A propensity
+account would treat the configured randomized generation process as the
+chance-producing mechanism. These accounts differ in interpretation. A
+mathematical calculation also needs the possible outcomes, the event of
+interest and a probability assignment. The next example shows why the
+sampling procedure is part of that specification.
+
+**Checkpoint 2.** For each interpretation, state what additional assumption
+or information is needed to use it for a claim about future tickets.
+
+## 3. A second question: Bertrand's random chord
+
+Draw an equilateral triangle inside a circle. Consider the question:
+
+> If a chord is selected at random from the circle, what is the probability
+> that its length exceeds the side length of the triangle?
+
+The phrase “selected at random” does not specify how the chord is generated.
+Bertrand described different sampling procedures for chords, which give
+$1/3$, $1/2$ and $1/4$ for the same length comparison. These values follow
+from different probability distributions induced by the respective sampling
+procedures; the problem statement alone does not say which procedure to use.
+[John D. Norton's University of Pittsburgh page presents the three sampling
+arguments and their values.](https://sites.pitt.edu/~jdnorton/teaching/paradox/chapters/probability_for_indifference/Bertrand_proof/Bertrand_proof.html)
+
+The procedures are: choose two independent uniform endpoints ($1/3$); choose
+a uniform radial distance and an independent uniform direction ($1/2$); or
+choose a midpoint uniformly in disk area ($1/4$). These are different models.
+We will not choose among them or derive the answers in this section.
+The example identifies information a probability question can leave
+unspecified: the outcomes and, especially, the sampling rule that determines
+their probabilities.
+
+### Kolmogorov's set-based framework
+
+Kolmogorov's axiomatic framework gives probability a mathematical foundation
+in terms of sets and a measure. Its three objects are written
+
+$$(\Omega,\mathcal F,P).$$
+
+Here $\Omega$ is the sample space of possible outcomes, $\mathcal F$ is the
+collection of events to which probabilities are assigned, and
+$P:\mathcal F\to[0,1]$ is the probability measure. The measure obeys nonnegativity, normalization and countable additivity. We will understand these rules through the ticket audit. Section 5 explains the event-collection requirements in a definition box; their further development belongs to the supplement. The supplement returns to Bertrand's question and specifies the
+sampling models in full.
+
+## 4. Define the experiment and its events
+
+To calculate a probability for the audit, specify an experiment:
+
+> Select one of the six ticket IDs uniformly at random.
+
+The ticket records, reviewer decisions and model classifications are fixed.
+The selected ticket ID is the outcome that varies. Thus the sample space is
+
+$$\Omega=\{t_1,t_2,t_3,t_4,t_5,t_6\}.$$
+
+The **sample space** is the set of possible outcomes; exactly one outcome occurs in a selection. An **event** is a set of outcomes satisfying a condition. It occurs when the selected outcome belongs to that set.
+
+Define events from the reviewer's reference classification:
+
+$$B=\{t_1,t_2,t_5\},\qquad
+A=\{t_1,t_3,t_6\},$$
+
+where $B$ is the event “Billing is required” and $A$ is the event “Account
+Support is required.” The event that neither is required is
+
+$$O=(B\cup A)^c=\{t_4\}.$$
+
+In this model, $O$ is precisely the “Other” reference outcome. It is disjoint
+from $B$ and $A$. The ticket $t_1$ belongs to both $B$ and $A$, because both
+destinations are required:
+
+$$B\cap A=\{t_1\},\qquad B\cup A=\{t_1,t_2,t_3,t_5,t_6\}.$$
+
+For sets $E,F\subseteq\Omega$:
+
+$$\begin{aligned}
+E\cap F&=\{t\in\Omega:t\in E\text{ and }t\in F\},\\
+E\cup F&=\{t\in\Omega:t\in E\text{ or }t\in F\},\\
+E^c&=\Omega\setminus E.
+\end{aligned}$$
+
+The “or” in a union is inclusive. The outcome $t_1$ is counted in both
+marginal events, so to count tickets requiring at least one named destination
+we use the disjoint pieces $B\setminus A$, $A\setminus B$ and $B\cap A$:
+
+$$B\cup A=(B\setminus A)\cup(A\setminus B)\cup(B\cap A).$$
+
+Under uniform selection, their probabilities are $2/6$, $2/6$ and $1/6$.
+Therefore
+
+$$P(B\cup A)=\frac{2}{6}+\frac{2}{6}+\frac{1}{6}=\frac{5}{6}.$$
+
+Equivalently,
+
+$$P(B\cup A)=P(B)+P(A)-P(B\cap A)
+=\frac{3}{6}+\frac{3}{6}-\frac{1}{6}=\frac{5}{6}.$$
+
+The complement is $O$, so $P(O)=1/6$. The reviewer outcomes form four
+possible destination sets: both, Billing only, Account Support only, or
+neither. “Other” refers only to the last of these in this example.
+
+The exact-agreement event is $C=\{t_2,t_3,t_5,t_6\}$, so $P(C)=4/6$ under
+this same uniform-ID experiment. We will also represent agreement numerically.
+
+**Checkpoint 3.** Give the ticket IDs in $B$, $A$, $B\cap A$, $B\cup A$ and
+$O$. Explain why the probability of the union is not the sum of the two
+marginal probabilities.
+
+## 5. From a calculation to the triplet and axioms
+
+In the audit, selecting Billing-only, Account-only, both, or neither has probabilities $2/6,2/6,1/6,1/6$. These four categories do not overlap and cover every ticket, so their probabilities add to 1. No category has a negative probability. These observations motivate the rules for a probability model.
+
+The experiment is represented by the probability triplet
+
+$$(\Omega,\mathcal F,P).$$
+
+| Object | Ticket-audit model | Meaning |
+|---|---|---|
+| $\Omega$ | $\{t_1,t_2,t_3,t_4,t_5,t_6\}$ | Possible outcomes: ticket IDs that may be selected |
+| $\mathcal F$ | $2^\Omega$ | Events: all subsets of the six ticket IDs |
+| $P$ | $P(E)=|E|/6$ for $E\subseteq\Omega$ | Probability measure under uniform selection |
+
+An outcome such as $t_2$ is an element of $\Omega$. An event such as $B$ is
+a subset of $\Omega$. The measure $P$ takes an event as input and returns a
+number in $[0,1]$. Here the uniform rule assigns probability $1/6$ to each
+singleton outcome.
+
+::: {.callout-note title="Definition: power set — the collection of all subsets"}
+For a sample space $\Omega$, its **power set** is
+
+$$2^\Omega=\mathcal P(\Omega)=\{E:E\subseteq\Omega\}.$$
+
+It is a set whose members are themselves sets. For $\Omega=\{a,b,c\}$, the full list is
+
+$$\mathcal P(\Omega)=\{\varnothing,\{a\},\{b\},\{c\},
+\{a,b\},\{a,c\},\{b,c\},\{a,b,c\}\}.$$
+
+Here $a\in\Omega$, $\{a\}\subseteq\Omega$, and $\{a\}\in\mathcal P(\Omega)$ are different statements. The empty set is the impossible event; $\Omega$ is the certain event. If $\Omega$ has $n$ elements, its power set has $2^n$ members: each element can be included or excluded from a subset. The six-ticket space therefore has 64 possible events, not 64 outcomes.
+:::
+
+Choosing all subsets as events is convenient for our finite models. It allows questions about individual tickets as well as groups. This choice says nothing about whether their probabilities are equal.
+
+Suppose instead that a dashboard on $\{a,b,c\}$ reports only “one of $a,b$” or “$c$.” It can answer the event $\{a,b\}$ and its opposite $\{c\}$, together with the certain and impossible events. It cannot distinguish $a$ from $b$. This motivates specifying which collection of events the model uses.
+
+::: {.callout-note title="Definition: sigma-algebra — a collection of events closed under logical combinations"}
+A **sigma-algebra** $\mathcal F$ on $\Omega$ is a collection of subsets of $\Omega$ satisfying:
+
+1. $\Omega\in\mathcal F$: the certain event is available.
+2. If $E\in\mathcal F$, then $E^c=\Omega\setminus E\in\mathcal F$: if a question is available, “not that event” is available.
+3. If $E_1,E_2,\ldots\in\mathcal F$, then $\bigcup_{n=1}^{\infty}E_n\in\mathcal F$: “at least one occurs” is available for a countable list of events.
+
+**Closed** means that performing the stated operation keeps us inside the same collection. **Countable** means finite or listable as $E_1,E_2,\ldots$; it does not mean an arbitrary collection of any size. The events in a union need not be disjoint for the union to belong to $\mathcal F$.
+
+These requirements concern which sets are events, not the numerical probabilities assigned to them. In the triplet $(\Omega,\mathcal F,P)$, $\mathcal F$ supplies the events and $P$ assigns their probabilities.
+:::
+
+::: {.callout-tip title="Worked check: a full collection and a smaller collection"}
+Every power set $\mathcal P(\Omega)$ is a sigma-algebra: the whole space, complements and unions of subsets of $\Omega$ are still subsets of $\Omega$.
+
+For the dashboard, $\mathcal G=\{\varnothing,\{a,b\},\{c\},\Omega\}$ is also a sigma-algebra. Complements exchange the two nontrivial groups, and every union is again one of the four listed sets. In particular, a countable union still combines only these four distinct sets. The set $\{a\}$ is a subset of $\Omega$ but is not an event in this smaller model.
+
+By contrast, $\{\varnothing,\Omega,\{a\}\}$ is not a sigma-algebra on $\{a,b,c\}$: it omits the required complement $\{b,c\}$.
+:::
+
+::: {.callout-note title="Useful properties of a sigma-algebra"}
+The three requirements imply:
+
+- $\varnothing\in\mathcal F$, since $\varnothing=\Omega^c$.
+- Countable intersections are events: “all occur” can be written as “not at least one fails,”
+  $$\bigcap_n E_n=\left(\bigcup_n E_n^c\right)^c.$$
+- Differences are events: $E\setminus F=E\cap F^c$ means “$E$ occurs and $F$ does not.”
+- Finite unions and intersections are included as special cases.
+
+A sigma-algebra need not be the full power set. In continuous models we use an appropriate event collection containing intervals and their usual combinations; the supplement explains Borel sets and why further care is needed.
+
+For a worked explanation, see the [two-LED observation model](01-probability-supplement.qmd#sensor-sigma-algebra) in the supplement. It distinguishes measurable events from what a sensor can identify. The supplement also develops [sigma-algebras generated by random variables](01-probability-supplement.qmd#generated-sigma-algebra) and explains, through a [Vitali set](01-probability-supplement.qmd#vitali-set), why standard uniform length cannot measure every subset of the unit interval.
+:::
+
+::: {.callout-important title="Kolmogorov's axioms — rules for the probability assignment"}
+On the event collection $\mathcal F$, the probability measure $P$ satisfies:
+
+1. **Nonnegativity:** $P(E)\ge0$ for every event $E$.
+2. **Normalization:** $P(\Omega)=1$.
+3. **Countable additivity:** for pairwise disjoint events $E_1,E_2,\ldots$,
+   $$P\left(\bigcup_{n=1}^{\infty}E_n\right)=\sum_{n=1}^{\infty}P(E_n).$$
+
+Pairwise disjoint means $E_i\cap E_j=\varnothing$ whenever $i\ne j$. In this case there is no overlap to count twice. Unlike closure of a sigma-algebra under unions, adding probabilities without a correction **requires disjointness**.
+
+The axioms do not say that outcomes are equally likely. Uniform and nonuniform assignments can both satisfy them.
+:::
+
+For the six singleton events, additivity gives
+$P(\Omega)=6(1/6)=1$. Also $B$ and $B^c$ are disjoint and exhaustive, and
+$P(B)+P(B^c)=3/6+3/6=1$. The same addition rule applies to any countable list of disjoint events; on this six-outcome space, only finitely many can be nonempty.
+
+A probability measure is a set function: it takes an event as input and returns a number between 0 and 1.
+The event $B$ is a set of tickets; $P(B)=1/2$ is a number. This keeps the
+sample point, event and probability value distinct.
+
+::: {.callout-tip title="Consequences used in problem solving"}
+These are consequences of the axioms, not additional assumptions:
+
+| Rule | Meaning or audit calculation |
+|---|---|
+| $P(\varnothing)=0$ | No selected ticket can belong to the empty event |
+| $P(E^c)=1-P(E)$ | Billing and not Billing partition the audit: $1/2+1/2=1$ |
+| $0\le P(E)\le1$ | Every event is contained in the certain event |
+| If $E\subseteq F$, then $P(E)\le P(F)$ | Requiring both destinations is contained in requiring Billing: $1/6\le1/2$ |
+| $P(E\cup F)=P(E)+P(F)-P(E\cap F)$ | At least one named destination: $3/6+3/6-1/6=5/6$ |
+
+For example, $E$ and $E^c$ are disjoint and have union $\Omega$, so additivity gives $P(E)+P(E^c)=1$. This explains the complement rule used in calculations.
+:::
+
+**Checkpoint 4.** State the sample space, event collection and probability
+measure. Verify nonnegativity, normalization and additivity for two disjoint
+events from the table.
+
+## 6. Record a number: random variables and distributions
+
+Suppose the audit spreadsheet needs a 1 when Billing is required and a 0 otherwise. Selecting a ticket uniformly produces the entries $1,1,0,0,1,0$ on the six possible rows. Three rows give 1, so the probability of recording 1 is $3/6=1/2$.
+
+A **random variable** assigns a numerical value to each outcome. For this experiment define the Billing indicator
+
+$$X_B:\Omega\to\mathbb R,\qquad
+X_B(t)=\begin{cases}
+1,&t\in B,\\
+0,&t\notin B.
+\end{cases}$$
+
+Its values are
+
+$$X_B(t_1)=1,\;X_B(t_2)=1,\;X_B(t_3)=0,\;X_B(t_4)=0,
+\;X_B(t_5)=1,\;X_B(t_6)=0.$$
+
+Write $X:\Omega\to\mathbb R$ for a real-valued random variable. Once the outcome is known, its value is fixed. Here the selection of a ticket is random; the rule for recording Billing is fixed.
+
+The inputs distinguish two functions: $X_B$ takes one ticket and returns 0 or 1; $P$ takes a **set of tickets** and returns its probability. Thus $P$ is called a **set function**. The term describes the type of input. Having a set as its domain does not make every function a set function. The supplement gives the technical condition for random variables in general probability spaces.
+
+### Image: values produced by a set of outcomes
+
+For $E\subseteq\Omega$, the image of $E$ under $X_B$ is
+
+$$X_B(E)=\{X_B(t):t\in E\}.$$
+
+For the Account Support event $A=\{t_1,t_3,t_6\}$, $t_1$ also requires
+Billing, while $t_3$ and $t_6$ do not. Hence
+
+$$X_B(A)=\{0,1\}.$$
+
+This is a set of numerical values, not an event in the ticket sample space.
+
+### Inverse image: outcomes that produce selected values
+
+For $D\subseteq\mathbb R$, the inverse image is
+
+$$X_B^{-1}(D)=\{t\in\Omega:X_B(t)\in D\}.$$
+
+In particular,
+
+$$X_B^{-1}(\{1\})=\{t_1,t_2,t_5\}=B,$$
+
+and
+
+$$X_B^{-1}(\{0\})=\{t_3,t_4,t_6\}=B^c.$$
+
+An inverse image is a set of outcomes; it need not be an inverse function.
+The inverse image connects a numerical condition on a random variable to an
+event to which the probability measure applies:
+
+$$P(X_B=1)=P\bigl(X_B^{-1}(\{1\})\bigr)=P(B)=\frac{3}{6}=\frac12.$$
+
+The distribution of $X_B$ is $P(X_B=1)=1/2$ and $P(X_B=0)=1/2$. The
+function $X_B$, its inverse-image event $B$, and the number $P(B)$ are three
+different objects.
+
+### Worked example: two tosses, three numerical values
+
+Toss a fair coin twice independently. The four equally likely outcomes are $HH,HT,TH,TT$. Let $N$ record the number of heads. Then
+
+| Outcome | $HH$ | $HT$ | $TH$ | $TT$ |
+|---|---:|---:|---:|---:|
+| $N$ | 2 | 1 | 1 | 0 |
+
+Consequently $P(N=0)=1/4$, $P(N=1)=2/4$ and $P(N=2)=1/4$. This list is the **distribution**, or law, of $N$: it states the probabilities of its possible values. Three possible values do not imply probabilities of $1/3$ each. We count the outcomes that produce each value.
+
+### Worked check: a die outcome and its numerical value
+
+Roll a stipulated fair die once. Take $\Omega_d=\{1,2,3,4,5,6\}$,
+$\mathcal F_d=2^{\Omega_d}$ and $P_d(E)=|E|/6$. Define $Z(\omega)=\omega$.
+If face 4 occurs, distinguish the outcome $4$, the singleton event $\{4\}$,
+the function value $Z(4)=4$, and the probability $P_d(\{4\})=1/6$.
+Also $Z^{-1}(\{2,4,6\})=\{2,4,6\}$, so $P_d(Z\text{ is even})=1/2$.
+The identical numerals in this identity function do not identify its values
+with their probabilities.
+
+**Checkpoint 5.** Find $X_B(\Omega)$, $X_B(A)$,
+$X_B^{-1}(\{1\})$ and $P(X_B=1)$. Identify the sets of real values,
+the set of ticket outcomes, and the probability.
+
+## 7. A continuous measurement: probability as area
+
+A stipulated sensor model has error $\varepsilon$ uniformly distributed between $-2$ and $2$ mm. What is the probability that the error is between $-0.5$ and $0.5$ mm?
+
+Uniformity assigns probabilities in proportion to interval length. The favorable interval has length 1 mm, while the full interval has length 4 mm. Therefore
+
+$$P(-0.5\le\varepsilon\le0.5)=\frac{1}{4}.$$
+
+We describe this with a **probability density** $f(e)=1/4$ per mm on $[-2,2]$, and zero elsewhere. The rectangle above an interval has area equal to its probability. Its total area is $4(1/4)=1$. More generally, a density is nonnegative, has total area 1, and gives interval probabilities by
+
+$$P(a\le X\le b)=\int_a^b f(x)\,dx.$$
+
+A density height is not a probability. Under this continuous model, an exact point has probability zero, although a measured error must have some value. Recorded, rounded measurements describe intervals rather than infinitely precise points. Not every random variable has a density: the head count in Section 6 has discrete probabilities.
+
+The sample space here is $[-2,2]$; the events used in these calculations are intervals and combinations of intervals; the probability measure assigns their lengths divided by 4. The precise event collection is developed in the [unit-interval example in the supplement](01-probability-supplement.html#unit-interval-triplet). Uniform error is an assumption for teaching, not a consequence of a manufacturer's tolerance limit. A more involved closure-time density is also worked out in the supplement.
+
+## 8. Worked problems across domains
+
+### Worked example 1: probability of “Other”
+
+Find the probability that a uniformly selected ticket has neither Billing
+nor Account Support required according to the reviewer.
+
+**Solution.** By definition, $O=(B\cup A)^c=\{t_4\}$. Therefore
+
+$$P(O)=\frac{1}{6}.$$
+
+### Worked example 2: exactly one named destination is required
+
+Find the event and probability that exactly one of Billing and Account
+Support is required.
+
+**Solution.** The event is
+
+$$ (B\setminus A)\cup(A\setminus B)=\{t_2,t_3,t_5,t_6\}.$$
+
+Its probability is $4/6=2/3$.
+
+### Worked example 3: agreement between reviewer and model
+
+Let $M(t)$ be the model's classification and $R(t)$ the reviewer's reference
+classification for ticket $t$. Define exact agreement as equality of these
+classification sets. The agreement event from the table is
+
+$$C=\{t_2,t_3,t_5,t_6\}.$$
+
+Under uniform selection, $P(C)=4/6=2/3$. This equals the observed agreement
+fraction because the experiment selects uniformly from this exact audit.
+
+### Worked example 4: record agreement numerically
+
+Define $Y(t)=1$ if the model classification exactly matches the reviewer and
+$Y(t)=0$ otherwise. Then $Y^{-1}(\{1\})=C$, and
+
+$$P(Y=1)=P(C)=\frac{4}{6}=\frac{2}{3}.$$
+
+The random variable records an outcome numerically; its inverse image gives
+the event; the probability measure assigns that event a number.
+
+### Worked example 5: change the audit selection weights
+
+In a hypothetical follow-up experiment, select the same six IDs with stipulated
+weights $(1,1,1,3,1,1)/8$. Keep $\Omega$, its full power set and the labels
+fixed. Find the probabilities of agreement and Other.
+
+**Solution.** The weights are nonnegative and sum to one, defining
+$Q(E)=\sum_{t_i\in E}w_i$. Therefore $Q(C)=(1+1+1+1)/8=1/2$ and
+$Q(O)=3/8$. The observed fraction remains $4/6$, but the selection probability
+changes. These weights specify an exercise, not an estimate of future traffic.
+
+### Worked example 6: fraud-screen flags
+
+A hypothetical fixed review batch has 20 transaction IDs. Reviewers label 4
+as fraudulent. A screen flags 5: 3 of the 4 reviewer-positive transactions
+and 2 reviewer-negative transactions. Select one ID uniformly. Find the
+false-positive and false-negative events' probabilities.
+
+**Solution.** On $\Omega=\{1,\ldots,20\}$ with its power set and uniform
+measure, write $F$ for flagged IDs and $H$ for reviewer-positive IDs.
+Then $|F\cap H^c|=2$ and $|F^c\cap H|=1$, so their probabilities are
+$2/20=0.10$ and $1/20=0.05$. Among the 16 reviewer-negative records, the
+false-positive fraction is instead $2/16=0.125$. That changes the denominator
+and the selection experiment; it is not the probability just calculated.
+
+### Worked example 7: sensor tolerance
+
+For a hypothetical engineering model, a sensor error $\varepsilon$ is uniform on
+$[-2,2]$ millimetres. Use this interval as the sample space and density $f(e)=1/4$ on the interval. What is the probability
+of exceeding a tolerance of 1 mm in absolute value?
+
+**Solution.** The failure event is
+$[-2,-1)\cup(1,2]$, of total length 2, giving
+$P(|\varepsilon|>1)=\int_{[-2,-1)\cup(1,2]}(1/4)de=1/2$.
+Exact boundary values have probability zero under this model. Uniform error
+is stipulated, not established by the tolerance specification.
+
+### Worked example 8: assessment pass indicator
+
+Select one of five hypothetical assessment records uniformly. Their fixed
+scores are 45, 60, 70, 80 and 95; the pass threshold is 60 inclusive. Specify
+a random variable and its law for the pass/fail result.
+
+**Solution.** Outcomes are record IDs $a_1,\ldots,a_5$, with the power set
+and singleton weights $1/5$. Set $Y(a_i)=\mathbf1_{\{\text{score}(a_i)\ge60\}}$.
+Then $Y^{-1}(\{1\})=\{a_2,a_3,a_4,a_5\}$, $P_Y(\{1\})=4/5$ and
+$P_Y(\{0\})=1/5$. This is a probability under selection from these records;
+it does not establish a future cohort's pass rate.
+
+### Worked example 9: Electrical engineering: two power supplies
+
+A hypothetical device has a primary and a backup supply. The stipulated probabilities for (primary, backup) are $(W,W):0.90$, $(W,F):0.06$, $(F,W):0.03$, $(F,F):0.01$, where $W$ means working and $F$ means failed. The device operates if at least one supply works. Find its operating probability.
+
+**Working.** The four states are the outcomes; all their subsets are events. Their probabilities are nonnegative and sum to 1. The device fails only in $(F,F)$, so $P(\text{operates})=1-0.01=0.99$. Direct addition gives $0.90+0.06+0.03=0.99$. This introduces the complement rule $P(E^c)=1-P(E)$. The joint state probabilities are given; independence of the supplies is not assumed.
+
+### Worked example 10: IT operations: overlapping incident tags
+
+Select uniformly one of 40 fixed incident IDs in a hypothetical log. Twelve have a network tag, nine a storage tag, and four have both. Find the probabilities of at least one tag, exactly one tag, and neither tag.
+
+**Working.** Let $N$ and $S$ be the two tagged sets. At least one contains $12+9-4=17$ IDs, so its probability is $17/40$. Exactly one contains $(12-4)+(9-4)=13$ IDs, giving $13/40$. Neither contains $40-17=23$ IDs, giving $23/40$. Tags can overlap even though only one incident ID is selected.
+
+### Worked example 11: Accounting: reconciliation categories
+
+A hypothetical ledger has 30 distinct invoice IDs: 21 reconcile correctly, 5 have only a missing receipt, 3 have only an amount mismatch, and 1 has both issues. Select one ID uniformly. Find the probabilities of any issue and of an amount mismatch.
+
+**Working.** The four disjoint categories have probabilities $21/30,5/30,3/30,1/30$, which sum to 1. Any issue has probability $(5+3+1)/30=9/30$. An amount mismatch includes the last two categories, so its probability is $(3+1)/30=4/30$. Category names must specify whether overlapping issues are included.
+
+### Worked example 12: Agriculture: plot selection and area selection
+
+A hypothetical farm has plot A of area 1 hectare and plot B of area 3 hectares. All of A is classified as stressed and none of B is. First select a plot ID uniformly and report its classification. Then consider selecting a location uniformly by area across the farm. Find the probability of reporting stress in each experiment.
+
+**Working.** For uniform plot selection, $\Omega=\{A,B\}$ and $P(\{A\})=1/2$. For uniform area selection, the stressed area is 1 out of 4 hectares, giving probability $1/4$. At the plot-label level the second experiment assigns weights $1/4$ and $3/4$. Changing the sampling unit changes the probability. Neither answer estimates an unstated future drought risk.
+
+### Worked example 13: Finance: a loss distribution from fixed records
+
+Select one of ten hypothetical contract records uniformly. Six have a recorded loss of ₹0, three have ₹100, and one has ₹500. Let $L$ record the loss. Find its distribution, $P(L>0)$ and $P(L\ge100)$.
+
+**Working.** The outcomes are the ten contract IDs, while $L$ takes values 0, 100 and 500. Counting the IDs gives $P(L=0)=6/10$, $P(L=100)=3/10$, and $P(L=500)=1/10$. Thus $P(L>0)=4/10$ and $P(L\ge100)=4/10$. The events coincide on these records. Three loss values do not receive equal probabilities. This describes selection from a fixed ledger, not a forecast.
+
+### Worked example 14: Support: number of required destinations
+
+For the six-ticket audit, record $D(t)$, the number of named destinations required by the reviewer: Billing and Account Support. Find the distribution of $D$ under uniform ticket selection.
+
+**Working.** Ticket $t_4$ gives 0, tickets $t_2,t_3,t_5,t_6$ give 1, and $t_1$ gives 2. Hence $P(D=0)=1/6$, $P(D=1)=4/6$ and $P(D=2)=1/6$. The probabilities sum to 1. “Other” means zero of these two named destinations, not that no support is needed.
+
+### Worked example 15: Agriculture: germination counts
+
+Select one of eight hypothetical seed-tray records uniformly. The recorded numbers of germinated seeds are $0,1,1,2,2,2,3,3$. Let $G$ be the recorded count. Find its distribution and the probability of at least two germinated seeds.
+
+**Working.** Tray IDs are equally likely; their counts are not. The distribution is $P(G=0)=1/8$, $P(G=1)=2/8$, $P(G=2)=3/8$, $P(G=3)=2/8$. Therefore $P(G\ge2)=(3+2)/8=5/8$. No assumption of independent seed germination is needed to describe selection from these fixed records.
+
+### Worked example 16: IT monitoring: a continuous waiting time
+
+A monitoring check runs every 10 minutes. Stipulate that an incident arrives at a uniformly distributed time within one checking cycle. Let $W$ be the wait until the next check. What is $P(W>7)$?
+
+**Working.** The waiting time is uniform on $[0,10]$ minutes. Waiting more than 7 minutes occupies an interval of length 3, so $P(W>7)=3/10$. Equivalently, the density is $1/10$ per minute and the area is $3(1/10)$. A periodic checking schedule alone does not establish the uniform arrival assumption.
+
+### Practice with equally likely outcomes {#equiprobable-practice}
+
+For each exercise below, first specify the elementary outcomes and the sampling assumptions. Use the finite triplet
+
+$$\left(\Omega,2^\Omega,P\right),\qquad P(\{\omega\})=\frac1{|\Omega|},\qquad P(E)=\frac{|E|}{|\Omega|}.$$
+
+The stated mechanisms make the elementary toss sequences, ordered die pairs, individual cards, ordered draws or selected subsets equiprobable. Records and summaries computed from those outcomes need not be equally likely. Fairness and independence are stipulated for coins and dice; uniform selection is stipulated for cards and people.
+
+For successive uniform draws of two distinct objects from $n$ objects, use the rule that each ordered pair has probability $1/[n(n-1)]$. We stipulate this rule here; its product form $(1/n)(1/(n-1))$ will be justified using conditional probability. These practice questions have no worked answers in the student materials.
+
+When a selection has no order, $\binom nk$ denotes the number of $k$-element subsets of $n$ distinct objects. In particular, $\binom n2=n(n-1)/2$; justify the factor of 2 when comparing ordered roles with committees in P3.
+
+#### Coins
+
+**C1. Two tosses and overlapping events.** Toss a fair coin twice independently. Let $E$ be “the first toss is heads” and $F$ be “exactly one head.” List $\Omega,E,F,E\cap F$ and $E\cup F$, and calculate their event probabilities. Are $E$ and $F$ mutually exclusive?
+
+**C2. Three tosses.** Toss a fair coin three times independently. Find the probabilities of exactly two heads, at least two heads, and at least one head. Calculate the last probability both by counting directly and by using the complement.
+
+**C3. From sequences to a random variable.** For the same three-toss experiment, define $N(\omega)$ as the number of heads. List $N^{-1}(\{k\})$ for $k=0,1,2,3$ and give the law of $N$. Explain why assigning probability $1/4$ to each possible head count would describe a different model.
+
+#### Dice
+
+**D1. One die.** Roll one stipulated fair six-sided die. Let $E$ be “an even face” and $F$ be “a face greater than 3.” List their intersection and union. Find $P(E\cup F)$ and the probability of exactly one of $E,F$ occurring.
+
+**D2. Two distinguishable dice.** Roll independent fair red and blue six-sided dice. Use ordered pairs $(r,b)$ as outcomes. Find the probabilities of a total of 7, a double, and a total of at least 10. Show the favorable pairs or their counts.
+
+**D3. Forgetting the colours.** Keep D2's experiment, but record $S(r,b)=(\min(r,b),\max(r,b))$, the two faces in increasing order, allowing equality. How many possible records are there? Are these records equally likely? Find $P(S=(1,1))$ and $P(S=(1,2))$ by counting their preimages in the original 36-outcome space, then calculate the probability of recording at least one 1.
+
+#### A deck of cards
+
+Use a standard deck of 52 distinct cards with no jokers: 13 ranks in each of four suits, with one ace per suit. In each draw, choose uniformly from the cards currently available. In K2 and K3 the two cards are drawn **without replacement**.
+
+**K1. One card and a union.** Specify the sample space using card identities. Find the probability that the card is an ace or a heart. Explain why adding $4/52$ and $13/52$ without correction is wrong.
+
+**K2. Two ordered draws.** Record the first and second cards separately. How many elementary outcomes are there, and why are they equally likely? Find the probabilities that both cards are aces and that the first is an ace while the second is not.
+
+**K3. An unordered two-card hand.** Select a two-card subset uniformly. Find the probability of exactly one ace. Recalculate it using ordered draws without replacement and verify agreement. Explain why “zero aces”, “one ace” and “two aces” are not three equiprobable outcomes.
+
+#### Selecting people
+
+In a hypothetical training group, six distinct participants have IDs $a,b,c,d,e,f$. Four, $a,b,c,d$, have completed a specified training module; $e,f$ have not. These are fixed labels. Every selection below follows the stated uniform mechanism.
+
+**P1. One participant.** Select one of the six IDs uniformly. Find the probability that the selected participant has completed the module and the probability that the selected ID is $a$ or $f$. Distinguish an individual outcome from the event “completed.”
+
+**P2. A two-person committee.** Select a two-element subset uniformly from the six participants. Find the probabilities that both have completed the module, exactly one has completed it, and neither has completed it. Check that these probabilities sum to 1. Why should the denominator count committees rather than completion categories?
+
+**P3. Two distinct roles.** Select a chair uniformly from all six participants, then a secretary uniformly from the remaining five. Use ordered pairs of distinct IDs. Find the probabilities that the chair has completed the module and the secretary has not, and that the two office holders are $a$ and $b$ in either order. If the role labels are discarded, is the resulting committee uniform over the 15 pairs? Justify your answer by counting preimages.
+
+#### Reflection
+
+1. Which assumptions establish equiprobability in each experiment?
+2. Does uniform sampling of elementary outcomes make head counts, dice totals or committee compositions uniform? Explain using an exercise above.
+3. When does discarding order preserve uniformity? Compare dice records, two-card hands and two-person committees.
+4. A hypothetical evaluation set has 8 cases of one task type and 2 of another. Under uniform selection of a case ID, are the two task types equally likely? Instead choose either task type with probability $1/2$, then select a case uniformly within that type. Find the probabilities of each type and of each individual case under this second rule.
+
+### Practice across domains
+
+All scenarios below are hypothetical. For finite experiments, specify the outcome IDs, use all subsets as events and state the selection weights before calculating.
+
+**A1. Electrical inspection.** Select one of 50 hypothetical circuit-board IDs uniformly. Eight fail a voltage test, six fail a current test, and three fail both. Find the probabilities of failing at least one test, failing exactly one, and passing both.
+
+**A2. IT latency records.** Select uniformly one of eight hypothetical request IDs whose recorded latencies in milliseconds are $40,40,50,50,50,80,100,150$. Define $X$ as latency. Give its distribution and find $P(X>80)$ and $P(X\ge80)$.
+
+**A3. Accounting audit.** A hypothetical ledger has 24 invoice IDs. Six lack approval, five lack a receipt, and two lack both. Select one ID uniformly. Find the probability of neither issue. Define an indicator for at least one issue and give its distribution.
+
+**A4. Agricultural sampling.** Three hypothetical plots have areas 1, 2 and 5 hectares. Only the third plot is classified as stressed throughout. Compare the probability of reporting stress under uniform plot-ID selection and uniform location selection by area. Specify the weights on the three plot labels in each model.
+
+**A5. Finance records.** Select one of twelve hypothetical loan IDs uniformly. Eight have recorded loss ₹0, three have ₹200 and one has ₹1000. Define a loss random variable, give its distribution and find the probability of a loss strictly greater than ₹200.
+
+**A6. Support selection weights.** Three hypothetical queues contain 2, 3 and 5 fixed ticket IDs. Either select one of all ten IDs uniformly, or choose a queue uniformly and then an ID uniformly within it. Find the probability of each queue and of each individual ticket under both rules.
+
+**A7. Continuous measurement.** Stipulate a uniformly distributed voltage error on $[-0.2,0.2]$ volts. Find the probability of absolute error greater than 0.05 volts, and the probability of an error exactly equal to 0.05 volts. Explain the units of the density.
+
+## 9. Connection to AI evaluation and continuation
+
+The probability $2/3$ here concerns uniform selection from six audited ticket
+IDs. It is not automatically the model's agreement probability on future
+traffic. That requires a defined target population, an appropriate sampling
+process and assumptions connecting this audit to future tickets. Changing
+the reviewer protocol may also change the event called “agreement.”
+
+The same distinctions arise in AI evaluation. A test-set accuracy is an
+observed proportion. Interpreting it as a probability of correct
+classification for future cases requires additional assumptions. If model
+generation is stochastic, its repeated-output distribution is another
+probability model with a different outcome space. In each case, specify the
+outcomes, event and sampling or generation process before interpreting a
+probability.
+
+A suitable first stopping point is the calculation of $P(B\cup A)=5/6$
+at the end of Section 4. Continue to the triplet and axioms once the class can identify the complement event $O$. Use Sections 6–8 for another session of numerical recordings, distributions and applications. The technical measure-theoretic development remains in the supplement. Bertrand's chord problem is posed here but not derived;
+the [rigorous supplement](01-probability-supplement.qmd) specifies its
+sampling models and works through their parametrizations and probabilities.
+
+## References
+
+- Jay L. Devore, *Probability and Statistics for Engineering and the Sciences*.
+  8th edition: Chapter 2, “Probability”; §3.1, “Random Variables”;
+  §4.1, “Probability Density Functions.”
+- Krishna Jagannathan, [*Probability Foundations for Electrical Engineers*](https://www.ee.iitm.ac.in/~krishnaj/ee5110notes.htm),
+  lecture notes, 9 July 2025: Chapter 1 (sets and functions), Chapter 4
+  (probability models), Chapter 5 (probability rules), Chapter 6 (discrete
+  models), and Chapter 11, Definitions 68–70 (measurable functions and laws).
+- Alan Hájek, “Interpretations of Probability,” *Stanford Encyclopedia of
+  Philosophy*, comparative overview:
+  <https://plato.stanford.edu/entries/probability-interpret/>.
+- John D. Norton, “Bertrand's Geometrical Paradoxes: Proofs,” University of
+  Pittsburgh, presenting the chord constructions yielding $1/3$, $1/2$ and
+  $1/4$:
+  <https://sites.pitt.edu/~jdnorton/teaching/paradox/chapters/probability_for_indifference/Bertrand_proof/Bertrand_proof.html>.
+
+The supplement gives proofs and further boundary cases. All audit data, model
+parameters and practice records in this lesson are hypothetical and stipulated
+for teaching.

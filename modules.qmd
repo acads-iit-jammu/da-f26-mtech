@@ -1,0 +1,52 @@
+# Modules {.unnumbered}
+
+The course is organized according to the five modules and contact-hour
+allocations in the [syllabus](syllabus.qmd). Lecture materials are listed under
+their syllabus module. Lecture numbering follows the course schedule; Lecture 00
+was an introductory session and is not a syllabus lecture.
+
+## 01 · Fundamentals of Probability and Random Signal Theory
+
+**Allocation:** 9 lecture hours.
+
+Probability spaces; conditional probability; independence; random variables;
+discrete and continuous random variables; expectation; functions of random
+variables; generating random variables; multivariate random variables; joint
+distributions; functions of several random variables; joint moments; generating
+multivariate random variables.
+
+**01.1:** [Introduction to probability through problems · notes and materials](tutorials/01-probability-foundations.qmd).
+
+**01.2:** [Random variables and distributions through problems](tutorials/02-random-variables.qmd): PMFs, PDFs, CDFs, joint, marginal and conditional distributions, with worked applications and independent exercises. [Advanced supplement](tutorials/02-random-variables-supplement.qmd).
+
+**01.3:** [Worked tutorial: from outcomes to joint distributions](tutorials/02-joint-distributions-tutorial.qmd), with two interactive independence demonstrations.
+
+**01.4:** [Worked example: two friends who may not meet](tutorials/04-meeting-problem.qmd), comparing two independent arrival models with an interactive waiting-time policy.
+
+**01.5:** [Expectation, mean and variance](tutorials/05-expectation-variance.qmd): discrete and continuous expectations, moments, covariance and conditional means. [Rigorous supplement](tutorials/05-expectation-supplement.qmd).
+
+**01.6:** [Transformations of random variables](tutorials/06-transformations.qmd): CDF regions, auxiliary joint densities, Jacobians, sums, gaps and variable generation. [Rigorous supplement](tutorials/06-transformations-supplement.qmd).
+
+**01.7:** [The multivariate normal distribution](tutorials/07-multivariate-normal.qmd): density, covariance, marginals, conditional laws, linear transformations and interactive two-dimensional demonstrations. [Rigorous supplement](tutorials/07-normal-supplement.qmd).
+
+These three lectures complete the planned Module 01 sequence. Their stopping points may span additional meetings as needed; the official syllabus allocation is unchanged.
+
+## 02 · Random Processes and Convergence
+
+**Allocation:** 9 lecture hours. Lecture materials will be added here as they
+are prepared.
+
+## 03 · Markov Chains and Applications
+
+**Allocation:** 8 lecture hours. Lecture materials will be added here as they
+are prepared.
+
+## 04 · Frequentist Statistics and Regression
+
+**Allocation:** 8 lecture hours. Lecture materials will be added here as they
+are prepared.
+
+## 05 · Bayesian Statistics and Hypothesis Testing
+
+**Allocation:** 8 lecture hours. Lecture materials will be added here as they
+are prepared.

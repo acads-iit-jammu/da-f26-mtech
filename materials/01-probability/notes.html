@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>01.1 · Introduction to probability through problems</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="notes.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">01.1 · Introduction to probability through
+problems</h1>
+</header>
+<p><strong>Data Analytics for AI · Executive M.Tech · IIT
+Jammu</strong><br />
+<strong>Module 01 · Fundamentals of Probability and Random Signal
+Theory</strong><br />
+<strong>01.1 · Saturday, 3 October 2026 · 10:30 a.m.–12:10 p.m.
+IST</strong></p>
+<p><strong>Lecture materials</strong></p>
+<ul>
+<li><strong>Notes:</strong> <a
+href="01-probability-notes.pdf">PDF</a></li>
+<li><strong>Deck:</strong> <a
+href="../w01-probability-worked.html">Worked student deck</a> (<a
+href="01-probability-worked.pdf">PDF</a>)</li>
+<li><strong>Interactive lab:</strong> <a href="lab.html">Open the
+probability lab</a></li>
+</ul>
+<p><strong>Supplementary material</strong></p>
+<ul>
+<li><strong>Notes:</strong> <a href="supplement.html">Rigorous
+supplement</a> (<a href="01-probability-supplement.pdf">PDF</a>)</li>
+<li><strong>Deck:</strong> <a
+href="../w01-probability-interpretations-worked.html">Probability before
+Kolmogorov</a> (<a
+href="01-probability-interpretations-worked.pdf">PDF</a>)</li>
+<li><strong>Deck:</strong> <a
+href="../w01-probability-bertrand.html">Bertrand’s paradox</a> (<a
+href="01-probability-bertrand.pdf">PDF</a>)</li>
+<li><strong>Interactive demonstration:</strong> <a
+href="mappings.html">Sampling maps and chord length</a></li>
+</ul>
+<h2 id="purpose-and-pace">Purpose and pace</h2>
+<p>We use worked problems to introduce outcomes, sample spaces, events,
+probability measures and random variables. The examples begin with a
+support audit and extend to electrical engineering, IT operations,
+finance, accounting, agriculture and training. All numerical scenarios
+are hypothetical.</p>
+<p>For each problem, identify what is selected or generated, which
+outcomes meet the condition, and how the sampling rule assigns their
+probabilities. After a calculation, state the idea it illustrates and
+the limits of its interpretation.</p>
+<p>The main notes use finite counting, weighted sums and simple areas.
+They include historical interpretations, Kolmogorov’s triplet and his
+three axioms. Short definition boxes explain the event collection and
+the probability axioms. The <a href="supplement.html">supplement</a>
+develops their proofs, Borel sets and measurability; those technical
+developments are not prerequisites for the main problems.</p>
+<p>Worked examples include their calculations as part of the teaching.
+Checkpoints and the separate practice questions are for students to
+solve. Stop at the suggested checkpoints and continue in the next
+meeting as needed.</p>
+<h2 id="a-ticket-routing-audit">1. A ticket-routing audit</h2>
+<p>An IT service desk is checking whether an LLM routes incoming tickets
+to the appropriate department. The pilot uses three reference
+outcomes:</p>
+<ul>
+<li><strong>Billing</strong> when Billing is required;</li>
+<li><strong>Account Support</strong> when Account Support is
+required;</li>
+<li><strong>Other</strong> when neither Billing nor Account Support is
+required.</li>
+</ul>
+<p>“Other” is the complement category for this two-destination question:
+the reviewer finds that neither Billing nor Account Support is required.
+Another team may handle such a ticket; “Other” does not mean that the
+ticket was unreviewed or its status is unknown. A ticket may require
+both Billing and Account Support, so the reference outcome can contain
+both labels.</p>
+<p>The table is a hypothetical audit. Reviewer labels are operational
+reference decisions; they are not asserted to be error-free ground
+truth. For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>1</mn></msub><annotation encoding="application/x-tex">t_1</annotation></semantics></math>,
+the LLM reports scores
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.55</mn></mrow><annotation encoding="application/x-tex">s_B(x)=0.55</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.35</mn></mrow><annotation encoding="application/x-tex">s_A(x)=0.35</annotation></semantics></math>
+for Billing and Account Support. These are model scores; calibration as
+probabilities is not assumed. To obtain the hard model classification
+shown in the table, apply a threshold of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.50</mn><annotation encoding="application/x-tex">0.50</annotation></semantics></math>
+separately to each destination. The other rows show the resulting model
+classifications.</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Ticket</th>
+<th>Request summary</th>
+<th>Reviewer reference</th>
+<th>Model classification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>1</mn></msub><annotation encoding="application/x-tex">t_1</annotation></semantics></math></td>
+<td>“I was charged twice, and now I cannot log in to my account.”</td>
+<td>Billing and Account Support</td>
+<td>Billing</td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>2</mn></msub><annotation encoding="application/x-tex">t_2</annotation></semantics></math></td>
+<td>A duplicate charge appears on the monthly invoice</td>
+<td>Billing</td>
+<td>Billing</td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>3</mn></msub><annotation encoding="application/x-tex">t_3</annotation></semantics></math></td>
+<td>Cannot log in after changing the phone used for MFA</td>
+<td>Account Support</td>
+<td>Account Support</td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>4</mn></msub><annotation encoding="application/x-tex">t_4</annotation></semantics></math></td>
+<td>A delivery-status question unrelated to billing or account
+access</td>
+<td>Other</td>
+<td>Account Support</td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>5</mn></msub><annotation encoding="application/x-tex">t_5</annotation></semantics></math></td>
+<td>A subscription renewal was charged twice</td>
+<td>Billing</td>
+<td>Billing</td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>6</mn></msub><annotation encoding="application/x-tex">t_6</annotation></semantics></math></td>
+<td>Account locked after a password reset</td>
+<td>Account Support</td>
+<td>Account Support</td>
+</tr>
+</tbody>
+</table>
+<p>The model and reviewer agree exactly on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub></mrow><annotation encoding="application/x-tex">t_2,t_3,t_5,t_6</annotation></semantics></math>.
+They disagree on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>1</mn></msub><annotation encoding="application/x-tex">t_1</annotation></semantics></math>,
+where the model omits Account Support, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>4</mn></msub><annotation encoding="application/x-tex">t_4</annotation></semantics></math>,
+where the model assigns Account Support but the reviewer assigns Other.
+Relative to the reviewer protocol, the Account Support decision on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>1</mn></msub><annotation encoding="application/x-tex">t_1</annotation></semantics></math>
+is a false negative and that on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>4</mn></msub><annotation encoding="application/x-tex">t_4</annotation></semantics></math>
+is a false positive. Thus the observed agreement fraction is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">4/6</annotation></semantics></math>.</p>
+<p>Ask:</p>
+<blockquote>
+<p>What does
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">4/6</annotation></semantics></math>
+describe? Under what experiment would it be a probability, and what
+additional assumptions would connect it to future tickets?</p>
+</blockquote>
+<p>The fraction is an observed summary of these six records. It becomes
+a probability for selecting uniformly from these six ticket IDs once
+that selection experiment is specified. It does not, by itself, describe
+future service-desk traffic.</p>
+<p><strong>Checkpoint 1.</strong> Identify the reference outcome for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>1</mn></msub><annotation encoding="application/x-tex">t_1</annotation></semantics></math>
+and explain why “Other” applies to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>4</mn></msub><annotation encoding="application/x-tex">t_4</annotation></semantics></math>
+but not to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>1</mn></msub><annotation encoding="application/x-tex">t_1</annotation></semantics></math>.</p>
+<h2 id="historical-development-and-interpretations">2. Historical
+development and interpretations</h2>
+<p>Problems of chance helped drive the development of probability:
+Pascal and Fermat’s correspondence in 1654 examined how to reason about
+uncertain outcomes in games. The <a
+href="https://www.york.ac.uk/depts/maths/histstat/pascal.htm">translated
+correspondence</a> shows the role of concrete problems. Later
+interpretations emphasized equal-likelihood counting, repeated
+observations, belief and evidential support. These remain different ways
+of understanding an assignment of probability, rather than a sequence in
+which each simply replaced the previous one.</p>
+<p>Kolmogorov’s 1933 axiomatic foundation supplied a common mathematical
+framework for probability calculations; see the <a
+href="https://www.ma.imperial.ac.uk/~bin06/Math482/2015/liv3.pdf">historical
+introduction in Imperial College’s probability notes</a>. It specifies
+the rules a probability model must obey. It does not, by itself, choose
+the appropriate sampling mechanism or probability assignment for an
+application. We first compare interpretations using the audit, then use
+Bertrand’s question to see why a model needs to be specified.</p>
+<p>Probability has been interpreted in several ways. The accounts below
+answer different questions about what the number
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">4/6</annotation></semantics></math>
+might mean. None follows just from seeing six rows in a table.</p>
+<h3 id="classical-equal-likelihood">Classical equal-likelihood</h3>
+<p>The classical rule counts favourable outcomes among equally likely
+cases. If one ticket ID is selected uniformly from the six IDs, four
+selections produce agreement, so</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">agreement</mtext><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>4</mn><mn>6</mn></mfrac><mo>=</mo><mfrac><mn>2</mn><mn>3</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P(\text{agreement})=\frac{4}{6}=\frac{2}{3}.</annotation></semantics></math></p>
+<p>This calculation is valid for that selection experiment. It does not
+imply that future tickets are equally likely to be any of these six
+records, or that the six records represent future traffic. A finite list
+defines possible cases; the uniform selection rule supplies the equal
+weights.</p>
+<p>The partition chosen for counting also matters. Group the tickets by
+the pair (reviewer outcome, model classification):</p>
+<table>
+<thead>
+<tr>
+<th>Reviewer outcome</th>
+<th>Model classification</th>
+<th>Ticket IDs</th>
+<th>Exact match?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Billing and Account Support</td>
+<td>Billing</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>1</mn></msub><annotation encoding="application/x-tex">t_1</annotation></semantics></math></td>
+<td>No</td>
+</tr>
+<tr>
+<td>Billing only</td>
+<td>Billing</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub></mrow><annotation encoding="application/x-tex">t_2,t_5</annotation></semantics></math></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Account Support only</td>
+<td>Account Support</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub></mrow><annotation encoding="application/x-tex">t_3,t_6</annotation></semantics></math></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Other</td>
+<td>Account Support</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>4</mn></msub><annotation encoding="application/x-tex">t_4</annotation></semantics></math></td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>There are four occupied pair types in this audit. If an experiment
+selected one of these four types uniformly, two of the four would be
+exact matches, giving
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">2/4</annotation></semantics></math>.
+If it selected one of the six ticket IDs uniformly, the pair types would
+instead have probabilities
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>6</mn><mo>,</mo><mn>2</mn><mi>/</mi><mn>6</mn><mo>,</mo><mn>2</mn><mi>/</mi><mn>6</mn><mo>,</mo><mn>1</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">1/6,2/6,2/6,1/6</annotation></semantics></math>,
+giving
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">4/6</annotation></semantics></math>.
+Thresholding two destination scores separately permits four model
+outputs: neither, Billing only, Account Support only, or both. Thus the
+full product contains
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>×</mo><mn>4</mn><mo>=</mo><mn>16</mn></mrow><annotation encoding="application/x-tex">4\times4=16</annotation></semantics></math>
+reviewer/model pairs, of which four occur in this audit. Uniform
+selection among all 16 pairs would be a third experiment; its four
+matching pairs would give agreement probability
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>16</mn><mo>=</mo><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">4/16=1/4</annotation></semantics></math>.
+Equal weighting of pair types does not follow from grouping tickets that
+way. Counting requires a stated set of cases and a reason to treat those
+cases as equally likely.</p>
+<h3 id="frequency">Frequency</h3>
+<p>The observed agreement proportion is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>p</mi><mo accent="true">̂</mo></mover><mn>6</mn></msub><mo>=</mo><mfrac><mn>1</mn><mn>6</mn></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mn>6</mn></munderover><msub><mi>I</mi><mi>i</mi></msub><mo>=</mo><mfrac><mn>4</mn><mn>6</mn></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">\widehat p_6=\frac{1}{6}\sum_{i=1}^{6}I_i=\frac{4}{6},</annotation></semantics></math></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">I_i=1</annotation></semantics></math>
+when the model classification exactly matches the reviewer’s reference
+outcome for ticket
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mi>i</mi></msub><annotation encoding="application/x-tex">t_i</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mi>i</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">I_i=0</annotation></semantics></math>
+otherwise. A frequency interpretation connects a probability to the
+limiting relative frequency in a specified repeatable process. This
+audit records one finite set of six tickets; it does not establish that
+limit or show that future ticket mix and model performance will remain
+the same.</p>
+<p>Repeatedly sampling the LLM for the same text under randomized
+decoding would define another process. Its output frequency would
+describe generated classifications, not necessarily agreement with
+reviewer decisions. The process and event must be stated before
+interpreting a frequency.</p>
+<h3 id="subjective-probability-and-bayesian-updating">Subjective
+probability and Bayesian updating</h3>
+<p>A subjective interpretation treats probability as a person’s degree
+of belief given available information. An analyst might assess the
+chance that the model agrees with the review protocol on a future
+ticket, using this audit and other stated information. The six rows do
+not determine that assessment uniquely. Coherence constrains probability
+assignments; subjective does not mean arbitrary. Countable additivity is
+an additional condition in the Kolmogorov model and does not follow from
+every finite coherence argument.</p>
+<p>Bayesian updating describes how an assessment changes when evidence
+is observed. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>
+is the proposition that the next ticket’s model classification will
+agree with its reference outcome and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
+is additional evidence, Bayes’ rule gives</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo>∣</mo><mi>D</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>∣</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>0</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">P(H\mid D)=\frac{P(D\mid H)P(H)}{P(D)},\qquad P(D)&gt;0.</annotation></semantics></math></p>
+<p>The formula does not supply the prior or likelihood; those come from
+a model and stated information. Conditional probability and Bayesian
+updating will be developed later.</p>
+<h3 id="logical-or-evidential-probability">Logical or evidential
+probability</h3>
+<p>A logical or evidential interpretation aims to quantify how strongly
+stated evidence supports a proposition. Here the evidence could include
+the six audit rows, the review protocol and assumptions about the future
+ticket population. A numerical answer requires a rule connecting that
+evidence and those assumptions to a degree of support. If the rule
+invokes indifference, it must specify which cases are treated equally
+and why. Counting ticket IDs and counting occupied label-pair types give
+different answers because they describe different selection rules. This
+identifies a problem with an unspecified indifference rule; it does not
+refute every logical account.</p>
+<h3 id="what-the-interpretations-leave-for-a-probability-model">What the
+interpretations leave for a probability model</h3>
+<p>Classical probability emphasizes equal likelihood, frequency
+emphasizes repetition, subjective probability represents an assessment
+given information, and logical accounts specify evidential support. A
+propensity account would treat the configured randomized generation
+process as the chance-producing mechanism. These accounts differ in
+interpretation. A mathematical calculation also needs the possible
+outcomes, the event of interest and a probability assignment. The next
+example shows why the sampling procedure is part of that
+specification.</p>
+<p><strong>Checkpoint 2.</strong> For each interpretation, state what
+additional assumption or information is needed to use it for a claim
+about future tickets.</p>
+<h2 id="a-second-question-bertrands-random-chord">3. A second question:
+Bertrand’s random chord</h2>
+<p>Draw an equilateral triangle inside a circle. Consider the
+question:</p>
+<blockquote>
+<p>If a chord is selected at random from the circle, what is the
+probability that its length exceeds the side length of the triangle?</p>
+</blockquote>
+<p>The phrase “selected at random” does not specify how the chord is
+generated. Bertrand described different sampling procedures for chords,
+which give
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">1/3</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math>
+for the same length comparison. These values follow from different
+probability distributions induced by the respective sampling procedures;
+the problem statement alone does not say which procedure to use. <a
+href="https://sites.pitt.edu/~jdnorton/teaching/paradox/chapters/probability_for_indifference/Bertrand_proof/Bertrand_proof.html">John
+D. Norton’s University of Pittsburgh page presents the three sampling
+arguments and their values.</a></p>
+<p>The procedures are: choose two independent uniform endpoints
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">1/3</annotation></semantics></math>);
+choose a uniform radial distance and an independent uniform direction
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>);
+or choose a midpoint uniformly in disk area
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math>).
+These are different models. We will not choose among them or derive the
+answers in this section. The example identifies information a
+probability question can leave unspecified: the outcomes and,
+especially, the sampling rule that determines their probabilities.</p>
+<h3 id="kolmogorovs-set-based-framework">Kolmogorov’s set-based
+framework</h3>
+<p>Kolmogorov’s axiomatic framework gives probability a mathematical
+foundation in terms of sets and a measure. Its three objects are
+written</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Ω</mi><mo>,</mo><mi mathvariant="script">ℱ</mi><mo>,</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">(\Omega,\mathcal F,P).</annotation></semantics></math></p>
+<p>Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>
+is the sample space of possible outcomes,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℱ</mi><annotation encoding="application/x-tex">\mathcal F</annotation></semantics></math>
+is the collection of events to which probabilities are assigned, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>:</mo><mi mathvariant="script">ℱ</mi><mo>→</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">P:\mathcal F\to[0,1]</annotation></semantics></math>
+is the probability measure. The measure obeys nonnegativity,
+normalization and countable additivity. We will understand these rules
+through the ticket audit. Section 5 explains the event-collection
+requirements in a definition box; their further development belongs to
+the supplement. The supplement returns to Bertrand’s question and
+specifies the sampling models in full.</p>
+<h2 id="define-the-experiment-and-its-events">4. Define the experiment
+and its events</h2>
+<p>To calculate a probability for the audit, specify an experiment:</p>
+<blockquote>
+<p>Select one of the six ticket IDs uniformly at random.</p>
+</blockquote>
+<p>The ticket records, reviewer decisions and model classifications are
+fixed. The selected ticket ID is the outcome that varies. Thus the
+sample space is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ω</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>4</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\Omega=\{t_1,t_2,t_3,t_4,t_5,t_6\}.</annotation></semantics></math></p>
+<p>The <strong>sample space</strong> is the set of possible outcomes;
+exactly one outcome occurs in a selection. An <strong>event</strong> is
+a set of outcomes satisfying a condition. It occurs when the selected
+outcome belongs to that set.</p>
+<p>Define events from the reviewer’s reference classification:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>A</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub><mo stretchy="false" form="postfix">}</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">B=\{t_1,t_2,t_5\},\qquad
+A=\{t_1,t_3,t_6\},</annotation></semantics></math></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+is the event “Billing is required” and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+is the event “Account Support is required.” The event that neither is
+required is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>∪</mo><mi>A</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>c</mi></msup><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>4</mn></msub><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">O=(B\cup A)^c=\{t_4\}.</annotation></semantics></math></p>
+<p>In this model,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>O</mi><annotation encoding="application/x-tex">O</annotation></semantics></math>
+is precisely the “Other” reference outcome. It is disjoint from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>.
+The ticket
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>1</mn></msub><annotation encoding="application/x-tex">t_1</annotation></semantics></math>
+belongs to both
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>,
+because both destinations are required:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>∩</mo><mi>A</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>B</mi><mo>∪</mo><mi>A</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">B\cap A=\{t_1\},\qquad B\cup A=\{t_1,t_2,t_3,t_5,t_6\}.</annotation></semantics></math></p>
+<p>For sets
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>,</mo><mi>F</mi><mo>⊆</mo><mi mathvariant="normal">Ω</mi></mrow><annotation encoding="application/x-tex">E,F\subseteq\Omega</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><mi>E</mi><mo>∩</mo><mi>F</mi></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>t</mi><mo>∈</mo><mi mathvariant="normal">Ω</mi><mo>:</mo><mi>t</mi><mo>∈</mo><mi>E</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> and </mtext><mspace width="0.333em"></mspace></mrow><mi>t</mi><mo>∈</mo><mi>F</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><mi>E</mi><mo>∪</mo><mi>F</mi></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>t</mi><mo>∈</mo><mi mathvariant="normal">Ω</mi><mo>:</mo><mi>t</mi><mo>∈</mo><mi>E</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> or </mtext><mspace width="0.333em"></mspace></mrow><mi>t</mi><mo>∈</mo><mi>F</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msup><mi>E</mi><mi>c</mi></msup></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mi mathvariant="normal">Ω</mi><mo>\</mo><mi>E</mi><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+E\cap F&amp;=\{t\in\Omega:t\in E\text{ and }t\in F\},\\
+E\cup F&amp;=\{t\in\Omega:t\in E\text{ or }t\in F\},\\
+E^c&amp;=\Omega\setminus E.
+\end{aligned}</annotation></semantics></math></p>
+<p>The “or” in a union is inclusive. The outcome
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>1</mn></msub><annotation encoding="application/x-tex">t_1</annotation></semantics></math>
+is counted in both marginal events, so to count tickets requiring at
+least one named destination we use the disjoint pieces
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>\</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">B\setminus A</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>\</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A\setminus B</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>∩</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">B\cap A</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>∪</mo><mi>A</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>\</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>∪</mo><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>\</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>∪</mo><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>∩</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">B\cup A=(B\setminus A)\cup(A\setminus B)\cup(B\cap A).</annotation></semantics></math></p>
+<p>Under uniform selection, their probabilities are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">2/6</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">2/6</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">1/6</annotation></semantics></math>.
+Therefore</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>∪</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>2</mn><mn>6</mn></mfrac><mo>+</mo><mfrac><mn>2</mn><mn>6</mn></mfrac><mo>+</mo><mfrac><mn>1</mn><mn>6</mn></mfrac><mo>=</mo><mfrac><mn>5</mn><mn>6</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P(B\cup A)=\frac{2}{6}+\frac{2}{6}+\frac{1}{6}=\frac{5}{6}.</annotation></semantics></math></p>
+<p>Equivalently,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>∪</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>∩</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>3</mn><mn>6</mn></mfrac><mo>+</mo><mfrac><mn>3</mn><mn>6</mn></mfrac><mo>−</mo><mfrac><mn>1</mn><mn>6</mn></mfrac><mo>=</mo><mfrac><mn>5</mn><mn>6</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P(B\cup A)=P(B)+P(A)-P(B\cap A)
+=\frac{3}{6}+\frac{3}{6}-\frac{1}{6}=\frac{5}{6}.</annotation></semantics></math></p>
+<p>The complement is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>O</mi><annotation encoding="application/x-tex">O</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>O</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">P(O)=1/6</annotation></semantics></math>.
+The reviewer outcomes form four possible destination sets: both, Billing
+only, Account Support only, or neither. “Other” refers only to the last
+of these in this example.</p>
+<p>The exact-agreement event is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">C=\{t_2,t_3,t_5,t_6\}</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>C</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">P(C)=4/6</annotation></semantics></math>
+under this same uniform-ID experiment. We will also represent agreement
+numerically.</p>
+<p><strong>Checkpoint 3.</strong> Give the ticket IDs in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>∩</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">B\cap A</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>∪</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">B\cup A</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>O</mi><annotation encoding="application/x-tex">O</annotation></semantics></math>.
+Explain why the probability of the union is not the sum of the two
+marginal probabilities.</p>
+<h2 id="from-a-calculation-to-the-triplet-and-axioms">5. From a
+calculation to the triplet and axioms</h2>
+<p>In the audit, selecting Billing-only, Account-only, both, or neither
+has probabilities
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>/</mi><mn>6</mn><mo>,</mo><mn>2</mn><mi>/</mi><mn>6</mn><mo>,</mo><mn>1</mn><mi>/</mi><mn>6</mn><mo>,</mo><mn>1</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">2/6,2/6,1/6,1/6</annotation></semantics></math>.
+These four categories do not overlap and cover every ticket, so their
+probabilities add to 1. No category has a negative probability. These
+observations motivate the rules for a probability model.</p>
+<p>The experiment is represented by the probability triplet</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Ω</mi><mo>,</mo><mi mathvariant="script">ℱ</mi><mo>,</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">(\Omega,\mathcal F,P).</annotation></semantics></math></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Object</th>
+<th>Ticket-audit model</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>4</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{t_1,t_2,t_3,t_4,t_5,t_6\}</annotation></semantics></math></td>
+<td>Possible outcomes: ticket IDs that may be selected</td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℱ</mi><annotation encoding="application/x-tex">\mathcal F</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi mathvariant="normal">Ω</mi></msup><annotation encoding="application/x-tex">2^\Omega</annotation></semantics></math></td>
+<td>Events: all subsets of the six ticket IDs</td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">|</mo><mi>E</mi><mo stretchy="false" form="prefix">|</mo><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">P(E)=|E|/6</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>⊆</mo><mi mathvariant="normal">Ω</mi></mrow><annotation encoding="application/x-tex">E\subseteq\Omega</annotation></semantics></math></td>
+<td>Probability measure under uniform selection</td>
+</tr>
+</tbody>
+</table>
+<p>An outcome such as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>2</mn></msub><annotation encoding="application/x-tex">t_2</annotation></semantics></math>
+is an element of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>.
+An event such as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+is a subset of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>.
+The measure
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+takes an event as input and returns a number in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0,1]</annotation></semantics></math>.
+Here the uniform rule assigns probability
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">1/6</annotation></semantics></math>
+to each singleton outcome.</p>
+<div class="callout-note"
+title="Definition: power set — the collection of all subsets">
+<p><strong>Definition: power set — the collection of all
+subsets</strong></p>
+<p>For a sample space
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>,
+its <strong>power set</strong> is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi mathvariant="normal">Ω</mi></msup><mo>=</mo><mi mathvariant="script">𝒫</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Ω</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>E</mi><mo>:</mo><mi>E</mi><mo>⊆</mo><mi mathvariant="normal">Ω</mi><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">2^\Omega=\mathcal P(\Omega)=\{E:E\subseteq\Omega\}.</annotation></semantics></math></p>
+<p>It is a set whose members are themselves sets. For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ω</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>,</mo><mi>c</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\Omega=\{a,b,c\}</annotation></semantics></math>,
+the full list is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒫</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Ω</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>⌀</mi><mo>,</mo><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mo stretchy="false" form="prefix">{</mo><mi>b</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mo stretchy="false" form="prefix">{</mo><mi>c</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo>,</mo><mi>c</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mo stretchy="false" form="prefix">{</mo><mi>b</mi><mo>,</mo><mi>c</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>,</mo><mi>c</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathcal P(\Omega)=\{\varnothing,\{a\},\{b\},\{c\},
+\{a,b\},\{a,c\},\{b,c\},\{a,b,c\}\}.</annotation></semantics></math></p>
+<p>Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>∈</mo><mi mathvariant="normal">Ω</mi></mrow><annotation encoding="application/x-tex">a\in\Omega</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo stretchy="false" form="postfix">}</mo><mo>⊆</mo><mi mathvariant="normal">Ω</mi></mrow><annotation encoding="application/x-tex">\{a\}\subseteq\Omega</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo stretchy="false" form="postfix">}</mo><mo>∈</mo><mi mathvariant="script">𝒫</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Ω</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\{a\}\in\mathcal P(\Omega)</annotation></semantics></math>
+are different statements. The empty set is the impossible event;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>
+is the certain event. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>
+has
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+elements, its power set has
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>n</mi></msup><annotation encoding="application/x-tex">2^n</annotation></semantics></math>
+members: each element can be included or excluded from a subset. The
+six-ticket space therefore has 64 possible events, not 64 outcomes.</p>
+</div>
+<p>Choosing all subsets as events is convenient for our finite models.
+It allows questions about individual tickets as well as groups. This
+choice says nothing about whether their probabilities are equal.</p>
+<p>Suppose instead that a dashboard on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>,</mo><mi>c</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{a,b,c\}</annotation></semantics></math>
+reports only “one of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">a,b</annotation></semantics></math>”
+or
+“<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>.”
+It can answer the event
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{a,b\}</annotation></semantics></math>
+and its opposite
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mi>c</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{c\}</annotation></semantics></math>,
+together with the certain and impossible events. It cannot distinguish
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>.
+This motivates specifying which collection of events the model uses.</p>
+<div class="callout-note"
+title="Definition: sigma-algebra — a collection of events closed under logical combinations">
+<p><strong>Definition: sigma-algebra — a collection of events closed
+under logical combinations</strong></p>
+<p>A <strong>sigma-algebra</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℱ</mi><annotation encoding="application/x-tex">\mathcal F</annotation></semantics></math>
+on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>
+is a collection of subsets of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>
+satisfying:</p>
+<ol type="1">
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ω</mi><mo>∈</mo><mi mathvariant="script">ℱ</mi></mrow><annotation encoding="application/x-tex">\Omega\in\mathcal F</annotation></semantics></math>:
+the certain event is available.</li>
+<li>If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>∈</mo><mi mathvariant="script">ℱ</mi></mrow><annotation encoding="application/x-tex">E\in\mathcal F</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>E</mi><mi>c</mi></msup><mo>=</mo><mi mathvariant="normal">Ω</mi><mo>\</mo><mi>E</mi><mo>∈</mo><mi mathvariant="script">ℱ</mi></mrow><annotation encoding="application/x-tex">E^c=\Omega\setminus E\in\mathcal F</annotation></semantics></math>:
+if a question is available, “not that event” is available.</li>
+<li>If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>1</mn></msub><mo>,</mo><msub><mi>E</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi><mo>∈</mo><mi mathvariant="script">ℱ</mi></mrow><annotation encoding="application/x-tex">E_1,E_2,\ldots\in\mathcal F</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>⋃</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mi>∞</mi></msubsup><msub><mi>E</mi><mi>n</mi></msub><mo>∈</mo><mi mathvariant="script">ℱ</mi></mrow><annotation encoding="application/x-tex">\bigcup_{n=1}^{\infty}E_n\in\mathcal F</annotation></semantics></math>:
+“at least one occurs” is available for a countable list of events.</li>
+</ol>
+<p><strong>Closed</strong> means that performing the stated operation
+keeps us inside the same collection. <strong>Countable</strong> means
+finite or listable as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>1</mn></msub><mo>,</mo><msub><mi>E</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">E_1,E_2,\ldots</annotation></semantics></math>;
+it does not mean an arbitrary collection of any size. The events in a
+union need not be disjoint for the union to belong to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℱ</mi><annotation encoding="application/x-tex">\mathcal F</annotation></semantics></math>.</p>
+<p>These requirements concern which sets are events, not the numerical
+probabilities assigned to them. In the triplet
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Ω</mi><mo>,</mo><mi mathvariant="script">ℱ</mi><mo>,</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(\Omega,\mathcal F,P)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℱ</mi><annotation encoding="application/x-tex">\mathcal F</annotation></semantics></math>
+supplies the events and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+assigns their probabilities.</p>
+</div>
+<div class="callout-tip"
+title="Worked check: a full collection and a smaller collection">
+<p><strong>Worked check: a full collection and a smaller
+collection</strong></p>
+<p>Every power set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒫</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Ω</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal P(\Omega)</annotation></semantics></math>
+is a sigma-algebra: the whole space, complements and unions of subsets
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>
+are still subsets of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>.</p>
+<p>For the dashboard,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒢</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>⌀</mi><mo>,</mo><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mo stretchy="false" form="prefix">{</mo><mi>c</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mi mathvariant="normal">Ω</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathcal G=\{\varnothing,\{a,b\},\{c\},\Omega\}</annotation></semantics></math>
+is also a sigma-algebra. Complements exchange the two nontrivial groups,
+and every union is again one of the four listed sets. In particular, a
+countable union still combines only these four distinct sets. The set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{a\}</annotation></semantics></math>
+is a subset of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>
+but is not an event in this smaller model.</p>
+<p>By contrast,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mi>⌀</mi><mo>,</mo><mi mathvariant="normal">Ω</mi><mo>,</mo><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{\varnothing,\Omega,\{a\}\}</annotation></semantics></math>
+is not a sigma-algebra on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>,</mo><mi>c</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{a,b,c\}</annotation></semantics></math>:
+it omits the required complement
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mi>b</mi><mo>,</mo><mi>c</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{b,c\}</annotation></semantics></math>.</p>
+</div>
+<div class="callout-note" title="Useful properties of a sigma-algebra">
+<p><strong>Useful properties of a sigma-algebra</strong></p>
+<p>The three requirements imply:</p>
+<ul>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>⌀</mi><mo>∈</mo><mi mathvariant="script">ℱ</mi></mrow><annotation encoding="application/x-tex">\varnothing\in\mathcal F</annotation></semantics></math>,
+since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>⌀</mi><mo>=</mo><msup><mi mathvariant="normal">Ω</mi><mi>c</mi></msup></mrow><annotation encoding="application/x-tex">\varnothing=\Omega^c</annotation></semantics></math>.</li>
+<li>Countable intersections are events: “all occur” can be written as
+“not at least one fails,”
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>⋂</mo><mi>n</mi></munder><msub><mi>E</mi><mi>n</mi></msub><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><munder><mo>⋃</mo><mi>n</mi></munder><msubsup><mi>E</mi><mi>n</mi><mi>c</mi></msubsup><mo stretchy="true" form="postfix">)</mo></mrow><mi>c</mi></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\bigcap_n E_n=\left(\bigcup_n E_n^c\right)^c.</annotation></semantics></math></li>
+<li>Differences are events:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>\</mo><mi>F</mi><mo>=</mo><mi>E</mi><mo>∩</mo><msup><mi>F</mi><mi>c</mi></msup></mrow><annotation encoding="application/x-tex">E\setminus F=E\cap F^c</annotation></semantics></math>
+means
+“<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
+occurs and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
+does not.”</li>
+<li>Finite unions and intersections are included as special cases.</li>
+</ul>
+<p>A sigma-algebra need not be the full power set. In continuous models
+we use an appropriate event collection containing intervals and their
+usual combinations; the supplement explains Borel sets and why further
+care is needed.</p>
+</div>
+<div class="callout-important"
+title="Kolmogorov&#39;s axioms — rules for the probability assignment">
+<p><strong>Kolmogorov's axioms — rules for the probability
+assignment</strong></p>
+<p>On the event collection
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℱ</mi><annotation encoding="application/x-tex">\mathcal F</annotation></semantics></math>,
+the probability measure
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+satisfies:</p>
+<ol type="1">
+<li><strong>Nonnegativity:</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">P(E)\ge0</annotation></semantics></math>
+for every event
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>.</li>
+<li><strong>Normalization:</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Ω</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">P(\Omega)=1</annotation></semantics></math>.</li>
+<li><strong>Countable additivity:</strong> for pairwise disjoint events
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>1</mn></msub><mo>,</mo><msub><mi>E</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">E_1,E_2,\ldots</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mrow><mo stretchy="true" form="prefix">(</mo><munderover><mo>⋃</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mo accent="false">∞</mo></munderover><msub><mi>E</mi><mi>n</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mo accent="false">∞</mo></munderover><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>E</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">P\left(\bigcup_{n=1}^{\infty}E_n\right)=\sum_{n=1}^{\infty}P(E_n).</annotation></semantics></math></li>
+</ol>
+<p>Pairwise disjoint means
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>i</mi></msub><mo>∩</mo><msub><mi>E</mi><mi>j</mi></msub><mo>=</mo><mi>⌀</mi></mrow><annotation encoding="application/x-tex">E_i\cap E_j=\varnothing</annotation></semantics></math>
+whenever
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>≠</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">i\ne j</annotation></semantics></math>.
+In this case there is no overlap to count twice. Unlike closure of a
+sigma-algebra under unions, adding probabilities without a correction
+<strong>requires disjointness</strong>.</p>
+<p>The axioms do not say that outcomes are equally likely. Uniform and
+nonuniform assignments can both satisfy them.</p>
+</div>
+<p>For the six singleton events, additivity gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Ω</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>6</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mn>6</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">P(\Omega)=6(1/6)=1</annotation></semantics></math>.
+Also
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>B</mi><mi>c</mi></msup><annotation encoding="application/x-tex">B^c</annotation></semantics></math>
+are disjoint and exhaustive, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>B</mi><mi>c</mi></msup><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn><mi>/</mi><mn>6</mn><mo>+</mo><mn>3</mn><mi>/</mi><mn>6</mn><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">P(B)+P(B^c)=3/6+3/6=1</annotation></semantics></math>.
+The same addition rule applies to any countable list of disjoint events;
+on this six-outcome space, only finitely many can be nonempty.</p>
+<p>A probability measure is a set function: it takes an event as input
+and returns a number between 0 and 1. The event
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+is a set of tickets;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">P(B)=1/2</annotation></semantics></math>
+is a number. This keeps the sample point, event and probability value
+distinct.</p>
+<div class="callout-tip" title="Consequences used in problem solving">
+<p><strong>Consequences used in problem solving</strong></p>
+<p>These are consequences of the axioms, not additional assumptions:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Meaning or audit calculation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>⌀</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">P(\varnothing)=0</annotation></semantics></math></td>
+<td>No selected ticket can belong to the empty event</td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>E</mi><mi>c</mi></msup><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(E^c)=1-P(E)</annotation></semantics></math></td>
+<td>Billing and not Billing partition the audit:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn><mo>+</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1/2+1/2=1</annotation></semantics></math></td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0\le P(E)\le1</annotation></semantics></math></td>
+<td>Every event is contained in the certain event</td>
+</tr>
+<tr>
+<td>If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>⊆</mo><mi>F</mi></mrow><annotation encoding="application/x-tex">E\subseteq F</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(E)\le P(F)</annotation></semantics></math></td>
+<td>Requiring both destinations is contained in requiring Billing:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>6</mn><mo>≤</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/6\le1/2</annotation></semantics></math></td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo>∪</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo>∩</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(E\cup F)=P(E)+P(F)-P(E\cap F)</annotation></semantics></math></td>
+<td>At least one named destination:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>6</mn><mo>+</mo><mn>3</mn><mi>/</mi><mn>6</mn><mo>−</mo><mn>1</mn><mi>/</mi><mn>6</mn><mo>=</mo><mn>5</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">3/6+3/6-1/6=5/6</annotation></semantics></math></td>
+</tr>
+</tbody>
+</table>
+<p>For example,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>E</mi><mi>c</mi></msup><annotation encoding="application/x-tex">E^c</annotation></semantics></math>
+are disjoint and have union
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>,
+so additivity gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>E</mi><mi>c</mi></msup><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">P(E)+P(E^c)=1</annotation></semantics></math>.
+This explains the complement rule used in calculations.</p>
+</div>
+<p><strong>Checkpoint 4.</strong> State the sample space, event
+collection and probability measure. Verify nonnegativity, normalization
+and additivity for two disjoint events from the table.</p>
+<h2 id="record-a-number-random-variables-and-distributions">6. Record a
+number: random variables and distributions</h2>
+<p>Suppose the audit spreadsheet needs a 1 when Billing is required and
+a 0 otherwise. Selecting a ticket uniformly produces the entries
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">1,1,0,0,1,0</annotation></semantics></math>
+on the six possible rows. Three rows give 1, so the probability of
+recording 1 is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>6</mn><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/6=1/2</annotation></semantics></math>.</p>
+<p>A <strong>random variable</strong> assigns a numerical value to each
+outcome. For this experiment define the Billing indicator</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>B</mi></msub><mo>:</mo><mi mathvariant="normal">Ω</mi><mo>→</mo><mi mathvariant="double-struck">ℝ</mi><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>1</mn><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mi>t</mi><mo>∈</mo><mi>B</mi><mo>,</mo></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mi>t</mi><mo>∉</mo><mi>B</mi><mi>.</mi></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">X_B:\Omega\to\mathbb R,\qquad
+X_B(t)=\begin{cases}
+1,&amp;t\in B,\\
+0,&amp;t\notin B.
+\end{cases}</annotation></semantics></math></p>
+<p>Its values are</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>t</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>,</mo><mspace width="0.278em"></mspace><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>t</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>,</mo><mspace width="0.278em"></mspace><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>t</mi><mn>3</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn><mo>,</mo><mspace width="0.278em"></mspace><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>t</mi><mn>4</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn><mo>,</mo><mspace width="0.278em"></mspace><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>t</mi><mn>5</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>,</mo><mspace width="0.278em"></mspace><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>t</mi><mn>6</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">X_B(t_1)=1,\;X_B(t_2)=1,\;X_B(t_3)=0,\;X_B(t_4)=0,
+\;X_B(t_5)=1,\;X_B(t_6)=0.</annotation></semantics></math></p>
+<p>Write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>:</mo><mi mathvariant="normal">Ω</mi><mo>→</mo><mi mathvariant="double-struck">ℝ</mi></mrow><annotation encoding="application/x-tex">X:\Omega\to\mathbb R</annotation></semantics></math>
+for a real-valued random variable. Once the outcome is known, its value
+is fixed. Here the selection of a ticket is random; the rule for
+recording Billing is fixed.</p>
+<p>The inputs distinguish two functions:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>B</mi></msub><annotation encoding="application/x-tex">X_B</annotation></semantics></math>
+takes one ticket and returns 0 or 1;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+takes a <strong>set of tickets</strong> and returns its probability.
+Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+is called a <strong>set function</strong>. The term describes the type
+of input. Having a set as its domain does not make every function a set
+function. The supplement gives the technical condition for random
+variables in general probability spaces.</p>
+<h3 id="image-values-produced-by-a-set-of-outcomes">Image: values
+produced by a set of outcomes</h3>
+<p>For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>⊆</mo><mi mathvariant="normal">Ω</mi></mrow><annotation encoding="application/x-tex">E\subseteq\Omega</annotation></semantics></math>,
+the image of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
+under
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>B</mi></msub><annotation encoding="application/x-tex">X_B</annotation></semantics></math>
+is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mi>t</mi><mo>∈</mo><mi>E</mi><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">X_B(E)=\{X_B(t):t\in E\}.</annotation></semantics></math></p>
+<p>For the Account Support event
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">A=\{t_1,t_3,t_6\}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>1</mn></msub><annotation encoding="application/x-tex">t_1</annotation></semantics></math>
+also requires Billing, while
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>3</mn></msub><annotation encoding="application/x-tex">t_3</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>6</mn></msub><annotation encoding="application/x-tex">t_6</annotation></semantics></math>
+do not. Hence</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">X_B(A)=\{0,1\}.</annotation></semantics></math></p>
+<p>This is a set of numerical values, not an event in the ticket sample
+space.</p>
+<h3 id="inverse-image-outcomes-that-produce-selected-values">Inverse
+image: outcomes that produce selected values</h3>
+<p>For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>⊆</mo><mi mathvariant="double-struck">ℝ</mi></mrow><annotation encoding="application/x-tex">D\subseteq\mathbb R</annotation></semantics></math>,
+the inverse image is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>X</mi><mi>B</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>t</mi><mo>∈</mo><mi mathvariant="normal">Ω</mi><mo>:</mo><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mi>D</mi><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">X_B^{-1}(D)=\{t\in\Omega:X_B(t)\in D\}.</annotation></semantics></math></p>
+<p>In particular,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>X</mi><mi>B</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub><mo stretchy="false" form="postfix">}</mo><mo>=</mo><mi>B</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">X_B^{-1}(\{1\})=\{t_1,t_2,t_5\}=B,</annotation></semantics></math></p>
+<p>and</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>X</mi><mi>B</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>4</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub><mo stretchy="false" form="postfix">}</mo><mo>=</mo><msup><mi>B</mi><mi>c</mi></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">X_B^{-1}(\{0\})=\{t_3,t_4,t_6\}=B^c.</annotation></semantics></math></p>
+<p>An inverse image is a set of outcomes; it need not be an inverse
+function. The inverse image connects a numerical condition on a random
+variable to an event to which the probability measure applies:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mi>B</mi></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msubsup><mi>X</mi><mi>B</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>3</mn><mn>6</mn></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P(X_B=1)=P\bigl(X_B^{-1}(\{1\})\bigr)=P(B)=\frac{3}{6}=\frac12.</annotation></semantics></math></p>
+<p>The distribution of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>B</mi></msub><annotation encoding="application/x-tex">X_B</annotation></semantics></math>
+is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mi>B</mi></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">P(X_B=1)=1/2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mi>B</mi></msub><mo>=</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">P(X_B=0)=1/2</annotation></semantics></math>.
+The function
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>B</mi></msub><annotation encoding="application/x-tex">X_B</annotation></semantics></math>,
+its inverse-image event
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>,
+and the number
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(B)</annotation></semantics></math>
+are three different objects.</p>
+<h3 id="worked-example-two-tosses-three-numerical-values">Worked
+example: two tosses, three numerical values</h3>
+<p>Toss a fair coin twice independently. The four equally likely
+outcomes are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mi>H</mi><mo>,</mo><mi>H</mi><mi>T</mi><mo>,</mo><mi>T</mi><mi>H</mi><mo>,</mo><mi>T</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">HH,HT,TH,TT</annotation></semantics></math>.
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+record the number of heads. Then</p>
+<table>
+<thead>
+<tr>
+<th>Outcome</th>
+<th
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mi>H</mi></mrow><annotation encoding="application/x-tex">HH</annotation></semantics></math></th>
+<th
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">HT</annotation></semantics></math></th>
+<th
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mi>H</mi></mrow><annotation encoding="application/x-tex">TH</annotation></semantics></math></th>
+<th
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">TT</annotation></semantics></math></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math></td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p>Consequently
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>=</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">P(N=0)=1/4</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">P(N=1)=2/4</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>=</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">P(N=2)=1/4</annotation></semantics></math>.
+This list is the <strong>distribution</strong>, or law, of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>:
+it states the probabilities of its possible values. Three possible
+values do not imply probabilities of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">1/3</annotation></semantics></math>
+each. We count the outcomes that produce each value.</p>
+<h3 id="worked-check-a-die-outcome-and-its-numerical-value">Worked
+check: a die outcome and its numerical value</h3>
+<p>Roll a stipulated fair die once. Take
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Ω</mi><mi>d</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>4</mn><mo>,</mo><mn>5</mn><mo>,</mo><mn>6</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\Omega_d=\{1,2,3,4,5,6\}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">ℱ</mi><mi>d</mi></msub><mo>=</mo><msup><mn>2</mn><msub><mi mathvariant="normal">Ω</mi><mi>d</mi></msub></msup></mrow><annotation encoding="application/x-tex">\mathcal F_d=2^{\Omega_d}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">|</mo><mi>E</mi><mo stretchy="false" form="prefix">|</mo><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">P_d(E)=|E|/6</annotation></semantics></math>.
+Define
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi><mo stretchy="false" form="prefix">(</mo><mi>ω</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>ω</mi></mrow><annotation encoding="application/x-tex">Z(\omega)=\omega</annotation></semantics></math>.
+If face 4 occurs, distinguish the outcome
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4</mn><annotation encoding="application/x-tex">4</annotation></semantics></math>,
+the singleton event
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>4</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{4\}</annotation></semantics></math>,
+the function value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">Z(4)=4</annotation></semantics></math>,
+and the probability
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mn>4</mn><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">P_d(\{4\})=1/6</annotation></semantics></math>.
+Also
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>Z</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>4</mn><mo>,</mo><mn>6</mn><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>4</mn><mo>,</mo><mn>6</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">Z^{-1}(\{2,4,6\})=\{2,4,6\}</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>Z</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> is even</mtext></mrow><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">P_d(Z\text{ is even})=1/2</annotation></semantics></math>.
+The identical numerals in this identity function do not identify its
+values with their probabilities.</p>
+<p><strong>Checkpoint 5.</strong> Find
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Ω</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_B(\Omega)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_B(A)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>X</mi><mi>B</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_B^{-1}(\{1\})</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mi>B</mi></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(X_B=1)</annotation></semantics></math>.
+Identify the sets of real values, the set of ticket outcomes, and the
+probability.</p>
+<h2 id="a-continuous-measurement-probability-as-area">7. A continuous
+measurement: probability as area</h2>
+<p>A stipulated sensor model has error
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>
+uniformly distributed between
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">-2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+mm. What is the probability that the error is between
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>0.5</mn></mrow><annotation encoding="application/x-tex">-0.5</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.5</mn><annotation encoding="application/x-tex">0.5</annotation></semantics></math>
+mm?</p>
+<p>Uniformity assigns probabilities in proportion to interval length.
+The favorable interval has length 1 mm, while the full interval has
+length 4 mm. Therefore</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>0.5</mn><mo>≤</mo><mi>ε</mi><mo>≤</mo><mn>0.5</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mn>4</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P(-0.5\le\varepsilon\le0.5)=\frac{1}{4}.</annotation></semantics></math></p>
+<p>We describe this with a <strong>probability density</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>e</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">f(e)=1/4</annotation></semantics></math>
+per mm on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>2</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[-2,2]</annotation></semantics></math>,
+and zero elsewhere. The rectangle above an interval has area equal to
+its probability. Its total area is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">4(1/4)=1</annotation></semantics></math>.
+More generally, a density is nonnegative, has total area 1, and gives
+interval probabilities by</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>≤</mo><mi>X</mi><mo>≤</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mi>a</mi><mi>b</mi></msubsup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>x</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">P(a\le X\le b)=\int_a^b f(x)\,dx.</annotation></semantics></math></p>
+<p>A density height is not a probability. Under this continuous model,
+an exact point has probability zero, although a measured error must have
+some value. Recorded, rounded measurements describe intervals rather
+than infinitely precise points. Not every random variable has a density:
+the head count in Section 6 has discrete probabilities.</p>
+<p>The sample space here is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>2</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[-2,2]</annotation></semantics></math>;
+the events used in these calculations are intervals and combinations of
+intervals; the probability measure assigns their lengths divided by 4.
+The precise event collection is developed in the <a
+href="supplement.html#unit-interval-triplet">unit-interval example in
+the supplement</a>. Uniform error is an assumption for teaching, not a
+consequence of a manufacturer’s tolerance limit. A more involved
+closure-time density is also worked out in the supplement.</p>
+<h2 id="worked-problems-across-domains">8. Worked problems across
+domains</h2>
+<h3 id="worked-example-1-probability-of-other">Worked example 1:
+probability of “Other”</h3>
+<p>Find the probability that a uniformly selected ticket has neither
+Billing nor Account Support required according to the reviewer.</p>
+<p><strong>Solution.</strong> By definition,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>∪</mo><mi>A</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>c</mi></msup><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>4</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">O=(B\cup A)^c=\{t_4\}</annotation></semantics></math>.
+Therefore</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>O</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mn>6</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P(O)=\frac{1}{6}.</annotation></semantics></math></p>
+<h3
+id="worked-example-2-exactly-one-named-destination-is-required">Worked
+example 2: exactly one named destination is required</h3>
+<p>Find the event and probability that exactly one of Billing and
+Account Support is required.</p>
+<p><strong>Solution.</strong> The event is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>\</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>∪</mo><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>\</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex"> (B\setminus A)\cup(A\setminus B)=\{t_2,t_3,t_5,t_6\}.</annotation></semantics></math></p>
+<p>Its probability is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>6</mn><mo>=</mo><mn>2</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">4/6=2/3</annotation></semantics></math>.</p>
+<h3 id="worked-example-3-agreement-between-reviewer-and-model">Worked
+example 3: agreement between reviewer and model</h3>
+<p>Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M(t)</annotation></semantics></math>
+be the model’s classification and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">R(t)</annotation></semantics></math>
+the reviewer’s reference classification for ticket
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>.
+Define exact agreement as equality of these classification sets. The
+agreement event from the table is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">C=\{t_2,t_3,t_5,t_6\}.</annotation></semantics></math></p>
+<p>Under uniform selection,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>C</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4</mn><mi>/</mi><mn>6</mn><mo>=</mo><mn>2</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">P(C)=4/6=2/3</annotation></semantics></math>.
+This equals the observed agreement fraction because the experiment
+selects uniformly from this exact audit.</p>
+<h3 id="worked-example-4-record-agreement-numerically">Worked example 4:
+record agreement numerically</h3>
+<p>Define
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">Y(t)=1</annotation></semantics></math>
+if the model classification exactly matches the reviewer and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">Y(t)=0</annotation></semantics></math>
+otherwise. Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>Y</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">Y^{-1}(\{1\})=C</annotation></semantics></math>,
+and</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>Y</mi><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>C</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>4</mn><mn>6</mn></mfrac><mo>=</mo><mfrac><mn>2</mn><mn>3</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P(Y=1)=P(C)=\frac{4}{6}=\frac{2}{3}.</annotation></semantics></math></p>
+<p>The random variable records an outcome numerically; its inverse image
+gives the event; the probability measure assigns that event a
+number.</p>
+<h3 id="worked-example-5-change-the-audit-selection-weights">Worked
+example 5: change the audit selection weights</h3>
+<p>In a hypothetical follow-up experiment, select the same six IDs with
+stipulated weights
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>8</mn></mrow><annotation encoding="application/x-tex">(1,1,1,3,1,1)/8</annotation></semantics></math>.
+Keep
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>,
+its full power set and the labels fixed. Find the probabilities of
+agreement and Other.</p>
+<p><strong>Solution.</strong> The weights are nonnegative and sum to
+one, defining
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><msub><mi>t</mi><mi>i</mi></msub><mo>∈</mo><mi>E</mi></mrow></msub><msub><mi>w</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">Q(E)=\sum_{t_i\in E}w_i</annotation></semantics></math>.
+Therefore
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mi>C</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mn>1</mn><mo>+</mo><mn>1</mn><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>8</mn><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">Q(C)=(1+1+1+1)/8=1/2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mi>O</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn><mi>/</mi><mn>8</mn></mrow><annotation encoding="application/x-tex">Q(O)=3/8</annotation></semantics></math>.
+The observed fraction remains
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">4/6</annotation></semantics></math>,
+but the selection probability changes. These weights specify an
+exercise, not an estimate of future traffic.</p>
+<h3 id="worked-example-6-fraud-screen-flags">Worked example 6:
+fraud-screen flags</h3>
+<p>A hypothetical fixed review batch has 20 transaction IDs. Reviewers
+label 4 as fraudulent. A screen flags 5: 3 of the 4 reviewer-positive
+transactions and 2 reviewer-negative transactions. Select one ID
+uniformly. Find the false-positive and false-negative events’
+probabilities.</p>
+<p><strong>Solution.</strong> On
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ω</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mn>20</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\Omega=\{1,\ldots,20\}</annotation></semantics></math>
+with its power set and uniform measure, write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
+for flagged IDs and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>
+for reviewer-positive IDs. Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>F</mi><mo>∩</mo><msup><mi>H</mi><mi>c</mi></msup><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">|F\cap H^c|=2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msup><mi>F</mi><mi>c</mi></msup><mo>∩</mo><mi>H</mi><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|F^c\cap H|=1</annotation></semantics></math>,
+so their probabilities are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>/</mi><mn>20</mn><mo>=</mo><mn>0.10</mn></mrow><annotation encoding="application/x-tex">2/20=0.10</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>20</mn><mo>=</mo><mn>0.05</mn></mrow><annotation encoding="application/x-tex">1/20=0.05</annotation></semantics></math>.
+Among the 16 reviewer-negative records, the false-positive fraction is
+instead
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>/</mi><mn>16</mn><mo>=</mo><mn>0.125</mn></mrow><annotation encoding="application/x-tex">2/16=0.125</annotation></semantics></math>.
+That changes the denominator and the selection experiment; it is not the
+probability just calculated.</p>
+<h3 id="worked-example-7-sensor-tolerance">Worked example 7: sensor
+tolerance</h3>
+<p>For a hypothetical engineering model, a sensor error
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>
+is uniform on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>2</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[-2,2]</annotation></semantics></math>
+millimetres. Use this interval as the sample space and density
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>e</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">f(e)=1/4</annotation></semantics></math>
+on the interval. What is the probability of exceeding a tolerance of 1
+mm in absolute value?</p>
+<p><strong>Solution.</strong> The failure event is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>2</mn><mo>,</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>∪</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[-2,-1)\cup(1,2]</annotation></semantics></math>,
+of total length 2, giving
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">|</mo><mi>ε</mi><mo stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∫</mo><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>2</mn><mo>,</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>∪</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">]</mo></mrow></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mi>d</mi><mi>e</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">P(|\varepsilon|&gt;1)=\int_{[-2,-1)\cup(1,2]}(1/4)de=1/2</annotation></semantics></math>.
+Exact boundary values have probability zero under this model. Uniform
+error is stipulated, not established by the tolerance specification.</p>
+<h3 id="worked-example-8-assessment-pass-indicator">Worked example 8:
+assessment pass indicator</h3>
+<p>Select one of five hypothetical assessment records uniformly. Their
+fixed scores are 45, 60, 70, 80 and 95; the pass threshold is 60
+inclusive. Specify a random variable and its law for the pass/fail
+result.</p>
+<p><strong>Solution.</strong> Outcomes are record IDs
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>a</mi><mn>5</mn></msub></mrow><annotation encoding="application/x-tex">a_1,\ldots,a_5</annotation></semantics></math>,
+with the power set and singleton weights
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>5</mn></mrow><annotation encoding="application/x-tex">1/5</annotation></semantics></math>.
+Set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mn mathvariant="bold">𝟏</mn><mrow><mo stretchy="false" form="prefix">{</mo><mtext mathvariant="normal">score</mtext><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>60</mn><mo stretchy="false" form="postfix">}</mo></mrow></msub></mrow><annotation encoding="application/x-tex">Y(a_i)=\mathbf1_{\{\text{score}(a_i)\ge60\}}</annotation></semantics></math>.
+Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>Y</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>a</mi><mn>2</mn></msub><mo>,</mo><msub><mi>a</mi><mn>3</mn></msub><mo>,</mo><msub><mi>a</mi><mn>4</mn></msub><mo>,</mo><msub><mi>a</mi><mn>5</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">Y^{-1}(\{1\})=\{a_2,a_3,a_4,a_5\}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>Y</mi></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4</mn><mi>/</mi><mn>5</mn></mrow><annotation encoding="application/x-tex">P_Y(\{1\})=4/5</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>Y</mi></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>5</mn></mrow><annotation encoding="application/x-tex">P_Y(\{0\})=1/5</annotation></semantics></math>.
+This is a probability under selection from these records; it does not
+establish a future cohort’s pass rate.</p>
+<h3
+id="worked-example-9-electrical-engineering-two-power-supplies">Worked
+example 9: Electrical engineering: two power supplies</h3>
+<p>A hypothetical device has a primary and a backup supply. The
+stipulated probabilities for (primary, backup) are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>W</mi><mo>,</mo><mi>W</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mn>0.90</mn></mrow><annotation encoding="application/x-tex">(W,W):0.90</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>W</mi><mo>,</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mn>0.06</mn></mrow><annotation encoding="application/x-tex">(W,F):0.06</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>F</mi><mo>,</mo><mi>W</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mn>0.03</mn></mrow><annotation encoding="application/x-tex">(F,W):0.03</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>F</mi><mo>,</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mn>0.01</mn></mrow><annotation encoding="application/x-tex">(F,F):0.01</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math>
+means working and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
+means failed. The device operates if at least one supply works. Find its
+operating probability.</p>
+<p><strong>Working.</strong> The four states are the outcomes; all their
+subsets are events. Their probabilities are nonnegative and sum to 1.
+The device fails only in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>F</mi><mo>,</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(F,F)</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">operates</mtext><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mn>0.01</mn><mo>=</mo><mn>0.99</mn></mrow><annotation encoding="application/x-tex">P(\text{operates})=1-0.01=0.99</annotation></semantics></math>.
+Direct addition gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.90</mn><mo>+</mo><mn>0.06</mn><mo>+</mo><mn>0.03</mn><mo>=</mo><mn>0.99</mn></mrow><annotation encoding="application/x-tex">0.90+0.06+0.03=0.99</annotation></semantics></math>.
+This introduces the complement rule
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>E</mi><mi>c</mi></msup><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(E^c)=1-P(E)</annotation></semantics></math>.
+The joint state probabilities are given; independence of the supplies is
+not assumed.</p>
+<h3
+id="worked-example-10-it-operations-overlapping-incident-tags">Worked
+example 10: IT operations: overlapping incident tags</h3>
+<p>Select uniformly one of 40 fixed incident IDs in a hypothetical log.
+Twelve have a network tag, nine a storage tag, and four have both. Find
+the probabilities of at least one tag, exactly one tag, and neither
+tag.</p>
+<p><strong>Working.</strong> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+be the two tagged sets. At least one contains
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>12</mn><mo>+</mo><mn>9</mn><mo>−</mo><mn>4</mn><mo>=</mo><mn>17</mn></mrow><annotation encoding="application/x-tex">12+9-4=17</annotation></semantics></math>
+IDs, so its probability is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>17</mn><mi>/</mi><mn>40</mn></mrow><annotation encoding="application/x-tex">17/40</annotation></semantics></math>.
+Exactly one contains
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>12</mn><mo>−</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>9</mn><mo>−</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>13</mn></mrow><annotation encoding="application/x-tex">(12-4)+(9-4)=13</annotation></semantics></math>
+IDs, giving
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13</mn><mi>/</mi><mn>40</mn></mrow><annotation encoding="application/x-tex">13/40</annotation></semantics></math>.
+Neither contains
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>40</mn><mo>−</mo><mn>17</mn><mo>=</mo><mn>23</mn></mrow><annotation encoding="application/x-tex">40-17=23</annotation></semantics></math>
+IDs, giving
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>23</mn><mi>/</mi><mn>40</mn></mrow><annotation encoding="application/x-tex">23/40</annotation></semantics></math>.
+Tags can overlap even though only one incident ID is selected.</p>
+<h3 id="worked-example-11-accounting-reconciliation-categories">Worked
+example 11: Accounting: reconciliation categories</h3>
+<p>A hypothetical ledger has 30 distinct invoice IDs: 21 reconcile
+correctly, 5 have only a missing receipt, 3 have only an amount
+mismatch, and 1 has both issues. Select one ID uniformly. Find the
+probabilities of any issue and of an amount mismatch.</p>
+<p><strong>Working.</strong> The four disjoint categories have
+probabilities
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>21</mn><mi>/</mi><mn>30</mn><mo>,</mo><mn>5</mn><mi>/</mi><mn>30</mn><mo>,</mo><mn>3</mn><mi>/</mi><mn>30</mn><mo>,</mo><mn>1</mn><mi>/</mi><mn>30</mn></mrow><annotation encoding="application/x-tex">21/30,5/30,3/30,1/30</annotation></semantics></math>,
+which sum to 1. Any issue has probability
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>5</mn><mo>+</mo><mn>3</mn><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>30</mn><mo>=</mo><mn>9</mn><mi>/</mi><mn>30</mn></mrow><annotation encoding="application/x-tex">(5+3+1)/30=9/30</annotation></semantics></math>.
+An amount mismatch includes the last two categories, so its probability
+is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>30</mn><mo>=</mo><mn>4</mn><mi>/</mi><mn>30</mn></mrow><annotation encoding="application/x-tex">(3+1)/30=4/30</annotation></semantics></math>.
+Category names must specify whether overlapping issues are included.</p>
+<h3
+id="worked-example-12-agriculture-plot-selection-and-area-selection">Worked
+example 12: Agriculture: plot selection and area selection</h3>
+<p>A hypothetical farm has plot A of area 1 hectare and plot B of area 3
+hectares. All of A is classified as stressed and none of B is. First
+select a plot ID uniformly and report its classification. Then consider
+selecting a location uniformly by area across the farm. Find the
+probability of reporting stress in each experiment.</p>
+<p><strong>Working.</strong> For uniform plot selection,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ω</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\Omega=\{A,B\}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mi>A</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">P(\{A\})=1/2</annotation></semantics></math>.
+For uniform area selection, the stressed area is 1 out of 4 hectares,
+giving probability
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math>.
+At the plot-label level the second experiment assigns weights
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">3/4</annotation></semantics></math>.
+Changing the sampling unit changes the probability. Neither answer
+estimates an unstated future drought risk.</p>
+<h3
+id="worked-example-13-finance-a-loss-distribution-from-fixed-records">Worked
+example 13: Finance: a loss distribution from fixed records</h3>
+<p>Select one of ten hypothetical contract records uniformly. Six have a
+recorded loss of ₹0, three have ₹100, and one has ₹500. Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+record the loss. Find its distribution,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo>&gt;</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(L&gt;0)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo>≥</mo><mn>100</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(L\ge100)</annotation></semantics></math>.</p>
+<p><strong>Working.</strong> The outcomes are the ten contract IDs,
+while
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+takes values 0, 100 and 500. Counting the IDs gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo>=</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>6</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">P(L=0)=6/10</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo>=</mo><mn>100</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">P(L=100)=3/10</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo>=</mo><mn>500</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">P(L=500)=1/10</annotation></semantics></math>.
+Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo>&gt;</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">P(L&gt;0)=4/10</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo>≥</mo><mn>100</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">P(L\ge100)=4/10</annotation></semantics></math>.
+The events coincide on these records. Three loss values do not receive
+equal probabilities. This describes selection from a fixed ledger, not a
+forecast.</p>
+<h3
+id="worked-example-14-support-number-of-required-destinations">Worked
+example 14: Support: number of required destinations</h3>
+<p>For the six-ticket audit, record
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">D(t)</annotation></semantics></math>,
+the number of named destinations required by the reviewer: Billing and
+Account Support. Find the distribution of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
+under uniform ticket selection.</p>
+<p><strong>Working.</strong> Ticket
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>4</mn></msub><annotation encoding="application/x-tex">t_4</annotation></semantics></math>
+gives 0, tickets
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><msub><mi>t</mi><mn>3</mn></msub><mo>,</mo><msub><mi>t</mi><mn>5</mn></msub><mo>,</mo><msub><mi>t</mi><mn>6</mn></msub></mrow><annotation encoding="application/x-tex">t_2,t_3,t_5,t_6</annotation></semantics></math>
+give 1, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>1</mn></msub><annotation encoding="application/x-tex">t_1</annotation></semantics></math>
+gives 2. Hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>=</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">P(D=0)=1/6</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">P(D=1)=4/6</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>=</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">P(D=2)=1/6</annotation></semantics></math>.
+The probabilities sum to 1. “Other” means zero of these two named
+destinations, not that no support is needed.</p>
+<h3 id="worked-example-15-agriculture-germination-counts">Worked example
+15: Agriculture: germination counts</h3>
+<p>Select one of eight hypothetical seed-tray records uniformly. The
+recorded numbers of germinated seeds are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">0,1,1,2,2,2,3,3</annotation></semantics></math>.
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math>
+be the recorded count. Find its distribution and the probability of at
+least two germinated seeds.</p>
+<p><strong>Working.</strong> Tray IDs are equally likely; their counts
+are not. The distribution is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>G</mi><mo>=</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>8</mn></mrow><annotation encoding="application/x-tex">P(G=0)=1/8</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>G</mi><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>/</mi><mn>8</mn></mrow><annotation encoding="application/x-tex">P(G=1)=2/8</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>G</mi><mo>=</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn><mi>/</mi><mn>8</mn></mrow><annotation encoding="application/x-tex">P(G=2)=3/8</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>G</mi><mo>=</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>/</mi><mn>8</mn></mrow><annotation encoding="application/x-tex">P(G=3)=2/8</annotation></semantics></math>.
+Therefore
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>G</mi><mo>≥</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>8</mn><mo>=</mo><mn>5</mn><mi>/</mi><mn>8</mn></mrow><annotation encoding="application/x-tex">P(G\ge2)=(3+2)/8=5/8</annotation></semantics></math>.
+No assumption of independent seed germination is needed to describe
+selection from these fixed records.</p>
+<h3
+id="worked-example-16-it-monitoring-a-continuous-waiting-time">Worked
+example 16: IT monitoring: a continuous waiting time</h3>
+<p>A monitoring check runs every 10 minutes. Stipulate that an incident
+arrives at a uniformly distributed time within one checking cycle. Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math>
+be the wait until the next check. What is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>W</mi><mo>&gt;</mo><mn>7</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(W&gt;7)</annotation></semantics></math>?</p>
+<p><strong>Working.</strong> The waiting time is uniform on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>10</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0,10]</annotation></semantics></math>
+minutes. Waiting more than 7 minutes occupies an interval of length 3,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>W</mi><mo>&gt;</mo><mn>7</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">P(W&gt;7)=3/10</annotation></semantics></math>.
+Equivalently, the density is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">1/10</annotation></semantics></math>
+per minute and the area is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mn>10</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">3(1/10)</annotation></semantics></math>.
+A periodic checking schedule alone does not establish the uniform
+arrival assumption.</p>
+<h3 id="equiprobable-practice">Practice with equally likely
+outcomes</h3>
+<p>For each exercise below, first specify the elementary outcomes and
+the sampling assumptions. Use the finite triplet</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi mathvariant="normal">Ω</mi><mo>,</mo><msup><mn>2</mn><mi mathvariant="normal">Ω</mi></msup><mo>,</mo><mi>P</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mi>ω</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mo stretchy="false" form="prefix">|</mo><mi mathvariant="normal">Ω</mi><mo stretchy="false" form="prefix">|</mo></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mo stretchy="false" form="prefix">|</mo><mi>E</mi><mo stretchy="false" form="prefix">|</mo></mrow><mrow><mo stretchy="false" form="prefix">|</mo><mi mathvariant="normal">Ω</mi><mo stretchy="false" form="prefix">|</mo></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\left(\Omega,2^\Omega,P\right),\qquad P(\{\omega\})=\frac1{|\Omega|},\qquad P(E)=\frac{|E|}{|\Omega|}.</annotation></semantics></math></p>
+<p>The stated mechanisms make the elementary toss sequences, ordered die
+pairs, individual cards, ordered draws or selected subsets equiprobable.
+Records and summaries computed from those outcomes need not be equally
+likely. Fairness and independence are stipulated for coins and dice;
+uniform selection is stipulated for cards and people.</p>
+<p>For successive uniform draws of two distinct objects from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+objects, use the rule that each ordered pair has probability
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">[</mo><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">1/[n(n-1)]</annotation></semantics></math>.
+We stipulate this rule here; its product form
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1/n)(1/(n-1))</annotation></semantics></math>
+will be justified using conditional probability. These practice
+questions have no worked answers in the student materials.</p>
+<p>When a selection has no order,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mi>n</mi><mi>k</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\binom nk</annotation></semantics></math>
+denotes the number of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-element
+subsets of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+distinct objects. In particular,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mi>n</mi><mn>2</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\binom n2=n(n-1)/2</annotation></semantics></math>;
+justify the factor of 2 when comparing ordered roles with committees in
+P3.</p>
+<h4 id="coins">Coins</h4>
+<p><strong>C1. Two tosses and overlapping events.</strong> Toss a fair
+coin twice independently. Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
+be “the first toss is heads” and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
+be “exactly one head.” List
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ω</mi><mo>,</mo><mi>E</mi><mo>,</mo><mi>F</mi><mo>,</mo><mi>E</mi><mo>∩</mo><mi>F</mi></mrow><annotation encoding="application/x-tex">\Omega,E,F,E\cap F</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>∪</mo><mi>F</mi></mrow><annotation encoding="application/x-tex">E\cup F</annotation></semantics></math>,
+and calculate their event probabilities. Are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
+mutually exclusive?</p>
+<p><strong>C2. Three tosses.</strong> Toss a fair coin three times
+independently. Find the probabilities of exactly two heads, at least two
+heads, and at least one head. Calculate the last probability both by
+counting directly and by using the complement.</p>
+<p><strong>C3. From sequences to a random variable.</strong> For the
+same three-toss experiment, define
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>ω</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">N(\omega)</annotation></semantics></math>
+as the number of heads. List
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>N</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mi>k</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">N^{-1}(\{k\})</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">k=0,1,2,3</annotation></semantics></math>
+and give the law of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.
+Explain why assigning probability
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math>
+to each possible head count would describe a different model.</p>
+<h4 id="dice">Dice</h4>
+<p><strong>D1. One die.</strong> Roll one stipulated fair six-sided die.
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
+be “an even face” and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
+be “a face greater than 3.” List their intersection and union. Find
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo>∪</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(E\cup F)</annotation></semantics></math>
+and the probability of exactly one of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>,</mo><mi>F</mi></mrow><annotation encoding="application/x-tex">E,F</annotation></semantics></math>
+occurring.</p>
+<p><strong>D2. Two distinguishable dice.</strong> Roll independent fair
+red and blue six-sided dice. Use ordered pairs
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r,b)</annotation></semantics></math>
+as outcomes. Find the probabilities of a total of 7, a double, and a
+total of at least 10. Show the favorable pairs or their counts.</p>
+<p><strong>D3. Forgetting the colours.</strong> Keep D2’s experiment,
+but record
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">S(r,b)=(\min(r,b),\max(r,b))</annotation></semantics></math>,
+the two faces in increasing order, allowing equality. How many possible
+records are there? Are these records equally likely? Find
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(S=(1,1))</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(S=(1,2))</annotation></semantics></math>
+by counting their preimages in the original 36-outcome space, then
+calculate the probability of recording at least one 1.</p>
+<h4 id="a-deck-of-cards">A deck of cards</h4>
+<p>Use a standard deck of 52 distinct cards with no jokers: 13 ranks in
+each of four suits, with one ace per suit. In each draw, choose
+uniformly from the cards currently available. In K2 and K3 the two cards
+are drawn <strong>without replacement</strong>.</p>
+<p><strong>K1. One card and a union.</strong> Specify the sample space
+using card identities. Find the probability that the card is an ace or a
+heart. Explain why adding
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>52</mn></mrow><annotation encoding="application/x-tex">4/52</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13</mn><mi>/</mi><mn>52</mn></mrow><annotation encoding="application/x-tex">13/52</annotation></semantics></math>
+without correction is wrong.</p>
+<p><strong>K2. Two ordered draws.</strong> Record the first and second
+cards separately. How many elementary outcomes are there, and why are
+they equally likely? Find the probabilities that both cards are aces and
+that the first is an ace while the second is not.</p>
+<p><strong>K3. An unordered two-card hand.</strong> Select a two-card
+subset uniformly. Find the probability of exactly one ace. Recalculate
+it using ordered draws without replacement and verify agreement. Explain
+why “zero aces”, “one ace” and “two aces” are not three equiprobable
+outcomes.</p>
+<h4 id="selecting-people">Selecting people</h4>
+<p>In a hypothetical training group, six distinct participants have IDs
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>b</mi><mo>,</mo><mi>c</mi><mo>,</mo><mi>d</mi><mo>,</mo><mi>e</mi><mo>,</mo><mi>f</mi></mrow><annotation encoding="application/x-tex">a,b,c,d,e,f</annotation></semantics></math>.
+Four,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>b</mi><mo>,</mo><mi>c</mi><mo>,</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">a,b,c,d</annotation></semantics></math>,
+have completed a specified training module;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>,</mo><mi>f</mi></mrow><annotation encoding="application/x-tex">e,f</annotation></semantics></math>
+have not. These are fixed labels. Every selection below follows the
+stated uniform mechanism.</p>
+<p><strong>P1. One participant.</strong> Select one of the six IDs
+uniformly. Find the probability that the selected participant has
+completed the module and the probability that the selected ID is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+or
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>.
+Distinguish an individual outcome from the event “completed.”</p>
+<p><strong>P2. A two-person committee.</strong> Select a two-element
+subset uniformly from the six participants. Find the probabilities that
+both have completed the module, exactly one has completed it, and
+neither has completed it. Check that these probabilities sum to 1. Why
+should the denominator count committees rather than completion
+categories?</p>
+<p><strong>P3. Two distinct roles.</strong> Select a chair uniformly
+from all six participants, then a secretary uniformly from the remaining
+five. Use ordered pairs of distinct IDs. Find the probabilities that the
+chair has completed the module and the secretary has not, and that the
+two office holders are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>
+in either order. If the role labels are discarded, is the resulting
+committee uniform over the 15 pairs? Justify your answer by counting
+preimages.</p>
+<h4 id="reflection">Reflection</h4>
+<ol type="1">
+<li>Which assumptions establish equiprobability in each experiment?</li>
+<li>Does uniform sampling of elementary outcomes make head counts, dice
+totals or committee compositions uniform? Explain using an exercise
+above.</li>
+<li>When does discarding order preserve uniformity? Compare dice
+records, two-card hands and two-person committees.</li>
+<li>A hypothetical evaluation set has 8 cases of one task type and 2 of
+another. Under uniform selection of a case ID, are the two task types
+equally likely? Instead choose either task type with probability
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>,
+then select a case uniformly within that type. Find the probabilities of
+each type and of each individual case under this second rule.</li>
+</ol>
+<h3 id="practice-across-domains">Practice across domains</h3>
+<p>All scenarios below are hypothetical. For finite experiments, specify
+the outcome IDs, use all subsets as events and state the selection
+weights before calculating.</p>
+<p><strong>A1. Electrical inspection.</strong> Select one of 50
+hypothetical circuit-board IDs uniformly. Eight fail a voltage test, six
+fail a current test, and three fail both. Find the probabilities of
+failing at least one test, failing exactly one, and passing both.</p>
+<p><strong>A2. IT latency records.</strong> Select uniformly one of
+eight hypothetical request IDs whose recorded latencies in milliseconds
+are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>40</mn><mo>,</mo><mn>40</mn><mo>,</mo><mn>50</mn><mo>,</mo><mn>50</mn><mo>,</mo><mn>50</mn><mo>,</mo><mn>80</mn><mo>,</mo><mn>100</mn><mo>,</mo><mn>150</mn></mrow><annotation encoding="application/x-tex">40,40,50,50,50,80,100,150</annotation></semantics></math>.
+Define
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
+as latency. Give its distribution and find
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo>&gt;</mo><mn>80</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(X&gt;80)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo>≥</mo><mn>80</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(X\ge80)</annotation></semantics></math>.</p>
+<p><strong>A3. Accounting audit.</strong> A hypothetical ledger has 24
+invoice IDs. Six lack approval, five lack a receipt, and two lack both.
+Select one ID uniformly. Find the probability of neither issue. Define
+an indicator for at least one issue and give its distribution.</p>
+<p><strong>A4. Agricultural sampling.</strong> Three hypothetical plots
+have areas 1, 2 and 5 hectares. Only the third plot is classified as
+stressed throughout. Compare the probability of reporting stress under
+uniform plot-ID selection and uniform location selection by area.
+Specify the weights on the three plot labels in each model.</p>
+<p><strong>A5. Finance records.</strong> Select one of twelve
+hypothetical loan IDs uniformly. Eight have recorded loss ₹0, three have
+₹200 and one has ₹1000. Define a loss random variable, give its
+distribution and find the probability of a loss strictly greater than
+₹200.</p>
+<p><strong>A6. Support selection weights.</strong> Three hypothetical
+queues contain 2, 3 and 5 fixed ticket IDs. Either select one of all ten
+IDs uniformly, or choose a queue uniformly and then an ID uniformly
+within it. Find the probability of each queue and of each individual
+ticket under both rules.</p>
+<p><strong>A7. Continuous measurement.</strong> Stipulate a uniformly
+distributed voltage error on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>0.2</mn><mo>,</mo><mn>0.2</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[-0.2,0.2]</annotation></semantics></math>
+volts. Find the probability of absolute error greater than 0.05 volts,
+and the probability of an error exactly equal to 0.05 volts. Explain the
+units of the density.</p>
+<h2 id="connection-to-ai-evaluation-and-continuation">9. Connection to
+AI evaluation and continuation</h2>
+<p>The probability
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">2/3</annotation></semantics></math>
+here concerns uniform selection from six audited ticket IDs. It is not
+automatically the model’s agreement probability on future traffic. That
+requires a defined target population, an appropriate sampling process
+and assumptions connecting this audit to future tickets. Changing the
+reviewer protocol may also change the event called “agreement.”</p>
+<p>The same distinctions arise in AI evaluation. A test-set accuracy is
+an observed proportion. Interpreting it as a probability of correct
+classification for future cases requires additional assumptions. If
+model generation is stochastic, its repeated-output distribution is
+another probability model with a different outcome space. In each case,
+specify the outcomes, event and sampling or generation process before
+interpreting a probability.</p>
+<p>A suitable first stopping point is the calculation of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>∪</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">P(B\cup A)=5/6</annotation></semantics></math>
+at the end of Section 4. Continue to the triplet and axioms once the
+class can identify the complement event
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>O</mi><annotation encoding="application/x-tex">O</annotation></semantics></math>.
+Use Sections 6–8 for another session of numerical recordings,
+distributions and applications. The technical measure-theoretic
+development remains in the supplement. Bertrand’s chord problem is posed
+here but not derived; the <a href="supplement.html">rigorous
+supplement</a> specifies its sampling models and works through their
+parametrizations and probabilities.</p>
+<h2 id="references">References</h2>
+<ul>
+<li>Jay L. Devore, <em>Probability and Statistics for Engineering and
+the Sciences</em>. 8th edition: Chapter 2, “Probability”; §3.1, “Random
+Variables”; §4.1, “Probability Density Functions.”</li>
+<li>Krishna Jagannathan, <a
+href="https://www.ee.iitm.ac.in/~krishnaj/ee5110notes.htm"><em>Probability
+Foundations for Electrical Engineers</em></a>, lecture notes, 9 July
+2025: Chapter 1 (sets and functions), Chapter 4 (probability models),
+Chapter 5 (probability rules), Chapter 6 (discrete models), and Chapter
+11, Definitions 68–70 (measurable functions and laws).</li>
+<li>Alan Hájek, “Interpretations of Probability,” <em>Stanford
+Encyclopedia of Philosophy</em>, comparative overview: <a
+href="https://plato.stanford.edu/entries/probability-interpret/"
+class="uri">https://plato.stanford.edu/entries/probability-interpret/</a>.</li>
+<li>John D. Norton, “Bertrand’s Geometrical Paradoxes: Proofs,”
+University of Pittsburgh, presenting the chord constructions yielding
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">1/3</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math>:
+<a
+href="https://sites.pitt.edu/~jdnorton/teaching/paradox/chapters/probability_for_indifference/Bertrand_proof/Bertrand_proof.html"
+class="uri">https://sites.pitt.edu/~jdnorton/teaching/paradox/chapters/probability_for_indifference/Bertrand_proof/Bertrand_proof.html</a>.</li>
+</ul>
+<p>The supplement gives proofs and further boundary cases. All audit
+data, model parameters and practice records in this lesson are
+hypothetical and stipulated for teaching.</p>
+</body>
+</html>
