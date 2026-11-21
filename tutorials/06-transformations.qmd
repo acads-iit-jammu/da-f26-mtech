@@ -209,6 +209,8 @@ Generating both variables from the **same** uniform input can create dependence 
 
 ## 8. A continuous input can create a mixed output
 
+For the full derivation and interactive CDF/PDF views, see the [worked waiting-time appendix](04-meeting-problem.qmd#waiting-time-appendix).
+
 Return to $D$ and define the capped wait $W=\min(D,1/4)$. For $0\le w<1/4$, $F_W(w)=2w-w^2$. At and above $1/4$, $F_W(w)=1$. The CDF jumps by
 
 $$1-F_W((1/4)^-)=1-\frac7{16}=\frac9{16}.$$

@@ -21,7 +21,7 @@ multivariate random variables.
 
 **01.3:** [Worked tutorial: from outcomes to joint distributions](tutorials/02-joint-distributions-tutorial.qmd), with two interactive independence demonstrations.
 
-**01.4:** [Worked example: two friends who may not meet](tutorials/04-meeting-problem.qmd), comparing two independent arrival models with an interactive waiting-time policy.
+**01.4:** [Worked example: two friends who may not meet](tutorials/04-meeting-problem.qmd), comparing two independent arrival models with an interactive waiting-time policy. [Fully worked appendix: actual waiting-time CDF, mixed distribution and moments](tutorials/04-meeting-problem.qmd#waiting-time-appendix), with CDF and density sliders.
 
 **01.5:** [Expectation, mean and variance](tutorials/05-expectation-variance.qmd): discrete and continuous expectations, moments, covariance and conditional means. [Rigorous supplement](tutorials/05-expectation-supplement.qmd).
 

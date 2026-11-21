@@ -68,6 +68,8 @@ The integrand is value times density. Density alone integrates to probability; m
 
 ### Worked example: actual waiting time
 
+The [fully worked meeting-problem appendix](04-meeting-problem.qmd#waiting-time-appendix) derives the complete CDF, its jump, and both moments step by step.
+
 Let $W=\min(D,1/4)$ be the time the first arrival spends waiting. If the gap is below $1/4$, the wait equals the gap; otherwise it is $1/4$ even though the friends fail to meet. Then
 
 $$\begin{aligned}
