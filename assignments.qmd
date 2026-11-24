@@ -12,7 +12,7 @@ Submission instructions will be announced separately.
 
 ## Practice
 
-[HW1 practice: random variables and distributions (PDF)](homeworks/hw1-practice.pdf) contains six exercises on probability objects, discrete PMFs, continuous PDFs, CDFs, and finite sigma-algebras. Worked solutions begin on page 4, after all exercises, for self-checking. This is optional practice.
+[HW1 Practice](homeworks/hw1-practice.pdf): random variables and distributions (PDF) contains six exercises on probability objects, discrete PMFs, continuous PDFs, CDFs, and finite sigma-algebras. Worked solutions begin on page 4, after all exercises, for self-checking. This is optional practice.
 
 ## Project
 
