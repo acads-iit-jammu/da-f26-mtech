@@ -1455,5 +1455,15 @@
     "crumbs": [
       "Resources"
     ]
+  },
+  {
+    "objectID": "assignments.html#practice",
+    "href": "assignments.html#practice",
+    "title": "Assignments",
+    "section": "Practice",
+    "text": "Practice\nHW1 practice: random variables and distributions (PDF) contains six exercises on probability objects, discrete PMFs, continuous PDFs, CDFs, and finite sigma-algebras. Worked solutions begin on page 4, after all exercises, for self-checking. This is optional practice.",
+    "crumbs": [
+      "Assignments"
+    ]
   }
 ]
