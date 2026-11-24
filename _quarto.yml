@@ -5,6 +5,7 @@ project:
     - materials/**
     - homeworks/hw1.pdf
     - homeworks/hw1-solutions.pdf
+    - homeworks/hw1-practice.pdf
     - "!private/**"
 
 book:

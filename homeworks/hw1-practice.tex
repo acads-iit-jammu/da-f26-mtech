@@ -1,0 +1,132 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=22mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,enumitem,fancyhdr}
+\usepackage[T1]{fontenc}\usepackage{lmodern}
+\setlength{\parindent}{0pt}\setlength{\parskip}{6pt}
+\setlist[enumerate]{leftmargin=*,itemsep=6pt}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small Data Analytics for AI -- Executive M.Tech}
+\fancyhead[R]{\small IIT Jammu}
+\fancyfoot[L]{\small HW1 practice -- solutions at the end}
+\fancyfoot[R]{\thepage}\setlength{\headheight}{14pt}
+\begin{document}
+{\Large\bfseries HW1 practice: Random variables and distributions}\par
+Six short exercises with four parts each. Try all exercises before consulting the solutions, which begin on page~\pageref{solutions}. All scenarios and numerical models are hypothetical. This is optional practice, not an additional graded homework.
+
+\textbf{Notation reminder.} An outcome $\omega$ belongs to $\Omega$; an event belongs to $\mathcal F$; $P$ maps an event to a number in $[0,1]$. A random variable $X$ is a measurable real-valued function on $\Omega$. Its PMF is $p_X(x)=P(X=x)$ when its law is discrete. A PDF gives probabilities by integration: $P(a<X\le b)=\int_a^b f_X(x)\,dx$ for a law with a density. The CDF, $F_X(t)=P(X\le t)$, applies in either case.
+
+\section*{1. Counting corrections in reviewed responses (easy)}
+An evaluator selects one of five reviewed AI-assisted responses uniformly. The IDs are $r_1,\ldots,r_5$. Their recorded correction counts are respectively $0,1,1,2,0$. No claim about future responses is assumed.
+\begin{enumerate}
+\item Give $\Omega$, one outcome and its singleton event. With $\mathcal F=2^\Omega$, specify $P(B)$ for every event $B$.
+\item Define $X$, the correction count, by giving its value at each ID. State its domain and range.
+\item Write $\{X\ge1\}$ as a set of IDs and calculate its probability. Distinguish the value 1 from the event $\{X=1\}$.
+\item Give the PMF of $X$ and calculate $F_X(1)$. Explain why the range of $X$ need not equal $\Omega$.
+\end{enumerate}
+
+\section*{2. Backup supplies and a discrete law (easy)}
+An engineer inspects two supplies. The first letter describes supply 1, the second supply 2; W means working and F means failed. Either supply alone powers the equipment. The stipulated probabilities of WW, WF, FW, FF are $0.50,0.20,0.20,0.10$. Independence is not assumed. Let $N$ count failed supplies.
+\begin{enumerate}
+\item Give $\Omega$ and the four values of $N$. Use the full power set as the event collection.
+\item Give the PMF of $N$. Write the equipment-failure event as a subset of $\Omega$ and using $N$.
+\item State the three Kolmogorov axioms and check normalization and nonnegativity. Illustrate additivity with $\{WF\}$ and $\{FW\}$.
+\item Find $F_N(0.5)$ and $F_N(1)$. Is $P(N=0.5)$ equal to $F_N(0.5)$? Explain.
+\end{enumerate}
+
+\clearpage
+\section*{3. Changing the sampling rule (medium)}
+A finance team selects one invoice ID from $\{i_1,i_2,i_3,i_4\}$. Recorded discrepancy counts are $0,1,1,3$ and selection weights are $1,2,1,4$, respectively. An ID's probability equals its weight divided by the total weight. Let $X$ record its discrepancy count; take $\mathcal F=2^\Omega$.
+\begin{enumerate}
+\item Specify the probability triplet and the function $X$. Give the preimage of $\{1\}$ under $X$.
+\item Construct the PMF, including a rule for unlisted values. Check that its masses sum to one.
+\item Find $F_X(0)$, $F_X(1)$ and $F_X(2)$. Explain the equality of two of these values in terms of events.
+\item Suppose selection becomes uniform. State which of $\Omega,\mathcal F,P,X$ change and calculate the new $P(X=1)$. Can the same function have different distributions?
+\end{enumerate}
+
+\section*{4. Response times: density versus probability (medium)}
+One service request has a response time uniformly distributed between 0 and 4 seconds. Use $\Omega=[0,4]$, $\mathcal F=\mathcal B([0,4])$ (the Borel sets), and $T(\omega)=\omega$. For any Borel event $B$, $P(B)=\int_B(1/4)\,dt$. A response longer than 3 seconds triggers review.
+\begin{enumerate}
+\item Identify an outcome, the random variable and the review event. Calculate its probability.
+\item State the PDF on the whole real line. Compare $f_T(2)$ with $P(T=2)$ and state the density's units.
+\item Write the full piecewise CDF, including thresholds below zero and above 4. Calculate $F_T(3)$.
+\item Find $P(1<T\le3)$ using both interval length and the CDF. Would including either endpoint change this probability?
+\end{enumerate}
+
+\clearpage
+\section*{5. A nonuniform continuous model (medium)}
+A sensor's normalized error magnitude $X$ is modelled on $\Omega=[0,1]$ with the Borel event collection and $X(\omega)=\omega$. Its proposed density is $f_X(x)=cx$ for $0\le x\le1$, zero otherwise; $c$ is a constant. All quantities here are dimensionless.
+\begin{enumerate}
+\item Find $c$ by requiring total probability 1. State the resulting measure $P(B)$ for any Borel event $B$.
+\item Identify $\{X>1/2\}$ as a subset of $\Omega$ and compute its probability by integration.
+\item Derive the full CDF from $P(X\le t)$. Evaluate $F_X(1/2)$ and check that it complements the result in part 2.
+\item Compare $f_X(3/4)$ and $P(X=3/4)$. Does a density value exceeding 1 violate a probability axiom? Explain using an area, not just a slogan.
+\end{enumerate}
+
+\section*{6. Which quantities can two reports reveal? (challenge)}
+A training manager selects one record uniformly from $\Omega=\{a,b,c,d\}$. Scores are $S(a)=40,S(b)=60,S(c)=80,S(d)=90$. The reporting system gives only two yes/no answers: whether $A=\{a,b\}$ occurred and whether $B=\{b\}$ occurred. Thus the observable event collection is $\mathcal G=\sigma(A,B)$, not necessarily the full power set.
+
+A sigma-algebra contains $\Omega$ and is closed under complements and countable unions. To check that a function is a random variable, check that each threshold preimage $\{X\le t\}$ belongs to the event collection.
+\begin{enumerate}
+\item Find the nonempty sets among $A\cap B$, $A\cap B^c$, $A^c\cap B$, $A^c\cap B^c$. List all their unions to obtain $\mathcal G$.
+\item Explain why this is a sigma-algebra and compare its size with $2^\Omega$. Give $P(C)$ for $C\in\mathcal G$ and the probabilities of the nonempty groups in part 1.
+\item Is the exact score $S$ a random variable on $(\Omega,\mathcal G,P)$? Check the threshold 85. Is $P(\{c\})$ defined on this coarse space?
+\item Define $I=1$ on $A$ and $I=0$ outside $A$. Is $I$ a random variable on this space? Give its PMF and justify measurability using its threshold sets.
+\end{enumerate}
+
+\clearpage
+\section*{Solutions: check after attempting the exercises}\label{solutions}
+\section*{1. Counting corrections}
+\begin{enumerate}
+\item $\Omega=\{r_1,r_2,r_3,r_4,r_5\}$, an outcome is $r_2$, and its singleton is $\{r_2\}$. The triplet uses $\mathcal F=2^\Omega$ and $P(B)=|B|/5$. An ID, a set and a probability are different objects.
+\item $X(r_1)=0,X(r_2)=1,X(r_3)=1,X(r_4)=2,X(r_5)=0$. The domain is $\Omega$ and the range is $\{0,1,2\}$.
+\item $\{X\ge1\}=\{r_2,r_3,r_4\}$, so its probability is $3/5$. The number 1 is a possible observed value; $\{X=1\}=\{r_2,r_3\}$ is its preimage, a set of outcomes.
+\item $p_X(0)=2/5,p_X(1)=2/5,p_X(2)=1/5$, zero elsewhere. Thus $F_X(1)=2/5+2/5=4/5$. The function combines multiple IDs into one count: its range consists of counts, whereas this experiment's outcomes are selected IDs.
+\end{enumerate}
+
+\section*{2. Backup supplies}
+\begin{enumerate}
+\item $\Omega=\{WW,WF,FW,FF\}$ and $\mathcal F=2^\Omega$. The values of $N$ are respectively $0,1,1,2$.
+\item $p_N(0)=0.50$, $p_N(1)=0.20+0.20=0.40$, $p_N(2)=0.10$, zero otherwise. Equipment failure is $\{FF\}=\{N=2\}$, with probability $0.10$.
+\item Nonnegativity: $P(C)\ge0$. Normalization: $P(\Omega)=1$. Countable additivity: $P(\bigcup_j C_j)=\sum_j P(C_j)$ for pairwise disjoint events $C_j$. The four weights are nonnegative and sum to $0.50+0.20+0.20+0.10=1$. Summing weights defines $P$ on every subset. For the disjoint singletons, $P(\{WF,FW\})=0.20+0.20=0.40$. In a finite space, a disjoint family has only finitely many nonempty members.
+\item $F_N(0.5)=P(N=0)=0.50$, while $F_N(1)=0.50+0.40=0.90$. The mass at $0.5$ is zero because $N$ is integer-valued. A CDF includes all values at or below the threshold, even if the threshold itself is unattainable.
+\end{enumerate}
+
+\clearpage
+\section*{3. Sampling rule}
+\begin{enumerate}
+\item The total weight is 8. On $\Omega=\{i_1,i_2,i_3,i_4\}$ with the full power set, $P(C)=\sum_{i_j\in C}w_j/8$. The function has values $(0,1,1,3)$. Its preimage $X^{-1}(\{1\})=\{i_2,i_3\}$.
+\item $p_X(0)=1/8$, $p_X(1)=(2+1)/8=3/8$, $p_X(3)=4/8$, and $p_X(x)=0$ otherwise. The sum is $(1+3+4)/8=1$.
+\item $F_X(0)=1/8$, $F_X(1)=4/8=1/2$, and $F_X(2)=1/2$. No outcome has count 2, so $\{X\le1\}=\{X\le2\}=\{i_1,i_2,i_3\}$.
+\item Only $P$ changes: now $P(C)=|C|/4$. The new $P(X=1)=2/4=1/2$. The function and underlying sets stay fixed, but the probabilities assigned to its preimages change, hence its distribution changes.
+\end{enumerate}
+
+\section*{4. Uniform response time}
+\begin{enumerate}
+\item An outcome could be $\omega=2.5$. The identity function $T(\omega)=\omega$ records seconds. The review event is $\{T>3\}=(3,4]$, with probability $(4-3)/4=1/4$.
+\item $f_T(t)=1/4$ for $0\le t\le4$, zero otherwise. The value $f_T(2)=1/4$ has units seconds$^{-1}$. But $P(T=2)=0$: the singleton has zero length and hence zero integral.
+\item Integrating over $[0,t]$ within the support yields
+\[F_T(t)=\begin{cases}0,&t<0,\\t/4,&0\le t\le4,\\1,&t>4.\end{cases}\]
+Consequently $F_T(3)=3/4$.
+\item The interval has length 2, so $P(1<T\le3)=2/4=1/2$. Equivalently, $F_T(3)-F_T(1)=3/4-1/4=1/2$. Each endpoint has probability zero, so either choice of inclusion gives the same answer.
+\end{enumerate}
+
+\clearpage
+\section*{5. Nonuniform density}
+\begin{enumerate}
+\item Normalization requires $\int_0^1cx\,dx=c/2=1$, giving $c=2$. The density is nonnegative and $P(B)=\int_B2x\,dx$ for Borel $B\subseteq[0,1]$.
+\item The event is $(1/2,1]$. Its probability is $\int_{1/2}^1 2x\,dx=[x^2]_{1/2}^1=1-1/4=3/4$.
+\item For $0\le t\le1$, $F_X(t)=\int_0^t2x\,dx=t^2$. Therefore
+\[F_X(t)=\begin{cases}0,&t<0,\\t^2,&0\le t\le1,\\1,&t>1.\end{cases}\]
+$F_X(1/2)=1/4$, and $1/4+3/4=1$ as required for the complementary events.
+\item $f_X(3/4)=3/2$, whereas $P(X=3/4)=0$. A density height need not be at most 1: probability is its integral. For example, $P(0.7<X\le0.8)=0.8^2-0.7^2=0.15$, although the density exceeds 1 throughout this interval. Its full area is still 1.
+\end{enumerate}
+
+\section*{6. Information from two reports}
+\begin{enumerate}
+\item The four intersections are respectively $\{b\},\{a\},\varnothing,\{c,d\}$. Their nonempty groups are the atoms. All unions give
+\[\mathcal G=\{\varnothing,\{a\},\{b\},\{c,d\},\{a,b\},\{a,c,d\},\{b,c,d\},\Omega\}.\]
+\item A complement selects the remaining atoms; a union selects some collection of atoms again. Thus complements and countable unions stay in the collection, and $\Omega$ is included. There are $2^3=8$ events, compared with $2^4=16$ in the full power set. For $C\in\mathcal G$, $P(C)=|C|/4$. The atom probabilities are $1/4,1/4,1/2$, not three equal probabilities.
+\item $\{S\le85\}=\{a,b,c\}$ is not a union of whole atoms, so it does not belong to $\mathcal G$. Hence $S$ is not a random variable on this coarse space. $P(\{c\})$ is undefined on this space, not zero. On the full power-set model, it would be $1/4$ and $S$ would be a random variable.
+\item The threshold sets for $I$ are $\varnothing$ if $t<0$, $A^c=\{c,d\}$ if $0\le t<1$, and $\Omega$ if $t\ge1$. All belong to $\mathcal G$, so $I$ is measurable. Its PMF is $p_I(0)=1/2,p_I(1)=1/2$, zero elsewhere. The reports reveal membership in $A$ without revealing an exact score.
+\end{enumerate}
+\end{document}
