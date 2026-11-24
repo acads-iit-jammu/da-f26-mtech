@@ -4,7 +4,13 @@ Assignments, submission instructions, and deadlines will be posted here.
 
 ## Homeworks
 
-No homeworks have been released yet.
+| HW No. | Topic | Due Date |
+|---|---|---|
+| [HW 1 (PDF)](homeworks/hw1.pdf) | Identifying probability objects | 14 November 2026 |
+
+[HW1 solutions — student version (PDF)](homeworks/hw1-solutions.pdf)
+
+Submission instructions will be announced separately.
 
 ## Project
 

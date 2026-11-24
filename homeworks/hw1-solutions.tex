@@ -1,0 +1,59 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=22mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,enumitem,fancyhdr,xcolor}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist[enumerate]{leftmargin=*,itemsep=5pt,topsep=5pt}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small Data Analytics for AI -- Executive M.Tech}
+\fancyhead[R]{\small IIT Jammu}
+\fancyfoot[L]{\small HW1 -- Student solutions}
+\fancyfoot[R]{\thepage}
+\setlength{\headheight}{14pt}
+\newcommand{\teach}[1]{\par\smallskip\textit{Instructor note:} #1\par}
+\begin{document}
+
+{\Large\bfseries Identifying probability objects}
+\par HW1 -- Student answer key
+Answers follow the four numbered points in each problem. All examples use the stipulated models.
+\section*{Problem 1 -- Selecting a reviewed ticket (easy)}
+\begin{enumerate}
+\item $\Omega=\{t_1,t_2,t_3,t_4,t_5,t_6\}$. One outcome is $t_4$. The set $\{0,1,2\}$ contains correction counts, not the selected ticket IDs.
+\item $X:\Omega\to\mathbb R$ assigns the recorded count to each ID: $(X(t_1),\ldots,X(t_6))=(0,1,0,2,1,0)$. Its domain is $\Omega$, range is $\{0,1,2\}$, and $X(t_4)=2$.
+\item $A=\{t_2,t_4,t_5\}=\{\omega:X(\omega)\ge1\}$. Uniform selection gives $P(A)=3/6=1/2$.
+\item The triplet is $(\Omega,2^\Omega,P)$, where $P(C)=|C|/6$ for every $C\subseteq\Omega$. Here $t_4$ is an outcome, $\{t_4\}$ is a singleton event, and $P(\{t_4\})=1/6$ is a number.
+\end{enumerate}
+\section*{Problem 2 -- Inspecting backup power supplies (easy)}
+\begin{enumerate}
+\item $\Omega=\{\mathrm{WW},\mathrm{WF},\mathrm{FW},\mathrm{FF}\}$. The count function has values $N(\mathrm{WW})=0$, $N(\mathrm{WF})=N(\mathrm{FW})=1$, and $N(\mathrm{FF})=2$.
+\item $A=\{\mathrm{FF}\}=\{\omega:N(\omega)=2\}$ and $P(A)=0.10$. Both supplies must fail for the equipment to lose power.
+\item For $B\subseteq\Omega$, $P(B)=\sum_{\omega\in B}P(\{\omega\})$, using the table weights. The event $\{N=1\}=\{\mathrm{WF},\mathrm{FW}\}$ contains two outcomes, so $P(N=1)=0.10+0.20=0.30$.
+\item The axioms are $P(C)\ge0$, $P(\Omega)=1$, and $P(\bigcup_{n=1}^{\infty}C_n)=\sum_{n=1}^{\infty}P(C_n)$ for pairwise disjoint events $C_n$. All four weights are nonnegative and their sum is $0.60+0.10+0.20+0.10=1$. For the specified disjoint singletons, $P(\{\mathrm{WF},\mathrm{FW}\})=0.10+0.20=0.30$.
+\end{enumerate}
+\clearpage
+\section*{Problem 3 -- Selecting an invoice for review (medium)}
+\begin{enumerate}
+\item $\Omega=\{i_1,i_2,i_3,i_4\}$ and $\mathcal F=2^\Omega$. Total weight is $6$, so $P(C)=\sum_{i_j\in C}w_j/6$ with $(w_1,w_2,w_3,w_4)=(1,1,2,2)$. The function $X$ has respective values $(0,1,1,2)$.
+\item $\{X=1\}=\{i_2,i_3\}$, with probability $(1+2)/6=1/2$. Here $X$ is a function, 1 is a possible numerical value, $\{X=1\}$ is a subset of invoice IDs, and $1/2$ is its probability.
+\item $\{X\le1\}=\{i_1,i_2,i_3\}$. Thus $F_X(1)=(1+1+2)/6=2/3$. Equivalently, $p_X(0)+p_X(1)=1/6+3/6=2/3$.
+\item Only $P$ changes: under uniform selection, $P(C)=|C|/4$. The IDs, event collection and count assigned to each ID remain the same. The distribution of $X$ can change because the weights change.
+\end{enumerate}
+\section*{Problem 4 -- Recording a service response time (medium)}
+\begin{enumerate}
+\item $\Omega=[0,2]$, $\mathcal F=\mathcal B([0,2])$, and $P(C)=\tfrac12\int_C dt$ for $C\in\mathcal F$. An outcome is $\omega=1.7$. The domain and range of $T$ are both $[0,2]$. The numerical representations agree because $T$ is the identity function.
+\item $A=(1.5,2]=\{\omega\in[0,2]:T(\omega)>1.5\}$. Its probability is $(2-1.5)/2=1/4$.
+\item $f_T(1)=1/2$ is a density value (per second), whereas $P(T=1)=P(\{1\})=0$ is an event probability. A singleton has zero length, so the two quantities are not equal.
+\item The event is $\{T\le1\}=[0,1]$, so $F_T(1)=1/2$. The interval is an event, $F_T(1)$ is its probability, and $f_T(1)$ is a density value. The last two happen to have the same numerical value here but represent different quantities.
+\end{enumerate}
+\clearpage
+\section*{Problem 5 -- Events distinguishable from two reports (difficult)}
+\begin{enumerate}
+\item $\Omega=\{a,b,c,d\}$, with $S(a)=40$, $S(b)=60$, $S(c)=80$, $S(d)=90$. The events are $A=\{S\ge70\}$ and $B=\{S\le80\}$. The power set has $2^4=16$ events.
+\item The four intersections are $\{c\}$, $\{d\}$, $\{a,b\}$ and $\varnothing$, respectively. The three nonempty groups generate eight unions: \[\mathcal G=\{\varnothing,\{a,b\},\{c\},\{d\},\{a,b,c\},\{a,b,d\},\{c,d\},\Omega\}.\]
+\item $\mathcal G$ contains $\Omega$. Complementation selects the remaining groups, and any union of group unions is again a group union; this also covers countable unions. Thus it is a sigma-algebra with 8 events, fewer than 16. Both $a$ and $b$ yield the report ``not $A$, yes $B$, so they cannot be distinguished. In particular, $\{a\}
+otin\mathcal G$.
+\item The triplet is $(\Omega,\mathcal G,P)$ with $P(C)=|C|/4$ for $C\in\mathcal G$. But $\{\omega:S(\omega)\le50\}=\{a\}\notin\mathcal G$. Therefore $S$ is not a random variable on this coarse space, although it is one on $(\Omega,2^\Omega,P)$.
+\end{enumerate}
+\end{document}

@@ -4,6 +4,7 @@ project:
   resources:
     - materials/**
     - homeworks/hw1.pdf
+    - homeworks/hw1-solutions.pdf
     - "!private/**"
 
 book:
