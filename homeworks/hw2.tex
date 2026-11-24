@@ -1,0 +1,98 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=22mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,enumitem,fancyhdr}
+\usepackage[T1]{fontenc}\usepackage{lmodern}
+\setlength{\parindent}{0pt}\setlength{\parskip}{6pt}
+\setlist[enumerate]{label=(\alph*),leftmargin=*,itemsep=9pt}
+\pagestyle{fancy}\fancyhf{}\setlength{\headheight}{14pt}
+\fancyhead[L]{\small Data Analytics for AI -- Executive M.Tech}\fancyhead[R]{\small IIT Jammu}
+\fancyfoot[L]{\small Homework 2}\fancyfoot[R]{\thepage}
+\newcommand{\pts}[1]{\par\nobreak\hfill\mbox{\textbf{[#1 marks]}}}
+\begin{document}
+{\Large\bfseries Homework 2: Joint laws, expectation and transformations}\par
+\textbf{Total: 50 marks}\par
+\textbf{Due: 5 December 2026, 11:59 p.m. IST}
+
+Five problems, each worth 10 marks. Show your reasoning, sums, integration limits and transformation supports. Give exact answers where possible; state units for expectations and variances. All scenarios, counts and models are hypothetical. No simulation or programming is required. Problems are assessed for mathematical reasoning and correctness; clearly stated intermediate work can earn partial credit.
+
+\section*{1. Health screening: discrete joint and conditional laws \hfill 10 marks}
+A hypothetical health-screening study contains 200 participant records. Each participant has a screening-test result and a condition status established by a separate reference assessment. For this exercise, treat that reference status as correct. Let $H=1$ mean the condition is present and $H=0$ mean it is absent. Let $R=1$ mean the screening test is positive and $R=0$ mean it is negative.
+\begin{center}\begin{tabular}{lrr}\toprule
+& Negative ($R=0$) & Positive ($R=1$)\\\midrule
+Condition absent ($H=0$) & 162 & 18\\
+Condition present ($H=1$) & 4 & 16\\\bottomrule
+\end{tabular}\end{center}
+Select one participant record uniformly from these 200 records. The outcomes are participant IDs; $H$ and $R$ are functions of the selected ID. These invented counts are not estimates for any real condition or test. The question is how much a positive screening result tells us about condition status in this study.
+\begin{enumerate}
+\item Construct the full joint PMF $p_{H,R}(h,r)$ and both marginal PMFs. Check that the joint masses sum to 1. \pts{3}
+\item Find the entire conditional PMF $p_{R\mid H}(r\mid1)$. Separately calculate $P(H=1\mid R=1)$, stating its denominator event. Explain why the probability of a positive result given the condition differs from the probability of the condition given a positive result. \pts{3}
+\item Are $H$ and $R$ independent? Compare one joint mass with the product of its marginal masses. State what the result establishes about this study and why its numerical probabilities need not apply unchanged to another population. \pts{2}
+\item Calculate the joint CDF value $F_{H,R}(0,0)=P(H\le0,R\le0)$ and $P(R=1)$. Identify the table cells included in each calculation. \pts{2}
+\end{enumerate}
+
+\clearpage
+\section*{2. Continuous joint, marginal and conditional laws \hfill 10 marks}
+Two sensors measure the same reference quantity in one calibration trial. Let $X$ and $Y$ be their absolute measurement errors, each divided by its specified tolerance. Thus both variables are dimensionless. In this hypothetical model, both errors lie between 0 and 1 and have joint density
+\[
+f_{X,Y}(x,y)=\begin{cases}c(1+x+y),&0<x<1,\ 0<y<1,\\0,&\text{otherwise},\end{cases}
+\]
+where $c$ is unknown. The density increases with either error; it is not uniform over the square. We want to describe each sensor separately and the second sensor's error when the first sensor's error is known.
+\begin{enumerate}
+\item Sketch the support and determine $c$ by integrating the joint density over it. \pts{2}
+\item Derive both marginal densities $f_X$ and $f_Y$, giving their supports and zero values outside those supports. Verify that each integrates to 1. \pts{3}
+\item Derive $f_{Y\mid X}(y\mid x)$ for $0<x<1$ and calculate $P(Y>1/4\mid X=1/2)$ using this conditional density. Explain why this calculation is not a ratio of two event probabilities involving $\{X=1/2\}$. \pts{3}
+\item Determine whether $X$ and $Y$ are independent. Compare the joint density with the product of its marginals, or compare $P(X<1/2,Y<1/2)$ with $P(X<1/2)P(Y<1/2)$. Is a rectangular support alone sufficient for independence? \pts{2}
+\end{enumerate}
+
+\clearpage
+\section*{3. Expectation, variance and transformed costs \hfill 10 marks}
+A training team models the number $K$ of additional coaching sessions for one participant by
+\[
+P(K=0)=\tfrac14,\qquad P(K=1)=\tfrac12,\qquad P(K=2)=\tfrac14.
+\]
+Separately, an engineering model gives a task duration $T$ in hours with density $f_T(t)=2t$ for $0<t<1$, zero otherwise. No joint model connecting $K$ and $T$ is specified or needed.
+\begin{enumerate}
+\item State the discrete expectation formula and use it to calculate $E[K]$, $E[K^2]$ and $\operatorname{Var}(K)$. \pts{3}
+\item A participant's coaching cost is $C=100+40K$ monetary units. Find $E[C]$ and $\operatorname{Var}(C)$, explaining how the fixed cost and the scale factor affect them. \pts{2}
+\item State the density-based expectation formula and calculate $E[T]$, $E[T^2]$ and $\operatorname{Var}(T)$ with units. \pts{3}
+\item A duration-based charge is $L=90(T/(1\text{ hour}))^2$ monetary units. Calculate $E[L]$ directly from the density. Compare it with the charge evaluated at the mean duration; explain why substituting the mean into a nonlinear formula does not generally give the mean charge. \pts{2}
+\end{enumerate}
+
+\clearpage
+\section*{4. One model, two transformation methods \hfill 10 marks}
+A process has two sequential stages with independent positive durations $A$ and $B$, measured in units of a fixed reference duration. Each has density $e^{-t}$ for $t>0$, zero otherwise. Thus
+\[f_{A,B}(a,b)=e^{-(a+b)},\qquad a,b>0,\]
+and zero elsewhere. Define the total duration $S=A+B$ and the proportion spent in the first stage $Q=A/(A+B)$. After finding their distributions, we will study the squared imbalance
+\[V=(2Q-1)^2.\]
+Equal stage durations give $V=0$; values near 1 indicate that one stage accounts for nearly all the total duration. Both $Q$ and $V$ are dimensionless.
+
+\textbf{Hint for the Jacobian route:} A change of coordinates preserves probability but changes area. First express $a,b$ in terms of $s,q$, and translate $a,b>0$ into restrictions on $(s,q)$. Then use
+\[
+f_{S,Q}(s,q)=f_{A,B}(a(s,q),b(s,q))\left|\det
+\begin{pmatrix}\partial a/\partial s&\partial a/\partial q\\
+\partial b/\partial s&\partial b/\partial q\end{pmatrix}\right|.
+\]
+The determinant belongs to the inverse map and accounts for the area change. Set the density to zero outside the transformed support.
+\begin{enumerate}
+\item Find the inverse map for $(A,B)\mapsto(S,Q)$, the transformed support and the absolute Jacobian determinant. Hence derive the joint density $f_{S,Q}$. \pts{3}
+\item Integrate the joint density to obtain both marginal densities, including their supports. Determine whether $S$ and $Q$ are independent, with justification. You may use $\int_0^\infty se^{-s}\,ds=1$. \pts{3}
+\item Using the marginal law of $Q$ from part (b), derive the full CDF of $V=(2Q-1)^2$ from $F_V(v)=P((2Q-1)^2\le v)$. Identify the interval of $Q$ values corresponding to this event before integrating. \pts{2}
+\item Differentiate to obtain the PDF of $V$ and check its normalization. Calculate $P(V\le1/4)$ and interpret the corresponding range of first-stage proportions. \pts{2}
+\end{enumerate}
+
+\clearpage
+\section*{5. Application: completion time of parallel checks \hfill 10 marks}
+An automated inspection station starts two checks on a manufactured component at the same instant. The component is released only after both checks finish. Let $X$ be the duration of a visual check and $Y$ the duration of a dimensional check, in minutes.
+
+In this hypothetical model, the durations are independent. The visual check is uniform on $(0,2)$, while the dimensional check has density
+\[f_Y(y)=\begin{cases}y/2,&0<y<2,\\0,&\text{otherwise}.\end{cases}\]
+There is no additional release delay. The quantity of interest is the elapsed time $T$ from starting the checks until the component is released. We want its distribution and its average and variability across repeated inspections.
+\begin{enumerate}
+\item Identify the random experiment and an outcome $(x,y)$. Write the joint density $f_{X,Y}(x,y)$, including its support, and verify that it integrates to 1. State where independence is used. \pts{2}
+\item Express $T$ as a function of $X$ and $Y$. Starting from $F_T(t)=P(T\le t)$, identify the corresponding region in the $(x,y)$ plane and integrate the joint density over it. Give the full piecewise CDF, including thresholds outside the possible duration range. \pts{3}
+\item Derive the PDF of $T$ and check its normalization. Calculate the probability that the component is released within one minute. Explain why the release time is neither $X+Y$ nor the earlier completion time. \pts{2}
+\item Calculate $E[T]$, $E[T^2]$ and $\operatorname{Var}(T)$ from the derived law, showing the integrals and units. Interpret the mean and variance in the inspection setting. \pts{3}
+\end{enumerate}
+
+\textbf{Final check.} Each distribution should have total mass 1; each conditional law should be normalized on its support. When transforming variables, start by identifying the event in the original outcome space. Distinguish a density from a point probability, and a second moment from a variance.
+\end{document}
