@@ -6,7 +6,7 @@ Assignments, submission instructions, and deadlines will be posted here.
 
 | HW No. | Topic | Due Date |
 |---|---|---|
-| [HW 1 (PDF)](homeworks/hw1.pdf) · [Solutions](homeworks/hw1-solutions.pdf) · [Practice](homeworks/hw1-practice.pdf) | Identifying probability objects | 21 November 2026 |
+| [HW 1 (PDF)](homeworks/hw1.pdf) · [Solutions](homeworks/hw1-solutions.pdf) | Identifying probability objects | 21 November 2026 |
 
 Submission instructions will be announced separately.
 
