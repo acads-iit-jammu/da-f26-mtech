@@ -135,6 +135,40 @@ $$\operatorname{Cov}(V)=E[\operatorname{Cov}(V\mid U)]
 
 These identities make precise the split between remaining uncertainty and variation explained by the observation. Without joint normality, a residual uncorrelated with the predictors need not be independent of them, and a conditional mean need not be linear.
 
+## 9. Characteristic-function preview of the central limit theorem {#clt-transform-preview}
+
+Assume $E_1,E_2,\ldots$ are independent and identically distributed with finite mean $\mu$ and finite variance $0<\sigma^2<\infty$. Put $Z_j=(E_j-\mu)/\sigma$. No MGF is assumed. Finite $E[Z^2]$ implies finite $E|Z|$, and dominated differentiation gives
+
+$$\varphi_Z'(u)=iE[Ze^{iuZ}],\qquad
+\varphi_Z''(u)=-E[Z^2e^{iuZ}].$$
+
+Dominated convergence makes the second derivative continuous at zero. Since $\varphi_Z(0)=1$, $\varphi_Z'(0)=0$ and $\varphi_Z''(0)=-1$, the second-order Taylor expansion with a little-o remainder is
+
+$$\varphi_Z(u)=1-u^2/2+o(u^2).$$
+
+This argument requires no third moment. For each fixed real $t$, independence yields
+
+$$\varphi_{S_n}(t)=\left[\varphi_Z(t/\sqrt n)\right]^n,
+\qquad S_n=n^{-1/2}\sum_{j=1}^nZ_j.$$
+
+For $t\ne0$, write $\varphi_Z(t/\sqrt n)=1+a_n$, where $a_n=-t^2/(2n)+o(1/n)$. For large $n$ these numbers lie near 1, where a continuous logarithm is defined. Then
+
+$$n\log(1+a_n)=na_n+O(n|a_n|^2)\longrightarrow-t^2/2.$$
+
+At $t=0$ the characteristic function is identically 1. Hence pointwise convergence holds for every real $t$ to $e^{-t^2/2}$.
+
+The **continuity theorem** states: if characteristic functions converge pointwise to a function continuous at zero, that function is a characteristic function and the corresponding probability laws converge weakly to its law. Conversely, weak convergence implies pointwise convergence of characteristic functions. Applied here, it gives $S_n\xrightarrow{d}N(0,1)$. Because the normal CDF is continuous everywhere, $P(S_n\le x)\to\Phi(x)$ for every real $x$.
+
+This is distributional convergence, not convergence of the standardized variable to a fixed number. The unstandardized sample mean converges to $\mu$ in probability, while the standardized fluctuations have a nondegenerate limiting law. A finite-sample error bound needs additional analysis and, for common quantitative bounds, stronger moment conditions.
+
+### Why a characteristic function adds something beyond an MGF
+
+For a concrete counterexample, let $H=e^G$ with $G\sim N(0,1)$. Then $E[H]=e^{1/2}$ and $E[H^2]=e^2$, so its variance is finite. Yet for any $t>0$,
+
+$$E[e^{tH}]=\frac1{\sqrt{2\pi}}\int_{\mathbb R}\exp(te^g-g^2/2)\,dg=\infty.$$
+
+Indeed $te^g-g^2/2\to\infty$ as $g\to\infty$, so the integrand is eventually bounded below by a positive constant on an infinite interval. Thus there is no finite MGF on a neighborhood of zero. Its characteristic function still exists, and independent identically distributed copies satisfy the finite-variance central limit theorem after standardization. This example supplies a reason for using characteristic functions beyond the convenience of the Gaussian formulas.
+
 ## Further exercises
 
 **NS1.** Let $\Sigma=\begin{pmatrix}4&-2\\-2&4\end{pmatrix}$. Find its eigenvalues, principal directions and the semiaxis lengths of its 95% probability ellipse.

@@ -111,9 +111,26 @@ This is a density in inverse squared measurement units. A small rectangle center
 
 ## 3. MGF, characteristic function and moments {#normal-transforms}
 
-### Why introduce another description of the law?
+### Start with a weighted measurement: what is its distribution?
 
-For the sensor vector, we may need $X_1+X_2$, a subvector, or a mixed moment such as $E[X_1X_2]$. Repeating a multidimensional density integral for every question is unnecessary. An expectation of an exponential records these quantities in one function.
+Suppose two measurements of related quantities are combined into a reported score. In a hypothetical model,
+
+$$\mathbf X\sim N_2\left(\begin{pmatrix}10\\12\end{pmatrix},
+\begin{pmatrix}4&2\\2&9\end{pmatrix}\right),\qquad Y=0.6X_1+0.4X_2.$$
+
+All measurements use the same unit. Before deriving any new distribution, calculate
+
+$$E[Y]=0.6(10)+0.4(12)=10.8,$$
+
+$$\operatorname{Var}(Y)=0.6^2(4)+0.4^2(9)+2(0.6)(0.4)(2)=3.84.$$
+
+Now suppose a reported score above 13 triggers a repeat measurement. We need $P(Y>13)$. The mean and variance alone do not generally answer this question: different distributions can share both. We need to establish the distribution of $Y$ under our joint-normal assumption.
+
+One route would construct its CDF as an integral over the region $0.6x_1+0.4x_2\le y$. An MGF offers another route: a weighted sum becomes a substitution into a function we already know. We will define that function, derive it for the Gaussian, and return to this calculation.
+
+### What an MGF records
+
+For a scalar variable, $M_X(t)=E[e^{tX}]$ averages the transformed values $e^{tX}$ over the distribution. Here $t$ is a parameter we choose, not another random observation. Varying it produces a function that can identify the law and provide moments by differentiation. The exponential is useful because $e^{t(X+Y)}=e^{tX}e^{tY}$; independence will let us factor the expectation of this product.
 
 For a real column vector $t\in\mathbb R^k$, the **moment generating function (MGF)** is
 
@@ -144,9 +161,41 @@ M_{\mathbf X}(t)
 
 The remaining integral is a translated normalized Gaussian density. For a possibly singular covariance, use $\mathbf X=\mu+A\mathbf Z$ instead: independence gives $M_{\mathbf Z}(v)=\exp(v^Tv/2)$, hence $M_{\mathbf X}(t)=e^{t^T\mu}M_{\mathbf Z}(A^Tt)$ and the same formula with $AA^T=\Sigma$.
 
+### Return to the weighted measurement
+
+The Gaussian MGF just derived is
+
+$$M_{\mathbf X}(t_1,t_2)=\exp\left[10t_1+12t_2+\tfrac12(4t_1^2+4t_1t_2+9t_2^2)\right].$$
+
+Use the definition of $Y$ inside the expectation:
+
+$$\begin{aligned}
+M_Y(t)&=E[e^{t(0.6X_1+0.4X_2)}]\\
+&=M_{\mathbf X}(0.6t,0.4t)\\
+&=\exp\left(10.8t+\tfrac12(3.84)t^2\right).
+\end{aligned}$$
+
+This is the MGF of $N(10.8,3.84)$. MGFs that are finite in a neighborhood of zero uniquely identify a distribution, so
+
+$$\boxed{Y\sim N(10.8,3.84).}$$
+
+The requested probability is now
+
+$$P(Y>13)=1-\Phi\left(\frac{13-10.8}{\sqrt{3.84}}\right)
+=1-\Phi(1.123\ldots)\approx0.131.$$
+
+Here $\Phi$ is the standard-normal CDF. The standard deviation, not the variance, belongs in the denominator. We have identified the whole law and used it for a decision threshold. We did not assume the measurements were independent: their covariance 2 appears in the joint MGF and in the variance calculation. The general matrix version is derived in subsection 6.
+
 ### Read moments from derivatives
 
-Differentiating under the expectation is justified here by the Gaussian's finite exponential moments. Define $K(t)=\log M_{\mathbf X}(t)$, the **cumulant generating function**. Then
+The name “moment generating” comes from differentiation. In one dimension,
+
+$$\frac{d}{dt}e^{tX}=Xe^{tX},\qquad
+\frac{d^2}{dt^2}e^{tX}=X^2e^{tX}.$$
+
+Setting $t=0$ leaves $X$ and $X^2$. When differentiation can pass through the expectation, $M_X'(0)=E[X]$ and $M_X''(0)=E[X^2]$. For the reported score, this gives $M_Y'(0)=10.8$ and $M_Y''(0)=3.84+10.8^2=120.48$. Subtracting $10.8^2$ recovers variance 3.84. The second derivative gives the second moment, not directly the variance.
+
+For vectors, partial derivatives perform the same operation on chosen coordinates. The gradient is the column of first partial derivatives; the Hessian is the matrix of second partial derivatives. Differentiating under the expectation is justified here by the Gaussian's finite exponential moments. Define $K(t)=\log M_{\mathbf X}(t)$, the **cumulant generating function**. Then
 
 $$\nabla M(0)=E[\mathbf X]=\mu,\qquad
 \nabla^2M(0)=E[\mathbf X\mathbf X^T]=\Sigma+\mu\mu^T,$$
@@ -166,7 +215,46 @@ $$M(t_1,t_2)=\exp\left[\tfrac12(t_1^2+2t_1t_2+4t_2^2)\right].$$
 
 The second derivatives at zero give $E[X_1^2]=1$, $E[X_1X_2]=1$, and $E[X_2^2]=4$. Setting $(t_1,t_2)=(u,u)$ gives $M_{X_1+X_2}(u)=e^{7u^2/2}$, identifying $X_1+X_2\sim N(0,7)$.
 
+### A second MGF application: combine independent counts
+
+Suppose two independent inspection lines produce defect counts $N_1$ and $N_2$ during a fixed interval. Stipulate $N_j\sim\operatorname{Poisson}(\lambda_j)$, where $\lambda_j>0$ is its mean count. The Poisson PMF is
+
+$$P(N_j=n)=e^{-\lambda_j}\frac{\lambda_j^n}{n!},\qquad n=0,1,2,\ldots.$$
+
+What is the distribution of the combined count $N=N_1+N_2$? From the PMF and the exponential series,
+
+$$\begin{aligned}
+M_{N_j}(t)&=\sum_{n=0}^\infty e^{tn}e^{-\lambda_j}\frac{\lambda_j^n}{n!}\\
+&=e^{-\lambda_j}\sum_{n=0}^\infty\frac{(\lambda_j e^t)^n}{n!}\\
+&=e^{-\lambda_j}e^{\lambda_j e^t}
+=\exp\{\lambda_j(e^t-1)\}.
+\end{aligned}$$
+
+Independence now provides the useful step:
+
+$$\begin{aligned}
+M_N(t)&=E[e^{tN_1}e^{tN_2}]\\
+&=E[e^{tN_1}]E[e^{tN_2}]\\
+&=\exp\{(\lambda_1+\lambda_2)(e^t-1)\}.
+\end{aligned}$$
+
+Recognizing the same Poisson form gives $N\sim\operatorname{Poisson}(\lambda_1+\lambda_2)$. For example, mean counts 2 and 3 give $N\sim\operatorname{Poisson}(5)$, so $P(N=0)=e^{-5}$. The calculation establishes the entire count distribution, not just its mean 5. This model does not assert that actual defect counts are Poisson or independent; those are explicit assumptions.
+
+For independent variables, the transform of a sum is the product of their transforms. Independence is needed for the product rule, not for linearity of expectation. The earlier correlated-measurement example used the **joint** MGF instead of multiplying marginal MGFs.
+
+**Practice check N9.** Two independent Poisson counts have means 1 and 4. Derive the MGF of their total and calculate the probability that the total is at most 1. Explain which step would fail if the counts were dependent.
+
 ### Characteristic function: a description that always exists
+
+We would also like to study sums when exponential moments are not finite. A finite mean and variance do not guarantee a finite MGF near zero. We therefore need a transform that remains available. Replace the growing real exponential with a complex exponential of magnitude 1.
+
+For a scalar variable, Euler's formula gives
+
+$$e^{itX}=\cos(tX)+i\sin(tX),\qquad
+\varphi_X(t)=E[\cos(tX)]+iE[\sin(tX)].$$
+
+For each outcome this is a point on the unit circle; the expectation averages its horizontal and vertical coordinates. Changing $t$ changes how those points are placed around the circle. The full function retains enough information to identify the distribution. It is a mathematical description of the law, not a probability or a density.
+
 
 The **characteristic function** is
 
@@ -186,6 +274,37 @@ $$\boxed{\varphi_{\mathbf X}(t)
 =\exp\left(it^T\mu-\tfrac12t^T\Sigma t\right).}$$
 
 This derivation also applies to singular $\Sigma$. It avoids assuming that an arbitrary real MGF can be evaluated at complex arguments. The Gaussian formulas do have that analytic connection, but the characteristic-function definition stands on its own.
+
+### Application preview: why averages become approximately normal
+
+Suppose repeated measurement errors $E_1,E_2,\ldots$ are independent and identically distributed, with mean $\mu$ and finite variance $0<\sigma^2<\infty$. Their individual distribution need not be normal. For example, a stipulated bounded uniform error model meets these conditions.
+
+The average $\bar E_n$ has mean $\mu$ and variance $\sigma^2/n$. To study its *shape* rather than its shrinking scale, define
+
+$$Z_j=\frac{E_j-\mu}{\sigma},\qquad
+S_n=\frac{Z_1+\cdots+Z_n}{\sqrt n}
+=\frac{\sqrt n(\bar E_n-\mu)}{\sigma}.$$
+
+Each $Z_j$ has mean 0 and variance 1. Independence and the rule for rescaling a transform give
+
+$$\varphi_{S_n}(t)=\left[\varphi_Z\left(\frac{t}{\sqrt n}\right)\right]^n.$$
+
+For small $u$, mean zero and variance one imply
+
+$$\varphi_Z(u)=1-\frac{u^2}{2}+o(u^2).$$
+
+The notation $o(u^2)$ means a remainder whose ratio to $u^2$ tends to zero. The linear term disappears because the mean is zero; the quadratic term records variance one. Substituting into the product gives, for each fixed $t$,
+
+$$\varphi_{S_n}(t)=\left[1-\frac{t^2}{2n}+o(1/n)\right]^n
+\longrightarrow e^{-t^2/2}.$$
+
+We recognize the standard-normal characteristic function. The continuity theorem for characteristic functions turns this limit into convergence in distribution: $S_n\xrightarrow{d}N(0,1)$. Thus, for sufficiently large $n$ in a suitable application, the average is approximated by $N(\mu,\sigma^2/n)$.
+
+This is the central limit theorem in the independent, identically distributed, finite-variance setting. It explains why a normal approximation can emerge even when individual errors are not normal. It does not make each individual error normal, establish independence from data, or specify a universally sufficient sample size. It also does not by itself quantify the approximation error for a finite $n$.
+
+The characteristic function is useful here because it turns a sum into a product and lets us recognize the limiting law; no MGF assumption is needed. If the errors are already independent normal variables, the normal law for their average is exact for every $n$. The [supplement gives the expansion and continuity theorem precisely](07-normal-supplement.qmd#clt-transform-preview); the convergence module will revisit this argument.
+
+**Practice check N10.** Independent observations have common mean 10 and variance 9. For the mean of 36 observations, identify the normal approximation's mean and variance and write the approximate probability that the sample mean exceeds 11 in terms of $\Phi$. Under what stronger distributional assumption is this calculation exact?
 
 **Practice check N6.** For $\mu=(1,-2)^T$ and $\Sigma=\begin{pmatrix}4&1\\1&9\end{pmatrix}$, write the MGF and characteristic function. Use derivatives at zero to obtain $E[X_1X_2]$. Compare that answer with the covariance entry.
 
