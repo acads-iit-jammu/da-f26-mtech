@@ -21,13 +21,13 @@ If $\Sigma$ is singular, there is nonzero $a$ with $a^T\Sigma a=0$, so $a^T(\mat
 
 ## 2. Density and normalization by an invertible map
 
-For positive-definite $\Sigma$, choose $L$ invertible with $LL^T=\Sigma$, for example its Cholesky factor. The independent-standard-normal density is $(2\pi)^{-p/2}e^{-\mathbf z^T\mathbf z/2}$. Under $\mathbf x=\boldsymbol\mu+L\mathbf z$, the inverse determinant is $|\det L|^{-1}=|\Sigma|^{-1/2}$. Substitution gives the stated multivariate density.
+For positive-definite $\Sigma$, choose $L$ invertible with $LL^T=\Sigma$, for example its Cholesky factor. The independent-standard-normal density is $(2\pi)^{-k/2}e^{-\mathbf z^T\mathbf z/2}$. Under $\mathbf x=\boldsymbol\mu+L\mathbf z$, the inverse determinant is $|\det L|^{-1}=|\Sigma|^{-1/2}$. Substitution gives the stated multivariate density.
 
-Its integral is 1 because the change of variables converts it back to the product of $p$ normalized standard-normal densities. The covariance is $LIL^T=\Sigma$. The factorization also proves that whitening yields independent normal coordinates; identity covariance alone would imply only uncorrelated coordinates for an arbitrary non-Gaussian vector.
+Its integral is 1 because the change of variables converts it back to the product of $k$ normalized standard-normal densities. The covariance is $LIL^T=\Sigma$. The factorization also proves that whitening yields independent normal coordinates; identity covariance alone would imply only uncorrelated coordinates for an arbitrary non-Gaussian vector.
 
 ## 3. Linear maps and marginal distributions
 
-For a $k\times p$ matrix $B$ and vector $b$, $B\mathbf X+b=B\boldsymbol\mu+b+BA\mathbf Z$ is Gaussian with covariance $B\Sigma B^T$. Taking $B$ to select coordinates proves the marginal property. Taking a single row proves the linear-combination property. The characteristic function above establishes that Gaussian laws are determined by their means and covariance matrices, including singular cases.
+For an $m\times k$ matrix $B$ and vector $b$, $B\mathbf X+b=B\boldsymbol\mu+b+BA\mathbf Z$ is Gaussian with covariance $B\Sigma B^T$. Taking $B$ to select coordinates proves the marginal property. Taking a single row proves the linear-combination property. The characteristic function above establishes that Gaussian laws are determined by their means and covariance matrices, including singular cases.
 
 ## 4. Conditioning in blocks
 
@@ -66,7 +66,74 @@ P(Q\le c)&=\int_0^{2\pi}\int_0^{\sqrt c}\frac1{2\pi}e^{-r^2/2}r\,dr\,d\theta\\
 &=\left[-e^{-r^2/2}\right]_0^{\sqrt c}=1-e^{-c/2}.
 \end{aligned}$$
 
-Thus $Q$ has a chi-square distribution with two degrees of freedom. The probability-$\alpha$ ellipse has $c=-2\log(1-\alpha)$ for $0<\alpha<1$. In $p$ dimensions the analogous quadratic form is chi-square with $p$ degrees of freedom; the simple exponential CDF here is specific to $p=2$.
+Thus $Q$ has a chi-square distribution with two degrees of freedom. The probability-$\alpha$ ellipse has $c=-2\log(1-\alpha)$ for $0<\alpha<1$. In $k$ dimensions the analogous quadratic form is chi-square with $k$ degrees of freedom; the simple exponential CDF here is specific to $k=2$.
+
+## 6. Transform identities, uniqueness and moment differentiation
+
+For $X\sim N_k(\mu,\Sigma)$, allow $\Sigma\succeq0$. Choose $A$ with $AA^T=\Sigma$ and write $X=\mu+AZ$ with independent standard normal entries of $Z$. For every real $t$,
+
+$$M_X(t)=e^{t^T\mu}\prod_j M_{Z_j}((A^Tt)_j)
+=\exp(t^T\mu+\tfrac12t^T\Sigma t).$$
+
+This proves finiteness on all of $\mathbb R^k$, including the singular case, without a full-dimensional density. An MGF finite on an open neighborhood of zero determines the distribution. A characteristic function always determines the distribution, with no moment assumptions. The Gaussian characteristic function follows independently from integration by parts for the scalar standard normal and multiplication over independent coordinates, as derived in [the main note](07-multivariate-normal.qmd#normal-transforms).
+
+To justify derivatives of the Gaussian MGF, consider a compact set of real parameters $t$. A polynomial in $X$ multiplied by $e^{t^TX}$ is bounded in absolute value by a finite sum of exponentials $C e^{s^TX}$ for parameters $s$ in a larger bounded set. Gaussian exponential moments are finite at all these parameters. Dominated convergence therefore justifies differentiation under expectation of every finite order. In particular,
+
+$$\partial_{i_1}\cdots\partial_{i_m}M_X(0)=E[X_{i_1}\cdots X_{i_m}].$$
+
+The cumulant generating function is $K_X(t)=t^T\mu+t^T\Sigma t/2$. Its derivatives above second order vanish. This does not set fourth moments to zero: for a centered Gaussian vector, differentiating $e^{t^T\Sigma t/2}$ four times gives
+
+$$E[X_iX_jX_kX_l]=\Sigma_{ij}\Sigma_{kl}+\Sigma_{ik}\Sigma_{jl}+\Sigma_{il}\Sigma_{jk}.$$
+
+For example $E[X_i^4]=3\Sigma_{ii}^2$. This also follows directly by taking the coefficient of $t_i^4$ in the exponential series. These statements concern centered variables; nonzero means must be included or subtracted first.
+
+## 7. Block factorization, the Schur complement and singular conditioning
+
+For positive-definite $\Sigma$, partition into blocks as in the main note. Let $B=\Sigma_{VU}\Sigma_{UU}^{-1}$ and $C=\Sigma_{VV}-\Sigma_{VU}\Sigma_{UU}^{-1}\Sigma_{UV}$. For any nonzero $v$, take the vector $(-\Sigma_{UU}^{-1}\Sigma_{UV}v,v)^T$. Its quadratic form under $\Sigma$ is $v^TCv>0$, proving that $C$ is positive definite. Triangular factorization gives
+
+$$|\Sigma|=|\Sigma_{UU}||C|,$$
+
+$$\Sigma^{-1}=\begin{pmatrix}
+\Sigma_{UU}^{-1}+B^TC^{-1}B&-B^TC^{-1}\\
+-C^{-1}B&C^{-1}
+\end{pmatrix}.$$
+
+Expanding this quadratic form yields the density factorization in the main note. Integrating the normalized conditional factor proves the marginal density. Dividing by that everywhere-positive marginal yields a conditional-density version for every $u$. A conditional distribution is in general specified only almost everywhere; continuity of this formula gives a convenient version throughout $\mathbb R^r$.
+
+The residual argument also works if the full covariance is merely positive semidefinite while $\Sigma_{UU}$ remains invertible. Then $C$ is positive semidefinite, and the conditional law may be singular. It is still Gaussian with mean $\mu_V+B(u-\mu_U)$ and covariance $C$, but it need not have an ordinary $s$-dimensional density.
+
+If even $\Sigma_{UU}$ is singular, use its Moore–Penrose inverse $\Sigma_{UU}^{+}$ and restrict conditioning to the affine support $\mu_U+\operatorname{range}(\Sigma_{UU})$. Positive semidefiniteness ensures that directions with zero variance in $U$ have zero cross-covariance with $V$. Thus a conditional version on that support has
+
+$$E[V\mid U=u]=\mu_V+\Sigma_{VU}\Sigma_{UU}^{+}(u-\mu_U),$$
+
+$$\operatorname{Cov}(V\mid U=u)=\Sigma_{VV}-\Sigma_{VU}\Sigma_{UU}^{+}\Sigma_{UV}.$$
+
+Values outside the support cannot be inferred from the joint law. This extension is not a license to substitute an ordinary inverse into a singular density formula.
+
+## 8. Independence, linear maps and conditional residuals
+
+For a jointly Gaussian partition, its characteristic function is
+
+$$\varphi_{U,V}(s,t)=\exp\left[i(s^T\mu_U+t^T\mu_V)
+-\tfrac12s^T\Sigma_{UU}s-s^T\Sigma_{UV}t-\tfrac12t^T\Sigma_{VV}t\right].$$
+
+If the cross-covariance vanishes this factors as $\varphi_U(s)\varphi_V(t)$, proving independence by uniqueness. Conversely independence implies zero cross-covariance because second moments exist. The proof includes singular blocks.
+
+For any fixed matrix $A$ and vector $b$,
+
+$$\varphi_{AX+b}(t)=e^{it^Tb}\varphi_X(A^Tt)
+=\exp\left[it^T(A\mu+b)-\tfrac12t^TA\Sigma A^Tt\right].$$
+
+This establishes the affine law irrespective of rank. For positive-definite $\Sigma$, $A\Sigma A^T$ is positive definite exactly when $A$ has full row rank: its quadratic form is $(A^Tv)^T\Sigma(A^Tv)$.
+
+The conditional residual $R=V-\mu_V-B(U-\mu_U)$ is jointly Gaussian with $U$ and has cross-covariance zero. It is therefore independent of $U$, with covariance $C$. This yields the conditional law and the identities
+
+$$E[V]=E[E[V\mid U]]=\mu_V,$$
+
+$$\operatorname{Cov}(V)=E[\operatorname{Cov}(V\mid U)]
++\operatorname{Cov}(E[V\mid U])=C+B\Sigma_{UU}B^T=\Sigma_{VV}.$$
+
+These identities make precise the split between remaining uncertainty and variation explained by the observation. Without joint normality, a residual uncorrelated with the predictors need not be independent of them, and a conditional mean need not be linear.
 
 ## Further exercises
 
@@ -75,6 +142,10 @@ Thus $Q$ has a chi-square distribution with two degrees of freedom. The probabil
 **NS2.** If $\mathbf X\sim N_2(0,\Sigma)$ with $\Sigma=\begin{pmatrix}1&1\\1&4\end{pmatrix}$, calculate the covariance of $(X_1+X_2,X_2-X_1)^T$. Are these transformed coordinates independent?
 
 **NS3.** In the same sensor model, verify total variance for $X_2$ using the conditional variance and the variance of the conditional mean.
+
+**NS4.** Derive $E[X_1^2X_2^2]$ for a centered bivariate Gaussian in terms of its covariance entries. Compare with $E[X_1^2]E[X_2^2]$.
+
+**NS5.** Let $X=(Z,2Z)^T$ for $Z\sim N(0,1)$. Write its MGF and characteristic function. Describe the law of $X_2\mid X_1=x$ and explain why the full two-dimensional density formula does not apply.
 
 ## References
 

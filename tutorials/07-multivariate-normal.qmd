@@ -15,7 +15,26 @@ Two sensors measure deviations from their calibration targets. Each deviation ca
 
 We will construct a multivariate normal vector, define its density and covariance matrix, derive its two-dimensional form, and use its marginals, conditional laws and linear transformations. We will interpret density contours and generate correlated observations. All sensor and financial models below are hypothetical; a normal law is an assumption to examine, not a conclusion from a mean and covariance alone.
 
-## 1. Build two related measurements
+## 1. Start with the mean vector and covariance matrix
+
+For $k$ related measurements, let $\mathbf X=(X_1,\ldots,X_k)^T\in\mathbb R^k$. We begin with the stipulated model
+
+$$\boxed{\mathbf X\sim N_k(\boldsymbol\mu,\Sigma)},\qquad
+\boldsymbol\mu=\begin{pmatrix}\mu_1\\\vdots\\\mu_k\end{pmatrix},\qquad
+\Sigma=(\sigma_{ij})_{i,j=1}^k,$$
+
+where $\mu_i=E[X_i]$ and $\sigma_{ij}=\operatorname{Cov}(X_i,X_j)$. The covariance matrix is symmetric positive semidefinite; assume it is positive definite whenever using an ordinary $k$-dimensional density or $\Sigma^{-1}$. All general derivations below use arbitrary $k$. An affine map $A\in\mathbb R^{m\times k}$ may produce a different number $m$ of outputs. The two- and three-dimensional examples are concrete instances of these statements.
+
+
+Suppose the joint model for two signed calibration errors is specified as
+
+$$\mathbf X\sim N_2(\boldsymbol\mu,\Sigma),\qquad
+\boldsymbol\mu=\begin{pmatrix}0\\0\end{pmatrix},\qquad
+\Sigma=\begin{pmatrix}1&1\\1&4\end{pmatrix}.$$
+
+What does this specification tell us about either measurement alone, about the second after observing the first, and about a weighted combination? Those are different distributions derived from the same joint model. We will first interpret the parameters, then derive the general formulas for $N_k(\boldsymbol\mu,\Sigma)$. The normal-family assumption is essential: mean and covariance alone do not specify an arbitrary distribution.
+
+Here the variances are 1 and 4, so the standard deviations are 1 and 2. The covariance is 1, giving correlation $1/2$. The matrix is positive definite because its first leading principal minor is 1 and its determinant is 3. Thus a full two-dimensional density exists. We can construct this specified model as follows.
 
 ### A numerical model before the general definition
 
@@ -40,7 +59,7 @@ Their correlation is $1/(1\cdot2)=1/2$. The term $Z_1$ shared by the two formula
 
 ### Mean vector and covariance matrix
 
-For a column vector $\mathbf X=(X_1,\ldots,X_p)^T$ with finite second moments, define
+For a column vector $\mathbf X=(X_1,\ldots,X_k)^T$ with finite second moments, define
 
 $$\boldsymbol\mu=E[\mathbf X],\qquad
 \Sigma=E[(\mathbf X-\boldsymbol\mu)(\mathbf X-\boldsymbol\mu)^T].$$
@@ -58,16 +77,16 @@ A vector is **multivariate normal**, or **jointly Gaussian**, if every linear co
 
 $$\mathbf X=\boldsymbol\mu+A\mathbf Z,$$
 
-where $\mathbf Z$ has independent standard normal components. Its covariance is $AA^T$. We write $\mathbf X\sim N_p(\boldsymbol\mu,\Sigma)$.
+where $\mathbf Z$ has independent standard normal components. Its covariance is $AA^T$. We write $\mathbf X\sim N_k(\boldsymbol\mu,\Sigma)$.
 
-For a **positive definite** $p\times p$ covariance matrix, the joint density is
+For a **positive definite** $k\times k$ covariance matrix, the joint density is
 
 $$f_{\mathbf X}(\mathbf x)=
-\frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}
+\frac{1}{(2\pi)^{k/2}|\Sigma|^{1/2}}
 \exp\left[-\frac12(\mathbf x-\boldsymbol\mu)^T\Sigma^{-1}(\mathbf x-\boldsymbol\mu)\right],
-\qquad\mathbf x\in\mathbb R^p.$$
+\qquad\mathbf x\in\mathbb R^k.$$
 
-Here $|\Sigma|$ denotes the determinant. A canonical probability model is $(\mathbb R^p,\mathcal B(\mathbb R^p),P)$ with $P(B)=\int_B f_{\mathbf X}(\mathbf x)d\mathbf x$ and coordinate random variables. The density is nonnegative and integrates to 1. It is not the probability of a point, which is zero.
+Here $|\Sigma|$ denotes the determinant. A canonical probability model is $(\mathbb R^k,\mathcal B(\mathbb R^k),P)$ with $P(B)=\int_B f_{\mathbf X}(\mathbf x)d\mathbf x$ and coordinate random variables. The density is nonnegative and integrates to 1. It is not the probability of a point, which is zero.
 
 To see where the formula comes from, choose an invertible $L$ with $LL^T=\Sigma$, and transform independent standard normals by $\mathbf x=\boldsymbol\mu+L\mathbf z$. The inverse Jacobian factor is $1/|\det L|=1/\sqrt{|\Sigma|}$, and $\mathbf z^T\mathbf z=(\mathbf x-\boldsymbol\mu)^T\Sigma^{-1}(\mathbf x-\boldsymbol\mu)$. This applies the previous lecture's change-of-variables rule. The supplement supplies the full normalization argument.
 
@@ -90,7 +109,89 @@ This is a density in inverse squared measurement units. A small rectangle center
 
 **Practice check N1.** For the same model, evaluate the quadratic form and density at $(1,-2)^T$. Explain the comparison with $(1,2)^T$ using the sign of the covariance.
 
-## 3. The two-dimensional formula and its geometry
+## 3. MGF, characteristic function and moments {#normal-transforms}
+
+### Why introduce another description of the law?
+
+For the sensor vector, we may need $X_1+X_2$, a subvector, or a mixed moment such as $E[X_1X_2]$. Repeating a multidimensional density integral for every question is unnecessary. An expectation of an exponential records these quantities in one function.
+
+For a real column vector $t\in\mathbb R^k$, the **moment generating function (MGF)** is
+
+$$M_{\mathbf X}(t)=E[\exp(t^T\mathbf X)],$$
+
+where this expectation is finite. A general distribution may not have a finite MGF near zero. A Gaussian vector does: its MGF exists for every real $t$.
+
+### Derive the MGF by completing the square
+
+First let $Z\sim N(0,1)$. Since $tz-z^2/2=-(z-t)^2/2+t^2/2$,
+
+$$E[e^{tZ}]=e^{t^2/2}\int_{\mathbb R}\frac{e^{-(z-t)^2/2}}{\sqrt{2\pi}}dz=e^{t^2/2}.$$
+
+For a positive-definite covariance, put $u=x-\mu$. The exponent in the multivariate density integral satisfies
+
+$$t^Tu-\frac12u^T\Sigma^{-1}u
+=-\frac12(u-\Sigma t)^T\Sigma^{-1}(u-\Sigma t)+\frac12t^T\Sigma t.$$
+
+Consequently,
+
+$$\begin{aligned}
+M_{\mathbf X}(t)
+&=e^{t^T\mu+\frac12t^T\Sigma t}
+\int_{\mathbb R^k}\frac{\exp[-\frac12(u-\Sigma t)^T\Sigma^{-1}(u-\Sigma t)]}
+{(2\pi)^{k/2}|\Sigma|^{1/2}}du\\
+&=\boxed{\exp\left(t^T\mu+\tfrac12t^T\Sigma t\right)}.
+\end{aligned}$$
+
+The remaining integral is a translated normalized Gaussian density. For a possibly singular covariance, use $\mathbf X=\mu+A\mathbf Z$ instead: independence gives $M_{\mathbf Z}(v)=\exp(v^Tv/2)$, hence $M_{\mathbf X}(t)=e^{t^T\mu}M_{\mathbf Z}(A^Tt)$ and the same formula with $AA^T=\Sigma$.
+
+### Read moments from derivatives
+
+Differentiating under the expectation is justified here by the Gaussian's finite exponential moments. Define $K(t)=\log M_{\mathbf X}(t)$, the **cumulant generating function**. Then
+
+$$\nabla M(0)=E[\mathbf X]=\mu,\qquad
+\nabla^2M(0)=E[\mathbf X\mathbf X^T]=\Sigma+\mu\mu^T,$$
+
+$$\nabla K(0)=\mu,\qquad\nabla^2K(0)=\Sigma.$$
+
+Indeed $\partial_iM=(\mu_i+(\Sigma t)_i)M$, and
+
+$$\partial_j\partial_iM=
+\left[\Sigma_{ij}+(\mu_i+(\Sigma t)_i)(\mu_j+(\Sigma t)_j)\right]M.$$
+
+Evaluating at zero gives $E[X_iX_j]=\Sigma_{ij}+\mu_i\mu_j$. The Hessian of $M$ gives raw second moments; the Hessian of $\log M$ gives covariance. Gaussian cumulants of order greater than two vanish, but higher moments generally do not.
+
+For our zero-mean sensor model,
+
+$$M(t_1,t_2)=\exp\left[\tfrac12(t_1^2+2t_1t_2+4t_2^2)\right].$$
+
+The second derivatives at zero give $E[X_1^2]=1$, $E[X_1X_2]=1$, and $E[X_2^2]=4$. Setting $(t_1,t_2)=(u,u)$ gives $M_{X_1+X_2}(u)=e^{7u^2/2}$, identifying $X_1+X_2\sim N(0,7)$.
+
+### Characteristic function: a description that always exists
+
+The **characteristic function** is
+
+$$\varphi_{\mathbf X}(t)=E[e^{it^T\mathbf X}],\qquad i^2=-1.$$
+
+Unlike an MGF, it exists for every real $t$ for every probability law, because $|e^{it^T\mathbf X}|=1$. It uniquely determines the law, including laws without a density.
+
+For $Z\sim N(0,1)$, let $\psi(t)=E[e^{itZ}]$. Using $\phi'(z)=-z\phi(z)$ and integration by parts,
+
+$$E[Ze^{itZ}]=-\int e^{itz}\phi'(z)dz=it\psi(t),\qquad
+\psi'(t)=iE[Ze^{itZ}]=-t\psi(t).$$
+
+The boundary term vanishes because the Gaussian density tends to zero. With $\psi(0)=1$, the solution is $\psi(t)=e^{-t^2/2}$. Thus, using the affine construction and independence,
+
+$$\boxed{\varphi_{\mathbf X}(t)
+=e^{it^T\mu}\prod_j e^{-((A^Tt)_j)^2/2}
+=\exp\left(it^T\mu-\tfrac12t^T\Sigma t\right).}$$
+
+This derivation also applies to singular $\Sigma$. It avoids assuming that an arbitrary real MGF can be evaluated at complex arguments. The Gaussian formulas do have that analytic connection, but the characteristic-function definition stands on its own.
+
+**Practice check N6.** For $\mu=(1,-2)^T$ and $\Sigma=\begin{pmatrix}4&1\\1&9\end{pmatrix}$, write the MGF and characteristic function. Use derivatives at zero to obtain $E[X_1X_2]$. Compare that answer with the covariance entry.
+
+**Stopping point.** Check the sign of the quadratic term in each transform, and distinguish raw second moments from covariance, before deriving new distributions.
+
+## 4. The two-dimensional formula and its geometry
 
 Write
 
@@ -122,7 +223,7 @@ $$P(q\le c)=1-e^{-c/2},\qquad c\ge0.$$
 
 Thus the ellipse $q\le1$ contains about $39.35\%$, not $68\%$, of the probability. A 95% **probability ellipse** uses $c=-2\log(0.05)\approx5.991$. It describes the distribution of observations under known parameters; it is not automatically a confidence region for an estimated mean. The contour line itself has probability zero. The supplement derives the interior probability by polar integration.
 
-## 4. Marginal and conditional normal laws
+## 5. Marginal and conditional normal laws
 
 ### Marginals retain coordinates
 
@@ -158,6 +259,83 @@ whereas $P(X_2>2)=1-\Phi(1)\approx0.159$. The conditioning information changes t
 
 **Practice check N2.** In this sensor model, give the conditional mean and variance at $X_1=-1$. Write $P(X_2>0\mid X_1=-1)$ in terms of $\Phi$.
 
+### General partition: derive both marginal and conditional densities
+
+Suppose only some coordinates are observed. Write
+
+$$\mathbf X=\begin{pmatrix}U\\V\end{pmatrix},\quad
+\mu=\begin{pmatrix}\mu_U\\\mu_V\end{pmatrix},\quad
+\Sigma=\begin{pmatrix}\Sigma_{UU}&\Sigma_{UV}\\\Sigma_{VU}&\Sigma_{VV}\end{pmatrix},$$
+
+where $U\in\mathbb R^r$, $V\in\mathbb R^s$, $r+s=k$, and for this density derivation $\Sigma$ is positive definite. Define
+
+$$B=\Sigma_{VU}\Sigma_{UU}^{-1},\qquad
+C=\Sigma_{VV}-\Sigma_{VU}\Sigma_{UU}^{-1}\Sigma_{UV}.$$
+
+The matrix $C$ is the **Schur complement**; here it is positive definite. The factorization
+
+$$\Sigma=
+\begin{pmatrix}I&0\\B&I\end{pmatrix}
+\begin{pmatrix}\Sigma_{UU}&0\\0&C\end{pmatrix}
+\begin{pmatrix}I&B^T\\0&I\end{pmatrix}$$
+
+gives $|\Sigma|=|\Sigma_{UU}||C|$ and, with $u_0=u-\mu_U$, $v_0=v-\mu_V$,
+
+$$\begin{pmatrix}u_0\\v_0\end{pmatrix}^{T}\Sigma^{-1}
+\begin{pmatrix}u_0\\v_0\end{pmatrix}
+=u_0^T\Sigma_{UU}^{-1}u_0+(v_0-Bu_0)^TC^{-1}(v_0-Bu_0).$$
+
+Substitute both identities into the joint density. It separates as
+
+$$f_{U,V}(u,v)=
+\underbrace{\frac{e^{-u_0^T\Sigma_{UU}^{-1}u_0/2}}{(2\pi)^{r/2}|\Sigma_{UU}|^{1/2}}}_{g(u)}
+\underbrace{\frac{e^{-(v_0-Bu_0)^TC^{-1}(v_0-Bu_0)/2}}{(2\pi)^{s/2}|C|^{1/2}}}_{h(v;u)}.$$
+
+For each fixed $u$, $h(v;u)$ is a normalized normal density in $v$. Therefore
+
+$$f_U(u)=\int f_{U,V}(u,v)dv=g(u),\qquad
+f_{V\mid U}(v\mid u)=\frac{f_{U,V}(u,v)}{f_U(u)}=h(v;u).$$
+
+We have derived, rather than assumed,
+
+$$\boxed{U\sim N_r(\mu_U,\Sigma_{UU}),\qquad
+V\mid U=u\sim N_s(\mu_V+B(u-\mu_U),C).}$$
+
+Interchanging the blocks also gives $V\sim N_s(\mu_V,\Sigma_{VV})$. A marginal retains the corresponding covariance block; a conditional subtracts the explained covariance. The conditional covariance does not depend on the observed value $u$, although the conditional mean does. The reduction $\Sigma_{VV}-C=\Sigma_{VU}\Sigma_{UU}^{-1}\Sigma_{UV}$ is positive semidefinite, so conditioning cannot increase variance along any fixed direction in this Gaussian model.
+
+The conditional transforms follow directly:
+
+$$M_{V\mid U=u}(t)=\exp\left[t^T(\mu_V+B(u-\mu_U))+\tfrac12t^TCt\right],$$
+
+$$\varphi_{V\mid U=u}(t)=\exp\left[it^T(\mu_V+B(u-\mu_U))-\tfrac12t^TCt\right].$$
+
+A marginal CDF or joint CDF is obtained by integrating its density over the threshold region. For example, $F_{\mathbf X}(x)=\int_{-\infty}^{x_1}\cdots\int_{-\infty}^{x_k}f_{\mathbf X}(u)du_k\cdots du_1$. There is generally no elementary closed formula for these integrals. A conditional normal probability can instead be standardized using its conditional mean and covariance.
+
+### Worked block calculation: two outputs after one observation
+
+Let a hypothetical three-channel calibration vector have
+
+$$\mu=\begin{pmatrix}1\\2\\-1\end{pmatrix},\qquad
+\Sigma=\begin{pmatrix}4&2&0\\2&5&1\\0&1&2\end{pmatrix}.$$
+
+Its leading principal minors are $4,16,28$, all positive. Take $U=X_1$ and $V=(X_2,X_3)^T$. Then
+
+$$B=\begin{pmatrix}2\\0\end{pmatrix}\frac14
+=\begin{pmatrix}1/2\\0\end{pmatrix},\qquad
+C=\begin{pmatrix}5&1\\1&2\end{pmatrix}
+-\frac14\begin{pmatrix}4&0\\0&0\end{pmatrix}
+=\begin{pmatrix}4&1\\1&2\end{pmatrix}.$$
+
+Consequently,
+
+$$V\sim N_2\left(\begin{pmatrix}2\\-1\end{pmatrix},\begin{pmatrix}5&1\\1&2\end{pmatrix}\right),$$
+
+$$V\mid X_1=3\sim N_2\left(\begin{pmatrix}3\\-1\end{pmatrix},\begin{pmatrix}4&1\\1&2\end{pmatrix}\right).$$
+
+Observing the first channel shifts the second channel's mean and reduces its variance; the third channel's marginal conditional law is unchanged because its covariance with the first is zero. The second and third channels remain correlated.
+
+**Practice check N7.** In this model, condition instead on $X_1=-1$. Find the two-dimensional conditional law and the distribution of $X_2+X_3$ given this observation.
+
 ### Independence is a special normal-model property
 
 For jointly normal scalar components, zero covariance is equivalent to independence. In the bivariate formula, $\rho=0$ removes the cross term and makes the density the product of two marginal normal densities. The same principle applies to subvectors whose cross-covariance matrix is zero.
@@ -166,7 +344,7 @@ The qualification **jointly normal** matters. Let $Z\sim N(0,1)$ and independent
 
 **Stopping point.** Compare a marginal distribution, a conditional distribution, and the independence condition before applying matrix transformations.
 
-## 5. Linear transformations, generation and whitening
+## 6. Linear transformations, generation and whitening
 
 ### Worked example: a weighted financial quantity
 
@@ -184,11 +362,43 @@ For example, $P(R<0)=\Phi(-0.14/\sqrt{1.48})\approx0.454$. This is a calculation
 
 In general,
 
-$$\mathbf X\sim N_p(\boldsymbol\mu,\Sigma)
+$$\mathbf X\sim N_k(\boldsymbol\mu,\Sigma)
 \quad\Longrightarrow\quad
-A\mathbf X+b\sim N_k(A\boldsymbol\mu+b,A\Sigma A^T).$$
+A\mathbf X+b\sim N_m(A\boldsymbol\mu+b,A\Sigma A^T).$$
 
 The new covariance may be singular, even if the original covariance is positive definite, when $A$ has deficient row rank.
+
+### Derive the affine law using the MGF
+
+For a fixed $m\times k$ matrix $A$, $b\in\mathbb R^m$ and $Y=A\mathbf X+b$,
+
+$$\begin{aligned}
+M_Y(t)&=E[e^{t^T(A\mathbf X+b)}]=e^{t^Tb}M_{\mathbf X}(A^Tt)\\
+&=\exp\left[t^T(A\mu+b)+\tfrac12t^T(A\Sigma A^T)t\right].
+\end{aligned}$$
+
+This is the MGF of the stated normal law. The same calculation with characteristic functions proves the result even for a singular transformed covariance. Also, directly from centered variables,
+
+$$E[Y]=A\mu+b,\qquad
+E[(Y-EY)(Y-EY)^T]=A\Sigma A^T.$$
+
+The moment identities hold for any vector with finite second moments. Gaussianity supplies the additional conclusion about the entire law. For $A\Sigma A^T$ positive definite, substitute these new parameters into the normal density; if it is singular, there is no full $m$-dimensional density. An invertible square $A$ also permits the direct Jacobian check $f_Y(y)=f_{\mathbf X}(A^{-1}(y-b))/|\det A|$.
+
+A coordinate-selection matrix proves the marginal law another way: selecting components selects the corresponding rows and columns of $\Sigma$. A row vector $a^T$ gives $a^T\mathbf X\sim N(a^T\mu,a^T\Sigma a)$.
+
+### Worked transformation producing independent coordinates
+
+For the original sensor model, take
+
+$$Y=\begin{pmatrix}X_1\\X_2-X_1\end{pmatrix},\qquad
+A=\begin{pmatrix}1&0\\-1&1\end{pmatrix}.$$
+
+Then
+
+$$A\Sigma=\begin{pmatrix}1&1\\0&3\end{pmatrix},\qquad
+A\Sigma A^T=\begin{pmatrix}1&0\\0&3\end{pmatrix}.$$
+
+Thus $Y_1\sim N(0,1)$ and $Y_2\sim N(0,3)$ independently. The residual $X_2-X_1$ has removed the component associated with the first sensor. In contrast, selecting $Y=(X_1,2X_1)^T$ yields covariance $\begin{pmatrix}1&2\\2&4\end{pmatrix}$ and a law supported on a line.
 
 ### Generate the desired covariance
 
@@ -201,7 +411,7 @@ Then $\operatorname{Cov}(X_1,X_2)=\rho\sigma_1\sigma_2$, while the second varian
 
 Conversely, for invertible $L$ with $LL^T=\Sigma$,
 
-$$\mathbf Z=L^{-1}(\mathbf X-\boldsymbol\mu)\sim N_p(0,I).$$
+$$\mathbf Z=L^{-1}(\mathbf X-\boldsymbol\mu)\sim N_k(0,I).$$
 
 This operation is called **whitening**. For the sensor example, $Z_1=X_1$ and $Z_2=(X_2-X_1)/\sqrt3$. Dividing each original coordinate by its own standard deviation only standardizes the marginals; it leaves correlation $1/2$ and does not whiten.
 
@@ -209,7 +419,50 @@ This operation is called **whitening**. For the sensor example, $Z_1=X_1$ and $Z
 
 **Practice check N3.** For the sensor model, find the distribution of $X_2-X_1$. Verify that its variance agrees with the construction in independent $Z_1,Z_2$.
 
-## 6. Boundary cases and what the model does not establish
+## 7. One model: joint, marginal, conditional and transformed laws
+
+For the hypothetical model
+
+$$\mathbf X\sim N_2\left(\begin{pmatrix}1\\2\end{pmatrix},
+\begin{pmatrix}4&2\\2&9\end{pmatrix}\right),$$
+
+the determinant is $32$ and the inverse covariance is $\tfrac1{32}\begin{pmatrix}9&-2\\-2&4\end{pmatrix}$. Writing $u=x_1-1$, $v=x_2-2$, the full density is
+
+$$f(x_1,x_2)=\frac1{2\pi\sqrt{32}}
+\exp\left[-\frac{9u^2-4uv+4v^2}{64}\right].$$
+
+The marginal laws are $X_1\sim N(1,4)$ and $X_2\sim N(2,9)$. They are dependent because their covariance is 2. Their joint MGF is
+
+$$M(t_1,t_2)=\exp\left[t_1+2t_2+\tfrac12(4t_1^2+4t_1t_2+9t_2^2)\right].$$
+
+Replace its linear term with $i(t_1+2t_2)$ and negate the quadratic term to obtain the characteristic function. The raw mixed moment is $E[X_1X_2]=2+(1)(2)=4$.
+
+After observing $X_1=3$,
+
+$$X_2\mid X_1=3\sim N\left(2+\frac24(3-1),9-\frac{2^2}{4}\right)=N(3,8).$$
+
+Thus $P(X_2>5\mid X_1=3)=1-\Phi(2/\sqrt8)$. Without that observation, the probability is $1-\Phi((5-2)/3)=1-\Phi(1)$.
+
+For the derived quantity $D=X_2-2X_1$,
+
+$$E[D]=2-2(1)=0,\qquad
+\operatorname{Var}(D)=9+4(4)-4(2)=17,$$
+
+so $D\sim N(0,17)$. Its MGF is $e^{17t^2/2}$. The cross-covariance $\operatorname{Cov}(D,X_1)=2-2(4)=-6$ shows that this particular transformed quantity is not independent of the first coordinate.
+
+| Question | Operation on the model | Result |
+|---|---|---|
+| What can both coordinates do together? | Use $\mu,\Sigma$ in the joint density | A density over $\mathbb R^2$ |
+| What if one coordinate is ignored? | Retain its mean and variance | Marginal normal law |
+| What if one coordinate is observed? | Conditional mean update and Schur complement | Conditional normal law |
+| What if we calculate a linear quantity? | Apply $A\mu+b$ and $A\Sigma A^T$ | Affine normal law |
+| How do we extract moments or identify laws? | Differentiate the MGF, or use transform uniqueness | Moments and distributional identities |
+
+**Practice check N8.** For this last model, derive the joint law of $(X_1+X_2,X_2-X_1)^T$. Give its MGF and decide whether the transformed coordinates are independent. Then derive $X_1\mid X_2=5$.
+
+**Classroom sequence.** A useful first stopping point is the density and transform derivations. Resume with bivariate completion of the square, then the block conditional law, and finish with the affine worked calculations. The two existing interactive demonstrations support the geometry and conditioning discussions; the algebra specifies the distributions they display.
+
+## 8. Boundary cases and what the model does not establish
 
 At $|\rho|=1$, $|\Sigma|=0$ and the density formula involving $\Sigma^{-1}$ is unavailable. A Gaussian distribution can still exist: for example $X_2=2X_1$ with $X_1\sim N(0,1)$ is concentrated on a line. It has no density with respect to two-dimensional area. The interactive density explorer restricts $|\rho|<1$ so it always displays a genuine planar density.
 
@@ -220,6 +473,8 @@ A normal distribution has unbounded support. It can be a stipulated model for si
 **Practice check N5.** Find the constant $c$ for a bivariate normal probability ellipse containing 90% of observations. Does its contour line have probability 90%?
 
 ## References and module continuation
+
+For transform formulas and an alternative affine-normal derivation, see Marco Taboga, [Multivariate normal distribution](https://www.statlect.com/probability-distributions/multivariate-normal-distribution), sections “Joint moment generating function” and “Joint characteristic function”. The calculations and worked examples here develop these identities explicitly.
 
 The bivariate construction, density and conditional law were checked against Pishro-Nik's [§5.3.2, Bivariate Normal Distribution](https://www.probabilitycourse.com/chapter5/5_3_2_bivariate_normal_dist.php). Penn State's [STAT 505, Lesson 4](https://online.stat.psu.edu/stat505/Lesson04) gives additional multivariate-normal reading. See the [supplement](07-normal-supplement.qmd) for normalization, block conditioning, singular cases and the ellipse calculation.
 
