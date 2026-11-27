@@ -242,6 +242,8 @@ Recognizing the same Poisson form gives $N\sim\operatorname{Poisson}(\lambda_1+\
 
 For independent variables, the transform of a sum is the product of their transforms. Independence is needed for the product rule, not for linearity of expectation. The earlier correlated-measurement example used the **joint** MGF instead of multiplying marginal MGFs.
 
+[Explore Poisson addition interactively](../materials/07-multivariate-normal/poisson-addition.html). Vary both rates and compare the simulated sum with its exact Poisson law. Then introduce shared counts: the marginal distributions stay Poisson, but independence fails and the sum law changes. Inspect an individual convolution probability with the count slider.
+
 **Practice check N9.** Two independent Poisson counts have means 1 and 4. Derive the MGF of their total and calculate the probability that the total is at most 1. Explain which step would fail if the counts were dependent.
 
 ### Characteristic function: a description that always exists
@@ -303,6 +305,8 @@ We recognize the standard-normal characteristic function. The continuity theorem
 This is the central limit theorem in the independent, identically distributed, finite-variance setting. It explains why a normal approximation can emerge even when individual errors are not normal. It does not make each individual error normal, establish independence from data, or specify a universally sufficient sample size. It also does not by itself quantify the approximation error for a finite $n$.
 
 The characteristic function is useful here because it turns a sum into a product and lets us recognize the limiting law; no MGF assumption is needed. If the errors are already independent normal variables, the normal law for their average is exact for every $n$. The [supplement gives the expansion and continuity theorem precisely](07-normal-supplement.qmd#clt-transform-preview); the convergence module will revisit this argument.
+
+[Explore the central limit theorem interactively](../materials/07-multivariate-normal/central-limit-theorem.html). Compare individual observations, sample means and standardized means at sample sizes 1, 10 and 100. Try skewed exponential and rare-event Bernoulli populations before using normal input, where the result is exact at every sample size.
 
 **Practice check N10.** Independent observations have common mean 10 and variance 9. For the mean of 36 observations, identify the normal approximation's mean and variance and write the approximate probability that the sample mean exceeds 11 in terms of $\Phi$. Under what stronger distributional assumption is this calculation exact?
 
