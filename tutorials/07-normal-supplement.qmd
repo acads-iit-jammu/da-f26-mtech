@@ -42,6 +42,8 @@ Hence $M_X'(0)=\mu$, $M_X''(0)=\mu^2+\sigma^2$, but $K_X'(0)=\mu$ and $K_X''(0)=
 
 ### A.3. Characteristic function and analytic justification
 
+The [main note](07-multivariate-normal.qmd#scalar-characteristic-function) introduces the characteristic function as the positive-exponent Fourier transform of a density and derives the normal formula using cosine integrals. Here we justify the analytic steps in complex notation. For any probability law, $|e^{itX}|=1$ ensures existence; no density or moment assumption is needed for existence or uniqueness of the law. Derivatives require additional integrability: if $E|X|^n<\infty$, dominated differentiation gives $\varphi_X^{(n)}(t)=E[(iX)^ne^{itX}]$.
+
 For $Z\sim N(0,1)$, write $\psi(t)=E[e^{itZ}]$. The difference quotient for $e^{itZ}$ is bounded by $|Z|$, since $|e^{ihZ}-1|\le |hZ|$. As $E|Z|<\infty$, dominated convergence gives $\psi'(t)=iE[Ze^{itZ}]$.
 
 Writing $g(z)=e^{-z^2/2}/\sqrt{2\pi}$, use $g'(z)=-zg(z)$ and integrate by parts:
@@ -49,7 +51,7 @@ Writing $g(z)=e^{-z^2/2}/\sqrt{2\pi}$, use $g'(z)=-zg(z)$ and integrate by parts
 $$E[Ze^{itZ}]=-[e^{itz}g(z)]_{-\infty}^{\infty}
 +it\int e^{itz}g(z)dz=it\psi(t).$$
 
-The boundary term vanishes and both integrals are absolutely convergent. Thus $\psi'(t)=-t\psi(t)$ and $\psi(0)=1$, which imply $\psi(t)=e^{-t^2/2}$. For $X=\mu+\sigma Z$,
+The boundary term vanishes and both integrals are absolutely convergent. Thus $\psi'(t)=-t\psi(t)$ and $\psi(0)=1$, which imply $\psi(t)=e^{-t^2/2}$: the integrating factor gives $(e^{t^2/2}\psi(t))'=0$, with constant value 1. This avoids assuming nonvanishing before solving the equation. For $X=\mu+\sigma Z$,
 
 $$\varphi_X(t)=e^{i\mu t}\psi(\sigma t)
 =e^{i\mu t-\sigma^2t^2/2}.$$

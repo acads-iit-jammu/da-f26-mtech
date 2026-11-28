@@ -104,40 +104,127 @@ M_X''(t)=\left[\sigma^2+(\mu+\sigma^2t)^2\right]M_X(t).$$
 
 At zero, these are $E[X]=\mu$ and $E[X^2]=\sigma^2+\mu^2$. Subtract the squared mean to obtain the variance. Taking derivatives of $\log M$ performs this centering automatically for the second cumulant.
 
-### A.4. Characteristic function: definition and derivation
+### A.4. Characteristic function: a Fourier description of a distribution {#scalar-characteristic-function}
 
-We would also like to study sums when exponential moments are not finite. A finite mean and variance do not guarantee a finite MGF near zero. We therefore need a transform that remains available. Replace the growing real exponential with a complex exponential of magnitude 1.
+Suppose independent measurement errors are added. We want to identify the distribution of their sum. The MGF turns independent sums into products, but some distributions have no finite MGF near zero. A transform built from bounded sine and cosine functions remains available even then.
 
-For a scalar variable, Euler's formula gives
+#### Definition and the Fourier-transform connection
 
-$$e^{itX}=\cos(tX)+i\sin(tX),\qquad
-\varphi_X(t)=E[\cos(tX)]+iE[\sin(tX)].$$
+For a real-valued random variable $X$, its **characteristic function** is
 
-For each outcome this is a point on the unit circle; the expectation averages its horizontal and vertical coordinates. Changing $t$ changes how those points are placed around the circle. The full function retains enough information to identify the distribution. It is a mathematical description of the law, not a probability or a density.
+$$\boxed{\varphi_X(t)=E[e^{itX}],\qquad t\in\mathbb R,\quad i=\sqrt{-1}.}$$
 
+Euler's formula gives
 
-The **characteristic function** is
+$$e^{itX}=\cos(tX)+i\sin(tX),$$
 
-$$\varphi_X(t)=E[e^{itX}],\qquad i^2=-1.$$
+so
 
-Unlike an MGF, it exists for every real $t$ for every probability law, because $|e^{itX}|=1$. It uniquely determines the law, including laws without a density.
+$$\varphi_X(t)=E[\cos(tX)]+iE[\sin(tX)].$$
 
-For $Z\sim N(0,1)$, let $\psi(t)=E[e^{itZ}]$. Using $\phi'(z)=-z\phi(z)$ and integration by parts,
+For a fixed $t$, these expectations average the cosine and sine of the observed values multiplied by $t$. For example, if an error takes the values $-1$ and $1$ with equal probability, then
 
-$$E[Ze^{itZ}]=-\int e^{itz}\phi'(z)dz=it\psi(t),\qquad
-\psi'(t)=iE[Ze^{itZ}]=-t\psi(t).$$
+$$\varphi_X(t)=\tfrac12e^{-it}+\tfrac12e^{it}=\cos t.$$
 
-The boundary term vanishes because the Gaussian density tends to zero. With $\psi(0)=1$, the solution is $\psi(t)=e^{-t^2/2}$.
+For a continuous variable with density $f_X$, the definition becomes
 
-For the general scalar Gaussian $X=\mu+\sigma Z$, the shift and scale rule now gives
+$$\boxed{\varphi_X(t)=\int_{-\infty}^{\infty}e^{itx}f_X(x)\,dx.}$$
+
+This is the **Fourier transform of the density with the positive-exponent convention**. Here $t$ is a frequency parameter, not a possible value of $X$. Each frequency describes an oscillatory average of the density; all frequencies together uniquely determine the probability law. The characteristic function itself is neither a density nor a probability.
+
+Every characteristic function exists for every real $t$, because $|e^{itX}|=1$. The expectation definition also applies to discrete and mixed distributions, which need not have a density. An MGF, by contrast, need not be finite away from zero.
+
+#### Standard normal: write the integral and use symmetry
+
+Let $Z\sim N(0,1)$ and write $\psi(t)=\varphi_Z(t)$. Substituting the density,
+
+$$\psi(t)=\frac1{\sqrt{2\pi}}\int_{-\infty}^{\infty}
+ e^{itz}e^{-z^2/2}\,dz.$$
+
+The function $\sin(tz)e^{-z^2/2}$ is odd in $z$, so its integral is zero. Thus
+
+$$\psi(t)=\frac1{\sqrt{2\pi}}\int_{-\infty}^{\infty}
+ e^{-z^2/2}\cos(tz)\,dz.$$
+
+Symmetry about zero makes a characteristic function real. It does **not** imply positivity: the symmetric two-point example above has characteristic function $\cos t$, which can be negative.
+
+#### Differentiate and integrate by parts
+
+Differentiate with respect to $t$:
+
+$$\psi'(t)=-\frac1{\sqrt{2\pi}}\int_{-\infty}^{\infty}
+ z e^{-z^2/2}\sin(tz)\,dz.$$
+
+This interchange is valid because the absolute value of the differentiated integrand is bounded by the integrable function $|z|e^{-z^2/2}/\sqrt{2\pi}$. Since
+
+$$\frac{d}{dz}e^{-z^2/2}=-ze^{-z^2/2},$$
+
+integration by parts gives
 
 $$\begin{aligned}
-\varphi_X(t)&=E[e^{it(\mu+\sigma Z)}]
-=e^{i\mu t}\psi(\sigma t)\\
-&=\boxed{\exp(i\mu t-\tfrac12\sigma^2t^2)}.
+\psi'(t)
+&=\frac1{\sqrt{2\pi}}\left[\sin(tz)e^{-z^2/2}\right]_{-\infty}^{\infty}
+-\frac{t}{\sqrt{2\pi}}\int_{-\infty}^{\infty}e^{-z^2/2}\cos(tz)\,dz\\
+&=-t\psi(t).
 \end{aligned}$$
 
-For $X\sim N(2,9)$ this is $e^{2it-9t^2/2}$. Notice the imaginary linear term and the negative quadratic term, in contrast with the MGF. Its magnitude is $e^{-\sigma^2t^2/2}\le1$.
+The boundary term is zero because sine is bounded and the Gaussian factor tends to zero. We have reduced the integral to a differential equation:
+
+$$\boxed{\psi'(t)=-t\psi(t),\qquad \psi(0)=E[1]=1.}$$
+
+Multiply by $e^{t^2/2}$ and apply the product rule:
+
+$$\frac{d}{dt}\left(e^{t^2/2}\psi(t)\right)=0.$$
+
+Therefore $e^{t^2/2}\psi(t)$ is constant and equals its value at zero, namely 1. Hence
+
+$$\boxed{\varphi_Z(t)=e^{-t^2/2}.}$$
+
+This method avoids dividing by a function before establishing that it is nonzero. It uses only real integrals, without a complex contour argument. The Gaussian's characteristic function is positive and has a Gaussian shape: its Fourier transform is again Gaussian.
+
+#### Recover the mean and variance
+
+If $E[|X|^n]<\infty$, differentiation under the expectation gives
+
+$$\varphi_X^{(n)}(0)=i^nE[X^n].$$
+
+For the standard normal,
+
+$$\psi'(t)=-te^{-t^2/2},\qquad
+\psi''(t)=(t^2-1)e^{-t^2/2}.$$
+
+Consequently,
+
+$$E[Z]=\frac{\psi'(0)}i=0,\qquad
+E[Z^2]=-\psi''(0)=1,\qquad
+\operatorname{Var}(Z)=1-0^2=1.$$
+
+The second derivative gives a **raw second moment**. It equals the variance here because the mean is zero.
+
+#### Shift and scale: the general normal distribution
+
+For $X=\mu+\sigma Z$ with $\sigma>0$,
+
+$$\begin{aligned}
+\varphi_X(t)&=E[e^{it(\mu+\sigma Z)}]\\
+&=e^{i\mu t}E[e^{i(\sigma t)Z}]\\
+&=e^{i\mu t}\psi(\sigma t)\\
+&=\boxed{\exp\left(i\mu t-\tfrac12\sigma^2t^2\right)}.
+\end{aligned}$$
+
+The mean contributes the complex phase $e^{i\mu t}$; the variance controls the decay of the magnitude $|\varphi_X(t)|=e^{-\sigma^2t^2/2}$. Explicitly,
+
+$$\operatorname{Re}\varphi_X(t)=e^{-\sigma^2t^2/2}\cos(\mu t),\qquad
+\operatorname{Im}\varphi_X(t)=e^{-\sigma^2t^2/2}\sin(\mu t).$$
+
+For the calibration model $X\sim N(2,9)$, this gives $e^{2it-9t^2/2}$. Its derivatives at zero yield $E[X]=2$ and $E[X^2]=13$, so its variance is $13-2^2=9$.
+
+Finally, if errors $U$ and $V$ are independent,
+
+$$\varphi_{U+V}(t)=E[e^{itU}e^{itV}]
+=\varphi_U(t)\varphi_V(t).$$
+
+For independent standard-normal errors, this product is $e^{-t^2}$, the characteristic function of $N(0,2)$. Uniqueness identifies the sum's distribution. The same multiplication rule will be central to the CLT argument in Part C.
 
 ### A.5. Transformations: shifts, scales and nonlinear functions
 
