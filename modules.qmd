@@ -27,7 +27,7 @@ multivariate random variables.
 
 **01.6:** [Transformations of random variables](tutorials/06-transformations.qmd): CDF regions, auxiliary joint densities, Jacobians, sums, gaps and variable generation. [Rigorous supplement](tutorials/06-transformations-supplement.qmd).
 
-**01.7:** [The multivariate normal distribution](tutorials/07-multivariate-normal.qmd): density, covariance, marginals, conditional laws, linear transformations and interactive two-dimensional demonstrations. [Rigorous supplement](tutorials/07-normal-supplement.qmd).
+**01.7:** [Gaussian distributions: univariate and multivariate](tutorials/07-multivariate-normal.qmd): separate scalar and vector treatments of densities, MGF, CGF, characteristic functions and transformations; joint, marginal and conditional Gaussian laws; worked examples and interactive demonstrations. [Rigorous supplement](tutorials/07-normal-supplement.qmd).
 
 [Standalone proof: the central limit theorem](tutorials/08-central-limit-theorem-proof.qmd) develops the characteristic-function argument in full, including the finite-variance remainder estimate and the passage from transforms to CDFs.
 

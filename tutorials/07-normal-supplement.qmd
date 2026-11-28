@@ -1,78 +1,32 @@
 ---
-title: "01.7 supplement · Gaussian structure and conditional laws"
+title: "01.7 supplement · Univariate and multivariate Gaussian proofs"
 format:
   html:
     html-math-method: mathml
     css: probability-notes.css
+    toc-depth: 3
 ---
 
 [Main lecture 01.7](07-multivariate-normal.qmd)
 
-## 1. Definition including singular laws
+The proof order mirrors the [main note](07-multivariate-normal.qmd): complete the scalar case before the general $k$-dimensional case.
 
-A Gaussian vector can be represented as $\mathbf X=\boldsymbol\mu+A\mathbf Z$ for independent standard normal components of $\mathbf Z$, with covariance $\Sigma=AA^T$. The characteristic function is
+## Part A · Univariate Gaussian proofs {#univariate-proofs}
 
-$$\varphi_{\mathbf X}(t)=E[e^{it^T\mathbf X}]
-=\exp(it^T\boldsymbol\mu-\tfrac12t^T\Sigma t).$$
+### A.1. Normalize the density and derive its moments
 
-This follows by independence and the standard-normal characteristic function $e^{-t^2/2}$. It also shows that every linear combination is normal with its corresponding mean and variance. Conversely, the all-linear-combinations definition gives this characteristic function; uniqueness identifies the affine-normal law. A zero variance is allowed in this definition.
+Let $I=\int_{\mathbb R}e^{-x^2/2}dx$. Its integral is finite, for instance by comparison with an exponential outside a bounded interval. Tonelli's theorem and polar coordinates give
 
-If $\Sigma$ is singular, there is nonzero $a$ with $a^T\Sigma a=0$, so $a^T(\mathbf X-\boldsymbol\mu)=0$ almost surely. The distribution lies in a lower-dimensional affine subspace and has no density with respect to full-dimensional Lebesgue measure. The positive-definite density formula must not be used with a zero determinant.
+$$I^2=\int_{\mathbb R^2}e^{-(x^2+y^2)/2}dx\,dy
+=\int_0^{2\pi}\int_0^\infty e^{-r^2/2}r\,dr\,d\theta=2\pi.$$
 
-## 2. Density and normalization by an invertible map
+Thus $I=\sqrt{2\pi}$. The normalized density $\phi(x)=e^{-x^2/2}/\sqrt{2\pi}$ has mean zero by odd symmetry. Since $\phi'(x)=-x\phi(x)$,
 
-For positive-definite $\Sigma$, choose $L$ invertible with $LL^T=\Sigma$, for example its Cholesky factor. The independent-standard-normal density is $(2\pi)^{-k/2}e^{-\mathbf z^T\mathbf z/2}$. Under $\mathbf x=\boldsymbol\mu+L\mathbf z$, the inverse determinant is $|\det L|^{-1}=|\Sigma|^{-1/2}$. Substitution gives the stated multivariate density.
+$$E[Z^2]=-\int x\phi'(x)dx=-[x\phi(x)]_{-\infty}^{\infty}+\int\phi(x)dx=1.$$
 
-Its integral is 1 because the change of variables converts it back to the product of $k$ normalized standard-normal densities. The covariance is $LIL^T=\Sigma$. The factorization also proves that whitening yields independent normal coordinates; identity covariance alone would imply only uncorrelated coordinates for an arbitrary non-Gaussian vector.
+The change of variables $X=\mu+\sigma Z$, $\sigma>0$, produces the density in Part A of the main note, with mean $\mu$ and variance $\sigma^2$.
 
-## 3. Linear maps and marginal distributions
-
-For an $m\times k$ matrix $B$ and vector $b$, $B\mathbf X+b=B\boldsymbol\mu+b+BA\mathbf Z$ is Gaussian with covariance $B\Sigma B^T$. Taking $B$ to select coordinates proves the marginal property. Taking a single row proves the linear-combination property. The characteristic function above establishes that Gaussian laws are determined by their means and covariance matrices, including singular cases.
-
-## 4. Conditioning in blocks
-
-Partition the vector as $(\mathbf X_a^T,\mathbf X_b^T)^T$ and partition $\boldsymbol\mu,\Sigma$ accordingly. For positive-definite $\Sigma$, $\Sigma_{aa}$ is invertible. Define the residual
-
-$$\mathbf R=\mathbf X_b-\boldsymbol\mu_b-\Sigma_{ba}\Sigma_{aa}^{-1}(\mathbf X_a-\boldsymbol\mu_a).$$
-
-It has mean zero and cross-covariance
-
-$$\operatorname{Cov}(\mathbf R,\mathbf X_a)=\Sigma_{ba}-\Sigma_{ba}\Sigma_{aa}^{-1}\Sigma_{aa}=0.$$
-
-The pair $(\mathbf R,\mathbf X_a)$ is jointly Gaussian. A block-diagonal covariance makes its characteristic function factor into the product of the two block characteristic functions, proving independence. Expansion gives
-
-$$\operatorname{Cov}(\mathbf R)=\Sigma_{bb}-\Sigma_{ba}\Sigma_{aa}^{-1}\Sigma_{ab}.$$
-
-Consequently a conditional-law version is
-
-$$\mathbf X_b\mid\mathbf X_a=x_a\sim N\left(
-\boldsymbol\mu_b+\Sigma_{ba}\Sigma_{aa}^{-1}(x_a-\boldsymbol\mu_a),
-\Sigma_{bb}-\Sigma_{ba}\Sigma_{aa}^{-1}\Sigma_{ab}\right).$$
-
-The covariance is the Schur complement and is positive definite here. The bivariate formula follows by scalar substitution. This derivation specifies a continuous density version and does not condition through a ratio with a zero-probability singleton. Conditional distributions are only uniquely determined almost everywhere in general.
-
-The same characteristic-function factorization proves that zero cross-covariance of Gaussian subvectors is equivalent to their independence. The statement requires the joint Gaussian assumption, not merely normal marginal distributions.
-
-## 5. Probability inside a bivariate ellipse
-
-Let $\mathbf X\sim N_2(\boldsymbol\mu,\Sigma)$ with $\Sigma$ positive definite and whiten to $\mathbf Z$. The squared Mahalanobis distance is
-
-$$Q=(\mathbf X-\boldsymbol\mu)^T\Sigma^{-1}(\mathbf X-\boldsymbol\mu)=Z_1^2+Z_2^2.$$
-
-For $c\ge0$, polar integration gives
-
-$$\begin{aligned}
-P(Q\le c)&=\int_0^{2\pi}\int_0^{\sqrt c}\frac1{2\pi}e^{-r^2/2}r\,dr\,d\theta\\
-&=\left[-e^{-r^2/2}\right]_0^{\sqrt c}=1-e^{-c/2}.
-\end{aligned}$$
-
-Thus $Q$ has a chi-square distribution with two degrees of freedom. The probability-$\alpha$ ellipse has $c=-2\log(1-\alpha)$ for $0<\alpha<1$. In $k$ dimensions the analogous quadratic form is chi-square with $k$ degrees of freedom; the simple exponential CDF here is specific to $k=2$.
-
-## 6. Gaussian MGF, CGF and characteristic function {#gaussian-transform-derivations}
-
-[Main-note derivations](07-multivariate-normal.qmd#scalar-gaussian-transforms) introduce the scalar case before the general matrix case.
-
-### Scalar MGF and CGF: a normalized shifted density
+### A.2. Scalar MGF and CGF
 
 For $X\sim N(\mu,\sigma^2)$ and $\sigma>0$, completing the square gives
 
@@ -86,7 +40,7 @@ $$K_X(t)=\mu t+\sigma^2t^2/2.$$
 
 Hence $M_X'(0)=\mu$, $M_X''(0)=\mu^2+\sigma^2$, but $K_X'(0)=\mu$ and $K_X''(0)=\sigma^2$. If $\sigma=0$, $X=\mu$ almost surely, and the same formulas follow directly from the expectation without using a density.
 
-### Scalar characteristic function: justify differentiation and integration by parts
+### A.3. Characteristic function and analytic justification
 
 For $Z\sim N(0,1)$, write $\psi(t)=E[e^{itZ}]$. The difference quotient for $e^{itZ}$ is bounded by $|Z|$, since $|e^{ihZ}-1|\le |hZ|$. As $E|Z|<\infty$, dominated convergence gives $\psi'(t)=iE[Ze^{itZ}]$.
 
@@ -102,7 +56,32 @@ $$\varphi_X(t)=e^{i\mu t}\psi(\sigma t)
 
 This is a direct real-integral proof; it does not require moving a contour or assuming a complex extension of a general MGF.
 
-### General $k$-dimensional density derivation
+### A.4. Scalar affine transformations
+
+For $Y=aX+b$, $M_Y(t)=e^{bt}M_X(at)$ identifies $N(a\mu+b,a^2\sigma^2)$. Equivalently, $\varphi_Y(t)=e^{ibt}\varphi_X(at)$ identifies the same law, including $a=0$. For $a\ne0$ the Jacobian density is $f_Y(y)=f_X((y-b)/a)/|a|$; at $a=0$ the law is a point mass.
+
+For independent scalar normals, the product rule gives the normal law for a weighted sum. Applying the logarithm to positive real MGFs yields addition of CGFs. Independence is essential to this factorization.
+
+## Part B · Multivariate Gaussian proofs
+
+### B.1. Definition including singular laws
+
+A Gaussian vector can be represented as $\mathbf X=\boldsymbol\mu+A\mathbf Z$ for independent standard normal components of $\mathbf Z$, with covariance $\Sigma=AA^T$. The characteristic function is
+
+$$\varphi_{\mathbf X}(t)=E[e^{it^T\mathbf X}]
+=\exp(it^T\boldsymbol\mu-\tfrac12t^T\Sigma t).$$
+
+This follows by independence and the standard-normal characteristic function $e^{-t^2/2}$. It also shows that every linear combination is normal with its corresponding mean and variance. Conversely, the all-linear-combinations definition gives this characteristic function; uniqueness identifies the affine-normal law. A zero variance is allowed in this definition.
+
+If $\Sigma$ is singular, there is nonzero $a$ with $a^T\Sigma a=0$, so $a^T(\mathbf X-\boldsymbol\mu)=0$ almost surely. The distribution lies in a lower-dimensional affine subspace and has no density with respect to full-dimensional Lebesgue measure. The positive-definite density formula must not be used with a zero determinant.
+
+### B.2. Density and normalization
+
+For positive-definite $\Sigma$, choose $L$ invertible with $LL^T=\Sigma$, for example its Cholesky factor. The independent-standard-normal density is $(2\pi)^{-k/2}e^{-\mathbf z^T\mathbf z/2}$. Under $\mathbf x=\boldsymbol\mu+L\mathbf z$, the inverse determinant is $|\det L|^{-1}=|\Sigma|^{-1/2}$. Substitution gives the stated multivariate density.
+
+Its integral is 1 because the change of variables converts it back to the product of $k$ normalized standard-normal densities. The covariance is $LIL^T=\Sigma$. The factorization also proves that whitening yields independent normal coordinates; identity covariance alone would imply only uncorrelated coordinates for an arbitrary non-Gaussian vector.
+
+### B.3. Joint MGF, CGF and characteristic function {#gaussian-transform-derivations}
 
 For positive-definite $\Sigma$, set $u=x-\mu$ and expand
 
@@ -121,7 +100,7 @@ K_X(t)=t^T\mu+t^T\Sigma t/2.$$
 
 Thus $\nabla K_X(0)=\mu$ and $\nabla^2K_X(0)=\Sigma$. The scalar proof is the special case $k=1$.
 
-### Affine derivation, including singular covariance
+#### Affine derivation, including singular covariance
 
 For $X\sim N_k(\mu,\Sigma)$, allow $\Sigma\succeq0$. Choose $A$ with $AA^T=\Sigma$ and write $X=\mu+AZ$ with independent standard normal entries of $Z$. For every real $t$,
 
@@ -150,7 +129,31 @@ $$E[X_iX_jX_kX_l]=\Sigma_{ij}\Sigma_{kl}+\Sigma_{ik}\Sigma_{jl}+\Sigma_{il}\Sigm
 
 For example $E[X_i^4]=3\Sigma_{ii}^2$. This also follows directly by taking the coefficient of $t_i^4$ in the exponential series. These statements concern centered variables; nonzero means must be included or subtracted first.
 
-## 7. Block factorization, the Schur complement and singular conditioning
+### B.4. Marginals and conditional laws: residual derivation
+
+Partition the vector as $(\mathbf X_a^T,\mathbf X_b^T)^T$ and partition $\boldsymbol\mu,\Sigma$ accordingly. For positive-definite $\Sigma$, $\Sigma_{aa}$ is invertible. Define the residual
+
+$$\mathbf R=\mathbf X_b-\boldsymbol\mu_b-\Sigma_{ba}\Sigma_{aa}^{-1}(\mathbf X_a-\boldsymbol\mu_a).$$
+
+It has mean zero and cross-covariance
+
+$$\operatorname{Cov}(\mathbf R,\mathbf X_a)=\Sigma_{ba}-\Sigma_{ba}\Sigma_{aa}^{-1}\Sigma_{aa}=0.$$
+
+The pair $(\mathbf R,\mathbf X_a)$ is jointly Gaussian. A block-diagonal covariance makes its characteristic function factor into the product of the two block characteristic functions, proving independence. Expansion gives
+
+$$\operatorname{Cov}(\mathbf R)=\Sigma_{bb}-\Sigma_{ba}\Sigma_{aa}^{-1}\Sigma_{ab}.$$
+
+Consequently a conditional-law version is
+
+$$\mathbf X_b\mid\mathbf X_a=x_a\sim N\left(
+\boldsymbol\mu_b+\Sigma_{ba}\Sigma_{aa}^{-1}(x_a-\boldsymbol\mu_a),
+\Sigma_{bb}-\Sigma_{ba}\Sigma_{aa}^{-1}\Sigma_{ab}\right).$$
+
+The covariance is the Schur complement and is positive definite here. The bivariate formula follows by scalar substitution. This derivation specifies a continuous density version and does not condition through a ratio with a zero-probability singleton. Conditional distributions are only uniquely determined almost everywhere in general.
+
+The same characteristic-function factorization proves that zero cross-covariance of Gaussian subvectors is equivalent to their independence. The statement requires the joint Gaussian assumption, not merely normal marginal distributions.
+
+### B.5. Density factorization and singular conditioning
 
 For positive-definite $\Sigma$, partition into blocks as in the main note. Let $B=\Sigma_{VU}\Sigma_{UU}^{-1}$ and $C=\Sigma_{VV}-\Sigma_{VU}\Sigma_{UU}^{-1}\Sigma_{UV}$. For any nonzero $v$, take the vector $(-\Sigma_{UU}^{-1}\Sigma_{UV}v,v)^T$. Its quadratic form under $\Sigma$ is $v^TCv>0$, proving that $C$ is positive definite. Triangular factorization gives
 
@@ -173,7 +176,9 @@ $$\operatorname{Cov}(V\mid U=u)=\Sigma_{VV}-\Sigma_{VU}\Sigma_{UU}^{+}\Sigma_{UV
 
 Values outside the support cannot be inferred from the joint law. This extension is not a license to substitute an ordinary inverse into a singular density formula.
 
-## 8. Independence, linear maps and conditional residuals
+### B.6. Independence and affine transformations
+
+For an $m\times k$ matrix $B$ and vector $b$, $B\mathbf X+b=B\boldsymbol\mu+b+BA\mathbf Z$ is Gaussian with covariance $B\Sigma B^T$. Taking $B$ to select coordinates proves the marginal property. Taking a single row proves the linear-combination property. The characteristic function above establishes that Gaussian laws are determined by their means and covariance matrices, including singular cases.
 
 For a jointly Gaussian partition, its characteristic function is
 
@@ -198,7 +203,22 @@ $$\operatorname{Cov}(V)=E[\operatorname{Cov}(V\mid U)]
 
 These identities make precise the split between remaining uncertainty and variation explained by the observation. Without joint normality, a residual uncorrelated with the predictors need not be independent of them, and a conditional mean need not be linear.
 
-## 9. Characteristic-function preview of the central limit theorem {#clt-transform-preview}
+### B.7. Probability inside a bivariate ellipse
+
+Let $\mathbf X\sim N_2(\boldsymbol\mu,\Sigma)$ with $\Sigma$ positive definite and whiten to $\mathbf Z$. The squared Mahalanobis distance is
+
+$$Q=(\mathbf X-\boldsymbol\mu)^T\Sigma^{-1}(\mathbf X-\boldsymbol\mu)=Z_1^2+Z_2^2.$$
+
+For $c\ge0$, polar integration gives
+
+$$\begin{aligned}
+P(Q\le c)&=\int_0^{2\pi}\int_0^{\sqrt c}\frac1{2\pi}e^{-r^2/2}r\,dr\,d\theta\\
+&=\left[-e^{-r^2/2}\right]_0^{\sqrt c}=1-e^{-c/2}.
+\end{aligned}$$
+
+Thus $Q$ has a chi-square distribution with two degrees of freedom. The probability-$\alpha$ ellipse has $c=-2\log(1-\alpha)$ for $0<\alpha<1$. In $k$ dimensions the analogous quadratic form is chi-square with $k$ degrees of freedom; the simple exponential CDF here is specific to $k=2$.
+
+## Part C · Characteristic functions and convergence {#clt-transform-preview}
 
 A [standalone detailed proof](08-central-limit-theorem-proof.qmd) develops the Taylor remainder, complex logarithm limit and Gaussian-smoothing argument for CDF convergence. The following is the shorter reference version.
 

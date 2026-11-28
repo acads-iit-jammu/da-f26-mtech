@@ -1,144 +1,59 @@
 ---
-title: "01.7 · The multivariate normal distribution"
+title: "01.7 · Gaussian distributions: univariate and multivariate"
 format:
   html:
     html-math-method: mathml
     css: probability-notes.css
+    toc-depth: 3
 ---
 
 **Data Analytics for AI · Executive M.Tech · IIT Jammu**  
 [Previous: transformations](06-transformations.qmd) · [Rigorous supplement](07-normal-supplement.qmd) · [Module overview](../modules.qmd)
 
-## Questions and objectives
+## Reading route
 
-Two sensors measure deviations from their calibration targets. Each deviation can be positive or negative. If they share an environmental disturbance, large values may occur together. Knowing each marginal distribution does not determine the probability of simultaneous deviations or the distribution of one sensor after observing the other.
+This lecture has two self-contained parts. **Part A** develops one Gaussian variable from its density through its MGF, CGF, characteristic function and transformations. **Part B** repeats that sequence for a $k$-dimensional vector, then derives marginal and conditional laws and matrix transformations. The scalar results are prerequisites for the vector results; we will not alternate between the two settings.
 
-We will construct a multivariate normal vector, define its density and covariance matrix, derive its two-dimensional form, and use its marginals, conditional laws and linear transformations. We will interpret density contours and generate correlated observations. All sensor and financial models below are hypothetical; a normal law is an assumption to examine, not a conclusion from a mean and covariance alone.
+All numerical models below are hypothetical. The normal-family assumption is substantive: a mean and variance, or a mean vector and covariance matrix, do not determine an arbitrary distribution.
 
-## 1. Start with the mean vector and covariance matrix
+| Part | Main question | Route |
+|---|---|---|
+| A: one variable | How do we describe and transform one measurement? | Density → MGF → CGF → characteristic function → transformations and examples |
+| B: a vector | How do related measurements behave together and after observation? | Joint density → joint transforms → marginals → conditionals → independence → affine maps |
+| C: further uses | What else do the transform methods accomplish? | Independent Poisson sums and the CLT preview, with interactive demonstrations |
 
-For $k$ related measurements, let $\mathbf X=(X_1,\ldots,X_k)^T\in\mathbb R^k$. We begin with the stipulated model
+## Part A · The univariate Gaussian {#univariate-gaussian}
 
-$$\boxed{\mathbf X\sim N_k(\boldsymbol\mu,\Sigma)},\qquad
-\boldsymbol\mu=\begin{pmatrix}\mu_1\\\vdots\\\mu_k\end{pmatrix},\qquad
-\Sigma=(\sigma_{ij})_{i,j=1}^k,$$
+### A.1. One measurement: density and probabilities
 
-where $\mu_i=E[X_i]$ and $\sigma_{ij}=\operatorname{Cov}(X_i,X_j)$. The covariance matrix is symmetric positive semidefinite; assume it is positive definite whenever using an ordinary $k$-dimensional density or $\Sigma^{-1}$. All general derivations below use arbitrary $k$. An affine map $A\in\mathbb R^{m\times k}$ may produce a different number $m$ of outputs. The two- and three-dimensional examples are concrete instances of these statements.
+Suppose a calibration error $X$, in measurement units, is modelled as $N(2,9)$. A value above 5 triggers recalibration. To calculate its probability we need a distribution, not just a typical error of 2 and variance 9.
 
-
-Suppose the joint model for two signed calibration errors is specified as
-
-$$\mathbf X\sim N_2(\boldsymbol\mu,\Sigma),\qquad
-\boldsymbol\mu=\begin{pmatrix}0\\0\end{pmatrix},\qquad
-\Sigma=\begin{pmatrix}1&1\\1&4\end{pmatrix}.$$
-
-What does this specification tell us about either measurement alone, about the second after observing the first, and about a weighted combination? Those are different distributions derived from the same joint model. We will first interpret the parameters, then derive the general formulas for $N_k(\boldsymbol\mu,\Sigma)$. The normal-family assumption is essential: mean and covariance alone do not specify an arbitrary distribution.
-
-Here the variances are 1 and 4, so the standard deviations are 1 and 2. The covariance is 1, giving correlation $1/2$. The matrix is positive definite because its first leading principal minor is 1 and its determinant is 3. Thus a full two-dimensional density exists. We can construct this specified model as follows.
-
-### A numerical model before the general definition
-
-Let $Z_1,Z_2$ be independent standard normal variables, each with density
+Start with a standard normal $Z$, whose density is
 
 $$\phi(z)=\frac1{\sqrt{2\pi}}e^{-z^2/2},\qquad z\in\mathbb R.$$
 
-This is the one-dimensional normal distribution with mean 0 and variance 1. In general, $N(\mu,\sigma^2)$ has mean $\mu$, variance $\sigma^2>0$, and density $\phi((x-\mu)/\sigma)/\sigma$.
+It has mean 0 and variance 1. Define $X=\mu+\sigma Z$ with $\sigma>0$. The inverse transformation is $z=(x-\mu)/\sigma$, with absolute derivative $1/\sigma$. Therefore
 
-Define two sensor errors in a common measurement unit:
+$$\boxed{f_X(x)=\frac1{\sqrt{2\pi}\sigma}
+\exp\left[-\frac{(x-\mu)^2}{2\sigma^2}\right],\qquad x\in\mathbb R.}$$
 
-$$X_1=Z_1,\qquad X_2=Z_1+\sqrt3 Z_2.$$
+We write $X\sim N(\mu,\sigma^2)$. The parameters are the mean $E[X]=\mu$ and variance $\operatorname{Var}(X)=\sigma^2$. Substituting $z=(x-\mu)/\sigma$ verifies that this density integrates to one. The [supplement](07-normal-supplement.qmd#univariate-proofs) supplies the standard-normal normalization and moment integrals.
 
-Linearity of expectation gives both means zero. Independence gives
+The CDF is $F_X(x)=\Phi((x-\mu)/\sigma)$, where $\Phi(a)=\int_{-\infty}^a\phi(z)dz$. For the calibration model, $\sigma=3$ and
 
-$$\operatorname{Var}(X_1)=1,\qquad
-\operatorname{Var}(X_2)=1+3=4,$$
+$$P(X>5)=1-\Phi((5-2)/3)=1-\Phi(1)\approx0.159.$$
 
-$$\operatorname{Cov}(X_1,X_2)=E[Z_1(Z_1+\sqrt3Z_2)]=1.$$
+Also $P(-1<X\le5)=\Phi(1)-\Phi(-1)\approx0.683$. These are areas under the density. The density value $f_X(2)=1/(3\sqrt{2\pi})$ is not $P(X=2)$, which is zero. Normal support is unbounded, so the model is appropriate only when its permitted values make sense for the quantity under study.
 
-Their correlation is $1/(1\cdot2)=1/2$. The term $Z_1$ shared by the two formulas creates covariance. If we know $X_1=1$, the natural conditional model is $X_2=1+\sqrt3 Z_2$, giving conditional mean 1 and variance 3. We will justify this using the joint density later in the lecture.
+### A.2. MGF: definition and derivation {#normal-transforms}
 
-### Mean vector and covariance matrix
+We may want a distribution for a transformed measurement without constructing a new CDF integral. The **moment generating function** provides one method:
 
-For a column vector $\mathbf X=(X_1,\ldots,X_k)^T$ with finite second moments, define
+$$M_X(t)=E[e^{tX}].$$
 
-$$\boldsymbol\mu=E[\mathbf X],\qquad
-\Sigma=E[(\mathbf X-\boldsymbol\mu)(\mathbf X-\boldsymbol\mu)^T].$$
+The parameter $t$ is chosen, not random. The function averages $e^{tX}$ over the law of $X$. Its derivatives at zero give moments, and an MGF finite near zero uniquely identifies a distribution. For Gaussians it is finite for every real $t$.
 
-The diagonal entries are variances; entry $(i,j)$ is $\operatorname{Cov}(X_i,X_j)$. In the sensor model,
-
-$$\boldsymbol\mu=\begin{pmatrix}0\\0\end{pmatrix},\qquad
-\Sigma=\begin{pmatrix}1&1\\1&4\end{pmatrix}.$$
-
-Every covariance matrix is symmetric and positive semidefinite: for any vector $a$, $a^T\Sigma a=\operatorname{Var}(a^T\mathbf X)\ge0$. Positive definite means this is strictly positive for every nonzero $a$; it excludes a linear combination with zero variance.
-
-## 2. Definition and density
-
-A vector is **multivariate normal**, or **jointly Gaussian**, if every linear combination $a^T\mathbf X$ is a univariate normal variable, allowing a constant as a degenerate normal. Equivalently, it can be represented as
-
-$$\mathbf X=\boldsymbol\mu+A\mathbf Z,$$
-
-where $\mathbf Z$ has independent standard normal components. Its covariance is $AA^T$. We write $\mathbf X\sim N_k(\boldsymbol\mu,\Sigma)$.
-
-For a **positive definite** $k\times k$ covariance matrix, the joint density is
-
-$$f_{\mathbf X}(\mathbf x)=
-\frac{1}{(2\pi)^{k/2}|\Sigma|^{1/2}}
-\exp\left[-\frac12(\mathbf x-\boldsymbol\mu)^T\Sigma^{-1}(\mathbf x-\boldsymbol\mu)\right],
-\qquad\mathbf x\in\mathbb R^k.$$
-
-Here $|\Sigma|$ denotes the determinant. A canonical probability model is $(\mathbb R^k,\mathcal B(\mathbb R^k),P)$ with $P(B)=\int_B f_{\mathbf X}(\mathbf x)d\mathbf x$ and coordinate random variables. The density is nonnegative and integrates to 1. It is not the probability of a point, which is zero.
-
-To see where the formula comes from, choose an invertible $L$ with $LL^T=\Sigma$, and transform independent standard normals by $\mathbf x=\boldsymbol\mu+L\mathbf z$. The inverse Jacobian factor is $1/|\det L|=1/\sqrt{|\Sigma|}$, and $\mathbf z^T\mathbf z=(\mathbf x-\boldsymbol\mu)^T\Sigma^{-1}(\mathbf x-\boldsymbol\mu)$. This applies the previous lecture's change-of-variables rule. The supplement supplies the full normalization argument.
-
-### Worked example: evaluate and interpret a density
-
-For the sensor covariance,
-
-$$|\Sigma|=4-1=3,\qquad
-\Sigma^{-1}=\frac13\begin{pmatrix}4&-1\\-1&1\end{pmatrix}.$$
-
-At $\mathbf x=(1,2)^T$, the quadratic form is
-
-$$q=\frac13(4(1)^2-2(1)(2)+(2)^2)=\frac43.$$
-
-Therefore
-
-$$f(1,2)=\frac{1}{2\pi\sqrt3}e^{-2/3}\approx0.04718.$$
-
-This is a density in inverse squared measurement units. A small rectangle centered there with widths $h_1,h_2$ has probability approximately $f(1,2)h_1h_2$ when the density varies little over it. The exact probability is its double integral, not $0.04718$.
-
-**Practice check N1.** For the same model, evaluate the quadratic form and density at $(1,-2)^T$. Explain the comparison with $(1,2)^T$ using the sign of the covariance.
-
-## 3. MGF, CGF, characteristic function and moments {#normal-transforms}
-
-### Start with a weighted measurement: what is its distribution?
-
-Suppose two measurements of related quantities are combined into a reported score. In a hypothetical model,
-
-$$\mathbf X\sim N_2\left(\begin{pmatrix}10\\12\end{pmatrix},
-\begin{pmatrix}4&2\\2&9\end{pmatrix}\right),\qquad Y=0.6X_1+0.4X_2.$$
-
-All measurements use the same unit. Before deriving any new distribution, calculate
-
-$$E[Y]=0.6(10)+0.4(12)=10.8,$$
-
-$$\operatorname{Var}(Y)=0.6^2(4)+0.4^2(9)+2(0.6)(0.4)(2)=3.84.$$
-
-Now suppose a reported score above 13 triggers a repeat measurement. We need $P(Y>13)$. The mean and variance alone do not generally answer this question: different distributions can share both. We need to establish the distribution of $Y$ under our joint-normal assumption.
-
-One route would construct its CDF as an integral over the region $0.6x_1+0.4x_2\le y$. An MGF offers another route: a weighted sum becomes a substitution into a function we already know. We will define that function, derive it for the Gaussian, and return to this calculation.
-
-### What an MGF records
-
-For a scalar variable, $M_X(t)=E[e^{tX}]$ averages the transformed values $e^{tX}$ over the distribution. Here $t$ is a parameter we choose, not another random observation. Varying it produces a function that can identify the law and provide moments by differentiation. The exponential is useful because $e^{t(X+Y)}=e^{tX}e^{tY}$; independence will let us factor the expectation of this product.
-
-For a real column vector $t\in\mathbb R^k$, the **moment generating function (MGF)** is
-
-$$M_{\mathbf X}(t)=E[\exp(t^T\mathbf X)],$$
-
-where this expectation is finite. A general distribution may not have a finite MGF near zero. A Gaussian vector does: its MGF exists for every real $t$.
-
-### One-dimensional Gaussian: derive the MGF {#scalar-gaussian-transforms}
+[]{#scalar-gaussian-transforms}
 
 Before using vectors, consider one measurement $X\sim N(\mu,\sigma^2)$ with $\sigma>0$. Starting from its density,
 
@@ -166,7 +81,7 @@ $$\boxed{M_X(t)=\exp(\mu t+\tfrac12\sigma^2t^2),\qquad t\in\mathbb R.}$$
 
 For a standard normal $Z$, set $\mu=0,\sigma^2=1$ to obtain $M_Z(t)=e^{t^2/2}$. The integral shows directly that the Gaussian MGF is finite at every real argument.
 
-### One-dimensional Gaussian: derive the CGF
+### A.3. CGF and moments
 
 The **cumulant generating function (CGF)** is the logarithm of the MGF:
 
@@ -182,134 +97,14 @@ By contrast, $M_X''(0)=E[X^2]=\mu^2+\sigma^2$. The MGF generates raw moments; th
 
 For example, $X\sim N(2,9)$ has $M_X(t)=e^{2t+9t^2/2}$ and $K_X(t)=2t+9t^2/2$. The first derivative of either at zero is 2; the second derivative of the MGF is 13, while that of the CGF is 9.
 
-### General $k$-dimensional Gaussian: derive the joint MGF
+For clarity, differentiate the MGF itself:
 
-Now let $\mathbf X\sim N_k(\mu,\Sigma)$, with a column parameter $t\in\mathbb R^k$. Replace the scalar product $tx$ with $t^Tx$ and the squared standardized deviation with its covariance-weighted quadratic form. The same completion-of-the-square method applies.
+$$M_X'(t)=(\mu+\sigma^2t)M_X(t),\qquad
+M_X''(t)=\left[\sigma^2+(\mu+\sigma^2t)^2\right]M_X(t).$$
 
-For a positive-definite covariance, put $u=x-\mu$. The exponent in the multivariate density integral satisfies
+At zero, these are $E[X]=\mu$ and $E[X^2]=\sigma^2+\mu^2$. Subtract the squared mean to obtain the variance. Taking derivatives of $\log M$ performs this centering automatically for the second cumulant.
 
-$$t^Tu-\frac12u^T\Sigma^{-1}u
-=-\frac12(u-\Sigma t)^T\Sigma^{-1}(u-\Sigma t)+\frac12t^T\Sigma t.$$
-
-Consequently,
-
-$$\begin{aligned}
-M_{\mathbf X}(t)
-&=e^{t^T\mu+\frac12t^T\Sigma t}
-\int_{\mathbb R^k}\frac{\exp[-\frac12(u-\Sigma t)^T\Sigma^{-1}(u-\Sigma t)]}
-{(2\pi)^{k/2}|\Sigma|^{1/2}}du\\
-&=\boxed{\exp\left(t^T\mu+\tfrac12t^T\Sigma t\right)}.
-\end{aligned}$$
-
-The remaining integral is a translated normalized Gaussian density. For a possibly singular covariance, use $\mathbf X=\mu+A\mathbf Z$ instead: independence gives $M_{\mathbf Z}(v)=\exp(v^Tv/2)$, hence $M_{\mathbf X}(t)=e^{t^T\mu}M_{\mathbf Z}(A^Tt)$ and the same formula with $AA^T=\Sigma$.
-
-### General $k$-dimensional Gaussian: derive the joint CGF
-
-Taking the real logarithm of the Gaussian MGF gives
-
-$$\boxed{K_{\mathbf X}(t)=\log M_{\mathbf X}(t)
-=t^T\mu+\tfrac12t^T\Sigma t.}$$
-
-Since $\Sigma$ is symmetric, differentiation of its quadratic form gives
-
-$$\nabla K_{\mathbf X}(t)=\mu+\Sigma t,\qquad
-\nabla^2K_{\mathbf X}(t)=\Sigma.$$
-
-Thus the gradient at zero gives the mean vector and the Hessian gives the covariance matrix. In particular,
-
-$$\left.\frac{\partial^2K_{\mathbf X}}{\partial t_i\partial t_j}\right|_{t=0}
-=\Sigma_{ij},\qquad
-\left.\frac{\partial^2M_{\mathbf X}}{\partial t_i\partial t_j}\right|_{t=0}
-=\Sigma_{ij}+\mu_i\mu_j.$$
-
-All higher joint cumulants vanish, not all higher joint moments. The [supplement](07-normal-supplement.qmd#gaussian-transform-derivations) gives the differentiation justification and a fourth-moment example.
-
-### Return to the weighted measurement
-
-The Gaussian MGF just derived is
-
-$$M_{\mathbf X}(t_1,t_2)=\exp\left[10t_1+12t_2+\tfrac12(4t_1^2+4t_1t_2+9t_2^2)\right].$$
-
-Use the definition of $Y$ inside the expectation:
-
-$$\begin{aligned}
-M_Y(t)&=E[e^{t(0.6X_1+0.4X_2)}]\\
-&=M_{\mathbf X}(0.6t,0.4t)\\
-&=\exp\left(10.8t+\tfrac12(3.84)t^2\right).
-\end{aligned}$$
-
-This is the MGF of $N(10.8,3.84)$. MGFs that are finite in a neighborhood of zero uniquely identify a distribution, so
-
-$$\boxed{Y\sim N(10.8,3.84).}$$
-
-The requested probability is now
-
-$$P(Y>13)=1-\Phi\left(\frac{13-10.8}{\sqrt{3.84}}\right)
-=1-\Phi(1.123\ldots)\approx0.131.$$
-
-Here $\Phi$ is the standard-normal CDF. The standard deviation, not the variance, belongs in the denominator. We have identified the whole law and used it for a decision threshold. We did not assume the measurements were independent: their covariance 2 appears in the joint MGF and in the variance calculation. The general matrix version is derived in subsection 6.
-
-### Read moments from derivatives
-
-The name “moment generating” comes from differentiation. In one dimension,
-
-$$\frac{d}{dt}e^{tX}=Xe^{tX},\qquad
-\frac{d^2}{dt^2}e^{tX}=X^2e^{tX}.$$
-
-Setting $t=0$ leaves $X$ and $X^2$. When differentiation can pass through the expectation, $M_X'(0)=E[X]$ and $M_X''(0)=E[X^2]$. For the reported score, this gives $M_Y'(0)=10.8$ and $M_Y''(0)=3.84+10.8^2=120.48$. Subtracting $10.8^2$ recovers variance 3.84. The second derivative gives the second moment, not directly the variance.
-
-For vectors, partial derivatives perform the same operation on chosen coordinates. The gradient is the column of first partial derivatives; the Hessian is the matrix of second partial derivatives. Differentiating under the expectation is justified here by the Gaussian's finite exponential moments. Define $K(t)=\log M_{\mathbf X}(t)$, the **cumulant generating function**. Then
-
-$$\nabla M(0)=E[\mathbf X]=\mu,\qquad
-\nabla^2M(0)=E[\mathbf X\mathbf X^T]=\Sigma+\mu\mu^T,$$
-
-$$\nabla K(0)=\mu,\qquad\nabla^2K(0)=\Sigma.$$
-
-Indeed $\partial_iM=(\mu_i+(\Sigma t)_i)M$, and
-
-$$\partial_j\partial_iM=
-\left[\Sigma_{ij}+(\mu_i+(\Sigma t)_i)(\mu_j+(\Sigma t)_j)\right]M.$$
-
-Evaluating at zero gives $E[X_iX_j]=\Sigma_{ij}+\mu_i\mu_j$. The Hessian of $M$ gives raw second moments; the Hessian of $\log M$ gives covariance. Gaussian cumulants of order greater than two vanish, but higher moments generally do not.
-
-For our zero-mean sensor model,
-
-$$M(t_1,t_2)=\exp\left[\tfrac12(t_1^2+2t_1t_2+4t_2^2)\right].$$
-
-The second derivatives at zero give $E[X_1^2]=1$, $E[X_1X_2]=1$, and $E[X_2^2]=4$. Setting $(t_1,t_2)=(u,u)$ gives $M_{X_1+X_2}(u)=e^{7u^2/2}$, identifying $X_1+X_2\sim N(0,7)$.
-
-### A second MGF application: combine independent counts
-
-Suppose two independent inspection lines produce defect counts $N_1$ and $N_2$ during a fixed interval. Stipulate $N_j\sim\operatorname{Poisson}(\lambda_j)$, where $\lambda_j>0$ is its mean count. The Poisson PMF is
-
-$$P(N_j=n)=e^{-\lambda_j}\frac{\lambda_j^n}{n!},\qquad n=0,1,2,\ldots.$$
-
-What is the distribution of the combined count $N=N_1+N_2$? From the PMF and the exponential series,
-
-$$\begin{aligned}
-M_{N_j}(t)&=\sum_{n=0}^\infty e^{tn}e^{-\lambda_j}\frac{\lambda_j^n}{n!}\\
-&=e^{-\lambda_j}\sum_{n=0}^\infty\frac{(\lambda_j e^t)^n}{n!}\\
-&=e^{-\lambda_j}e^{\lambda_j e^t}
-=\exp\{\lambda_j(e^t-1)\}.
-\end{aligned}$$
-
-Independence now provides the useful step:
-
-$$\begin{aligned}
-M_N(t)&=E[e^{tN_1}e^{tN_2}]\\
-&=E[e^{tN_1}]E[e^{tN_2}]\\
-&=\exp\{(\lambda_1+\lambda_2)(e^t-1)\}.
-\end{aligned}$$
-
-Recognizing the same Poisson form gives $N\sim\operatorname{Poisson}(\lambda_1+\lambda_2)$. For example, mean counts 2 and 3 give $N\sim\operatorname{Poisson}(5)$, so $P(N=0)=e^{-5}$. The calculation establishes the entire count distribution, not just its mean 5. This model does not assert that actual defect counts are Poisson or independent; those are explicit assumptions.
-
-For independent variables, the transform of a sum is the product of their transforms. Independence is needed for the product rule, not for linearity of expectation. The earlier correlated-measurement example used the **joint** MGF instead of multiplying marginal MGFs.
-
-[Explore Poisson addition interactively](../materials/07-multivariate-normal/poisson-addition.html). Vary both rates and compare the simulated sum with its exact Poisson law. Then introduce shared counts: the marginal distributions stay Poisson, but independence fails and the sum law changes. Inspect an individual convolution probability with the count slider.
-
-**Practice check N9.** Two independent Poisson counts have means 1 and 4. Derive the MGF of their total and calculate the probability that the total is at most 1. Explain which step would fail if the counts were dependent.
-
-### Characteristic function: a description that always exists
+### A.4. Characteristic function: definition and derivation
 
 We would also like to study sums when exponential moments are not finite. A finite mean and variance do not guarantee a finite MGF near zero. We therefore need a transform that remains available. Replace the growing real exponential with a complex exponential of magnitude 1.
 
@@ -323,9 +118,9 @@ For each outcome this is a point on the unit circle; the expectation averages it
 
 The **characteristic function** is
 
-$$\varphi_{\mathbf X}(t)=E[e^{it^T\mathbf X}],\qquad i^2=-1.$$
+$$\varphi_X(t)=E[e^{itX}],\qquad i^2=-1.$$
 
-Unlike an MGF, it exists for every real $t$ for every probability law, because $|e^{it^T\mathbf X}|=1$. It uniquely determines the law, including laws without a density.
+Unlike an MGF, it exists for every real $t$ for every probability law, because $|e^{itX}|=1$. It uniquely determines the law, including laws without a density.
 
 For $Z\sim N(0,1)$, let $\psi(t)=E[e^{itZ}]$. Using $\phi'(z)=-z\phi(z)$ and integration by parts,
 
@@ -344,69 +139,148 @@ $$\begin{aligned}
 
 For $X\sim N(2,9)$ this is $e^{2it-9t^2/2}$. Notice the imaginary linear term and the negative quadratic term, in contrast with the MGF. Its magnitude is $e^{-\sigma^2t^2/2}\le1$.
 
-For the $k$-dimensional vector, write $\mathbf X=\mu+A\mathbf Z$, $AA^T=\Sigma$, and put $v=A^Tt$. The components of $\mathbf Z$ are independent standard normals, so
+### A.5. Transformations: shifts, scales and nonlinear functions
 
-$$E[e^{iv^T\mathbf Z}]=\prod_j E[e^{iv_jZ_j}]
-=\prod_j e^{-v_j^2/2}=e^{-v^Tv/2}.$$
+Suppose a new reporting scale is $Y=aX+b$. Directly from the MGF definition,
 
-Because $v^Tv=t^TAA^Tt=t^T\Sigma t$, we obtain
+$$\begin{aligned}
+M_Y(t)&=E[e^{t(aX+b)}]=e^{bt}M_X(at)\\
+&=\exp\left[(a\mu+b)t+\tfrac12a^2\sigma^2t^2\right].
+\end{aligned}$$
 
-$$\boxed{\varphi_{\mathbf X}(t)
-=e^{it^T\mu}\prod_j e^{-((A^Tt)_j)^2/2}
-=\exp\left(it^T\mu-\tfrac12t^T\Sigma t\right).}$$
+Recognizing the normal MGF gives
 
-This derivation also applies to singular $\Sigma$. It avoids assuming that an arbitrary real MGF can be evaluated at complex arguments. The Gaussian formulas do have that analytic connection, but the characteristic-function definition stands on its own.
+$$\boxed{Y\sim N(a\mu+b,a^2\sigma^2).}$$
 
-### Compare the three Gaussian transforms
+For $a\ne0$, its density is also obtained by $f_Y(y)=f_X((y-b)/a)/|a|$. The absolute value matters if the scale reverses direction. For $a=0$, $Y=b$ is constant: it has a point mass, no ordinary density, MGF $e^{bt}$ and characteristic function $e^{ibt}$.
 
-| Function | $X\sim N(\mu,\sigma^2)$ | $\mathbf X\sim N_k(\mu,\Sigma)$ |
-|---|---|---|
-| MGF | $e^{\mu t+\sigma^2t^2/2}$ | $e^{t^T\mu+t^T\Sigma t/2}$ |
-| CGF | $\mu t+\sigma^2t^2/2$ | $t^T\mu+t^T\Sigma t/2$ |
-| Characteristic function | $e^{i\mu t-\sigma^2t^2/2}$ | $e^{it^T\mu-t^T\Sigma t/2}$ |
+For our calibration example $X\sim N(2,9)$, the corrected and rescaled reading $Y=2X-1$ has law $N(3,36)$. Thus $P(Y>9)=1-\Phi((9-3)/6)=1-\Phi(1)$. This agrees with the original event $\{X>5\}$.
 
-The scalar parameter $t$ becomes a vector; variance becomes covariance; the scalar quadratic term becomes $t^T\Sigma t$. These formulas remain valid for zero scalar variance or singular covariance, even though the corresponding full-dimensional density does not exist. The affine-normal construction, rather than an inverse covariance, establishes those cases.
+A nonlinear transformation need not preserve normality. For $Z\sim N(0,1)$ and $V=Z^2$, when $v\ge0$,
 
-### Application preview: why averages become approximately normal
+$$F_V(v)=P(-\sqrt v\le Z\le\sqrt v)=2\Phi(\sqrt v)-1.$$
 
-Suppose repeated measurement errors $E_1,E_2,\ldots$ are independent and identically distributed, with mean $\mu$ and finite variance $0<\sigma^2<\infty$. Their individual distribution need not be normal. For example, a stipulated bounded uniform error model meets these conditions.
+The CDF is zero for $v<0$. Differentiating for $v>0$ gives
 
-The average $\bar E_n$ has mean $\mu$ and variance $\sigma^2/n$. To study its *shape* rather than its shrinking scale, define
+$$f_V(v)=\frac{\phi(\sqrt v)}{\sqrt v}
+=\frac{e^{-v/2}}{\sqrt{2\pi v}},\qquad v>0,$$
 
-$$Z_j=\frac{E_j-\mu}{\sigma},\qquad
-S_n=\frac{Z_1+\cdots+Z_n}{\sqrt n}
-=\frac{\sqrt n(\bar E_n-\mu)}{\sigma}.$$
+and zero otherwise. This is the chi-square law with one degree of freedom. Its support is nonnegative, unlike a nondegenerate normal law. There is no atom at zero because $P(Z=0)=0$.
 
-Each $Z_j$ has mean 0 and variance 1. Independence and the rule for rescaling a transform give
+### A.6. Use the transforms: independent sums and averages
 
-$$\varphi_{S_n}(t)=\left[\varphi_Z\left(\frac{t}{\sqrt n}\right)\right]^n.$$
+For independent $X_j\sim N(\mu_j,\sigma_j^2)$, set $T=\sum_j a_jX_j$. Independence gives
 
-For small $u$, mean zero and variance one imply
+$$M_T(t)=\prod_j M_{X_j}(a_jt)
+=\exp\left[t\sum_j a_j\mu_j+\tfrac12t^2\sum_j a_j^2\sigma_j^2\right].$$
 
-$$\varphi_Z(u)=1-\frac{u^2}{2}+o(u^2).$$
+Therefore $T\sim N(\sum_j a_j\mu_j,\sum_j a_j^2\sigma_j^2)$. The corresponding CGFs add: $K_T(t)=\sum_j K_{X_j}(a_jt)$. Characteristic functions give the same conclusion with imaginary linear and negative quadratic terms.
 
-The notation $o(u^2)$ means a remainder whose ratio to $u^2$ tends to zero. The linear term disappears because the mean is zero; the quadratic term records variance one. Substituting into the product gives, for each fixed $t$,
+For nine independent observations from $N(2,9)$, the average is exactly $N(2,1)$, so $P(\bar X_9>3)=1-\Phi(1)$. This is exact for normal observations; a normal approximation for nonnormal observations requires a limiting argument, developed in Part C and the standalone CLT note.
 
-$$\varphi_{S_n}(t)=\left[1-\frac{t^2}{2n}+o(1/n)\right]^n
-\longrightarrow e^{-t^2/2}.$$
+Knowing only that individual marginals are normal is not enough to use the independent-product formula. Part B supplies a joint model for correlated measurements and keeps the covariance terms.
 
-We recognize the standard-normal characteristic function. The continuity theorem for characteristic functions turns this limit into convergence in distribution: $S_n\xrightarrow{d}N(0,1)$. Thus, for sufficiently large $n$ in a suitable application, the average is approximated by $N(\mu,\sigma^2/n)$.
+**Practice check U1.** If $X\sim N(-1,4)$, write its MGF, CGF and characteristic function. Find the law of $3-2X$ and express $P(3-2X>9)$ in terms of $\Phi$.
 
-This is the central limit theorem in the independent, identically distributed, finite-variance setting. It explains why a normal approximation can emerge even when individual errors are not normal. It does not make each individual error normal, establish independence from data, or specify a universally sufficient sample size. It also does not by itself quantify the approximation error for a finite $n$.
+**Stopping point.** Complete the scalar density, three transforms and transformations before introducing vectors.
 
-The characteristic function is useful here because it turns a sum into a product and lets us recognize the limiting law; no MGF assumption is needed. If the errors are already independent normal variables, the normal law for their average is exact for every $n$. The [supplement gives the expansion and continuity theorem precisely](07-normal-supplement.qmd#clt-transform-preview); the convergence module will revisit this argument.
+## Part B · The multivariate Gaussian in $k$ dimensions {#multivariate-gaussian}
 
-[Explore the central limit theorem interactively](../materials/07-multivariate-normal/central-limit-theorem.html). Compare individual observations, sample means and standardized means at sample sizes 1, 10 and 100. Try skewed exponential and rare-event Bernoulli populations before using normal input, where the result is exact at every sample size.
+### B.1. Mean vector, covariance and joint density
 
-For the full argument, including all limit justifications and a proof of the final distributional step, read the [standalone central limit theorem proof](08-central-limit-theorem-proof.qmd).
+Two measurements can each look normal while their simultaneous behavior remains unspecified. A joint Gaussian model states how every linear combination behaves; its off-diagonal covariances describe linear association between coordinates.
 
-**Practice check N10.** Independent observations have common mean 10 and variance 9. For the mean of 36 observations, identify the normal approximation's mean and variance and write the approximate probability that the sample mean exceeds 11 in terms of $\Phi$. Under what stronger distributional assumption is this calculation exact?
+For $k$ related measurements, let $\mathbf X=(X_1,\ldots,X_k)^T\in\mathbb R^k$. We begin with the stipulated model
 
-**Practice check N6.** For $\mu=(1,-2)^T$ and $\Sigma=\begin{pmatrix}4&1\\1&9\end{pmatrix}$, write the MGF and characteristic function. Use derivatives at zero to obtain $E[X_1X_2]$. Compare that answer with the covariance entry.
+$$\boxed{\mathbf X\sim N_k(\boldsymbol\mu,\Sigma)},\qquad
+\boldsymbol\mu=\begin{pmatrix}\mu_1\\\vdots\\\mu_k\end{pmatrix},\qquad
+\Sigma=(\sigma_{ij})_{i,j=1}^k,$$
 
-**Stopping point.** Check the sign of the quadratic term in each transform, and distinguish raw second moments from covariance, before deriving new distributions.
+where $\mu_i=E[X_i]$ and $\sigma_{ij}=\operatorname{Cov}(X_i,X_j)$. The covariance matrix is symmetric positive semidefinite; assume it is positive definite whenever using an ordinary $k$-dimensional density or $\Sigma^{-1}$. All general derivations below use arbitrary $k$. An affine map $A\in\mathbb R^{m\times k}$ may produce a different number $m$ of outputs. The two- and three-dimensional examples are concrete instances of these statements.
 
-## 4. The two-dimensional formula and its geometry
+
+Suppose the joint model for two signed calibration errors is specified as
+
+$$\mathbf X\sim N_2(\boldsymbol\mu,\Sigma),\qquad
+\boldsymbol\mu=\begin{pmatrix}0\\0\end{pmatrix},\qquad
+\Sigma=\begin{pmatrix}1&1\\1&4\end{pmatrix}.$$
+
+What does this specification tell us about either measurement alone, about the second after observing the first, and about a weighted combination? Those are different distributions derived from the same joint model. We will first interpret the parameters, then derive the general formulas for $N_k(\boldsymbol\mu,\Sigma)$. The normal-family assumption is essential: mean and covariance alone do not specify an arbitrary distribution.
+
+Here the variances are 1 and 4, so the standard deviations are 1 and 2. The covariance is 1, giving correlation $1/2$. The matrix is positive definite because its first leading principal minor is 1 and its determinant is 3. Thus a full two-dimensional density exists. We can construct this specified model as follows.
+
+#### Construct the running two-dimensional example
+
+Let $Z_1,Z_2$ be independent standard normal variables, each with density
+
+$$\phi(z)=\frac1{\sqrt{2\pi}}e^{-z^2/2},\qquad z\in\mathbb R.$$
+
+These are the standard normals from Part A.
+
+Define two sensor errors in a common measurement unit:
+
+$$X_1=Z_1,\qquad X_2=Z_1+\sqrt3 Z_2.$$
+
+Linearity of expectation gives both means zero. Independence gives
+
+$$\operatorname{Var}(X_1)=1,\qquad
+\operatorname{Var}(X_2)=1+3=4,$$
+
+$$\operatorname{Cov}(X_1,X_2)=E[Z_1(Z_1+\sqrt3Z_2)]=1.$$
+
+Their correlation is $1/(1\cdot2)=1/2$. The term $Z_1$ shared by the two formulas creates covariance. If we know $X_1=1$, the natural conditional model is $X_2=1+\sqrt3 Z_2$, giving conditional mean 1 and variance 3. We will justify this using the joint density later in the lecture.
+
+#### Interpret the parameters
+
+For a column vector $\mathbf X=(X_1,\ldots,X_k)^T$ with finite second moments, define
+
+$$\boldsymbol\mu=E[\mathbf X],\qquad
+\Sigma=E[(\mathbf X-\boldsymbol\mu)(\mathbf X-\boldsymbol\mu)^T].$$
+
+The diagonal entries are variances; entry $(i,j)$ is $\operatorname{Cov}(X_i,X_j)$. In the sensor model,
+
+$$\boldsymbol\mu=\begin{pmatrix}0\\0\end{pmatrix},\qquad
+\Sigma=\begin{pmatrix}1&1\\1&4\end{pmatrix}.$$
+
+Every covariance matrix is symmetric and positive semidefinite: for any vector $a$, $a^T\Sigma a=\operatorname{Var}(a^T\mathbf X)\ge0$. Positive definite means this is strictly positive for every nonzero $a$; it excludes a linear combination with zero variance.
+
+A vector is **multivariate normal**, or **jointly Gaussian**, if every linear combination $a^T\mathbf X$ is a univariate normal variable, allowing a constant as a degenerate normal. Equivalently, it can be represented as
+
+$$\mathbf X=\boldsymbol\mu+A\mathbf Z,$$
+
+where $\mathbf Z$ has independent standard normal components. Its covariance is $AA^T$. We write $\mathbf X\sim N_k(\boldsymbol\mu,\Sigma)$.
+
+For a **positive definite** $k\times k$ covariance matrix, the joint density is
+
+$$f_{\mathbf X}(\mathbf x)=
+\frac{1}{(2\pi)^{k/2}|\Sigma|^{1/2}}
+\exp\left[-\frac12(\mathbf x-\boldsymbol\mu)^T\Sigma^{-1}(\mathbf x-\boldsymbol\mu)\right],
+\qquad\mathbf x\in\mathbb R^k.$$
+
+Here $|\Sigma|$ denotes the determinant. A canonical probability model is $(\mathbb R^k,\mathcal B(\mathbb R^k),P)$ with $P(B)=\int_B f_{\mathbf X}(\mathbf x)d\mathbf x$ and coordinate random variables. The density is nonnegative and integrates to 1. It is not the probability of a point, which is zero.
+
+To see where the formula comes from, choose an invertible $L$ with $LL^T=\Sigma$, and transform independent standard normals by $\mathbf x=\boldsymbol\mu+L\mathbf z$. The inverse Jacobian factor is $1/|\det L|=1/\sqrt{|\Sigma|}$, and $\mathbf z^T\mathbf z=(\mathbf x-\boldsymbol\mu)^T\Sigma^{-1}(\mathbf x-\boldsymbol\mu)$. This applies the previous lecture's change-of-variables rule. The supplement supplies the full normalization argument.
+
+#### Worked example: evaluate and interpret the joint density
+
+For the sensor covariance,
+
+$$|\Sigma|=4-1=3,\qquad
+\Sigma^{-1}=\frac13\begin{pmatrix}4&-1\\-1&1\end{pmatrix}.$$
+
+At $\mathbf x=(1,2)^T$, the quadratic form is
+
+$$q=\frac13(4(1)^2-2(1)(2)+(2)^2)=\frac43.$$
+
+Therefore
+
+$$f(1,2)=\frac{1}{2\pi\sqrt3}e^{-2/3}\approx0.04718.$$
+
+This is a density in inverse squared measurement units. A small rectangle centered there with widths $h_1,h_2$ has probability approximately $f(1,2)h_1h_2$ when the density varies little over it. The exact probability is its double integral, not $0.04718$.
+
+**Practice check N1.** For the same model, evaluate the quadratic form and density at $(1,-2)^T$. Explain the comparison with $(1,2)^T$ using the sign of the covariance.
+
+### B.2. Bivariate joint density and geometry
 
 Write
 
@@ -430,7 +304,7 @@ Contours are ellipses centered at the mean, with principal directions given by t
 
 [Open the bivariate-normal density and conditioning explorer](../materials/07-multivariate-normal/bivariate-normal.html). Change correlation, means and scales. Compare the density heatmap and its contour with the marginal and conditional curves. The density color scale is displayed; use the numerical values when comparing models.
 
-### A contour is not itself a probability
+#### A contour is not itself a probability
 
 For this bivariate normal law,
 
@@ -438,15 +312,94 @@ $$P(q\le c)=1-e^{-c/2},\qquad c\ge0.$$
 
 Thus the ellipse $q\le1$ contains about $39.35\%$, not $68\%$, of the probability. A 95% **probability ellipse** uses $c=-2\log(0.05)\approx5.991$. It describes the distribution of observations under known parameters; it is not automatically a confidence region for an estimated mean. The contour line itself has probability zero. The supplement derives the interior probability by polar integration.
 
-## 5. Marginal and conditional normal laws
+### B.3. Joint MGF: definition and derivation
 
-### Marginals retain coordinates
+For a real column vector $t$, define $M_{\mathbf X}(t)=E[e^{t^T\mathbf X}]$. It records the law of all weighted combinations through its different arguments.
+
+Now let $\mathbf X\sim N_k(\mu,\Sigma)$, with a column parameter $t\in\mathbb R^k$. Replace the scalar product $tx$ with $t^Tx$ and the squared standardized deviation with its covariance-weighted quadratic form. The same completion-of-the-square method applies.
+
+For a positive-definite covariance, put $u=x-\mu$. The exponent in the multivariate density integral satisfies
+
+$$t^Tu-\frac12u^T\Sigma^{-1}u
+=-\frac12(u-\Sigma t)^T\Sigma^{-1}(u-\Sigma t)+\frac12t^T\Sigma t.$$
+
+Consequently,
+
+$$\begin{aligned}
+M_{\mathbf X}(t)
+&=e^{t^T\mu+\frac12t^T\Sigma t}
+\int_{\mathbb R^k}\frac{\exp[-\frac12(u-\Sigma t)^T\Sigma^{-1}(u-\Sigma t)]}
+{(2\pi)^{k/2}|\Sigma|^{1/2}}du\\
+&=\boxed{\exp\left(t^T\mu+\tfrac12t^T\Sigma t\right)}.
+\end{aligned}$$
+
+The remaining integral is a translated normalized Gaussian density. For a possibly singular covariance, use $\mathbf X=\mu+A\mathbf Z$ instead: independence gives $M_{\mathbf Z}(v)=\exp(v^Tv/2)$, hence $M_{\mathbf X}(t)=e^{t^T\mu}M_{\mathbf Z}(A^Tt)$ and the same formula with $AA^T=\Sigma$.
+
+### B.4. Joint CGF and moments
+
+Taking the real logarithm of the Gaussian MGF gives
+
+$$\boxed{K_{\mathbf X}(t)=\log M_{\mathbf X}(t)
+=t^T\mu+\tfrac12t^T\Sigma t.}$$
+
+Since $\Sigma$ is symmetric, differentiation of its quadratic form gives
+
+$$\nabla K_{\mathbf X}(t)=\mu+\Sigma t,\qquad
+\nabla^2K_{\mathbf X}(t)=\Sigma.$$
+
+Thus the gradient at zero gives the mean vector and the Hessian gives the covariance matrix. In particular,
+
+$$\left.\frac{\partial^2K_{\mathbf X}}{\partial t_i\partial t_j}\right|_{t=0}
+=\Sigma_{ij},\qquad
+\left.\frac{\partial^2M_{\mathbf X}}{\partial t_i\partial t_j}\right|_{t=0}
+=\Sigma_{ij}+\mu_i\mu_j.$$
+
+All higher joint cumulants vanish, not all higher joint moments. The [supplement](07-normal-supplement.qmd#gaussian-transform-derivations) gives the differentiation justification and a fourth-moment example.
+
+To recover raw mixed moments, differentiate the joint MGF as well. Differentiation under the expectation is justified by finite Gaussian exponential moments.
+
+Indeed $\partial_iM=(\mu_i+(\Sigma t)_i)M$, and
+
+$$\partial_j\partial_iM=
+\left[\Sigma_{ij}+(\mu_i+(\Sigma t)_i)(\mu_j+(\Sigma t)_j)\right]M.$$
+
+Evaluating at zero gives $E[X_iX_j]=\Sigma_{ij}+\mu_i\mu_j$. The Hessian of $M$ gives raw second moments; the Hessian of $\log M$ gives covariance. Gaussian cumulants of order greater than two vanish, but higher moments generally do not.
+
+For our zero-mean sensor model,
+
+$$M(t_1,t_2)=\exp\left[\tfrac12(t_1^2+2t_1t_2+4t_2^2)\right].$$
+
+The second derivatives at zero give $E[X_1^2]=1$, $E[X_1X_2]=1$, and $E[X_2^2]=4$. Setting $(t_1,t_2)=(u,u)$ gives $M_{X_1+X_2}(u)=e^{7u^2/2}$, identifying $X_1+X_2\sim N(0,7)$.
+
+### B.5. Joint characteristic function
+
+For $t\in\mathbb R^k$, define $\varphi_{\mathbf X}(t)=E[e^{it^T\mathbf X}]$. It exists for every real vector $t$ because the integrand has magnitude one. We now apply the scalar normal characteristic function derived in A.4 to independent standard-normal coordinates.
+
+For the $k$-dimensional vector, write $\mathbf X=\mu+A\mathbf Z$, $AA^T=\Sigma$, and put $v=A^Tt$. The components of $\mathbf Z$ are independent standard normals, so
+
+$$E[e^{iv^T\mathbf Z}]=\prod_j E[e^{iv_jZ_j}]
+=\prod_j e^{-v_j^2/2}=e^{-v^Tv/2}.$$
+
+Because $v^Tv=t^TAA^Tt=t^T\Sigma t$, we obtain
+
+$$\boxed{\varphi_{\mathbf X}(t)
+=e^{it^T\mu}\prod_j e^{-((A^Tt)_j)^2/2}
+=\exp\left(it^T\mu-\tfrac12t^T\Sigma t\right).}$$
+
+This derivation also applies to singular $\Sigma$. It avoids assuming that an arbitrary real MGF can be evaluated at complex arguments. The Gaussian formulas do have that analytic connection, but the characteristic-function definition stands on its own.
+
+**Practice check N6.** For $\mu=(1,-2)^T$ and $\Sigma=\begin{pmatrix}4&1\\1&9\end{pmatrix}$, write the MGF and characteristic function. Use derivatives at zero to obtain $E[X_1X_2]$. Compare that answer with the covariance entry.
+
+
+### B.6. Marginal and conditional laws
+
+#### Marginals retain coordinates
 
 Ignoring the second sensor in the construction gives $X_1=Z_1\sim N(0,1)$. Ignoring the first gives $X_2=Z_1+\sqrt3Z_2\sim N(0,4)$. This illustrates the general property: every subvector of a jointly normal vector is normal, with the corresponding subvector of means and covariance submatrix.
 
 The statement that $X_2$ is normal follows from joint normality of the independent normal inputs and the linear-combination property. Having normally shaped marginal distributions alone would not justify the full joint model.
 
-### Condition on one observed sensor
+#### Conditional law by completing the square
 
 Complete the square in the bivariate exponent:
 
@@ -474,7 +427,7 @@ whereas $P(X_2>2)=1-\Phi(1)\approx0.159$. The conditioning information changes t
 
 **Practice check N2.** In this sensor model, give the conditional mean and variance at $X_1=-1$. Write $P(X_2>0\mid X_1=-1)$ in terms of $\Phi$.
 
-### General partition: derive both marginal and conditional densities
+#### General block derivation
 
 Suppose only some coordinates are observed. Write
 
@@ -526,7 +479,7 @@ $$\varphi_{V\mid U=u}(t)=\exp\left[it^T(\mu_V+B(u-\mu_U))-\tfrac12t^TCt\right].$
 
 A marginal CDF or joint CDF is obtained by integrating its density over the threshold region. For example, $F_{\mathbf X}(x)=\int_{-\infty}^{x_1}\cdots\int_{-\infty}^{x_k}f_{\mathbf X}(u)du_k\cdots du_1$. There is generally no elementary closed formula for these integrals. A conditional normal probability can instead be standardized using its conditional mean and covariance.
 
-### Worked block calculation: two outputs after one observation
+#### Worked block calculation: two outputs after one observation
 
 Let a hypothetical three-channel calibration vector have
 
@@ -551,7 +504,7 @@ Observing the first channel shifts the second channel's mean and reduces its var
 
 **Practice check N7.** In this model, condition instead on $X_1=-1$. Find the two-dimensional conditional law and the distribution of $X_2+X_3$ given this observation.
 
-### Independence is a special normal-model property
+### B.7. Independence within a joint Gaussian model
 
 For jointly normal scalar components, zero covariance is equivalent to independence. In the bivariate formula, $\rho=0$ removes the cross term and makes the density the product of two marginal normal densities. The same principle applies to subvectors whose cross-covariance matrix is zero.
 
@@ -559,31 +512,49 @@ The qualification **jointly normal** matters. Let $Z\sim N(0,1)$ and independent
 
 **Stopping point.** Compare a marginal distribution, a conditional distribution, and the independence condition before applying matrix transformations.
 
-## 6. Linear transformations, generation and whitening
+### B.8. Affine transformations and their uses
 
-### Worked example: a weighted financial quantity
+#### Worked example: a weighted measurement
 
-Suppose two modelled daily changes, in percentage points, are jointly normal with means 0.1 and 0.2, standard deviations 1 and 2, and correlation $1/2$. Their covariance matrix is the sensor matrix. For $R=0.6X_1+0.4X_2$,
+Suppose two measurements of related quantities are combined into a reported score. In a hypothetical model,
 
-$$E[R]=0.6(0.1)+0.4(0.2)=0.14,$$
+$$\mathbf X\sim N_2\left(\begin{pmatrix}10\\12\end{pmatrix},
+\begin{pmatrix}4&2\\2&9\end{pmatrix}\right),\qquad Y=0.6X_1+0.4X_2.$$
 
-$$\operatorname{Var}(R)=0.6^2(1)+0.4^2(4)+2(0.6)(0.4)(1)=1.48.$$
+All measurements use the same unit. Before deriving any new distribution, calculate
 
-Because this is a linear combination of jointly normal variables,
+$$E[Y]=0.6(10)+0.4(12)=10.8,$$
 
-$$R\sim N(0.14,1.48).$$
+$$\operatorname{Var}(Y)=0.6^2(4)+0.4^2(9)+2(0.6)(0.4)(2)=3.84.$$
 
-For example, $P(R<0)=\Phi(-0.14/\sqrt{1.48})\approx0.454$. This is a calculation within an invented model, not a financial forecast. The mean and variance calculation is valid beyond normal distributions, but the conclusion that $R$ is normal needs the joint-normal assumption.
+Now suppose a reported score above 13 triggers a repeat measurement. We need $P(Y>13)$. The mean and variance alone do not generally answer this question: different distributions can share both. We need to establish the distribution of $Y$ under our joint-normal assumption.
 
-In general,
+One route would construct its CDF as an integral over the region $0.6x_1+0.4x_2\le y$. An MGF offers another route: a weighted sum becomes a substitution into a function we already know. We can now use the joint MGF already derived.
 
-$$\mathbf X\sim N_k(\boldsymbol\mu,\Sigma)
-\quad\Longrightarrow\quad
-A\mathbf X+b\sim N_m(A\boldsymbol\mu+b,A\Sigma A^T).$$
+The Gaussian MGF just derived is
 
-The new covariance may be singular, even if the original covariance is positive definite, when $A$ has deficient row rank.
+$$M_{\mathbf X}(t_1,t_2)=\exp\left[10t_1+12t_2+\tfrac12(4t_1^2+4t_1t_2+9t_2^2)\right].$$
 
-### Derive the affine law using the MGF
+Use the definition of $Y$ inside the expectation:
+
+$$\begin{aligned}
+M_Y(t)&=E[e^{t(0.6X_1+0.4X_2)}]\\
+&=M_{\mathbf X}(0.6t,0.4t)\\
+&=\exp\left(10.8t+\tfrac12(3.84)t^2\right).
+\end{aligned}$$
+
+This is the MGF of $N(10.8,3.84)$. MGFs that are finite in a neighborhood of zero uniquely identify a distribution, so
+
+$$\boxed{Y\sim N(10.8,3.84).}$$
+
+The requested probability is now
+
+$$P(Y>13)=1-\Phi\left(\frac{13-10.8}{\sqrt{3.84}}\right)
+=1-\Phi(1.123\ldots)\approx0.131.$$
+
+Here $\Phi$ is the standard-normal CDF. The standard deviation, not the variance, belongs in the denominator. We have identified the whole law and used it for a decision threshold. We did not assume the measurements were independent: their covariance 2 appears in the joint MGF and in the variance calculation. The general affine-map derivation follows below.
+
+#### Derive the general affine law
 
 For a fixed $m\times k$ matrix $A$, $b\in\mathbb R^m$ and $Y=A\mathbf X+b$,
 
@@ -592,7 +563,7 @@ M_Y(t)&=E[e^{t^T(A\mathbf X+b)}]=e^{t^Tb}M_{\mathbf X}(A^Tt)\\
 &=\exp\left[t^T(A\mu+b)+\tfrac12t^T(A\Sigma A^T)t\right].
 \end{aligned}$$
 
-This is the MGF of the stated normal law. The same calculation with characteristic functions proves the result even for a singular transformed covariance. Also, directly from centered variables,
+This identifies $Y\sim N_m(A\mu+b,A\Sigma A^T)$. The same calculation with characteristic functions proves the result even for a singular transformed covariance. Also, directly from centered variables,
 
 $$E[Y]=A\mu+b,\qquad
 E[(Y-EY)(Y-EY)^T]=A\Sigma A^T.$$
@@ -601,7 +572,7 @@ The moment identities hold for any vector with finite second moments. Gaussianit
 
 A coordinate-selection matrix proves the marginal law another way: selecting components selects the corresponding rows and columns of $\Sigma$. A row vector $a^T$ gives $a^T\mathbf X\sim N(a^T\mu,a^T\Sigma a)$.
 
-### Worked transformation producing independent coordinates
+#### Worked transformation producing independent coordinates
 
 For the original sensor model, take
 
@@ -615,7 +586,7 @@ A\Sigma A^T=\begin{pmatrix}1&0\\0&3\end{pmatrix}.$$
 
 Thus $Y_1\sim N(0,1)$ and $Y_2\sim N(0,3)$ independently. The residual $X_2-X_1$ has removed the component associated with the first sensor. In contrast, selecting $Y=(X_1,2X_1)^T$ yields covariance $\begin{pmatrix}1&2\\2&4\end{pmatrix}$ and a law supported on a line.
 
-### Generate the desired covariance
+#### Generate the desired covariance
 
 For the two-dimensional parameterization, independent $Z_1,Z_2\sim N(0,1)$ give
 
@@ -634,7 +605,7 @@ This operation is called **whitening**. For the sensor example, $Z_1=X_1$ and $Z
 
 **Practice check N3.** For the sensor model, find the distribution of $X_2-X_1$. Verify that its variance agrees with the construction in independent $Z_1,Z_2$.
 
-## 7. One model: joint, marginal, conditional and transformed laws
+### B.9. Worked synthesis: one model, several questions
 
 For the hypothetical model
 
@@ -675,9 +646,7 @@ so $D\sim N(0,17)$. Its MGF is $e^{17t^2/2}$. The cross-covariance $\operatornam
 
 **Practice check N8.** For this last model, derive the joint law of $(X_1+X_2,X_2-X_1)^T$. Give its MGF and decide whether the transformed coordinates are independent. Then derive $X_1\mid X_2=5$.
 
-**Classroom sequence.** A useful first stopping point is the density and transform derivations. Resume with bivariate completion of the square, then the block conditional law, and finish with the affine worked calculations. The two existing interactive demonstrations support the geometry and conditioning discussions; the algebra specifies the distributions they display.
-
-## 8. Boundary cases and what the model does not establish
+### B.10. Singular cases and modelling limits
 
 At $|\rho|=1$, $|\Sigma|=0$ and the density formula involving $\Sigma^{-1}$ is unavailable. A Gaussian distribution can still exist: for example $X_2=2X_1$ with $X_1\sim N(0,1)$ is concentrated on a line. It has no density with respect to two-dimensional area. The interactive density explorer restricts $|\rho|<1$ so it always displays a genuine planar density.
 
@@ -686,6 +655,86 @@ A normal distribution has unbounded support. It can be a stipulated model for si
 **Practice check N4.** Explain why $\begin{pmatrix}1&2\\2&1\end{pmatrix}$ cannot be a covariance matrix. Find a linear combination whose proposed variance would be negative.
 
 **Practice check N5.** Find the constant $c$ for a bivariate normal probability ellipse containing 90% of observations. Does its contour line have probability 90%?
+
+### B.11. Compare the scalar and vector formulas
+
+| Function | $X\sim N(\mu,\sigma^2)$ | $\mathbf X\sim N_k(\mu,\Sigma)$ |
+|---|---|---|
+| MGF | $e^{\mu t+\sigma^2t^2/2}$ | $e^{t^T\mu+t^T\Sigma t/2}$ |
+| CGF | $\mu t+\sigma^2t^2/2$ | $t^T\mu+t^T\Sigma t/2$ |
+| Characteristic function | $e^{i\mu t-\sigma^2t^2/2}$ | $e^{it^T\mu-t^T\Sigma t/2}$ |
+
+The scalar parameter $t$ becomes a vector; variance becomes covariance; the scalar quadratic term becomes $t^T\Sigma t$. These formulas remain valid for zero scalar variance or singular covariance, even though the corresponding full-dimensional density does not exist. The affine-normal construction, rather than an inverse covariance, establishes those cases.
+
+## Part C · Further applications of transforms
+
+The two Gaussian parts are complete. These applications show how the same transform methods extend to counts and to limiting distributions.
+
+### C.1. Addition of independent Poisson counts
+
+Suppose two independent inspection lines produce defect counts $N_1$ and $N_2$ during a fixed interval. Stipulate $N_j\sim\operatorname{Poisson}(\lambda_j)$, where $\lambda_j>0$ is its mean count. The Poisson PMF is
+
+$$P(N_j=n)=e^{-\lambda_j}\frac{\lambda_j^n}{n!},\qquad n=0,1,2,\ldots.$$
+
+What is the distribution of the combined count $N=N_1+N_2$? From the PMF and the exponential series,
+
+$$\begin{aligned}
+M_{N_j}(t)&=\sum_{n=0}^\infty e^{tn}e^{-\lambda_j}\frac{\lambda_j^n}{n!}\\
+&=e^{-\lambda_j}\sum_{n=0}^\infty\frac{(\lambda_j e^t)^n}{n!}\\
+&=e^{-\lambda_j}e^{\lambda_j e^t}
+=\exp\{\lambda_j(e^t-1)\}.
+\end{aligned}$$
+
+Independence now provides the useful step:
+
+$$\begin{aligned}
+M_N(t)&=E[e^{tN_1}e^{tN_2}]\\
+&=E[e^{tN_1}]E[e^{tN_2}]\\
+&=\exp\{(\lambda_1+\lambda_2)(e^t-1)\}.
+\end{aligned}$$
+
+Recognizing the same Poisson form gives $N\sim\operatorname{Poisson}(\lambda_1+\lambda_2)$. For example, mean counts 2 and 3 give $N\sim\operatorname{Poisson}(5)$, so $P(N=0)=e^{-5}$. The calculation establishes the entire count distribution, not just its mean 5. This model does not assert that actual defect counts are Poisson or independent; those are explicit assumptions.
+
+For independent variables, the transform of a sum is the product of their transforms. Independence is needed for the product rule, not for linearity of expectation. The earlier correlated-measurement example used the **joint** MGF instead of multiplying marginal MGFs.
+
+[Explore Poisson addition interactively](../materials/07-multivariate-normal/poisson-addition.html). Vary both rates and compare the simulated sum with its exact Poisson law. Then introduce shared counts: the marginal distributions stay Poisson, but independence fails and the sum law changes. Inspect an individual convolution probability with the count slider.
+
+**Practice check N9.** Two independent Poisson counts have means 1 and 4. Derive the MGF of their total and calculate the probability that the total is at most 1. Explain which step would fail if the counts were dependent.
+
+### C.2. Why averages become approximately normal
+
+Suppose repeated measurement errors $E_1,E_2,\ldots$ are independent and identically distributed, with mean $\mu$ and finite variance $0<\sigma^2<\infty$. Their individual distribution need not be normal. For example, a stipulated bounded uniform error model meets these conditions.
+
+The average $\bar E_n$ has mean $\mu$ and variance $\sigma^2/n$. To study its *shape* rather than its shrinking scale, define
+
+$$Z_j=\frac{E_j-\mu}{\sigma},\qquad
+S_n=\frac{Z_1+\cdots+Z_n}{\sqrt n}
+=\frac{\sqrt n(\bar E_n-\mu)}{\sigma}.$$
+
+Each $Z_j$ has mean 0 and variance 1. Independence and the rule for rescaling a transform give
+
+$$\varphi_{S_n}(t)=\left[\varphi_Z\left(\frac{t}{\sqrt n}\right)\right]^n.$$
+
+For small $u$, mean zero and variance one imply
+
+$$\varphi_Z(u)=1-\frac{u^2}{2}+o(u^2).$$
+
+The notation $o(u^2)$ means a remainder whose ratio to $u^2$ tends to zero. The linear term disappears because the mean is zero; the quadratic term records variance one. Substituting into the product gives, for each fixed $t$,
+
+$$\varphi_{S_n}(t)=\left[1-\frac{t^2}{2n}+o(1/n)\right]^n
+\longrightarrow e^{-t^2/2}.$$
+
+We recognize the standard-normal characteristic function. The continuity theorem for characteristic functions turns this limit into convergence in distribution: $S_n\xrightarrow{d}N(0,1)$. Thus, for sufficiently large $n$ in a suitable application, the average is approximated by $N(\mu,\sigma^2/n)$.
+
+This is the central limit theorem in the independent, identically distributed, finite-variance setting. It explains why a normal approximation can emerge even when individual errors are not normal. It does not make each individual error normal, establish independence from data, or specify a universally sufficient sample size. It also does not by itself quantify the approximation error for a finite $n$.
+
+The characteristic function is useful here because it turns a sum into a product and lets us recognize the limiting law; no MGF assumption is needed. If the errors are already independent normal variables, the normal law for their average is exact for every $n$. The [supplement gives the expansion and continuity theorem precisely](07-normal-supplement.qmd#clt-transform-preview); the convergence module will revisit this argument.
+
+[Explore the central limit theorem interactively](../materials/07-multivariate-normal/central-limit-theorem.html). Compare individual observations, sample means and standardized means at sample sizes 1, 10 and 100. Try skewed exponential and rare-event Bernoulli populations before using normal input, where the result is exact at every sample size.
+
+For the full argument, including all limit justifications and a proof of the final distributional step, read the [standalone central limit theorem proof](08-central-limit-theorem-proof.qmd).
+
+**Practice check N10.** Independent observations have common mean 10 and variance 9. For the mean of 36 observations, identify the normal approximation's mean and variance and write the approximate probability that the sample mean exceeds 11 in terms of $\Phi$. Under what stronger distributional assumption is this calculation exact?
 
 ## References and module continuation
 
