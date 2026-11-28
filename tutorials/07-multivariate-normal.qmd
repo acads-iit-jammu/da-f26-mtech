@@ -109,7 +109,7 @@ This is a density in inverse squared measurement units. A small rectangle center
 
 **Practice check N1.** For the same model, evaluate the quadratic form and density at $(1,-2)^T$. Explain the comparison with $(1,2)^T$ using the sign of the covariance.
 
-## 3. MGF, characteristic function and moments {#normal-transforms}
+## 3. MGF, CGF, characteristic function and moments {#normal-transforms}
 
 ### Start with a weighted measurement: what is its distribution?
 
@@ -138,11 +138,53 @@ $$M_{\mathbf X}(t)=E[\exp(t^T\mathbf X)],$$
 
 where this expectation is finite. A general distribution may not have a finite MGF near zero. A Gaussian vector does: its MGF exists for every real $t$.
 
-### Derive the MGF by completing the square
+### One-dimensional Gaussian: derive the MGF {#scalar-gaussian-transforms}
 
-First let $Z\sim N(0,1)$. Since $tz-z^2/2=-(z-t)^2/2+t^2/2$,
+Before using vectors, consider one measurement $X\sim N(\mu,\sigma^2)$ with $\sigma>0$. Starting from its density,
 
-$$E[e^{tZ}]=e^{t^2/2}\int_{\mathbb R}\frac{e^{-(z-t)^2/2}}{\sqrt{2\pi}}dz=e^{t^2/2}.$$
+$$M_X(t)=\frac1{\sqrt{2\pi}\sigma}\int_{\mathbb R}
+\exp\left[tx-\frac{(x-\mu)^2}{2\sigma^2}\right]dx.$$
+
+Complete the square in the exponent:
+
+$$\begin{aligned}
+tx-\frac{(x-\mu)^2}{2\sigma^2}
+&=-\frac{x^2-2(\mu+\sigma^2t)x+\mu^2}{2\sigma^2}\\
+&=-\frac{[x-(\mu+\sigma^2t)]^2}{2\sigma^2}
++\mu t+\frac12\sigma^2t^2.
+\end{aligned}$$
+
+The terms independent of $x$ come outside the integral:
+
+$$M_X(t)=e^{\mu t+\sigma^2t^2/2}
+\underbrace{\int_{\mathbb R}\frac1{\sqrt{2\pi}\sigma}
+\exp\left[-\frac{[x-(\mu+\sigma^2t)]^2}{2\sigma^2}\right]dx}_{1}.$$
+
+The remaining expression is the density of $N(\mu+\sigma^2t,\sigma^2)$ integrated over its full support. Its integral is 1, so
+
+$$\boxed{M_X(t)=\exp(\mu t+\tfrac12\sigma^2t^2),\qquad t\in\mathbb R.}$$
+
+For a standard normal $Z$, set $\mu=0,\sigma^2=1$ to obtain $M_Z(t)=e^{t^2/2}$. The integral shows directly that the Gaussian MGF is finite at every real argument.
+
+### One-dimensional Gaussian: derive the CGF
+
+The **cumulant generating function (CGF)** is the logarithm of the MGF:
+
+$$\boxed{K_X(t)=\log M_X(t)=\mu t+\tfrac12\sigma^2t^2.}$$
+
+Taking the logarithm removes the outer exponential. This makes it especially easy to read off the mean and variance:
+
+$$K_X'(t)=\mu+\sigma^2t,\qquad K_X''(t)=\sigma^2,$$
+
+$$K_X'(0)=\mu,\qquad K_X''(0)=\sigma^2.$$
+
+By contrast, $M_X''(0)=E[X^2]=\mu^2+\sigma^2$. The MGF generates raw moments; the CGF generates cumulants, whose first two are the mean and variance. All Gaussian cumulants of order three and above are zero because $K_X$ is quadratic. This does not mean higher moments vanish: $E[(X-\mu)^4]=3\sigma^4$.
+
+For example, $X\sim N(2,9)$ has $M_X(t)=e^{2t+9t^2/2}$ and $K_X(t)=2t+9t^2/2$. The first derivative of either at zero is 2; the second derivative of the MGF is 13, while that of the CGF is 9.
+
+### General $k$-dimensional Gaussian: derive the joint MGF
+
+Now let $\mathbf X\sim N_k(\mu,\Sigma)$, with a column parameter $t\in\mathbb R^k$. Replace the scalar product $tx$ with $t^Tx$ and the squared standardized deviation with its covariance-weighted quadratic form. The same completion-of-the-square method applies.
 
 For a positive-definite covariance, put $u=x-\mu$. The exponent in the multivariate density integral satisfies
 
@@ -160,6 +202,27 @@ M_{\mathbf X}(t)
 \end{aligned}$$
 
 The remaining integral is a translated normalized Gaussian density. For a possibly singular covariance, use $\mathbf X=\mu+A\mathbf Z$ instead: independence gives $M_{\mathbf Z}(v)=\exp(v^Tv/2)$, hence $M_{\mathbf X}(t)=e^{t^T\mu}M_{\mathbf Z}(A^Tt)$ and the same formula with $AA^T=\Sigma$.
+
+### General $k$-dimensional Gaussian: derive the joint CGF
+
+Taking the real logarithm of the Gaussian MGF gives
+
+$$\boxed{K_{\mathbf X}(t)=\log M_{\mathbf X}(t)
+=t^T\mu+\tfrac12t^T\Sigma t.}$$
+
+Since $\Sigma$ is symmetric, differentiation of its quadratic form gives
+
+$$\nabla K_{\mathbf X}(t)=\mu+\Sigma t,\qquad
+\nabla^2K_{\mathbf X}(t)=\Sigma.$$
+
+Thus the gradient at zero gives the mean vector and the Hessian gives the covariance matrix. In particular,
+
+$$\left.\frac{\partial^2K_{\mathbf X}}{\partial t_i\partial t_j}\right|_{t=0}
+=\Sigma_{ij},\qquad
+\left.\frac{\partial^2M_{\mathbf X}}{\partial t_i\partial t_j}\right|_{t=0}
+=\Sigma_{ij}+\mu_i\mu_j.$$
+
+All higher joint cumulants vanish, not all higher joint moments. The [supplement](07-normal-supplement.qmd#gaussian-transform-derivations) gives the differentiation justification and a fourth-moment example.
 
 ### Return to the weighted measurement
 
@@ -269,13 +332,40 @@ For $Z\sim N(0,1)$, let $\psi(t)=E[e^{itZ}]$. Using $\phi'(z)=-z\phi(z)$ and int
 $$E[Ze^{itZ}]=-\int e^{itz}\phi'(z)dz=it\psi(t),\qquad
 \psi'(t)=iE[Ze^{itZ}]=-t\psi(t).$$
 
-The boundary term vanishes because the Gaussian density tends to zero. With $\psi(0)=1$, the solution is $\psi(t)=e^{-t^2/2}$. Thus, using the affine construction and independence,
+The boundary term vanishes because the Gaussian density tends to zero. With $\psi(0)=1$, the solution is $\psi(t)=e^{-t^2/2}$.
+
+For the general scalar Gaussian $X=\mu+\sigma Z$, the shift and scale rule now gives
+
+$$\begin{aligned}
+\varphi_X(t)&=E[e^{it(\mu+\sigma Z)}]
+=e^{i\mu t}\psi(\sigma t)\\
+&=\boxed{\exp(i\mu t-\tfrac12\sigma^2t^2)}.
+\end{aligned}$$
+
+For $X\sim N(2,9)$ this is $e^{2it-9t^2/2}$. Notice the imaginary linear term and the negative quadratic term, in contrast with the MGF. Its magnitude is $e^{-\sigma^2t^2/2}\le1$.
+
+For the $k$-dimensional vector, write $\mathbf X=\mu+A\mathbf Z$, $AA^T=\Sigma$, and put $v=A^Tt$. The components of $\mathbf Z$ are independent standard normals, so
+
+$$E[e^{iv^T\mathbf Z}]=\prod_j E[e^{iv_jZ_j}]
+=\prod_j e^{-v_j^2/2}=e^{-v^Tv/2}.$$
+
+Because $v^Tv=t^TAA^Tt=t^T\Sigma t$, we obtain
 
 $$\boxed{\varphi_{\mathbf X}(t)
 =e^{it^T\mu}\prod_j e^{-((A^Tt)_j)^2/2}
 =\exp\left(it^T\mu-\tfrac12t^T\Sigma t\right).}$$
 
 This derivation also applies to singular $\Sigma$. It avoids assuming that an arbitrary real MGF can be evaluated at complex arguments. The Gaussian formulas do have that analytic connection, but the characteristic-function definition stands on its own.
+
+### Compare the three Gaussian transforms
+
+| Function | $X\sim N(\mu,\sigma^2)$ | $\mathbf X\sim N_k(\mu,\Sigma)$ |
+|---|---|---|
+| MGF | $e^{\mu t+\sigma^2t^2/2}$ | $e^{t^T\mu+t^T\Sigma t/2}$ |
+| CGF | $\mu t+\sigma^2t^2/2$ | $t^T\mu+t^T\Sigma t/2$ |
+| Characteristic function | $e^{i\mu t-\sigma^2t^2/2}$ | $e^{it^T\mu-t^T\Sigma t/2}$ |
+
+The scalar parameter $t$ becomes a vector; variance becomes covariance; the scalar quadratic term becomes $t^T\Sigma t$. These formulas remain valid for zero scalar variance or singular covariance, even though the corresponding full-dimensional density does not exist. The affine-normal construction, rather than an inverse covariance, establishes those cases.
 
 ### Application preview: why averages become approximately normal
 

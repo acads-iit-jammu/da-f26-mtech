@@ -68,12 +68,75 @@ P(Q\le c)&=\int_0^{2\pi}\int_0^{\sqrt c}\frac1{2\pi}e^{-r^2/2}r\,dr\,d\theta\\
 
 Thus $Q$ has a chi-square distribution with two degrees of freedom. The probability-$\alpha$ ellipse has $c=-2\log(1-\alpha)$ for $0<\alpha<1$. In $k$ dimensions the analogous quadratic form is chi-square with $k$ degrees of freedom; the simple exponential CDF here is specific to $k=2$.
 
-## 6. Transform identities, uniqueness and moment differentiation
+## 6. Gaussian MGF, CGF and characteristic function {#gaussian-transform-derivations}
+
+[Main-note derivations](07-multivariate-normal.qmd#scalar-gaussian-transforms) introduce the scalar case before the general matrix case.
+
+### Scalar MGF and CGF: a normalized shifted density
+
+For $X\sim N(\mu,\sigma^2)$ and $\sigma>0$, completing the square gives
+
+$$tx-\frac{(x-\mu)^2}{2\sigma^2}
+=\mu t+\frac12\sigma^2t^2
+-\frac{(x-\mu-\sigma^2t)^2}{2\sigma^2}.$$
+
+Insert this identity into $E[e^{tX}]$. The remaining integral is the normalized density of $N(\mu+\sigma^2t,\sigma^2)$, so $M_X(t)=e^{\mu t+\sigma^2t^2/2}$ for every real $t$. As the MGF is strictly positive on the real line, its real logarithm is unambiguous:
+
+$$K_X(t)=\mu t+\sigma^2t^2/2.$$
+
+Hence $M_X'(0)=\mu$, $M_X''(0)=\mu^2+\sigma^2$, but $K_X'(0)=\mu$ and $K_X''(0)=\sigma^2$. If $\sigma=0$, $X=\mu$ almost surely, and the same formulas follow directly from the expectation without using a density.
+
+### Scalar characteristic function: justify differentiation and integration by parts
+
+For $Z\sim N(0,1)$, write $\psi(t)=E[e^{itZ}]$. The difference quotient for $e^{itZ}$ is bounded by $|Z|$, since $|e^{ihZ}-1|\le |hZ|$. As $E|Z|<\infty$, dominated convergence gives $\psi'(t)=iE[Ze^{itZ}]$.
+
+Writing $g(z)=e^{-z^2/2}/\sqrt{2\pi}$, use $g'(z)=-zg(z)$ and integrate by parts:
+
+$$E[Ze^{itZ}]=-[e^{itz}g(z)]_{-\infty}^{\infty}
++it\int e^{itz}g(z)dz=it\psi(t).$$
+
+The boundary term vanishes and both integrals are absolutely convergent. Thus $\psi'(t)=-t\psi(t)$ and $\psi(0)=1$, which imply $\psi(t)=e^{-t^2/2}$. For $X=\mu+\sigma Z$,
+
+$$\varphi_X(t)=e^{i\mu t}\psi(\sigma t)
+=e^{i\mu t-\sigma^2t^2/2}.$$
+
+This is a direct real-integral proof; it does not require moving a contour or assuming a complex extension of a general MGF.
+
+### General $k$-dimensional density derivation
+
+For positive-definite $\Sigma$, set $u=x-\mu$ and expand
+
+$$(u-\Sigma t)^T\Sigma^{-1}(u-\Sigma t)
+=u^T\Sigma^{-1}u-2t^Tu+t^T\Sigma t.$$
+
+Therefore the exponent $t^Tx-\frac12u^T\Sigma^{-1}u$ equals
+
+$$t^T\mu+\frac12t^T\Sigma t
+-\frac12(u-\Sigma t)^T\Sigma^{-1}(u-\Sigma t).$$
+
+Integration against the normalizing factor $(2\pi)^{-k/2}|\Sigma|^{-1/2}$ leaves a shifted density with integral 1. This yields
+
+$$M_X(t)=e^{t^T\mu+t^T\Sigma t/2},\qquad
+K_X(t)=t^T\mu+t^T\Sigma t/2.$$
+
+Thus $\nabla K_X(0)=\mu$ and $\nabla^2K_X(0)=\Sigma$. The scalar proof is the special case $k=1$.
+
+### Affine derivation, including singular covariance
 
 For $X\sim N_k(\mu,\Sigma)$, allow $\Sigma\succeq0$. Choose $A$ with $AA^T=\Sigma$ and write $X=\mu+AZ$ with independent standard normal entries of $Z$. For every real $t$,
 
 $$M_X(t)=e^{t^T\mu}\prod_j M_{Z_j}((A^Tt)_j)
 =\exp(t^T\mu+\tfrac12t^T\Sigma t).$$
+
+For the characteristic function, the same construction gives
+
+$$\begin{aligned}
+\varphi_X(t)&=e^{it^T\mu}\prod_j\varphi_{Z_j}((A^Tt)_j)\\
+&=e^{it^T\mu}\exp[-(A^Tt)^T(A^Tt)/2]\\
+&=\exp(it^T\mu-t^T\Sigma t/2).
+\end{aligned}$$
+
+No inverse or nonzero determinant is required. The real CGF remains $\log M_X(t)=t^T\mu+t^T\Sigma t/2$. Although one may use a continuous logarithm of the Gaussian characteristic function equal to zero at the origin, it should not be confused with the real CGF or an arbitrary principal complex logarithm.
 
 This proves finiteness on all of $\mathbb R^k$, including the singular case, without a full-dimensional density. An MGF finite on an open neighborhood of zero determines the distribution. A characteristic function always determines the distribution, with no moment assumptions. The Gaussian characteristic function follows independently from integration by parts for the scalar standard normal and multiplication over independent coordinates, as derived in [the main note](07-multivariate-normal.qmd#normal-transforms).
 
