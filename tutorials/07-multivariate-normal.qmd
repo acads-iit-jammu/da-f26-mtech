@@ -308,6 +308,8 @@ The characteristic function is useful here because it turns a sum into a product
 
 [Explore the central limit theorem interactively](../materials/07-multivariate-normal/central-limit-theorem.html). Compare individual observations, sample means and standardized means at sample sizes 1, 10 and 100. Try skewed exponential and rare-event Bernoulli populations before using normal input, where the result is exact at every sample size.
 
+For the full argument, including all limit justifications and a proof of the final distributional step, read the [standalone central limit theorem proof](08-central-limit-theorem-proof.qmd).
+
 **Practice check N10.** Independent observations have common mean 10 and variance 9. For the mean of 36 observations, identify the normal approximation's mean and variance and write the approximate probability that the sample mean exceeds 11 in terms of $\Phi$. Under what stronger distributional assumption is this calculation exact?
 
 **Practice check N6.** For $\mu=(1,-2)^T$ and $\Sigma=\begin{pmatrix}4&1\\1&9\end{pmatrix}$, write the MGF and characteristic function. Use derivatives at zero to obtain $E[X_1X_2]$. Compare that answer with the covariance entry.

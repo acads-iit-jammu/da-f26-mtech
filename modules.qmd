@@ -29,6 +29,8 @@ multivariate random variables.
 
 **01.7:** [The multivariate normal distribution](tutorials/07-multivariate-normal.qmd): density, covariance, marginals, conditional laws, linear transformations and interactive two-dimensional demonstrations. [Rigorous supplement](tutorials/07-normal-supplement.qmd).
 
+[Standalone proof: the central limit theorem](tutorials/08-central-limit-theorem-proof.qmd) develops the characteristic-function argument in full, including the finite-variance remainder estimate and the passage from transforms to CDFs.
+
 These three lectures complete the planned Module 01 sequence. Their stopping points may span additional meetings as needed; the official syllabus allocation is unchanged.
 
 ## 02 · Random Processes and Convergence

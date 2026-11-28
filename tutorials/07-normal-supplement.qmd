@@ -137,6 +137,8 @@ These identities make precise the split between remaining uncertainty and variat
 
 ## 9. Characteristic-function preview of the central limit theorem {#clt-transform-preview}
 
+A [standalone detailed proof](08-central-limit-theorem-proof.qmd) develops the Taylor remainder, complex logarithm limit and Gaussian-smoothing argument for CDF convergence. The following is the shorter reference version.
+
 Assume $E_1,E_2,\ldots$ are independent and identically distributed with finite mean $\mu$ and finite variance $0<\sigma^2<\infty$. Put $Z_j=(E_j-\mu)/\sigma$. No MGF is assumed. Finite $E[Z^2]$ implies finite $E|Z|$, and dominated differentiation gives
 
 $$\varphi_Z'(u)=iE[Ze^{iuZ}],\qquad
