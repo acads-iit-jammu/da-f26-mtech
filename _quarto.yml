@@ -46,6 +46,7 @@ book:
         - tutorials/06-transformations-supplement.qmd
         - tutorials/07-normal-supplement.qmd
         - tutorials/08-central-limit-theorem-proof.qmd
+        - tutorials/09-fourier-laplace-probability.qmd
     - resources.qmd
 
 format:

@@ -955,6 +955,8 @@ This addresses numerical overflow, not statistical sensitivity. Empirical charac
 
 In probability, specifying parameters lets us calculate distributions and moments. In estimation, observed data supply empirical quantities from which we estimate parameters under a model. The transform representation makes this connection explicit without requiring us to estimate a density first.
 
+For an introductory engineering interpretation, see [Fourier and Laplace transforms: a bridge to probability](09-fourier-laplace-probability.qmd), covering convolution, exponential weighting, tilting and tail bounds.
+
 ## References and module continuation
 
 For transform formulas and an alternative affine-normal derivation, see Marco Taboga, [Multivariate normal distribution](https://www.statlect.com/probability-distributions/multivariate-normal-distribution), sections “Joint moment generating function” and “Joint characteristic function”. The calculations and worked examples here develop these identities explicitly.

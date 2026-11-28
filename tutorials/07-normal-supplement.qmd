@@ -285,6 +285,8 @@ Indeed $te^g-g^2/2\to\infty$ as $g\to\infty$, so the integrand is eventually bou
 
 **NS5.** Let $X=(Z,2Z)^T$ for $Z\sim N(0,1)$. Write its MGF and characteristic function. Describe the law of $X_2\mid X_1=x$ and explain why the full two-dimensional density formula does not apply.
 
+For an introductory engineering interpretation, see [Fourier and Laplace transforms: a bridge to probability](09-fourier-laplace-probability.qmd), covering convolution, exponential weighting, tilting and tail bounds.
+
 ## References
 
 The bivariate normal construction and conditional formulas were checked against [Pishro-Nik §5.3.2](https://www.probabilitycourse.com/chapter5/5_3_2_bivariate_normal_dist.php). The matrix and polar derivations above develop the corresponding multivariate statements used in [01.7](07-multivariate-normal.qmd).

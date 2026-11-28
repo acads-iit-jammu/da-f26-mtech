@@ -1,0 +1,309 @@
+---
+title: "Fourier and Laplace transforms · An introductory bridge to probability"
+format:
+  html:
+    html-math-method: mathml
+    css: probability-notes.css
+    toc-depth: 2
+---
+
+**Data Analytics for AI · Executive M.Tech · IIT Jammu**  
+[Gaussian distributions and transforms](07-multivariate-normal.qmd) · [Rigorous Gaussian supplement](07-normal-supplement.qmd) · [CLT proof](08-central-limit-theorem-proof.qmd) · [Module overview](../modules.qmd)
+
+## Learning route
+
+A measurement can become noisier even while its density becomes smoother. An average can concentrate even while the distribution of a sum spreads out. An exponential weighting can reveal tail behaviour that a mean and variance do not describe. This supplement develops the calculations behind these distinctions.
+
+You need expectations, densities, independence and elementary integration. No prior signal-processing or control-theory course is assumed. Sections 1–5 connect transforms to independent sums; sections 6–8 develop exponential weighting and tail bounds. Sections 9–10 are optional extensions. All numerical scenarios are hypothetical.
+
+By the end, you should be able to distinguish Fourier and Laplace sign conventions, use characteristic functions for independent sums, identify an MGF's convergence domain, and explain exponential tilting and a simple Chernoff bound.
+
+## 1. Begin with a measurement and an added error
+
+Suppose a sensor measures a quantity $X$, but records $Y=X+\epsilon$. Assume the additive error $\epsilon\sim N(0,\sigma^2)$ is independent of $X$. What distribution will the recorded values have?
+
+For an illustrative population, let $X$ have an equally weighted mixture of $N(-2,0.16)$ and $N(2,0.16)$ distributions. The two groups might represent two operating settings. Adding independent Gaussian error gives
+
+$$Y\sim\tfrac12N(-2,0.16+\sigma^2)+\tfrac12N(2,0.16+\sigma^2).$$
+
+Here the mixture notation means: select either component with probability $1/2$, then draw from that component. The means remain at $-2$ and $2$, but the components spread out. Since $E[X]=0$ and $\operatorname{Var}(X)=4+0.16=4.16$,
+
+$$\operatorname{Var}(Y)=4.16+\sigma^2.$$
+
+For $\sigma=0.7$, the variance becomes $4.65$. A smoother density does not mean less measurement uncertainty. We will express this same operation as multiplication of transforms.
+
+## 2. What is a transform measuring?
+
+### Oscillatory weighting: Fourier transform
+
+Think of a density as a nonnegative signal with total area one. For an integrable function $f$, use the convention
+
+$$\mathcal F[f](\omega)=\int_{\mathbb R}f(x)e^{-i\omega x}\,dx,
+\qquad e^{-i\omega x}=\cos(\omega x)-i\sin(\omega x).$$
+
+This integral averages the function against sine and cosine patterns at frequency $\omega$. For a density, $x$ is an outcome, not necessarily time; frequency has reciprocal units to $x$. At frequency zero the transform of a density is its total mass, 1.
+
+The **characteristic function** uses the opposite sign:
+
+$$\boxed{\varphi_X(\omega)=E[e^{i\omega X}]
+=\mathcal F[p_X](-\omega).}$$
+
+The expectation definition also works without a PDF. Because $|e^{i\omega X}|=1$, it always exists and satisfies $|\varphi_X(\omega)|\le1$. It uniquely determines the probability law. It is not itself a probability density.
+
+For an error equally likely to be $-1$ or $1$,
+
+$$\varphi_X(\omega)=\tfrac12e^{-i\omega}+\tfrac12e^{i\omega}=\cos\omega.$$
+
+Thus a characteristic function can be negative or complex. Symmetry about zero makes it real, but not necessarily positive.
+
+### Exponential weighting: Laplace transform
+
+The **bilateral Laplace transform** is
+
+$$\mathcal L_b[f](s)=\int_{\mathbb R}f(x)e^{-sx}\,dx,
+\qquad s=\alpha+i\omega.$$
+
+When the integral is absolutely convergent,
+
+$$\boxed{\mathcal L_b[f](\alpha+i\omega)
+=\mathcal F[e^{-\alpha x}f(x)](\omega).}$$
+
+The real part $\alpha$ exponentially reweights the function; the imaginary part supplies oscillations. Setting $\alpha=0$ gives the Fourier transform whenever it exists. The **unilateral** transform instead integrates over $[0,\infty)$ and is useful for signals beginning at time zero.
+
+For a probability law, define $G_X(z)=E[e^{zX}]$ wherever $E[e^{\operatorname{Re}(z)X}]<\infty$. Then
+
+| Probability representation | Restriction of $G_X$ | Laplace convention |
+|---|---|---|
+| MGF $M_X(t)$ | $z=t$ real | $\mathcal L_b[p_X](-t)$ |
+| Characteristic function $\varphi_X(\omega)$ | $z=i\omega$ | $\mathcal L_b[p_X](-i\omega)$ |
+
+These restrictions share a mathematical construction, but their domains can differ greatly. A characteristic function need not come from an MGF finite near zero.
+
+## 3. An engineering calculation: an equation becomes algebra
+
+Consider a hypothetical thermal system whose deviation $y(\tau)$ from a reference temperature satisfies
+
+$$y'(\tau)+ay(\tau)=u(\tau),\qquad \tau\ge0.$$
+
+Here $u$ is a scaled heating input and $a$ is a response-rate parameter. Taking a unilateral Laplace transform and integrating the derivative by parts gives
+
+$$\mathcal L_+[y'](s)=sY(s)-y(0).$$
+
+With zero initial condition, $(s+a)Y(s)=U(s)$. Thus
+
+$$H(s)=\frac{Y(s)}{U(s)}=\frac1{s+a}.$$
+
+The corresponding causal impulse response is $h(\tau)=e^{-a\tau}$ for $\tau\ge0$, since
+
+$$\int_0^\infty e^{-(s+a)\tau}\,d\tau=\frac1{s+a},
+\qquad \operatorname{Re}(s)>-a.$$
+
+For $a>0$ the response decays and $\int_0^\infty |h(\tau)|d\tau=1/a<\infty$, giving bounded-input bounded-output stability. At $a=0$ the unforced response persists, but the system is not BIBO stable: a constant input produces growth. For $a<0$ the unforced response grows. The pole at $s=-a$ reflects this behaviour in this model.
+
+This motivates looking at transform convergence in probability. The analogy concerns exponential growth and decay; a probability law's MGF domain is not a control-system stability test.
+
+**Stopping point.** Check the signs: the characteristic function evaluates the bilateral Laplace transform at $-i\omega$, not $i\omega$, under our conventions.
+
+## 4. Independent addition is convolution
+
+For independent variables with densities, condition on $X=x$. Then $X+Y$ has conditional density $p_Y(z-x)$ at $z$. Averaging over $X$ gives
+
+$$p_{X+Y}(z)=\int_{\mathbb R}p_X(x)p_Y(z-x)\,dx
+=(p_X*p_Y)(z).$$
+
+This is **convolution**: a weighted average of shifted densities. In the characteristic-function representation, independence instead gives
+
+$$\begin{aligned}
+\varphi_{X+Y}(\omega)
+&=E[e^{i\omega X}e^{i\omega Y}]\\
+&=E[e^{i\omega X}]E[e^{i\omega Y}]
+=\varphi_X(\omega)\varphi_Y(\omega).
+\end{aligned}$$
+
+The product rule remains valid for discrete or mixed laws. It requires independence.
+
+### Worked example: two uniform errors
+
+Let $U,V$ be independent $U(-1,1)$ errors. The convolution integral is one quarter of the overlap length of $[-1,1]$ and $[z-1,z+1]$. Therefore
+
+$$p_{U+V}(z)=\begin{cases}(2-|z|)/4,&|z|\le2,\\0,&\text{otherwise}.\end{cases}$$
+
+Two flat densities produce a triangular density. Direct integration also gives
+
+$$\varphi_U(\omega)=\frac12\int_{-1}^1e^{i\omega x}dx
+=\frac{\sin\omega}{\omega},\qquad \varphi_U(0)=1,$$
+
+and hence $\varphi_{U+V}(\omega)=(\sin\omega/\omega)^2$.
+
+### Return to Gaussian measurement noise
+
+For independent $\epsilon\sim N(0,\sigma^2)$,
+
+$$\boxed{\varphi_{X+\epsilon}(\omega)
+=\varphi_X(\omega)e^{-\sigma^2\omega^2/2}.}$$
+
+The multiplier suppresses high-frequency magnitudes more strongly than low ones. For the mixture in section 1,
+
+$$\varphi_X(\omega)=\cos(2\omega)e^{-0.08\omega^2},\qquad
+\varphi_{X+\epsilon}(\omega)=\cos(2\omega)e^{-(0.16+\sigma^2)\omega^2/2}.$$
+
+This is the same Gaussian smoothing operation viewed in two representations. More generally $|\varphi_{X+Y}|\le|\varphi_X|$ for independent addition, but strict smoothing is not guaranteed for arbitrary noise: adding a constant merely shifts the law.
+
+## 5. Aggregation, normalization and the CLT
+
+For IID $U_j\sim U(-1,1)$, let $S_n=\sum_jU_j$. Then
+
+$$\operatorname{Var}(S_n)=n/3,\qquad
+\operatorname{Var}(S_n/n)=1/(3n).$$
+
+The sum spreads out while the average concentrates. To examine a shape with fixed variance, use $Z_n=\sqrt{3/n}S_n$. Its characteristic function is
+
+$$\varphi_{Z_n}(\omega)=
+\left[\frac{\sin(\sqrt{3/n}\,\omega)}{\sqrt{3/n}\,\omega}\right]^n.$$
+
+For fixed $\omega$, $\sin u/u=1-u^2/6+O(u^4)$ gives
+
+$$\varphi_{Z_n}(\omega)=\left[1-\frac{\omega^2}{2n}+O(n^{-2})\right]^n
+\longrightarrow e^{-\omega^2/2}.$$
+
+The limit is the standard-normal characteristic function. The continuity theorem turns this pointwise limit into convergence in distribution. The general IID CLT requires finite, positive variance, not a finite MGF. Repeated smoothing is useful intuition; the scaling and finite-variance hypotheses are essential to the theorem. Discrete sums also obey the CLT under these hypotheses, although they have no ordinary densities to convolve.
+
+Explore the [existing CLT demonstration](../materials/07-multivariate-normal/central-limit-theorem.html), then read the [step-by-step proof](08-central-limit-theorem-proof.qmd) for the general argument.
+
+## 6. Exponential weighting examines the tails
+
+For a modelled financial loss $X$, $e^{tX}$ gives large positive losses increasingly large weight when $t>0$. Negative $t$ emphasizes the opposite tail. The MGF
+
+$$M_X(t)=\int e^{tx}p_X(x)dx$$
+
+asks whether density decay can compensate for this growth. This is an integrability question, not a probability by itself.
+
+### Three convergence patterns
+
+For $X\sim N(0,1)$, completing the square gives $M_X(t)=e^{t^2/2}$ for every real $t$. The quadratic Gaussian decay outweighs any fixed linear exponential weighting.
+
+For a standard Laplace density $p(x)=e^{-|x|}/2$, split at zero:
+
+$$M_X(t)=\tfrac12\int_{-\infty}^0e^{(1+t)x}dx
++\tfrac12\int_0^\infty e^{-(1-t)x}dx.$$
+
+The first integral needs $t>-1$; the second needs $t<1$. Thus
+
+$$\boxed{M_X(t)=\frac1{2(1+t)}+\frac1{2(1-t)}
+=\frac1{1-t^2},\quad -1<t<1.}$$
+
+Outside this interval the expectation is infinite; extending the rational formula outside its domain does not give an MGF. The endpoints here correspond to the two exponential tail rates. Substituting the imaginary argument into the convergent integrals gives $\varphi_X(\omega)=1/(1+\omega^2)$.
+
+For a standard Cauchy density $p(x)=1/[\pi(1+x^2)]$, any nonzero real exponential weight overwhelms one polynomial tail. Hence $M_X(t)=\infty$ for $t\ne0$. Its characteristic function still exists.
+
+| Law | Absolute convergence domain for $G_X(z)=E[e^{zX}]$ |
+|---|---|
+| Standard normal | All complex $z$ |
+| Standard Laplace | Vertical strip $-1<\operatorname{Re}(z)<1$ |
+| Standard Cauchy | Imaginary axis only |
+
+The Cauchy domain has no open strip. Do not infer an analytic neighbourhood merely from existence on the imaginary axis. Likewise, existence of all integer moments does not guarantee an MGF near zero; see the [lognormal counterexample](07-normal-supplement.qmd).
+
+## 7. Exponential tilting: construct a new probability law
+
+Suppose we want to compare a baseline distribution with one that gives greater weight to large outcomes. For a real $t$ with $M_X(t)<\infty$, define
+
+$$p_t(x)=\frac{e^{tx}p(x)}{M_X(t)}.$$
+
+It is nonnegative and integrates to one. This is **exponential tilting**. It changes the probability measure; it is not the same operation as deterministically transforming every observation.
+
+For a standard normal,
+
+$$p_t(x)=\frac{e^{tx-x^2/2-t^2/2}}{\sqrt{2\pi}}
+=\frac{e^{-(x-t)^2/2}}{\sqrt{2\pi}}.$$
+
+The tilted law is $N(t,1)$. At $t=1$, the normalizing constant is $M(1)=e^{1/2}\approx1.649$, and the mean moves from 0 to 1 while the variance stays 1. More generally, tilting $N(\mu,\sigma^2)$ gives $N(\mu+\sigma^2t,\sigma^2)$.
+
+### What the CGF derivatives mean away from zero
+
+Write $K(t)=\log M(t)$. At an interior point of the finite domain, differentiation gives
+
+$$K'(t)=\frac{M'(t)}{M(t)}
+=\int x\frac{e^{tx}p(x)}{M(t)}dx=E_t[X],$$
+
+$$K''(t)=\frac{M''(t)}{M(t)}-\left(\frac{M'(t)}{M(t)}\right)^2
+=E_t[X^2]-E_t[X]^2=\operatorname{Var}_t(X)\ge0.$$
+
+The slope is the tilted mean and the curvature is the tilted variance. Thus the CGF is convex. At $t=0$ we recover the original mean and variance. These identities give a direct interpretation of the log-MGF as a response to reweighting.
+
+**Stopping point.** Explain why the denominator in a tilted density is necessary, and why a finite value of $M(t)$ at a boundary does not automatically justify differentiation there.
+
+## 8. A tail bound without integrating a density
+
+Suppose a standardized Gaussian measurement error $X\sim N(0,1)$ triggers an alarm when $X\ge3$. How can exponential weighting bound the alarm probability?
+
+For any admissible $t>0$, Markov's inequality applied to the nonnegative variable $e^{tX}$ gives
+
+$$P(X\ge a)=P(e^{tX}\ge e^{ta})
+\le e^{-ta}M_X(t)=e^{K(t)-ta}.$$
+
+Taking the smallest bound over admissible positive $t$ gives a **Chernoff bound**. For the standard normal and $a>0$, minimize $t^2/2-ta$. Its derivative is $t-a$, so $t=a$ gives
+
+$$\boxed{P(X\ge a)\le e^{-a^2/2}.}$$
+
+At $a=3$, this is $e^{-4.5}\approx0.0111$. The exact normal tail is approximately $0.00135$. The calculation gives a valid upper bound, not an exact probability or a guarantee about an unverified measurement model.
+
+For independent $X_j\sim N(\mu,\sigma^2)$, the same argument yields, for $d>0$,
+
+$$P(\bar X_n\ge\mu+d)\le
+\exp\left(-\frac{nd^2}{2\sigma^2}\right).$$
+
+Independence makes the MGF of the sum a product and its CGF a sum. This is why exponential bounds are particularly convenient for aggregation.
+
+## 9. Optional connection: normalizing constants and energy models
+
+Consider a hypothetical two-state system with energies 0 and 1. Give the states weights $1$ and $e^{-\beta}$, respectively, where $\beta>0$. The normalizing constant, called a partition function in an energy model, is
+
+$$Z(\beta)=1+e^{-\beta},\qquad
+P_\beta(E=1)=\frac{e^{-\beta}}{1+e^{-\beta}}.$$
+
+Direct differentiation verifies
+
+$$-\frac{d}{d\beta}\log Z(\beta)=E_\beta[E],\qquad
+\frac{d^2}{d\beta^2}\log Z(\beta)=\operatorname{Var}_\beta(E).$$
+
+The sign in the first derivative comes from the negative exponential. The same calculation works with integrals over states, provided the normalizer is finite and differentiation is justified. In a thermodynamic interpretation $\beta$ is inverse temperature in suitable energy units. No physical interpretation is needed to understand the normalization calculation.
+
+A partition function is not automatically an MGF: its reference measure need not be a probability measure. Relative to a normalized reference law at $\beta_0$, the exact connection is
+
+$$E_{\beta_0}[e^{tE}]=\frac{Z(\beta_0-t)}{Z(\beta_0)},$$
+
+where both sides are finite. This ratio explains the relationship without treating an unnormalized density of states as a probability density. Related normalizers arise in exponential-family and energy-based statistical models.
+
+## 10. Optional connection: central fluctuations and fixed deviations
+
+The CLT studies fluctuations on the scale $1/\sqrt n$:
+
+$$\frac{\sqrt n(\bar X_n-\mu)}\sigma\xrightarrow{d}N(0,1).$$
+
+A different question holds $a>\mu$ fixed and asks how rapidly $P(\bar X_n\ge a)$ decreases. For IID variables with an MGF finite near zero, the Chernoff calculation gives
+
+$$P(\bar X_n\ge a)\le
+\exp\left[-n\sup_{t\ge0}\{ta-K(t)\}\right],$$
+
+with the supremum over finite MGF arguments. Large-deviation theory investigates when such exponents describe the actual logarithmic decay. Its general rate function is $I(a)=\sup_t\{ta-K(t)\}$, with additional conditions needed to obtain a matching tail limit. We do not deduce that limit from the upper bound alone.
+
+For a normal population, completing the square in $ta-\mu t-\sigma^2t^2/2$ gives
+
+$$I(a)=\frac{(a-\mu)^2}{2\sigma^2}.$$
+
+For $a>\mu$, the exact Gaussian tail also satisfies $n^{-1}\log P(\bar X_n\ge a)\to-I(a)$. This is a logarithmic rate statement, not a claim that the exponential bound has relative error tending to zero. CLT convergence alone does not justify approximating arbitrary rare tails.
+
+## 11. Practice checks
+
+These are independent exercises; worked teaching examples above provide the methods.
+
+1. **Transform conventions.** For an exponential waiting time with density $2e^{-2x}$ on $x\ge0$, calculate its MGF, characteristic function and bilateral Laplace transform. State the real MGF domain and complex Laplace domain.
+2. **Noisy measurement.** In section 1, increase the independent noise standard deviation to 1. Write the resulting mixture law, variance and characteristic function. Explain why smoother and more concentrated are different properties.
+3. **Tilting a binary variable.** Let $X$ be Bernoulli with success probability $p\in(0,1)$. Derive the success probability after tilting by $t$. Verify that $K'(t)$ is that probability and $K''(t)$ its Bernoulli variance.
+4. **Exponential tail bound.** For $X\sim N(2,4)$, derive a Chernoff upper bound for $P(X\ge6)$. Compare its interpretation with a normal-CDF calculation.
+5. **Averages.** For independent $U(-1,1)$ errors, write the characteristic function and variance of their average. Explain the additional scaling needed for a nondegenerate Gaussian limit.
+
+## Continue reading
+
+Return to [the Gaussian lecture](07-multivariate-normal.qmd) for full scalar and vector derivations and [transform-based parameter estimation](07-multivariate-normal.qmd#transform-estimation). The [rigorous supplement](07-normal-supplement.qmd) supplies differentiation conditions, while the [stand-alone CLT proof](08-central-limit-theorem-proof.qmd) develops the convergence argument. The transform identities used here are derived in the text; the optional sections introduce connections rather than serve as complete treatments of control theory, statistical mechanics or large deviations.
