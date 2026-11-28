@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>The central limit theorem · A complete characteristic-function proof – Data Analytics for AI</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../resources.html" rel="next">
+<link href="../tutorials/07-normal-supplement.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-970586c648819a176f05aa782ae30df3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-4e42ae105fa35cf935172ecd058ec8f7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="probability-notes.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tutorials/01-probability-supplement.html">Supplementary Material</a></li><li class="breadcrumb-item"><a href="../tutorials/08-central-limit-theorem-proof.html"><span class="chapter-title">The central limit theorem · A complete characteristic-function proof</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Data Analytics for AI</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/acads-iit-jammu/da-f26-mtech" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../curriculum.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Curriculum</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignments</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modules</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">01 · Fundamentals of Probability and Random Signal Theory</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/01-probability-foundations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.1 · Introduction to probability through problems</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/02-random-variables.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.2 · Random variables and distributions through problems</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/02-joint-distributions-tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.3 tutorial · From outcomes to joint distributions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/04-meeting-problem.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.4 worked example · Two friends who may not meet</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/05-expectation-variance.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.5 · Expectation, mean and variance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/06-transformations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.6 · Transformations of random variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/07-multivariate-normal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.7 · The multivariate normal distribution</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Supplementary Material</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/01-probability-supplement.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.1 supplement · Sets, measurable maps and Bertrand’s paradox</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/02-random-variables-supplement.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.2 supplement · Advanced distribution theory</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/05-expectation-supplement.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.5 supplement · Expectation and moment identities</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/06-transformations-supplement.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.6 supplement · Change of variables and induced laws</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/07-normal-supplement.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01.7 supplement · Gaussian structure and conditional laws</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/08-central-limit-theorem-proof.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">The central limit theorem · A complete characteristic-function proof</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Resources</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-question-why-should-an-average-look-normal" id="toc-the-question-why-should-an-average-look-normal" class="nav-link active" data-scroll-target="#the-question-why-should-an-average-look-normal">1. The question: why should an average look normal?</a></li>
+  <li><a href="#state-exactly-what-must-be-proved" id="toc-state-exactly-what-must-be-proved" class="nav-link" data-scroll-target="#state-exactly-what-must-be-proved">2. State exactly what must be proved</a>
+  <ul class="collapse">
+  <li><a href="#why-the-normalization-is-sqrt-n" id="toc-why-the-normalization-is-sqrt-n" class="nav-link" data-scroll-target="#why-the-normalization-is-sqrt-n">Why the normalization is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mi>n</mi></msqrt><annotation encoding="application/x-tex">\sqrt n</annotation></semantics></math></a></li>
+  </ul></li>
+  <li><a href="#characteristic-functions-definition-and-the-rules-we-need" id="toc-characteristic-functions-definition-and-the-rules-we-need" class="nav-link" data-scroll-target="#characteristic-functions-definition-and-the-rules-we-need">3. Characteristic functions: definition and the rules we need</a>
+  <ul class="collapse">
+  <li><a href="#existence-value-at-zero-and-boundedness" id="toc-existence-value-at-zero-and-boundedness" class="nav-link" data-scroll-target="#existence-value-at-zero-and-boundedness">Existence, value at zero and boundedness</a></li>
+  <li><a href="#scaling-and-shifting" id="toc-scaling-and-shifting" class="nav-link" data-scroll-target="#scaling-and-shifting">Scaling and shifting</a></li>
+  <li><a href="#independent-sums" id="toc-independent-sums" class="nav-link" data-scroll-target="#independent-sums">Independent sums</a></li>
+  </ul></li>
+  <li><a href="#identify-the-characteristic-function-of-the-target-normal-law" id="toc-identify-the-characteristic-function-of-the-target-normal-law" class="nav-link" data-scroll-target="#identify-the-characteristic-function-of-the-target-normal-law">4. Identify the characteristic function of the target normal law</a></li>
+  <li><a href="#local-expansion" id="toc-local-expansion" class="nav-link" data-scroll-target="#local-expansion">5. The essential local expansion: finite variance is enough</a>
+  <ul class="collapse">
+  <li><a href="#a-pointwise-taylor-identity-with-a-bounded-remainder" id="toc-a-pointwise-taylor-identity-with-a-bounded-remainder" class="nav-link" data-scroll-target="#a-pointwise-taylor-identity-with-a-bounded-remainder">A pointwise Taylor identity with a bounded remainder</a></li>
+  <li><a href="#substitute-the-random-variable-and-take-expectations" id="toc-substitute-the-random-variable-and-take-expectations" class="nav-link" data-scroll-target="#substitute-the-random-variable-and-take-expectations">Substitute the random variable and take expectations</a></li>
+  </ul></li>
+  <li><a href="#the-transform-of-the-standardized-sum" id="toc-the-transform-of-the-standardized-sum" class="nav-link" data-scroll-target="#the-transform-of-the-standardized-sum">6. The transform of the standardized sum</a></li>
+  <li><a href="#justify-the-exponential-limit-for-complex-factors" id="toc-justify-the-exponential-limit-for-complex-factors" class="nav-link" data-scroll-target="#justify-the-exponential-limit-for-complex-factors">7. Justify the exponential limit for complex factors</a></li>
+  <li><a href="#why-this-proves-convergence-of-distributions" id="toc-why-this-proves-convergence-of-distributions" class="nav-link" data-scroll-target="#why-this-proves-convergence-of-distributions">8. Why this proves convergence of distributions</a></li>
+  <li><a href="#smoothing-proof" id="toc-smoothing-proof" class="nav-link" data-scroll-target="#smoothing-proof">9. Prove the final bridge by Gaussian smoothing</a>
+  <ul class="collapse">
+  <li><a href="#add-a-small-independent-normal-perturbation" id="toc-add-a-small-independent-normal-perturbation" class="nav-link" data-scroll-target="#add-a-small-independent-normal-perturbation">9.1 Add a small independent normal perturbation</a></li>
+  <li><a href="#a-gaussian-fourier-identity-derived-explicitly" id="toc-a-gaussian-fourier-identity-derived-explicitly" class="nav-link" data-scroll-target="#a-gaussian-fourier-identity-derived-explicitly">9.2 A Gaussian Fourier identity, derived explicitly</a></li>
+  <li><a href="#pass-the-transform-limit-through-an-integrable-kernel" id="toc-pass-the-transform-limit-through-an-integrable-kernel" class="nav-link" data-scroll-target="#pass-the-transform-limit-through-an-integrable-kernel">9.3 Pass the transform limit through an integrable kernel</a></li>
+  <li><a href="#from-these-densities-to-their-cdfs-control-the-tails" id="toc-from-these-densities-to-their-cdfs-control-the-tails" class="nav-link" data-scroll-target="#from-these-densities-to-their-cdfs-control-the-tails">9.4 From these densities to their CDFs: control the tails</a></li>
+  <li><a href="#remove-the-perturbation-using-event-inclusions" id="toc-remove-the-perturbation-using-event-inclusions" class="nav-link" data-scroll-target="#remove-the-perturbation-using-event-inclusions">9.5 Remove the perturbation using event inclusions</a></li>
+  </ul></li>
+  <li><a href="#a-worked-example-uniform-errors" id="toc-a-worked-example-uniform-errors" class="nav-link" data-scroll-target="#a-worked-example-uniform-errors">10. A worked example: uniform errors</a></li>
+  <li><a href="#what-the-proof-establishes-and-what-it-does-not" id="toc-what-the-proof-establishes-and-what-it-does-not" class="nav-link" data-scroll-target="#what-the-proof-establishes-and-what-it-does-not">11. What the proof establishes, and what it does not</a></li>
+  <li><a href="#proof-map-and-independent-practice" id="toc-proof-map-and-independent-practice" class="nav-link" data-scroll-target="#proof-map-and-independent-practice">12. Proof map and independent practice</a></li>
+  <li><a href="#references-and-further-study" id="toc-references-and-further-study" class="nav-link" data-scroll-target="#references-and-further-study">References and further study</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tutorials/01-probability-supplement.html">Supplementary Material</a></li><li class="breadcrumb-item"><a href="../tutorials/08-central-limit-theorem-proof.html"><span class="chapter-title">The central limit theorem · A complete characteristic-function proof</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">The central limit theorem · A complete characteristic-function proof</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Data Analytics for AI · Executive M.Tech · IIT Jammu</strong><br>
+<a href="../tutorials/07-multivariate-normal.html#normal-transforms">Section 01.7: Gaussian laws and transforms</a> · <a href="../materials/07-multivariate-normal/central-limit-theorem.html">Interactive CLT demonstration</a> · <a href="../modules.html">Module overview</a></p>
+<section id="the-question-why-should-an-average-look-normal" class="level2">
+<h2 class="anchored" data-anchor-id="the-question-why-should-an-average-look-normal">1. The question: why should an average look normal?</h2>
+<p>Suppose a calibration procedure produces independent signed measurement errors <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mn>1</mn></msub><mo>,</mo><msub><mi>X</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">X_1,X_2,\ldots</annotation></semantics></math> under the same operating conditions. As a hypothetical example, each error could be uniform on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(-1,1)</annotation></semantics></math>: its distribution is flat, not bell-shaped. Averaging reduces variability. Does the distribution of the average also acquire a predictable shape?</p>
+<p>For uniform errors, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msub><mi>X</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">E[X_j]=0</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Var</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">\operatorname{Var}(X_j)=1/3</annotation></semantics></math>. Independence gives</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msub><mover><mi>X</mi><mo accent="true">‾</mo></mover><mi>n</mi></msub><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0</mn><mo>,</mo><mspace width="2.0em"></mspace><mrow><mi mathvariant="normal">Var</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mover><mi>X</mi><mo accent="true">‾</mo></mover><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>3</mn><mi>n</mi></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mover><mi>X</mi><mo accent="true">‾</mo></mover><mi>n</mi></msub><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>X</mi><mi>j</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">E[\bar X_n]=0,\qquad \operatorname{Var}(\bar X_n)=\frac1{3n},\qquad
+\bar X_n=\frac1n\sum_{j=1}^nX_j.</annotation></semantics></math></p>
+<p>Thus <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mover><mi>X</mi><mo accent="true">‾</mo></mover><mi>n</mi></msub><annotation encoding="application/x-tex">\bar X_n</annotation></semantics></math> concentrates near zero. To study the shape of its fluctuations, rather than watch it collapse toward zero, rescale it:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mrow><mn>3</mn><mi>n</mi></mrow></msqrt><mspace width="0.167em"></mspace><msub><mover><mi>X</mi><mo accent="true">‾</mo></mover><mi>n</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\sqrt{3n}\,\bar X_n.</annotation></semantics></math></p>
+<p>This has variance one for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>. The central limit theorem says its distribution tends to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">N(0,1)</annotation></semantics></math>. The result is much broader than uniform errors.</p>
+<p>This standalone note proves the <strong>classical independent, identically distributed, finite-variance central limit theorem</strong>. Other central limit theorems allow nonidentical or dependent observations under additional conditions; they are not asserted here. We will prove every transform calculation and then justify the passage from transforms to CDFs. The final analytic step is developed explicitly by Gaussian smoothing, so the proof does not stop at citing a continuity theorem.</p>
+<p><strong>Prerequisites.</strong> Expectation, variance, independence, integration and elementary differentiation. We state the dominated convergence and integration-interchange facts when used. Complex numbers enter only through <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>e</mi><mrow><mi>i</mi><mi>t</mi></mrow></msup><mo>=</mo><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><mi>t</mi><mo>+</mo><mi>i</mi><mrow><mi mathvariant="normal">sin</mi><mo>⁡</mo></mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">e^{it}=\cos t+i\sin t</annotation></semantics></math> and an explicitly defined logarithm near 1.</p>
+</section>
+<section id="state-exactly-what-must-be-proved" class="level2">
+<h2 class="anchored" data-anchor-id="state-exactly-what-must-be-proved">2. State exactly what must be proved</h2>
+<p><strong>Theorem.</strong> Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mn>1</mn></msub><mo>,</mo><msub><mi>X</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">X_1,X_2,\ldots</annotation></semantics></math> be independent and identically distributed real random variables with</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msub><mi>X</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mi>μ</mi><mo>,</mo><mspace width="2.0em"></mspace><mn>0</mn><mo>&lt;</mo><msup><mi>σ</mi><mn>2</mn></msup><mo>=</mo><mi>E</mi><mo stretchy="false" form="prefix">[</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mn>1</mn></msub><mo>−</mo><mi>μ</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo stretchy="false" form="postfix">]</mo><mo>&lt;</mo><mi>∞</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">E[X_1]=\mu,\qquad 0&lt;\sigma^2=E[(X_1-\mu)^2]&lt;\infty.</annotation></semantics></math></p>
+<p>Define</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mi>j</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>X</mi><mi>j</mi></msub><mo>−</mo><mi>μ</mi></mrow><mi>σ</mi></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>S</mi><mi>n</mi></msub><mo>=</mo><mfrac><mn>1</mn><msqrt><mi>n</mi></msqrt></mfrac><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>Z</mi><mi>j</mi></msub><mo>=</mo><mfrac><mrow><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>X</mi><mi>j</mi></msub><mo>−</mo><mi>n</mi><mi>μ</mi></mrow><mrow><mi>σ</mi><msqrt><mi>n</mi></msqrt></mrow></mfrac><mo>=</mo><mfrac><mrow><msqrt><mi>n</mi></msqrt><mo stretchy="false" form="prefix">(</mo><msub><mover><mi>X</mi><mo accent="true">‾</mo></mover><mi>n</mi></msub><mo>−</mo><mi>μ</mi><mo stretchy="false" form="postfix">)</mo></mrow><mi>σ</mi></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">Z_j=\frac{X_j-\mu}{\sigma},\qquad
+S_n=\frac1{\sqrt n}\sum_{j=1}^nZ_j
+=\frac{\sum_{j=1}^nX_j-n\mu}{\sigma\sqrt n}
+=\frac{\sqrt n(\bar X_n-\mu)}{\sigma}.</annotation></semantics></math></p>
+<p>Then, for every real <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><menclose notation="box"><mrow><munder><mi mathvariant="normal">lim</mi><mrow><mi>n</mi><mo>→</mo><mi>∞</mi></mrow></munder><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>S</mi><mi>n</mi></msub><mo>≤</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi mathvariant="normal">Φ</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow></menclose><mo>,</mo><mspace width="2.0em"></mspace><mi mathvariant="normal">Φ</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mrow><mi>−</mi><mi>∞</mi></mrow><mi>x</mi></msubsup><mfrac><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>u</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup><msqrt><mrow><mn>2</mn><mi>π</mi></mrow></msqrt></mfrac><mi>d</mi><mi>u</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\boxed{\lim_{n\to\infty}P(S_n\le x)=\Phi(x)},\qquad
+\Phi(x)=\int_{-\infty}^x\frac{e^{-u^2/2}}{\sqrt{2\pi}}du.</annotation></semantics></math></p>
+<p>This is <strong>convergence in distribution</strong>, written <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>n</mi></msub><mover><mo>→</mo><mi>d</mi></mover><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">S_n\xrightarrow{d}N(0,1)</annotation></semantics></math>. In general the CDF definition requires convergence only at continuity points of the limiting CDF. Here <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Φ</mi><annotation encoding="application/x-tex">\Phi</annotation></semantics></math> is continuous everywhere.</p>
+<p>The conditions have distinct roles:</p>
+<ul>
+<li><strong>Independence</strong> lets us factor a joint expectation into a product.</li>
+<li><strong>Identical distribution</strong> makes every factor the same function.</li>
+<li><strong>Finite variance</strong> supplies a controlled second-order expansion near zero.</li>
+<li><strong>Positive variance</strong> permits division by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math> and gives a nondegenerate limit.</li>
+</ul>
+<p>A density is not required: the theorem applies to discrete, continuous and mixed laws. A finite third moment and a finite MGF are also not required.</p>
+<section id="why-the-normalization-is-sqrt-n" class="level3">
+<h3 class="anchored" data-anchor-id="why-the-normalization-is-sqrt-n">Why the normalization is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mi>n</mi></msqrt><annotation encoding="application/x-tex">\sqrt n</annotation></semantics></math></h3>
+<p>Each <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Z</mi><mi>j</mi></msub><annotation encoding="application/x-tex">Z_j</annotation></semantics></math> has mean 0 and variance 1. Independence implies zero cross-covariances, so</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0</mn><mo>,</mo><mspace width="2.0em"></mspace><mrow><mi mathvariant="normal">Var</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mi mathvariant="normal">Var</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>Z</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">E[S_n]=0,\qquad
+\operatorname{Var}(S_n)=\frac1n\sum_{j=1}^n\operatorname{Var}(Z_j)=1.</annotation></semantics></math></p>
+<p>The unscaled sum has variance <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>; dividing it by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mi>n</mi></msqrt><annotation encoding="application/x-tex">\sqrt n</annotation></semantics></math> keeps variance at 1. Dividing the sum by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> instead produces the sample average, whose variance tends to zero. These are different questions.</p>
+</section>
+</section>
+<section id="characteristic-functions-definition-and-the-rules-we-need" class="level2">
+<h2 class="anchored" data-anchor-id="characteristic-functions-definition-and-the-rules-we-need">3. Characteristic functions: definition and the rules we need</h2>
+<p>For any real random variable <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math>, define</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>φ</mi><mi>Y</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>t</mi><mi>Y</mi></mrow></msup><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mi>E</mi><mo stretchy="false" form="prefix">[</mo><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>Y</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>+</mo><mi>i</mi><mi>E</mi><mo stretchy="false" form="prefix">[</mo><mrow><mi mathvariant="normal">sin</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>Y</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>t</mi><mo>∈</mo><mi mathvariant="double-struck">ℝ</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\varphi_Y(t)=E[e^{itY}]=E[\cos(tY)]+iE[\sin(tY)],\qquad t\in\mathbb R.</annotation></semantics></math></p>
+<p>An expectation of a complex variable means the expectations of its real and imaginary parts. The parameter <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> is chosen by us; it is not a random observation.</p>
+<section id="existence-value-at-zero-and-boundedness" class="level3">
+<h3 class="anchored" data-anchor-id="existence-value-at-zero-and-boundedness">Existence, value at zero and boundedness</h3>
+<p>Because <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>t</mi><mi>Y</mi></mrow></msup><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|e^{itY}|=1</annotation></semantics></math>, the expectation always exists and</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>φ</mi><mi>Y</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">|</mo><msub><mi>φ</mi><mi>Y</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>E</mi><mo stretchy="false" form="prefix">[</mo><mo stretchy="false" form="prefix">|</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>t</mi><mi>Y</mi></mrow></msup><mo stretchy="false" form="prefix">|</mo><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\varphi_Y(0)=1,\qquad |\varphi_Y(t)|\le E[|e^{itY}|]=1.</annotation></semantics></math></p>
+<p>This is why characteristic functions work even when <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>e</mi><mrow><mi>t</mi><mi>Y</mi></mrow></msup><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">E[e^{tY}]</annotation></semantics></math> is infinite for every positive <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>. No density or moment assumption is needed for existence.</p>
+</section>
+<section id="scaling-and-shifting" class="level3">
+<h3 class="anchored" data-anchor-id="scaling-and-shifting">Scaling and shifting</h3>
+<p>For constants <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">a,b</annotation></semantics></math>,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>φ</mi><mrow><mi>a</mi><mi>Y</mi><mo>+</mo><mi>b</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>t</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>Y</mi><mo>+</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo stretchy="false" form="postfix">]</mo><mo>=</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>t</mi><mi>b</mi></mrow></msup><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>e</mi><mrow><mi>i</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mi>Y</mi></mrow></msup><mo stretchy="false" form="postfix">]</mo><mo>=</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>t</mi><mi>b</mi></mrow></msup><msub><mi>φ</mi><mi>Y</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\varphi_{aY+b}(t)=E[e^{it(aY+b)}]
+=e^{itb}E[e^{i(at)Y}]=e^{itb}\varphi_Y(at).</annotation></semantics></math></p>
+<p>Multiplying the variable by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math> multiplies the transform’s argument by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>.</p>
+</section>
+<section id="independent-sums" class="level3">
+<h3 class="anchored" data-anchor-id="independent-sums">Independent sums</h3>
+<p>If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>Y</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">Y_1,\ldots,Y_n</annotation></semantics></math> are independent, their bounded measurable functions <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>e</mi><mrow><mi>i</mi><mi>t</mi><msub><mi>Y</mi><mi>j</mi></msub></mrow></msup><annotation encoding="application/x-tex">e^{itY_j}</annotation></semantics></math> are independent, so</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>φ</mi><mrow><msub><mi>Y</mi><mn>1</mn></msub><mo>+</mo><mi>⋯</mi><mo>+</mo><msub><mi>Y</mi><mi>n</mi></msub></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mi>E</mi><mrow><mo stretchy="true" form="prefix">[</mo><munderover><mo>∏</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msup><mi>e</mi><mrow><mi>i</mi><mi>t</mi><msub><mi>Y</mi><mi>j</mi></msub></mrow></msup><mo stretchy="true" form="postfix">]</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><munderover><mo>∏</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>t</mi><msub><mi>Y</mi><mi>j</mi></msub></mrow></msup><mo stretchy="false" form="postfix">]</mo><mo>=</mo><munderover><mo>∏</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>φ</mi><msub><mi>Y</mi><mi>j</mi></msub></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\varphi_{Y_1+\cdots+Y_n}(t)
+&amp;=E\left[\prod_{j=1}^n e^{itY_j}\right]\\
+&amp;=\prod_{j=1}^nE[e^{itY_j}]
+=\prod_{j=1}^n\varphi_{Y_j}(t).
+\end{aligned}</annotation></semantics></math></p>
+<p>For complex expectations, the factorization follows by expanding into bounded real and imaginary parts and using the ordinary independence rule. Zero covariance alone is not enough for this step.</p>
+</section>
+</section>
+<section id="identify-the-characteristic-function-of-the-target-normal-law" class="level2">
+<h2 class="anchored" data-anchor-id="identify-the-characteristic-function-of-the-target-normal-law">4. Identify the characteristic function of the target normal law</h2>
+<p>We must know which function corresponds to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">N(0,1)</annotation></semantics></math>; recognizing a familiar exponential without justification would leave a gap.</p>
+<p>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>∼</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">G\sim N(0,1)</annotation></semantics></math> with density <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>x</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup><mi>/</mi><msqrt><mrow><mn>2</mn><mi>π</mi></mrow></msqrt></mrow><annotation encoding="application/x-tex">g(x)=e^{-x^2/2}/\sqrt{2\pi}</annotation></semantics></math>, and write <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ψ</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>t</mi><mi>G</mi></mrow></msup><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\psi(t)=E[e^{itG}]</annotation></semantics></math>. Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">|</mo><mi>G</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">E|G|&lt;\infty</annotation></semantics></math>, differentiation under the integral gives</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>ψ</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>i</mi><msub><mo>∫</mo><mi mathvariant="double-struck">ℝ</mi></msub><mi>x</mi><msup><mi>e</mi><mrow><mi>i</mi><mi>t</mi><mi>x</mi></mrow></msup><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mi>d</mi><mi>x</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\psi'(t)=i\int_{\mathbb R}xe^{itx}g(x)dx.</annotation></semantics></math></p>
+<p>To justify it, the difference quotient has absolute value at most <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|x|</annotation></semantics></math>, using <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>h</mi><mi>x</mi></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mo stretchy="false" form="prefix">|</mo><mi>h</mi><mi>x</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|e^{ihx}-1|\le |hx|</annotation></semantics></math>. The function <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo stretchy="false" form="prefix">|</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">|x|g(x)</annotation></semantics></math> is integrable, so dominated convergence applies.</p>
+<p>Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>g</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mi>x</mi><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">g'(x)=-xg(x)</annotation></semantics></math>, integration by parts yields</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mo>∫</mo><mi mathvariant="double-struck">ℝ</mi></msub><mi>x</mi><msup><mi>e</mi><mrow><mi>i</mi><mi>t</mi><mi>x</mi></mrow></msup><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mi>d</mi><mi>x</mi></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mi>−</mi><msub><mo>∫</mo><mi mathvariant="double-struck">ℝ</mi></msub><msup><mi>e</mi><mrow><mi>i</mi><mi>t</mi><mi>x</mi></mrow></msup><msup><mi>g</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mi>d</mi><mi>x</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mi>−</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>t</mi><mi>x</mi></mrow></msup><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><msubsup><mo stretchy="false" form="postfix">]</mo><mrow><mi>−</mi><mi>∞</mi></mrow><mi>∞</mi></msubsup><mo>+</mo><mi>i</mi><mi>t</mi><msub><mo>∫</mo><mi mathvariant="double-struck">ℝ</mi></msub><msup><mi>e</mi><mrow><mi>i</mi><mi>t</mi><mi>x</mi></mrow></msup><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mi>d</mi><mi>x</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mi>i</mi><mi>t</mi><mi>ψ</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\int_{\mathbb R}xe^{itx}g(x)dx
+&amp;=-\int_{\mathbb R}e^{itx}g'(x)dx\\
+&amp;=-[e^{itx}g(x)]_{-\infty}^{\infty}
++it\int_{\mathbb R}e^{itx}g(x)dx\\
+&amp;=it\psi(t).
+\end{aligned}</annotation></semantics></math></p>
+<p>The boundary term vanishes because <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>t</mi><mi>x</mi></mrow></msup><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">|e^{itx}g(x)|=g(x)\to0</annotation></semantics></math>. Therefore</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>ψ</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mi>t</mi><mi>ψ</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>ψ</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\psi'(t)=-t\psi(t),\qquad\psi(0)=1.</annotation></semantics></math></p>
+<p>Multiplying by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>e</mi><mrow><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup><annotation encoding="application/x-tex">e^{t^2/2}</annotation></semantics></math> shows that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>d</mi><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo stretchy="false" form="prefix">(</mo><msup><mi>e</mi><mrow><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup><mi>ψ</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\frac d{dt}(e^{t^2/2}\psi(t))=0</annotation></semantics></math>. Its value is 1 at zero, giving</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><menclose notation="box"><mrow><msub><mi>φ</mi><mi>G</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup><mi>.</mi></mrow></menclose><annotation encoding="application/x-tex">\boxed{\varphi_G(t)=e^{-t^2/2}.}</annotation></semantics></math></p>
+<p>The scaling rule also gives <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>φ</mi><mrow><mi>τ</mi><mi>G</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>τ</mi><mn>2</mn></msup><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\varphi_{\tau G}(t)=e^{-\tau^2t^2/2}</annotation></semantics></math> for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\tau&gt;0</annotation></semantics></math>.</p>
+</section>
+<section id="local-expansion" class="level2">
+<h2 class="anchored" data-anchor-id="local-expansion">5. The essential local expansion: finite variance is enough</h2>
+<p>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Z</mi><annotation encoding="application/x-tex">Z</annotation></semantics></math> have the common law of the standardized <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Z</mi><mi>j</mi></msub><annotation encoding="application/x-tex">Z_j</annotation></semantics></math>. We know <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><mi>Z</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">E[Z]=0</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>Z</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">E[Z^2]=1</annotation></semantics></math>. We want to prove</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><menclose notation="box"><mrow><msub><mi>φ</mi><mi>Z</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mfrac><msup><mi>u</mi><mn>2</mn></msup><mn>2</mn></mfrac><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>u</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>→</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow></menclose><annotation encoding="application/x-tex">\boxed{\varphi_Z(u)=1-\frac{u^2}{2}+o(u^2)\quad(u\to0).}</annotation></semantics></math></p>
+<p>The notation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>u</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">r(u)=o(u^2)</annotation></semantics></math> means <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mi>u</mi><mn>2</mn></msup><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">r(u)/u^2\to0</annotation></semantics></math> as <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">u\to0</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">u\ne0</annotation></semantics></math>. The remainder may be complex; convergence is in absolute value.</p>
+<section id="a-pointwise-taylor-identity-with-a-bounded-remainder" class="level3">
+<h3 class="anchored" data-anchor-id="a-pointwise-taylor-identity-with-a-bounded-remainder">A pointwise Taylor identity with a bounded remainder</h3>
+<p>For every real <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>, Taylor’s formula with its integral remainder gives</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>e</mi><mrow><mi>i</mi><mi>v</mi></mrow></msup><mo>=</mo><mn>1</mn><mo>+</mo><mi>i</mi><mi>v</mi><mo>−</mo><msup><mi>v</mi><mn>2</mn></msup><msubsup><mo>∫</mo><mn>0</mn><mn>1</mn></msubsup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>s</mi><mi>v</mi></mrow></msup><mi>d</mi><mi>s</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">e^{iv}=1+iv-v^2\int_0^1(1-s)e^{isv}ds.</annotation></semantics></math></p>
+<p>One way to obtain it is to integrate the second derivative of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>↦</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>s</mi><mi>v</mi></mrow></msup></mrow><annotation encoding="application/x-tex">s\mapsto e^{isv}</annotation></semantics></math> twice from 0 to 1. Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mn>0</mn><mn>1</mn></msubsup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mi>d</mi><mi>s</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\int_0^1(1-s)ds=1/2</annotation></semantics></math>, rearrange it as</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>e</mi><mrow><mi>i</mi><mi>v</mi></mrow></msup><mo>=</mo><mn>1</mn><mo>+</mo><mi>i</mi><mi>v</mi><mo>−</mo><mfrac><msup><mi>v</mi><mn>2</mn></msup><mn>2</mn></mfrac><mo>+</mo><msup><mi>v</mi><mn>2</mn></msup><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">e^{iv}=1+iv-\frac{v^2}{2}+v^2r(v),</annotation></semantics></math></p>
+<p>where</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mn>1</mn></msubsup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>s</mi><mi>v</mi></mrow></msup><mo stretchy="false" form="postfix">)</mo><mi>d</mi><mi>s</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">r(v)=\int_0^1(1-s)(1-e^{isv})ds.</annotation></semantics></math></p>
+<p>Two properties are crucial:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><msubsup><mo>∫</mo><mn>0</mn><mn>1</mn></msubsup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mn>2</mn><mspace width="0.167em"></mspace><mi>d</mi><mi>s</mi><mo>=</mo><mn>1</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">|r(v)|\le\int_0^1(1-s)\,2\,ds=1,</annotation></semantics></math></p>
+<p>and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">r(v)\to0</annotation></semantics></math> as <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">v\to0</annotation></semantics></math>, by bounded convergence in the integral. The bound holds for <strong>all</strong> real <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>, not only small ones.</p>
+</section>
+<section id="substitute-the-random-variable-and-take-expectations" class="level3">
+<h3 class="anchored" data-anchor-id="substitute-the-random-variable-and-take-expectations">Substitute the random variable and take expectations</h3>
+<p>Set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>=</mo><mi>u</mi><mi>Z</mi></mrow><annotation encoding="application/x-tex">v=uZ</annotation></semantics></math> in the identity:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>e</mi><mrow><mi>i</mi><mi>u</mi><mi>Z</mi></mrow></msup><mo>=</mo><mn>1</mn><mo>+</mo><mi>i</mi><mi>u</mi><mi>Z</mi><mo>−</mo><mfrac><mrow><msup><mi>u</mi><mn>2</mn></msup><msup><mi>Z</mi><mn>2</mn></msup></mrow><mn>2</mn></mfrac><mo>+</mo><msup><mi>u</mi><mn>2</mn></msup><msup><mi>Z</mi><mn>2</mn></msup><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mi>Z</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">e^{iuZ}=1+iuZ-\frac{u^2Z^2}{2}+u^2Z^2r(uZ).</annotation></semantics></math></p>
+<p>All terms are integrable: finite second moment implies <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">|</mo><mi>Z</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><msqrt><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>Z</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">]</mo></mrow></msqrt><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">E|Z|\le\sqrt{E[Z^2]}=1</annotation></semantics></math>, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msup><mi>Z</mi><mn>2</mn></msup><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mi>Z</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><msup><mi>Z</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">|Z^2r(uZ)|\le Z^2</annotation></semantics></math>. Therefore</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>φ</mi><mi>Z</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>+</mo><mi>i</mi><mi>u</mi><mi>E</mi><mo stretchy="false" form="prefix">[</mo><mi>Z</mi><mo stretchy="false" form="postfix">]</mo><mo>−</mo><mfrac><msup><mi>u</mi><mn>2</mn></msup><mn>2</mn></mfrac><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>Z</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">]</mo><mo>+</mo><msup><mi>u</mi><mn>2</mn></msup><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>Z</mi><mn>2</mn></msup><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mi>Z</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>1</mn><mo>−</mo><mfrac><msup><mi>u</mi><mn>2</mn></msup><mn>2</mn></mfrac><mo>+</mo><msup><mi>u</mi><mn>2</mn></msup><mi>ε</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\varphi_Z(u)=1+iuE[Z]-\frac{u^2}{2}E[Z^2]
++u^2E[Z^2r(uZ)]
+=1-\frac{u^2}{2}+u^2\varepsilon(u),</annotation></semantics></math></p>
+<p>where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>Z</mi><mn>2</mn></msup><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mi>Z</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\varepsilon(u)=E[Z^2r(uZ)]</annotation></semantics></math>.</p>
+<p>For each finite realized value of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Z</mi><annotation encoding="application/x-tex">Z</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mi>Z</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">r(uZ)\to0</annotation></semantics></math>. The integrable bound <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>Z</mi><mn>2</mn></msup><annotation encoding="application/x-tex">Z^2</annotation></semantics></math> does not depend on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math>. The <strong>dominated convergence theorem</strong>—pointwise convergence plus an integrable absolute bound permits passing the limit inside an expectation—now gives</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mn>0</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\varepsilon(u)\longrightarrow0.</annotation></semantics></math></p>
+<p>This proves the required expansion without assuming <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">|</mo><mi>Z</mi><msup><mo stretchy="false" form="prefix">|</mo><mn>3</mn></msup><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">E|Z|^3&lt;\infty</annotation></semantics></math>. A third-order remainder bounded by a constant times <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>u</mi><mi>Z</mi><msup><mo stretchy="false" form="prefix">|</mo><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">|uZ|^3</annotation></semantics></math> would demand an extra moment that the theorem does not assume. The bounded second-order remainder avoids that problem.</p>
+<p><strong>Stopping point.</strong> Check that the zero mean removes the linear term, the unit variance fixes the quadratic term, and the remainder estimate uses exactly the finite second moment.</p>
+</section>
+</section>
+<section id="the-transform-of-the-standardized-sum" class="level2">
+<h2 class="anchored" data-anchor-id="the-transform-of-the-standardized-sum">6. The transform of the standardized sum</h2>
+<p>Combining the scaling and independent-sum rules,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>φ</mi><msub><mi>S</mi><mi>n</mi></msub></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mi>E</mi><mrow><mo stretchy="true" form="prefix">[</mo><mi mathvariant="normal">exp</mi><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>i</mi><mi>t</mi></mrow><msqrt><mi>n</mi></msqrt></mfrac><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>Z</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><munderover><mo>∏</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>φ</mi><msub><mi>Z</mi><mi>j</mi></msub></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>/</mi><msqrt><mi>n</mi></msqrt><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">[</mo><msub><mi>φ</mi><mi>Z</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>/</mi><msqrt><mi>n</mi></msqrt><mo stretchy="false" form="postfix">)</mo><mo stretchy="true" form="postfix">]</mo></mrow><mi>n</mi></msup><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\varphi_{S_n}(t)
+&amp;=E\left[\exp\left(\frac{it}{\sqrt n}\sum_{j=1}^nZ_j\right)\right]\\
+&amp;=\prod_{j=1}^n\varphi_{Z_j}(t/\sqrt n)\\
+&amp;=\left[\varphi_Z(t/\sqrt n)\right]^n.
+\end{aligned}</annotation></semantics></math></p>
+<p>Fix a real <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>. For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t\ne0</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mi>/</mi><msqrt><mi>n</mi></msqrt><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t/\sqrt n\to0</annotation></semantics></math>, so the expansion gives</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>φ</mi><mi>Z</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>/</mi><msqrt><mi>n</mi></msqrt><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mfrac><msup><mi>t</mi><mn>2</mn></msup><mrow><mn>2</mn><mi>n</mi></mrow></mfrac><mo>+</mo><mfrac><msup><mi>t</mi><mn>2</mn></msup><mi>n</mi></mfrac><mi>ε</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>/</mi><msqrt><mi>n</mi></msqrt><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>+</mo><msub><mi>a</mi><mi>n</mi></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">\varphi_Z(t/\sqrt n)
+=1-\frac{t^2}{2n}+\frac{t^2}{n}\varepsilon(t/\sqrt n)
+=1+a_n,</annotation></semantics></math></p>
+<p>with</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><mi>−</mi><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn><mo>+</mo><msup><mi>t</mi><mn>2</mn></msup><mi>ε</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>/</mi><msqrt><mi>n</mi></msqrt><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mi>−</mi><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">na_n=-t^2/2+t^2\varepsilon(t/\sqrt n)\longrightarrow-t^2/2.</annotation></semantics></math></p>
+<p>In particular, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a_n=O(1/n)</annotation></semantics></math>: for this fixed <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>, its magnitude is eventually bounded by a constant divided by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>. We must evaluate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><msub><mi>a</mi><mi>n</mi></msub><msup><mo stretchy="false" form="postfix">)</mo><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">(1+a_n)^n</annotation></semantics></math>, remembering that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>n</mi></msub><annotation encoding="application/x-tex">a_n</annotation></semantics></math> can be complex.</p>
+</section>
+<section id="justify-the-exponential-limit-for-complex-factors" class="level2">
+<h2 class="anchored" data-anchor-id="justify-the-exponential-limit-for-complex-factors">7. Justify the exponential limit for complex factors</h2>
+<p>For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>z</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|z|&lt;1</annotation></semantics></math>, define the logarithm near 1 by its convergent power series:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>z</mi><mo>−</mo><mfrac><msup><mi>z</mi><mn>2</mn></msup><mn>2</mn></mfrac><mo>+</mo><mfrac><msup><mi>z</mi><mn>3</mn></msup><mn>3</mn></mfrac><mo>−</mo><mi>⋯</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\log(1+z)=z-\frac{z^2}{2}+\frac{z^3}{3}-\cdots.</annotation></semantics></math></p>
+<p>For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>z</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">|z|\le1/2</annotation></semantics></math>,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>z</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>2</mn></mrow><mo accent="false">∞</mo></munderover><mo stretchy="false" form="prefix">|</mo><mi>z</mi><msup><mo stretchy="false" form="prefix">|</mo><mi>j</mi></msup><mo>=</mo><mfrac><mrow><mo stretchy="false" form="prefix">|</mo><mi>z</mi><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup></mrow><mrow><mn>1</mn><mo>−</mo><mo stretchy="false" form="prefix">|</mo><mi>z</mi><mo stretchy="false" form="prefix">|</mo></mrow></mfrac><mo>≤</mo><mn>2</mn><mo stretchy="false" form="prefix">|</mo><mi>z</mi><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">|\log(1+z)-z|
+\le\sum_{j=2}^\infty |z|^j
+=\frac{|z|^2}{1-|z|}\le2|z|^2.</annotation></semantics></math></p>
+<p>This local logarithm satisfies <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">exp</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>+</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">\exp(\log(1+z))=1+z</annotation></semantics></math>. There is no global choice of a complex logarithm involved: for sufficiently large <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>, every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">1+a_n</annotation></semantics></math> lies in this single neighborhood of 1.</p>
+<p>Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a_n=O(1/n)</annotation></semantics></math>,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>n</mi><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>n</mi><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mn>2</mn><mi>n</mi><mo stretchy="false" form="prefix">|</mo><msub><mi>a</mi><mi>n</mi></msub><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup><mo>→</mo><mn>0</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">|n\log(1+a_n)-na_n|\le2n|a_n|^2\longrightarrow0.</annotation></semantics></math></p>
+<p>Consequently,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mi>−</mi><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">n\log(1+a_n)\longrightarrow-t^2/2,</annotation></semantics></math></p>
+<p>and continuity of the exponential gives</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>φ</mi><msub><mi>S</mi><mi>n</mi></msub></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><msub><mi>a</mi><mi>n</mi></msub><msup><mo stretchy="false" form="postfix">)</mo><mi>n</mi></msup><mo>=</mo><mrow><mi mathvariant="normal">exp</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">{</mo><mi>n</mi><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">}</mo><mo>→</mo><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\varphi_{S_n}(t)=(1+a_n)^n
+=\exp\{n\log(1+a_n)\}\longrightarrow e^{-t^2/2}.</annotation></semantics></math></p>
+<p>For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t=0</annotation></semantics></math>, both sides are 1 for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>. We have proved the pointwise transform limit for <strong>every</strong> real <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><menclose notation="box"><mrow><msub><mi>φ</mi><msub><mi>S</mi><mi>n</mi></msub></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><msub><mi>φ</mi><mi>G</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow></menclose><annotation encoding="application/x-tex">\boxed{\varphi_{S_n}(t)\longrightarrow\varphi_G(t).}</annotation></semantics></math></p>
+<p>Here <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> is fixed while <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> grows. We have not asserted uniform convergence over all <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>, convergence of densities, or a finite-sample error bound.</p>
+</section>
+<section id="why-this-proves-convergence-of-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="why-this-proves-convergence-of-distributions">8. Why this proves convergence of distributions</h2>
+<p>The usual final step invokes <strong>Lévy’s continuity theorem</strong>: if characteristic functions converge pointwise to a function continuous at zero, the limit is a characteristic function and the corresponding laws converge in distribution to its law. Our limit <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup><annotation encoding="application/x-tex">e^{-t^2/2}</annotation></semantics></math> is continuous at zero and is the characteristic function of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>∼</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">G\sim N(0,1)</annotation></semantics></math>. Therefore <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>n</mi></msub><mover><mo>→</mo><mi>d</mi></mover><mi>G</mi></mrow><annotation encoding="application/x-tex">S_n\xrightarrow{d}G</annotation></semantics></math>.</p>
+<p>That completes the standard proof. To explain the analytic bridge rather than leave it as a named result, the next section proves the exact implication needed here directly. It uses the already established bound <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msubsup><mi>S</mi><mi>n</mi><mn>2</mn></msubsup><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">E[S_n^2]=1</annotation></semantics></math> and Gaussian smoothing. It does <strong>not</strong> claim to prove every version of the continuity theorem.</p>
+</section>
+<section id="smoothing-proof" class="level2">
+<h2 class="anchored" data-anchor-id="smoothing-proof">9. Prove the final bridge by Gaussian smoothing</h2>
+<section id="add-a-small-independent-normal-perturbation" class="level3">
+<h3 class="anchored" data-anchor-id="add-a-small-independent-normal-perturbation">9.1 Add a small independent normal perturbation</h3>
+<p>Fix <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\delta&gt;0</annotation></semantics></math>. On an enlarged probability space, take <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>∼</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">G\sim N(0,1)</annotation></semantics></math> independent of all the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>S</mi><mi>n</mi></msub><annotation encoding="application/x-tex">S_n</annotation></semantics></math>, and set</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mrow><mi>n</mi><mo>,</mo><mi>δ</mi></mrow></msub><mo>=</mo><msub><mi>S</mi><mi>n</mi></msub><mo>+</mo><mi>δ</mi><mi>G</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">Y_{n,\delta}=S_n+\delta G.</annotation></semantics></math></p>
+<p>We introduce this perturbation only as a proof device. Even if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>S</mi><mi>n</mi></msub><annotation encoding="application/x-tex">S_n</annotation></semantics></math> is discrete, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Y</mi><mrow><mi>n</mi><mo>,</mo><mi>δ</mi></mrow></msub><annotation encoding="application/x-tex">Y_{n,\delta}</annotation></semantics></math> has a smooth density. Write the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msup><mi>δ</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">N(0,\delta^2)</annotation></semantics></math> density as</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mi>δ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><msqrt><mrow><mn>2</mn><mi>π</mi></mrow></msqrt><mi>δ</mi></mrow></mfrac><mrow><mi mathvariant="normal">exp</mi><mo>⁡</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>−</mi><mfrac><msup><mi>z</mi><mn>2</mn></msup><mrow><mn>2</mn><msup><mi>δ</mi><mn>2</mn></msup></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">q_\delta(z)=\frac1{\sqrt{2\pi}\delta}\exp\left(-\frac{z^2}{2\delta^2}\right).</annotation></semantics></math></p>
+<p>Conditioning on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>S</mi><mi>n</mi></msub><annotation encoding="application/x-tex">S_n</annotation></semantics></math> gives</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>n</mi><mo>,</mo><mi>δ</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msub><mi>q</mi><mi>δ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>−</mo><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">f_{n,\delta}(x)=E[q_\delta(x-S_n)].</annotation></semantics></math></p>
+<p>To verify this rather than assume it, integrate over any Borel set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>S</mi><mi>n</mi></msub><mo>+</mo><mi>δ</mi><mi>G</mi><mo>∈</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>E</mi><mrow><mo stretchy="true" form="prefix">[</mo><msub><mo>∫</mo><mi>B</mi></msub><msub><mi>q</mi><mi>δ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>−</mo><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>d</mi><mi>x</mi><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><msub><mo>∫</mo><mi>B</mi></msub><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msub><mi>q</mi><mi>δ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>−</mo><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mi>d</mi><mi>x</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">P(S_n+\delta G\in B)=E\left[\int_B q_\delta(x-S_n)dx\right]
+=\int_B E[q_\delta(x-S_n)]dx.</annotation></semantics></math></p>
+<p>The interchange is valid for nonnegative integrands (Tonelli’s theorem).</p>
+</section>
+<section id="a-gaussian-fourier-identity-derived-explicitly" class="level3">
+<h3 class="anchored" data-anchor-id="a-gaussian-fourier-identity-derived-explicitly">9.2 A Gaussian Fourier identity, derived explicitly</h3>
+<p>The normal characteristic-function calculation from section 4, applied to a normal variable with variance <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><msup><mi>δ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">1/\delta^2</annotation></semantics></math>, gives</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∫</mo><mi mathvariant="double-struck">ℝ</mi></msub><msup><mi>e</mi><mrow><mi>−</mi><mi>i</mi><mi>t</mi><mi>z</mi></mrow></msup><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>δ</mi><mn>2</mn></msup><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup><mi>d</mi><mi>t</mi><mo>=</mo><mfrac><msqrt><mrow><mn>2</mn><mi>π</mi></mrow></msqrt><mi>δ</mi></mfrac><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>z</mi><mn>2</mn></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><msup><mi>δ</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\int_{\mathbb R}e^{-itz}e^{-\delta^2t^2/2}dt
+=\frac{\sqrt{2\pi}}{\delta}e^{-z^2/(2\delta^2)}.</annotation></semantics></math></p>
+<p>Indeed multiplying the integrand by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mi>/</mi><msqrt><mrow><mn>2</mn><mi>π</mi></mrow></msqrt></mrow><annotation encoding="application/x-tex">\delta/\sqrt{2\pi}</annotation></semantics></math> makes it the density-weighted characteristic-function integral for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mi>/</mi><msup><mi>δ</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">N(0,1/\delta^2)</annotation></semantics></math> at argument <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>z</mi></mrow><annotation encoding="application/x-tex">-z</annotation></semantics></math>. Thus</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mi>δ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><msub><mo>∫</mo><mi mathvariant="double-struck">ℝ</mi></msub><msup><mi>e</mi><mrow><mi>−</mi><mi>i</mi><mi>t</mi><mi>z</mi></mrow></msup><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>δ</mi><mn>2</mn></msup><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup><mi>d</mi><mi>t</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">q_\delta(z)=\frac1{2\pi}\int_{\mathbb R}e^{-itz}e^{-\delta^2t^2/2}dt.</annotation></semantics></math></p>
+<p>This is a directly verified Gaussian identity, not an assumed general Fourier inversion theorem.</p>
+</section>
+<section id="pass-the-transform-limit-through-an-integrable-kernel" class="level3">
+<h3 class="anchored" data-anchor-id="pass-the-transform-limit-through-an-integrable-kernel">9.3 Pass the transform limit through an integrable kernel</h3>
+<p>Substituting <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mi>x</mi><mo>−</mo><msub><mi>S</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">z=x-S_n</annotation></semantics></math> yields</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>f</mi><mrow><mi>n</mi><mo>,</mo><mi>δ</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><mi>E</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo>∫</mo><msup><mi>e</mi><mrow><mi>−</mi><mi>i</mi><mi>t</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>−</mo><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow></msup><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>δ</mi><mn>2</mn></msup><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup><mi>d</mi><mi>t</mi><mo stretchy="true" form="postfix">]</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><mo>∫</mo><msup><mi>e</mi><mrow><mi>−</mi><mi>i</mi><mi>t</mi><mi>x</mi></mrow></msup><msub><mi>φ</mi><msub><mi>S</mi><mi>n</mi></msub></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>δ</mi><mn>2</mn></msup><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup><mi>d</mi><mi>t</mi><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+f_{n,\delta}(x)
+&amp;=\frac1{2\pi}E\left[\int e^{-it(x-S_n)}e^{-\delta^2t^2/2}dt\right]\\
+&amp;=\frac1{2\pi}\int e^{-itx}\varphi_{S_n}(t)e^{-\delta^2t^2/2}dt.
+\end{aligned}</annotation></semantics></math></p>
+<p>The interchange is valid because the absolute integrand is bounded by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>δ</mi><mn>2</mn></msup><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup><annotation encoding="application/x-tex">e^{-\delta^2t^2/2}</annotation></semantics></math>, whose integral is finite. This is the absolute-integrability form of Fubini’s theorem.</p>
+<p>Now <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>φ</mi><msub><mi>S</mi><mi>n</mi></msub></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|\varphi_{S_n}(t)|\le1</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>φ</mi><msub><mi>S</mi><mi>n</mi></msub></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\varphi_{S_n}(t)\to e^{-t^2/2}</annotation></semantics></math>. Dominated convergence gives, for each <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>n</mi><mo>,</mo><mi>δ</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><mo>∫</mo><msup><mi>e</mi><mrow><mi>−</mi><mi>i</mi><mi>t</mi><mi>x</mi></mrow></msup><msup><mi>e</mi><mrow><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><msup><mi>δ</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup><mi>d</mi><mi>t</mi><mo>=</mo><msub><mi>q</mi><msqrt><mrow><mn>1</mn><mo>+</mo><msup><mi>δ</mi><mn>2</mn></msup></mrow></msqrt></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">f_{n,\delta}(x)\longrightarrow
+\frac1{2\pi}\int e^{-itx}e^{-(1+\delta^2)t^2/2}dt
+=q_{\sqrt{1+\delta^2}}(x).</annotation></semantics></math></p>
+<p>So the smoothed densities converge pointwise to the density of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>+</mo><msup><mi>δ</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">N(0,1+\delta^2)</annotation></semantics></math>.</p>
+</section>
+<section id="from-these-densities-to-their-cdfs-control-the-tails" class="level3">
+<h3 class="anchored" data-anchor-id="from-these-densities-to-their-cdfs-control-the-tails">9.4 From these densities to their CDFs: control the tails</h3>
+<p>Pointwise convergence of densities must not simply be integrated over an infinite interval without justification. Here we have two useful bounds.</p>
+<p>First, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>n</mi><mo>,</mo><mi>δ</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msqrt><mrow><mn>2</mn><mi>π</mi></mrow></msqrt><mi>δ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f_{n,\delta}(x)\le1/(\sqrt{2\pi}\delta)</annotation></semantics></math>, uniformly in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>,</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">n,x</annotation></semantics></math>, since it is an average of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>q</mi><mi>δ</mi></msub><annotation encoding="application/x-tex">q_\delta</annotation></semantics></math>. On any bounded interval, this constant is integrable. Second, independence and centering give</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msub><mi>Y</mi><mrow><mi>n</mi><mo>,</mo><mi>δ</mi></mrow></msub><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0</mn><mo>,</mo><mspace width="2.0em"></mspace><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msubsup><mi>Y</mi><mrow><mi>n</mi><mo>,</mo><mi>δ</mi></mrow><mn>2</mn></msubsup><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>1</mn><mo>+</mo><msup><mi>δ</mi><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">E[Y_{n,\delta}]=0,\qquad E[Y_{n,\delta}^2]=1+\delta^2.</annotation></semantics></math></p>
+<p>For any centered variable <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>V</mi><mn>2</mn></msup><mo>≥</mo><msup><mi>R</mi><mn>2</mn></msup><msub><mn mathvariant="bold">𝟏</mn><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>V</mi><mo stretchy="false" form="prefix">|</mo><mo>≥</mo><mi>R</mi><mo stretchy="false" form="postfix">}</mo></mrow></msub></mrow><annotation encoding="application/x-tex">V^2\ge R^2\mathbf1_{\{|V|\ge R\}}</annotation></semantics></math> implies the Chebyshev bound</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">|</mo><mi>V</mi><mo stretchy="false" form="prefix">|</mo><mo>≥</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>V</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">]</mo><mi>/</mi><msup><mi>R</mi><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">P(|V|\ge R)\le E[V^2]/R^2.</annotation></semantics></math></p>
+<p>Fix <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> and choose <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>&gt;</mo><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">R&gt;|x|</annotation></semantics></math>. Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>F</mi><mi>δ</mi></msub><annotation encoding="application/x-tex">F_\delta</annotation></semantics></math> be the CDF of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>+</mo><msup><mi>δ</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">N(0,1+\delta^2)</annotation></semantics></math>. Split each CDF integral at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>R</mi></mrow><annotation encoding="application/x-tex">-R</annotation></semantics></math>. Then</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>Y</mi><mrow><mi>n</mi><mo>,</mo><mi>δ</mi></mrow></msub><mo>≤</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi>F</mi><mi>δ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="true" form="postfix">|</mo></mrow><mo>≤</mo><mfrac><mrow><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><msup><mi>δ</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><msup><mi>R</mi><mn>2</mn></msup></mfrac><mo>+</mo><mrow><mo stretchy="true" form="prefix">|</mo><msubsup><mo>∫</mo><mrow><mi>−</mi><mi>R</mi></mrow><mi>x</mi></msubsup><mo stretchy="false" form="prefix">[</mo><msub><mi>f</mi><mrow><mi>n</mi><mo>,</mo><mi>δ</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi>q</mi><msqrt><mrow><mn>1</mn><mo>+</mo><msup><mi>δ</mi><mn>2</mn></msup></mrow></msqrt></msub><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mi>d</mi><mi>u</mi><mo stretchy="true" form="postfix">|</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\left|P(Y_{n,\delta}\le x)-F_\delta(x)\right|
+\le\frac{2(1+\delta^2)}{R^2}
++\left|\int_{-R}^x[f_{n,\delta}(u)-q_{\sqrt{1+\delta^2}}(u)]du\right|.</annotation></semantics></math></p>
+<p>The bounded-interval integral tends to zero by dominated convergence. Take <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">n\to\infty</annotation></semantics></math> first and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">R\to\infty</annotation></semantics></math> afterward. We obtain</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>Y</mi><mrow><mi>n</mi><mo>,</mo><mi>δ</mi></mrow></msub><mo>≤</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><msub><mi>F</mi><mi>δ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi mathvariant="normal">Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mi>x</mi><msqrt><mrow><mn>1</mn><mo>+</mo><msup><mi>δ</mi><mn>2</mn></msup></mrow></msqrt></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">P(Y_{n,\delta}\le x)\longrightarrow
+F_\delta(x)=\Phi\left(\frac{x}{\sqrt{1+\delta^2}}\right).</annotation></semantics></math></p>
+</section>
+<section id="remove-the-perturbation-using-event-inclusions" class="level3">
+<h3 class="anchored" data-anchor-id="remove-the-perturbation-using-event-inclusions">9.5 Remove the perturbation using event inclusions</h3>
+<p>For any <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\eta&gt;0</annotation></semantics></math>, if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>n</mi></msub><mo>≤</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">S_n\le x</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>δ</mi><mi>G</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>η</mi></mrow><annotation encoding="application/x-tex">|\delta G|\le\eta</annotation></semantics></math>, then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mrow><mi>n</mi><mo>,</mo><mi>δ</mi></mrow></msub><mo>≤</mo><mi>x</mi><mo>+</mo><mi>η</mi></mrow><annotation encoding="application/x-tex">Y_{n,\delta}\le x+\eta</annotation></semantics></math>. Conversely, if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mrow><mi>n</mi><mo>,</mo><mi>δ</mi></mrow></msub><mo>≤</mo><mi>x</mi><mo>−</mo><mi>η</mi></mrow><annotation encoding="application/x-tex">Y_{n,\delta}\le x-\eta</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>δ</mi><mi>G</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>η</mi></mrow><annotation encoding="application/x-tex">|\delta G|\le\eta</annotation></semantics></math>, then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>n</mi></msub><mo>≤</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">S_n\le x</annotation></semantics></math>. These inclusions imply</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>Y</mi><mrow><mi>n</mi><mo>,</mo><mi>δ</mi></mrow></msub><mo>≤</mo><mi>x</mi><mo>−</mo><mi>η</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">|</mo><mi>δ</mi><mi>G</mi><mo stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mi>η</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>S</mi><mi>n</mi></msub><mo>≤</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>Y</mi><mrow><mi>n</mi><mo>,</mo><mi>δ</mi></mrow></msub><mo>≤</mo><mi>x</mi><mo>+</mo><mi>η</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">|</mo><mi>δ</mi><mi>G</mi><mo stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mi>η</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">P(Y_{n,\delta}\le x-\eta)-P(|\delta G|&gt;\eta)
+\le P(S_n\le x)
+\le P(Y_{n,\delta}\le x+\eta)+P(|\delta G|&gt;\eta).</annotation></semantics></math></p>
+<p>Chebyshev gives <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">|</mo><mi>δ</mi><mi>G</mi><mo stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mi>η</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msup><mi>δ</mi><mn>2</mn></msup><mi>/</mi><msup><mi>η</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">P(|\delta G|&gt;\eta)\le\delta^2/\eta^2</annotation></semantics></math>. Keep <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>,</mo><mi>η</mi></mrow><annotation encoding="application/x-tex">\delta,\eta</annotation></semantics></math> fixed while taking lower and upper limits in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><munder><mi mathvariant="normal">liminf</mi><mi>n</mi></munder><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>S</mi><mi>n</mi></msub><mo>≤</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>≥</mo><mi mathvariant="normal">Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>x</mi><mo>−</mo><mi>η</mi></mrow><msqrt><mrow><mn>1</mn><mo>+</mo><msup><mi>δ</mi><mn>2</mn></msup></mrow></msqrt></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mfrac><msup><mi>δ</mi><mn>2</mn></msup><msup><mi>η</mi><mn>2</mn></msup></mfrac><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><munder><mi mathvariant="normal">limsup</mi><mi>n</mi></munder><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>S</mi><mi>n</mi></msub><mo>≤</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>≤</mo><mi mathvariant="normal">Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>x</mi><mo>+</mo><mi>η</mi></mrow><msqrt><mrow><mn>1</mn><mo>+</mo><msup><mi>δ</mi><mn>2</mn></msup></mrow></msqrt></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mfrac><msup><mi>δ</mi><mn>2</mn></msup><msup><mi>η</mi><mn>2</mn></msup></mfrac><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\liminf_n P(S_n\le x)&amp;\ge
+\Phi\left(\frac{x-\eta}{\sqrt{1+\delta^2}}\right)-\frac{\delta^2}{\eta^2},\\
+\limsup_n P(S_n\le x)&amp;\le
+\Phi\left(\frac{x+\eta}{\sqrt{1+\delta^2}}\right)+\frac{\delta^2}{\eta^2}.
+\end{aligned}</annotation></semantics></math></p>
+<p>Finally choose <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mo>=</mo><msqrt><mi>δ</mi></msqrt></mrow><annotation encoding="application/x-tex">\eta=\sqrt\delta</annotation></semantics></math> and let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>↓</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\delta\downarrow0</annotation></semantics></math>. Then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\eta\to0</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>δ</mi><mn>2</mn></msup><mi>/</mi><msup><mi>η</mi><mn>2</mn></msup><mo>=</mo><mi>δ</mi><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\delta^2/\eta^2=\delta\to0</annotation></semantics></math>, and continuity of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Φ</mi><annotation encoding="application/x-tex">\Phi</annotation></semantics></math> makes both outer bounds tend to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Φ</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Phi(x)</annotation></semantics></math>. Therefore</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><menclose notation="box"><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>S</mi><mi>n</mi></msub><mo>≤</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mi mathvariant="normal">Φ</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mspace width="1.0em"></mspace><mrow><mtext mathvariant="normal">for every real </mtext><mspace width="0.333em"></mspace></mrow><mi>x</mi><mi>.</mi></mrow></menclose><annotation encoding="application/x-tex">\boxed{P(S_n\le x)\longrightarrow\Phi(x)\quad\text{for every real }x.}</annotation></semantics></math></p>
+<p>This establishes the final distributional conclusion without assuming that the original sums have densities. The order of limits matters: first <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">n\to\infty</annotation></semantics></math> with smoothing fixed, then remove the smoothing.</p>
+</section>
+</section>
+<section id="a-worked-example-uniform-errors" class="level2">
+<h2 class="anchored" data-anchor-id="a-worked-example-uniform-errors">10. A worked example: uniform errors</h2>
+<p>Return to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>j</mi></msub><mo>∼</mo><mi>U</mi><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_j\sim U(-1,1)</annotation></semantics></math>. Their mean is zero, variance is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">1/3</annotation></semantics></math>, and direct integration gives</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>φ</mi><mi>X</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><msubsup><mo>∫</mo><mrow><mi>−</mi><mn>1</mn></mrow><mn>1</mn></msubsup><msup><mi>e</mi><mrow><mi>i</mi><mi>t</mi><mi>x</mi></mrow></msup><mi>d</mi><mi>x</mi><mo>=</mo><mfrac><mrow><mrow><mi mathvariant="normal">sin</mi><mo>⁡</mo></mrow><mi>t</mi></mrow><mi>t</mi></mfrac><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>≠</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>φ</mi><mi>X</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\varphi_X(t)=\frac12\int_{-1}^1 e^{itx}dx
+=\frac{\sin t}{t}\quad(t\ne0),\qquad\varphi_X(0)=1.</annotation></semantics></math></p>
+<p>The standardized summand is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mi>j</mi></msub><mo>=</mo><msqrt><mn>3</mn></msqrt><msub><mi>X</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">Z_j=\sqrt3X_j</annotation></semantics></math>, so</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>φ</mi><mi>Z</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mrow><mi mathvariant="normal">sin</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msqrt><mn>3</mn></msqrt><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><msqrt><mn>3</mn></msqrt><mi>t</mi></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\varphi_Z(t)=\frac{\sin(\sqrt3t)}{\sqrt3t}.</annotation></semantics></math></p>
+<p>Consequently the characteristic function of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>n</mi></msub><mo>=</mo><msqrt><mrow><mn>3</mn><mi>n</mi></mrow></msqrt><msub><mover><mi>X</mi><mo accent="true">‾</mo></mover><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">S_n=\sqrt{3n}\bar X_n</annotation></semantics></math> is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>φ</mi><msub><mi>S</mi><mi>n</mi></msub></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">[</mo><mfrac><mrow><mrow><mi mathvariant="normal">sin</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msqrt><mrow><mn>3</mn><mi>/</mi><mi>n</mi></mrow></msqrt><mspace width="0.167em"></mspace><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><msqrt><mrow><mn>3</mn><mi>/</mi><mi>n</mi></mrow></msqrt><mspace width="0.167em"></mspace><mi>t</mi></mrow></mfrac><mo stretchy="true" form="postfix">]</mo></mrow><mi>n</mi></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">\varphi_{S_n}(t)=\left[\frac{\sin(\sqrt{3/n}\,t)}{\sqrt{3/n}\,t}\right]^n,</annotation></semantics></math></p>
+<p>with the ratio defined as 1 at zero. The expansion <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">sin</mi><mo>⁡</mo></mrow><mi>v</mi><mi>/</mi><mi>v</mi><mo>=</mo><mn>1</mn><mo>−</mo><msup><mi>v</mi><mn>2</mn></msup><mi>/</mi><mn>6</mn><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>v</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sin v/v=1-v^2/6+o(v^2)</annotation></semantics></math> makes the bracket <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1-t^2/(2n)+o(1/n)</annotation></semantics></math>, reproducing the general proof.</p>
+<p>For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">n=100</annotation></semantics></math>, a normal approximation to a tolerance probability is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">|</mo><msub><mover><mi>X</mi><mo accent="true">‾</mo></mover><mn>100</mn></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mn>0.1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">|</mo><msub><mi>S</mi><mn>100</mn></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><msqrt><mn>3</mn></msqrt><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>2</mn><mi mathvariant="normal">Φ</mi><mo stretchy="false" form="prefix">(</mo><msqrt><mn>3</mn></msqrt><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mn>1</mn><mo>≈</mo><mn>0.917</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">P(|\bar X_{100}|\le0.1)
+=P(|S_{100}|\le\sqrt3)
+\approx2\Phi(\sqrt3)-1\approx0.917.</annotation></semantics></math></p>
+<p>This is an approximation, not an exact probability or an error guarantee. The original observations are still uniform. Use the <a href="../materials/07-multivariate-normal/central-limit-theorem.html">interactive demonstration</a> to compare individual observations, sample means and standardized means.</p>
+</section>
+<section id="what-the-proof-establishes-and-what-it-does-not" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-proof-establishes-and-what-it-does-not">11. What the proof establishes, and what it does not</h2>
+<p><strong>The law of large numbers and the CLT answer different questions.</strong> Chebyshev already gives <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">|</mo><msub><mover><mi>X</mi><mo accent="true">‾</mo></mover><mi>n</mi></msub><mo>−</mo><mi>μ</mi><mo stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mi>ϵ</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msup><mi>σ</mi><mn>2</mn></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><msup><mi>ϵ</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">P(|\bar X_n-\mu|&gt;\epsilon)\le\sigma^2/(n\epsilon^2)\to0</annotation></semantics></math>: the average approaches its mean in probability. The CLT describes the distribution of the remaining fluctuations after multiplication by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mi>n</mi></msqrt><mi>/</mi><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sqrt n/\sigma</annotation></semantics></math>.</p>
+<p><strong>There is no universal “30 observations” guarantee.</strong> The proof is asymptotic and gives no approximation error for a specific <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>. Skewness and rare large observations can affect finite-sample accuracy. A quantitative bound requires additional work and conditions.</p>
+<p><strong>Density convergence is not claimed.</strong> For Bernoulli inputs, every finite sum is discrete and has no ordinary density, yet its standardized CDF can converge to the normal CDF. Histogram shapes are illustrations, not the theorem’s statement.</p>
+<p><strong>Independence cannot be replaced by a visual impression.</strong> If all <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>j</mi></msub><annotation encoding="application/x-tex">X_j</annotation></semantics></math> are the same nonconstant variable <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>, then the average equals <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>; its variance does not shrink. The independent-product step would be false.</p>
+<p><strong>Zero variance is a separate trivial case.</strong> If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>σ</mi><mn>2</mn></msup><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sigma^2=0</annotation></semantics></math>, then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>j</mi></msub><mo>=</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">X_j=\mu</annotation></semantics></math> almost surely. The average is constant, and the displayed standardized formula is undefined.</p>
+<p><strong>An estimated standard deviation is an additional step.</strong> This proof uses the population <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>. Replacing it with a consistent sample standard deviation requires a further convergence argument such as Slutsky’s theorem; it is not part of the derivation above.</p>
+<p><strong>The characteristic function avoids an unnecessary MGF assumption.</strong> If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>=</mo><msup><mi>e</mi><mi>G</mi></msup></mrow><annotation encoding="application/x-tex">H=e^G</annotation></semantics></math> with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>∼</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">G\sim N(0,1)</annotation></semantics></math>, then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><mi>H</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><msup><mi>e</mi><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">E[H]=e^{1/2}</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>H</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">]</mo><mo>=</mo><msup><mi>e</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">E[H^2]=e^2</annotation></semantics></math> are finite, but <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>e</mi><mrow><mi>t</mi><mi>H</mi></mrow></msup><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">E[e^{tH}]=\infty</annotation></semantics></math> for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t&gt;0</annotation></semantics></math>. Indeed its defining integrand is proportional to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">exp</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><msup><mi>e</mi><mi>g</mi></msup><mo>−</mo><msup><mi>g</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\exp(te^g-g^2/2)</annotation></semantics></math>, which grows without bound as <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">g\to\infty</annotation></semantics></math>. Independent copies still meet the finite-variance CLT assumptions after centering and scaling.</p>
+</section>
+<section id="proof-map-and-independent-practice" class="level2">
+<h2 class="anchored" data-anchor-id="proof-map-and-independent-practice">12. Proof map and independent practice</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>What is established</th>
+<th>Assumption or tool used</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Standardize</td>
+<td>Mean 0 and variance 1</td>
+<td>Finite positive variance</td>
+</tr>
+<tr class="even">
+<td>Expand near zero</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>φ</mi><mi>Z</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><msup><mi>u</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>u</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi_Z(u)=1-u^2/2+o(u^2)</annotation></semantics></math></td>
+<td>Bounded Taylor remainder and dominated convergence</td>
+</tr>
+<tr class="odd">
+<td>Combine summands</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>φ</mi><msub><mi>S</mi><mi>n</mi></msub></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">[</mo><msub><mi>φ</mi><mi>Z</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>/</mi><msqrt><mi>n</mi></msqrt><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="postfix">]</mo><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">\varphi_{S_n}(t)=[\varphi_Z(t/\sqrt n)]^n</annotation></semantics></math></td>
+<td>Independence and identical laws</td>
+</tr>
+<tr class="even">
+<td>Take the limit</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>φ</mi><msub><mi>S</mi><mi>n</mi></msub></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\varphi_{S_n}(t)\to e^{-t^2/2}</annotation></semantics></math></td>
+<td>Local complex logarithm estimate</td>
+</tr>
+<tr class="odd">
+<td>Identify the target</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup><annotation encoding="application/x-tex">e^{-t^2/2}</annotation></semantics></math> is the standard-normal transform</td>
+<td>Gaussian integration by parts</td>
+</tr>
+<tr class="even">
+<td>Recover CDF convergence</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>S</mi><mi>n</mi></msub><mo>≤</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mi mathvariant="normal">Φ</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(S_n\le x)\to\Phi(x)</annotation></semantics></math></td>
+<td>Continuity theorem, or the detailed smoothing proof</td>
+</tr>
+</tbody>
+</table>
+<p><strong>C1. Bernoulli sums.</strong> Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>B</mi><mi>j</mi></msub><annotation encoding="application/x-tex">B_j</annotation></semantics></math> be independent Bernoulli variables with common success probability <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>p</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;p&lt;1</annotation></semantics></math>. Find their mean, variance and characteristic function. Write the characteristic function of the standardized sum and identify its limit. Why do the finite distributions remain discrete?</p>
+<p><strong>C2. Audit the normalization.</strong> Independent observations have common mean 5 and variance 16. Write the standardized sum and standardized sample mean in equivalent forms. Give the normal approximation to the sample mean for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">n=64</annotation></semantics></math> and express the probability that it exceeds 6 using <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Φ</mi><annotation encoding="application/x-tex">\Phi</annotation></semantics></math>.</p>
+<p><strong>C3. Audit the proof.</strong> Explain precisely why the remainder bound in section 5 does not require a third moment. Identify where identical distribution, independence and positive variance are used separately.</p>
+<p><strong>C4. Remove smoothing differently.</strong> In section 9.5, set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mo>=</mo><msup><mi>δ</mi><mi>α</mi></msup></mrow><annotation encoding="application/x-tex">\eta=\delta^\alpha</annotation></semantics></math>. For which positive exponents <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> do both the threshold shift and the error bound vanish as <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>↓</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\delta\downarrow0</annotation></semantics></math>?</p>
+<p><strong>C5. Compare exact and asymptotic claims.</strong> If the original observations are normal, derive the law of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>S</mi><mi>n</mi></msub><annotation encoding="application/x-tex">S_n</annotation></semantics></math> for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>. Compare this with uniform and Bernoulli observations. Which steps of the proof are no longer needed to identify the finite-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> law?</p>
+<p>Solutions to these independent exercises are kept in the private instructor materials.</p>
+</section>
+<section id="references-and-further-study" class="level2">
+<h2 class="anchored" data-anchor-id="references-and-further-study">References and further study</h2>
+<p>Scott Sheffield’s MIT 18.175 <a href="https://ocw.mit.edu/courses/18-175-theory-of-probability-spring-2014/20b9ab92704112083d78d0af846ac13f_MIT18_175S14_Lecture15.pdf">Lecture 15: Characteristic functions and central limit theorem</a>, particularly the continuity-theorem and Taylor-expansion portions, provides a concise reference for the standard argument. The present note spells out the remainder estimate, complex-power limit and a Gaussian-smoothing proof of the final implication needed for this CLT.</p>
+<p>Return to <a href="../tutorials/07-multivariate-normal.html#normal-transforms">Section 01.7</a> for the multivariate Gaussian MGF and characteristic function, or to its <a href="../tutorials/07-normal-supplement.html#clt-transform-preview">rigorous supplement</a> for the shorter proof summary.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/acads-iit-jammu\.github\.io\/da-f26-mtech");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../tutorials/07-normal-supplement.html" class="pagination-link" aria-label="01.7 supplement · Gaussian structure and conditional laws">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">01.7 supplement · Gaussian structure and conditional laws</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../resources.html" class="pagination-link" aria-label="Resources">
+        <span class="nav-page-text">Resources</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Data Analytics for AI · Executive M.Tech · Monsoon 2026 · IIT Jammu</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

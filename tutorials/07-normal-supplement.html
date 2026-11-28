@@ -36,7 +36,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../resources.html" rel="next">
+<link href="../tutorials/08-central-limit-theorem-proof.html" rel="next">
 <link href="../tutorials/06-transformations-supplement.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -238,6 +238,11 @@ ul.task-list li input[type="checkbox"] {
   <a href="../tutorials/07-normal-supplement.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">01.7 supplement · Gaussian structure and conditional laws</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/08-central-limit-theorem-proof.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The central limit theorem · A complete characteristic-function proof</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -384,6 +389,7 @@ P(Q\le c)&amp;=\int_0^{2\pi}\int_0^{\sqrt c}\frac1{2\pi}e^{-r^2/2}r\,dr\,d\theta
 </section>
 <section id="clt-transform-preview" class="level2">
 <h2 class="anchored" data-anchor-id="clt-transform-preview">9. Characteristic-function preview of the central limit theorem</h2>
+<p>A <a href="../tutorials/08-central-limit-theorem-proof.html">standalone detailed proof</a> develops the Taylor remainder, complex logarithm limit and Gaussian-smoothing argument for CDF convergence. The following is the shorter reference version.</p>
 <p>Assume <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>1</mn></msub><mo>,</mo><msub><mi>E</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">E_1,E_2,\ldots</annotation></semantics></math> are independent and identically distributed with finite mean <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math> and finite variance <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msup><mi>σ</mi><mn>2</mn></msup><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">0&lt;\sigma^2&lt;\infty</annotation></semantics></math>. Put <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mi>j</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>E</mi><mi>j</mi></msub><mo>−</mo><mi>μ</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>σ</mi></mrow><annotation encoding="application/x-tex">Z_j=(E_j-\mu)/\sigma</annotation></semantics></math>. No MGF is assumed. Finite <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>Z</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">E[Z^2]</annotation></semantics></math> implies finite <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">|</mo><mi>Z</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">E|Z|</annotation></semantics></math>, and dominated differentiation gives</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>φ</mi><mi>Z</mi><mo>′</mo></msubsup><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>i</mi><mi>E</mi><mo stretchy="false" form="prefix">[</mo><mi>Z</mi><msup><mi>e</mi><mrow><mi>i</mi><mi>u</mi><mi>Z</mi></mrow></msup><mo stretchy="false" form="postfix">]</mo><mo>,</mo><mspace width="2.0em"></mspace><msubsup><mi>φ</mi><mi>Z</mi><mo>″</mo></msubsup><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mi>E</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>Z</mi><mn>2</mn></msup><msup><mi>e</mi><mrow><mi>i</mi><mi>u</mi><mi>Z</mi></mrow></msup><mo stretchy="false" form="postfix">]</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\varphi_Z'(u)=iE[Ze^{iuZ}],\qquad
 \varphi_Z''(u)=-E[Z^2e^{iuZ}].</annotation></semantics></math></p>
@@ -832,8 +838,8 @@ P(Q\le c)&amp;=\int_0^{2\pi}\int_0^{\sqrt c}\frac1{2\pi}e^{-r^2/2}r\,dr\,d\theta
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../resources.html" class="pagination-link" aria-label="Resources">
-        <span class="nav-page-text">Resources</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../tutorials/08-central-limit-theorem-proof.html" class="pagination-link" aria-label="The central limit theorem · A complete characteristic-function proof">
+        <span class="nav-page-text"><span class="chapter-title">The central limit theorem · A complete characteristic-function proof</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
