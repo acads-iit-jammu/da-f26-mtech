@@ -47,11 +47,43 @@ Also $P(-1<X\le5)=\Phi(1)-\Phi(-1)\approx0.683$. These are areas under the densi
 
 ### A.2. MGF: definition and derivation {#normal-transforms}
 
-We may want a distribution for a transformed measurement without constructing a new CDF integral. The **moment generating function** provides one method:
+Suppose five hypothetical calibration measurements are $2,3,4,5,6$. If we assume independent observations from one normal population with unknown mean and variance, how can we estimate those parameters? Their sample mean is $4$ and their average squared value is $18$. The population counterparts are $E[X]=\mu$ and $E[X^2]=\mu^2+\sigma^2$. Matching them suggests $\widehat\mu=4$ and $\widehat\sigma^2=18-16=2$. We will derive this procedure after introducing a function that collects these moments.
 
-$$M_X(t)=E[e^{tX}].$$
+#### A representation of a probability law
 
-The parameter $t$ is chosen, not random. The function averages $e^{tX}$ over the law of $X$. Its derivatives at zero give moments, and an MGF finite near zero uniquely identifies a distribution. For Gaussians it is finite for every real $t$.
+The **moment-generating function (MGF)** is
+
+$$\boxed{M_X(t)=E[e^{tX}].}$$
+
+The argument $t$ is chosen, not random. For a density or a discrete PMF respectively,
+
+$$M_X(t)=\int_{\mathbb R}e^{tx}f_X(x)\,dx,
+\qquad M_X(t)=\sum_x e^{tx}p_X(x),$$
+
+where the expression must be finite to be useful at that argument. Every law has $M_X(0)=1$, but this alone does not give an MGF finite near zero.
+
+For a density, this is a **bilateral Laplace transform with reversed sign**: if $\mathcal L_f(s)=\int_{\mathbb R}e^{-sx}f(x)\,dx$, then $M_X(t)=\mathcal L_{f_X}(-t)$. Section A.4 develops the parallel Fourier representation, $E[e^{itX}]$.
+
+**Uniqueness theorem.** If $M_X$ and $M_Y$ are finite and equal on an open interval $(-\epsilon,\epsilon)$, then $X$ and $Y$ have the same distribution. Thus an MGF finite near zero represents the whole law, rather than just its mean and variance. For a Gaussian it is finite for every real $t$.
+
+#### Why it generates moments
+
+Write $m_k=E[X^k]$ for the $k$th raw moment, with $m_0=1$. Expanding the exponential and taking expectations gives, for $t$ sufficiently close to zero,
+
+$$\begin{aligned}
+M_X(t)&=E\left[1+tX+\frac{t^2X^2}{2!}+\cdots\right]\\
+&=1+tE[X]+\frac{t^2}{2!}E[X^2]+\cdots
+=\sum_{k=0}^{\infty}\frac{m_k}{k!}t^k.
+\end{aligned}$$
+
+Finiteness on a neighbourhood of zero justifies these interchanges and differentiation there; the [supplement](07-normal-supplement.qmd#mgf-moment-justification) gives the bounds. Consequently,
+
+$$M_X^{(k)}(t)=E[X^ke^{tX}],\qquad
+\boxed{M_X^{(k)}(0)=E[X^k].}$$
+
+We can calculate moments either by integrating $x^kf_X(x)$ (or summing $x^kp_X(x)$), or by differentiating the MGF at zero. The first derivative is the mean; the second is the raw second moment, not generally the variance.
+
+#### Derive the Gaussian MGF
 
 []{#scalar-gaussian-transforms}
 
@@ -80,6 +112,42 @@ The remaining expression is the density of $N(\mu+\sigma^2t,\sigma^2)$ integrate
 $$\boxed{M_X(t)=\exp(\mu t+\tfrac12\sigma^2t^2),\qquad t\in\mathbb R.}$$
 
 For a standard normal $Z$, set $\mu=0,\sigma^2=1$ to obtain $M_Z(t)=e^{t^2/2}$. The integral shows directly that the Gaussian MGF is finite at every real argument.
+
+#### From population moments to parameter estimates
+
+For IID observations $x_1,\ldots,x_n$, define the **empirical MGF**
+
+$$\widehat M_n(t)=\frac1n\sum_{j=1}^n e^{tx_j}.$$
+
+This is exactly the MGF of the empirical distribution that assigns weight $1/n$ to each observation. For each fixed $t$ where $M_X(t)<\infty$, the strong law of large numbers gives $\widehat M_n(t)\to M_X(t)$ almost surely. This pointwise statement alone does not establish uniform convergence over a range of $t$.
+
+Differentiate the finite sum:
+
+$$\widehat M_n'(0)=\bar x,\qquad
+\widehat M_n''(0)=\frac1n\sum_jx_j^2.$$
+
+For the normal MGF we just derived,
+
+$$M_X'(0)=\mu,\qquad M_X''(0)=\mu^2+\sigma^2.$$
+
+The **method of moments** equates these population moments to their sample counterparts:
+
+$$\widehat\mu=\bar x,\qquad
+\widehat\mu^2+\widehat\sigma^2=\frac1n\sum_jx_j^2.$$
+
+Solving gives
+
+$$\boxed{\widehat\mu=\bar x,\qquad
+\widehat\sigma^2=\frac1n\sum_jx_j^2-\bar x^2
+=\frac1n\sum_j(x_j-\bar x)^2.}$$
+
+For our hypothetical observations, $\bar x=20/5=4$ and $\sum x_j^2/5=90/5=18$. The fitted normal model is $N(4,2)$, with MGF $e^{4t+t^2}$. Its empirical counterpart is
+
+$$\widehat M_5(t)=\frac{e^{2t}+e^{3t}+e^{4t}+e^{5t}+e^{6t}}5.$$
+
+Both functions have value 1, slope 4 and second derivative 18 at zero. They need not agree away from zero. Matching two moments estimates parameters **within the assumed normal family**; it does not establish that the population is normal.
+
+For a nonconstant normal sample, these are also the maximum-likelihood estimates. The variance estimate uses $n$, is consistent, and has expectation $(n-1)\sigma^2/n$; the unbiased sample variance uses $n-1$ for $n>1$. Method of moments requires the selected moments to exist and identify the parameters, but does not require an MGF to exist near zero. The MGF supplies a useful interpretation of the method when available.
 
 ### A.3. CGF and moments
 
@@ -822,6 +890,70 @@ The characteristic function is useful here because it turns a sum into a product
 For the full argument, including all limit justifications and a proof of the final distributional step, read the [standalone central limit theorem proof](08-central-limit-theorem-proof.qmd).
 
 **Practice check N10.** Independent observations have common mean 10 and variance 9. For the mean of 36 observations, identify the normal approximation's mean and variance and write the approximate probability that the sample mean exceeds 11 in terms of $\Phi$. Under what stronger distributional assumption is this calculation exact?
+
+### C.3. From transform matching to statistical estimation {#transform-estimation}
+
+Return to the hypothetical calibration observations $2,3,4,5,6$. Moment matching used only two derivatives at zero. Could we instead compare the empirical and candidate normal MGFs at several arguments?
+
+Choose fixed arguments $t_1,\ldots,t_K$ and nonnegative weights $w_k$. One possible **minimum-distance estimate** minimizes
+
+$$\sum_{k=1}^K w_k\left[\widehat M_n(t_k)
+-\exp\left(\mu t_k+\frac{v t_k^2}{2}\right)\right]^2,
+\qquad \mu\in\mathbb R,\quad v\ge0.$$
+
+Here $v$ denotes variance; the mean is unrestricted. The candidate MGF must be finite at every chosen argument. Multiple informative arguments are needed to identify both parameters: $t=0$ alone contributes no information because all MGFs equal 1 there. This criterion matches a selected grid of transform values, not the entire function. An integrated alternative replaces the sum by $\int_{-T}^T|\widehat M_n(t)-M_\theta(t)|^2w(t)\,dt$ on a common finite domain. Neither criterion is automatically minimized by the method-of-moments estimates.
+
+#### CGF fitting as a linear least-squares problem
+
+For a normal distribution, $K_X(t)=\mu t+vt^2/2$. Form
+
+$$\widehat K_n(t)=\log\left(\frac1n\sum_j e^{tx_j}\right),\qquad
+y_k=\widehat K_n(t_k),\qquad A_{k,:}=(t_k,t_k^2/2).$$
+
+Then fit
+
+$$\min_{\mu\in\mathbb R,\,v\ge0}
+\left\|y-A\begin{pmatrix}\mu\\v\end{pmatrix}\right\|_2^2.$$
+
+There is no intercept because $K(0)=0$. If $A$ has full column rank, the unconstrained solution is $(A^TA)^{-1}A^Ty$; if its variance component is negative, solve the constrained problem. In computation use a least-squares solver rather than explicitly forming an inverse. Values at different arguments use the same sample and have correlated errors; this is function fitting, not an assumption of independent regression errors.
+
+For a small worked fit, take just $t=\pm h$, $h>0$. Solving the two equations gives
+
+$$\widehat\mu_h=\frac{\widehat K_n(h)-\widehat K_n(-h)}{2h},\qquad
+\widehat v_h=\frac{\widehat K_n(h)+\widehat K_n(-h)}{h^2}.$$
+
+Our five values are symmetric about 4, so
+
+$$\widehat K_5(t)=4t+\log\left(\frac{1+2\cosh t+2\cosh(2t)}5\right).$$
+
+At $h=0.5$, this gives $\widehat\mu_h=4$ and
+
+$$\widehat v_h=8\log\left(\frac{1+2\cosh(0.5)+2\cosh(1)}5\right)
+\approx1.901.$$
+
+This differs from the moment estimate 2. As $h\to0$, the symmetric differences recover the first two derivatives of the empirical CGF and thus the moment estimates. A fixed-grid CGF fit is a different estimator, with no general efficiency advantage over maximum likelihood.
+
+#### Conditions and limitations
+
+An MGF finite near zero determines the law, but existence of all integer moments alone is insufficient. For example, a lognormal variable has every positive integer moment but its MGF is infinite for every positive argument; the supplement explains this distinction. The empirical MGF of a finite sample is nevertheless finite everywhere. That fact does not prove population MGF existence.
+
+Large positive $tx_j$ can make a few observations dominate an empirical MGF. For stable empirical CGF evaluation, use the log-sum-exp identity with $a=\max_j(tx_j)$:
+
+$$\widehat K_n(t)=a+\log\left(\frac1n\sum_j e^{tx_j-a}\right).$$
+
+This addresses numerical overflow, not statistical sensitivity. Empirical characteristic functions $\widehat\varphi_n(t)=n^{-1}\sum_j e^{itx_j}$ provide a related fitting approach whose individual terms have magnitude one. They require no exponential moments, although parameter identification and the choice of frequencies still matter.
+
+| Approach | Quantity compared or optimized |
+|---|---|
+| Method of moments | Selected population moments and sample moments |
+| MGF minimum distance | Empirical and model MGFs at chosen arguments or over a range |
+| Cumulant matching | Selected derivatives of the empirical and model log-MGFs at zero |
+| CGF least squares | Empirical and model log-MGF values |
+| Characteristic-function matching | Empirical and model Fourier representations |
+| Maximum likelihood | Product of model densities or masses at the observations |
+| CDF minimum distance | Empirical and model CDFs |
+
+In probability, specifying parameters lets us calculate distributions and moments. In estimation, observed data supply empirical quantities from which we estimate parameters under a model. The transform representation makes this connection explicit without requiring us to estimate a density first.
 
 ## References and module continuation
 

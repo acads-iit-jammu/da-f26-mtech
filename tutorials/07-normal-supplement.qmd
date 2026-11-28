@@ -40,6 +40,23 @@ $$K_X(t)=\mu t+\sigma^2t^2/2.$$
 
 Hence $M_X'(0)=\mu$, $M_X''(0)=\mu^2+\sigma^2$, but $K_X'(0)=\mu$ and $K_X''(0)=\sigma^2$. If $\sigma=0$, $X=\mu$ almost surely, and the same formulas follow directly from the expectation without using a density.
 
+#### Why the MGF generates moments {#mgf-moment-justification}
+
+Suppose $M_X(t)<\infty$ for $|t|<\epsilon$. Choose $0<a<b<\epsilon$. Then
+
+$$E[e^{b|X|}]\le M_X(b)+M_X(-b)<\infty.$$
+
+For each integer $k\ge0$, $|x|^ke^{a|x|}\le C_{k,a,b}e^{b|x|}$, since a polynomial times $e^{-(b-a)|x|}$ is bounded. This supplies an integrable bound for differentiation on $[-a,a]$, giving $M_X^{(k)}(t)=E[X^ke^{tX}]$. Also, for $|t|<b$,
+
+$$E\left[\sum_{k=0}^{\infty}\frac{|tX|^k}{k!}\right]
+=E[e^{|t||X|}]<\infty.$$
+
+Absolute integrability permits exchanging the series and expectation. Hence $M_X(t)=\sum_k E[X^k]t^k/k!$ locally at zero. This is a local analytic expansion, not a claim of convergence at every real argument for every distribution.
+
+For a CGF finite near zero, the same analyticity gives $K_X(t)=\sum_{k\ge1}\kappa_kt^k/k!$. Its first four cumulants are the mean, variance, third central moment, and fourth central moment minus three times the variance squared. If $K_X(t)=at+bt^2/2$ near zero, then $b=\operatorname{Var}(X)\ge0$ and MGF uniqueness identifies $N(a,b)$, including a point mass when $b=0$.
+
+The [estimation application](07-multivariate-normal.qmd#transform-estimation) distinguishes derivatives at zero from finite-grid transform fitting. For IID observations with finite variance, $\sum_j(X_j-\bar X)^2=\sum_j(X_j-\mu)^2-n(\bar X-\mu)^2$ gives expectation $(n-1)\sigma^2$. Dividing by $n$ gives the finite-sample bias of the moment variance estimate. The strong law applied to $X$ and $X^2$ gives its consistency. None of these variance-estimation facts requires normality.
+
 ### A.3. Characteristic function and analytic justification
 
 The [main note](07-multivariate-normal.qmd#scalar-characteristic-function) introduces the characteristic function as the positive-exponent Fourier transform of a density and derives the normal formula using cosine integrals. Here we justify the analytic steps in complex notation. For any probability law, $|e^{itX}|=1$ ensures existence; no density or moment assumption is needed for existence or uniqueness of the law. Derivatives require additional integrability: if $E|X|^n<\infty$, dominated differentiation gives $\varphi_X^{(n)}(t)=E[(iX)^ne^{itX}]$.
